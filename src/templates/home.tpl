@@ -15,7 +15,7 @@
                                     <p class="mb-7 fs-6">Assertively target market-driven intellectual capital with worldwide human capital holistic.</p>
                                     <div class="hero-btns d-flex align-items-center gap-3 gap-sm-5 flex-wrap">
                                         <a href="shop-grid.html" class="btn btn-secondary">Shop Now<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                        <a href="about.tpl" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                        <a href="about.php" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                     </div>
                                 </div>
                             </div>

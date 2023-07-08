@@ -1,4 +1,27 @@
-  
+<?php
+/* Smarty version 4.3.0, created on 2023-07-08 14:46:49
+  from 'C:\xampp\htdocs\biogg\src\templates\about.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.3.0',
+  'unifunc' => 'content_64a95ab9307716_07145814',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '1e881d69ff27d3f74588199dc0aef8df7e62d82d' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\about.tpl',
+      1 => 1688820405,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_64a95ab9307716_07145814 (Smarty_Internal_Template $_smarty_tpl) {
+?>  
  
     <!--main content wrapper start-->
     <div class="main-wrapper">
@@ -305,4 +328,5 @@
                     </div>
                 </div>
             </div>
-        </section> <!--about us section end-->
+        </section> <!--about us section end--><?php }
+}

@@ -1,19 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-06 17:11:56
+/* Smarty version 4.3.0, created on 2023-07-08 14:22:15
   from 'C:\xampp\htdocs\biogg\src\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
-
-use smartyuse smartyuse smartyuse smartyif ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64a6d9bc8d1ee6_38897469',
+  'unifunc' => 'content_64a954f7e19302_52381076',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '3fe4279ea1e3dba81956d8076b282cc99dd9cb6a' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\home.tpl',
-      1 => 1688656021,
+      1 => 1688818929,
       2 => 'file',
     ),
   ),
@@ -21,7 +20,7 @@ use smartyuse smartyuse smartyuse smartyif ($_smarty_tpl->_decodeProperties($_sm
   array (
   ),
 ),false)) {
-function content_64a6d9bc8d1ee6_38897469 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64a954f7e19302_52381076 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
     <!--hero section start-->
     <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
@@ -39,7 +38,7 @@ function content_64a6d9bc8d1ee6_38897469 (Smarty_Internal_Template $_smarty_tpl)
                                     <p class="mb-7 fs-6">Assertively target market-driven intellectual capital with worldwide human capital holistic.</p>
                                     <div class="hero-btns d-flex align-items-center gap-3 gap-sm-5 flex-wrap">
                                         <a href="shop-grid.html" class="btn btn-secondary">Shop Now<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                        <a href="about.tpl" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                        <a href="about.php" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                     </div>
                                 </div>
                             </div>

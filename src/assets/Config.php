@@ -10,6 +10,7 @@ class Config extends Smarty
         parent::__construct();
 
         $this->setTemplateDir("templates");
+        
         //$this->setCacheDir('./cache');
         $this->cache_lifetime = 1;
         $this->assign('app_name', 'BioGG');
