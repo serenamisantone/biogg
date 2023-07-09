@@ -1,0 +1,27 @@
+class Category{
+    private $categoryId;
+    private $name;
+
+    public function __construct($categoryId, $name){
+        $this->categoryId = $categoryId;
+        $this->name = $name;
+    }
+    
+
+	  public function getCategoryId() {
+      return $this->categoryId;
+    }
+
+    public function setCategoryId($categoryId) {
+      $this->id = $categoryId;
+    }
+
+
+	  public function getName() {
+		  return $this->name;
+	  }
+
+	  public function setName($name) {
+		  $this->name = $name;
+	  }
+}
