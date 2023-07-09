@@ -1,3 +1,4 @@
+<?php
 class User{
     private $userId;
     private $name;
@@ -15,7 +16,7 @@ class User{
         $this->username = $username;
         $this->password = $password;
         $this->email = $email;
-}
+    }
 
 
 	public function getUserId() {

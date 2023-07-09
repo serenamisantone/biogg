@@ -1,3 +1,4 @@
+<?php
 class UserHasGroup{
     private $user;
     private $group;

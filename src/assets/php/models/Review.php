@@ -1,3 +1,4 @@
+<?php
 class Review {
    private $reviewId;
    private $rate;

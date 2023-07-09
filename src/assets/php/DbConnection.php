@@ -1,6 +1,6 @@
 <?php 
 
-class DatabaseConnection {
+class DbConnection {
     private static $instance; // Istanza della connessione al database
     private $connection; // Connessione al database
     
@@ -22,7 +22,7 @@ class DatabaseConnection {
     
     public static function getInstance() {
         if (self::$instance === null) {
-            self::$instance = new DatabaseConnection();
+            self::$instance = new DbConnection();
         }
         
         return self::$instance;

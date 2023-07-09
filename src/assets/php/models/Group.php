@@ -1,3 +1,4 @@
+<?php
 class Group{
     private $id;
     private $name;

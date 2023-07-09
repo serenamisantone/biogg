@@ -1,3 +1,4 @@
+<?php
 class ShoppingCartProduct{
     private $shoppingCart;
     private $product;

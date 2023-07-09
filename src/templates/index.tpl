@@ -29,7 +29,7 @@
     </div>
     <!--preloader end-->
     <!--main content wrapper start-->
-    <div class="main-wrapper">
+    <div class="main-wrapper " >
 
         <!--header section start-->
         <header class="gheader position-relative z-2 header-sticky">
@@ -38,7 +38,7 @@
                     <div class="row align-items-center">
                         <div class="col-xxl-4 col-xl-3">
                             <div class="topbar-info d-none d-xl-block">
-                                <p class="text-white fs-sm fw-medium mb-0">Welcome to our Organic store</p>
+                                <p class="text-white fs-sm fw-medium mb-0">Welcome to Biogg</p>
                             </div>
                         </div>
                         <div class="col-xxl-8 col-xl-9">
@@ -62,58 +62,8 @@
                                           <path d="M3.53116 12.2865C3.393 12.0677 3.10369 12.0023 2.88495 12.1405L1.55299 12.9823C1.26243 13.1659 1.26214 13.591 1.55299 13.7748L5.75031 16.4276C5.90312 16.5242 6.09787 16.5241 6.25065 16.4276L10.448 13.7748C10.7386 13.5912 10.7388 13.1661 10.448 12.9823L9.116 12.1405C8.8972 12.0023 8.60792 12.0677 8.46979 12.2865C8.3316 12.5053 8.39693 12.7948 8.61567 12.933L9.32065 13.3786L6.00046 15.4769L2.6803 13.3786L3.38529 12.933C3.60402 12.7948 3.66933 12.5053 3.53116 12.2865Z" fill="white" stroke="white" stroke-width="0.3"/>
                                       </svg>
                                   </span>
-                                    Washington, New York, USA - 254230
-                                </li>
-                                <li class="nav-item dropdown tt-language-dropdown">
-                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                        <img src="assets/img/flags/usd.svg" alt="country" class="img-fluid me-1"> English
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end" data-popper-placement="bottom-end">
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="assets/img/flags/usd.svg" alt="country" class="img-fluid me-1">
-                                                English
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="assets/img/flags/bdt.svg" alt="country" class="img-fluid me-1">
-                                                Bangla
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <img src="assets/img/flags/inr.svg" alt="country" class="img-fluid me-1">
-                                                Hindi
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown tt-curency-dropdown">
-                                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">$ USD</a>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li>
-                                            <a class="dropdown-item fs-xs" href="#">
-                                                $ USD
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item fs-xs" href="#">
-                                                ৳ BDT
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item fs-xs" href="#">
-                                                ₹ INR
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item fs-xs" href="#">
-                                                € EUR
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                   Italia, Abruzzo, Teramo -64100
+                                </li>                                    
                             </ul>
                         </div>
                     </div>
@@ -126,7 +76,7 @@
                             <a href="index.tpl" class="logo"><img src="assets/img/logo.png" alt="logo" class="img-fluid"></a>
                         </div>
                         <div class="col-xxl-10 col-xl-9 col-md-9 col-7">
-                            <div class="gshop-navbar-right d-flex align-items-center justify-content-end position-relative">
+                            <div class="gshop-navbar-right d-flex align-items-center justify-content-end position-relative" style="margin-right: 10%">
                                 <div class="category-dropdown position-relative d-none d-md-inline-block">
                                     <a href="javascript:void(0)" class="category-dropdown-btn fw-bold d-none d-sm-inline-block">Browse Category<span
                                       class="ms-1"><i class="fa-solid fa-angle-down"></i></span></a>
@@ -134,9 +84,6 @@
                                         <span class="ms-1"><i class="fa-solid fa-angle-down"></i></span></a>
                                     <div class="category-dropdown-box scrollbar">
                                         <ul class="category-dropdown-menu">
-
-
-
                                             <li>
                                                 <a href="shop-grid.html" class="d-flex align-items-center">
                                                     <div class="me-2 avatar-icon">
@@ -178,7 +125,7 @@
                                         <li class="has-submenu">
                                             <a href="javascript:void(0)">Home<span class="ms-1 fs-xs float-end"><i class="fa-solid fa-angle-down"></i></span></a>
                                             <ul>
-                                                <li><a href="index.html">Shop</a></li>
+                                                <li><a href="shop.php">Shop</a></li>
                                                 <li><a href="index-2.html">Contattaci</a></li>
                                                 <li><a href="index-3.html">Home Three</a></li>
                                             </ul>
@@ -190,31 +137,7 @@
                                                 <li><a href="shop-grid-2.html">Shop Grid V2</a></li>
                                                 <li><a href="product-details.html">Product Details</a></li>
                                             </ul>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="javascript:void(0)">Blog<span class="ms-1 fs-xs float-end"><i class="fa-solid fa-angle-down"></i></span></a>
-                                            <ul>
-                                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                                <li><a href="blog-listing.html">Blog List</a></li>
-                                                <li><a href="blog-details.html">Blog Details</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="has-submenu">
-                                            <a href="javascript:void(0)">Pages<span class="ms-1 fs-xs float-end"><i class="fa-solid fa-angle-down"></i></span></a>
-                                            <ul class="submenu-double-line">
-                                                <li><a href="about.html">About Us</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
-                                                <li><a href="team.html">Team</a></li>
-                                                <li><a href="services.html">Services</a></li>
-                                                <li><a href="service-details.html">Service Details</a></li>
-                                                <li><a href="login.html">Login</a></li>
-                                                <li><a href="signup.html">Sign Up</a></li>
-                                                <li><a href="404.tpl">404 Page</a></li>
-                                                <li><a href="500.html">500 Error Page</a></li>
-                                                <li><a href="checkout.html">Checkout</a></li>
-                                                <li><a href="invoice.html">Invoice</a></li>
-                                            </ul>
-                                        </li>
+                                        </li>                               
                                     </ul>
                                 </nav>
                                 <div class="gshop-header-icons d-none d-md-inline-flex align-items-center justify-content-end ms-3">
@@ -285,35 +208,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!--numero di telefono-->
-                                <div class="gshop-header-contact ms-7 position-relative d-none d-lg-flex d-xl-none d-xxl-flex">
-                                    <a href="tel:+801570584567" class="d-flex align-items-center">
-                                        <span class="icon d-inline-flex rounded-circle justify-content-center align-items-center bg-secondary-light">
-                                      <svg width="20" height="24" viewBox="0 0 23 24" fill="none"
-                                           xmlns="http://www.w3.org/2000/svg">
-                                          <path d="M1.98193 3.44444C1.98193 2.09441 2.97352 1 4.19672 1H7.82812C8.30477 1 8.72795 1.33664 8.87867 1.83572L10.5373 7.3277C10.7116 7.90472 10.475 8.53538 9.98206 8.8074L7.48236 10.1868C8.70297 13.1748 10.884 15.5821 13.5913 16.9292L14.8411 14.1703C15.0876 13.6263 15.659 13.3651 16.1818 13.5575L21.1577 15.3881C21.61 15.5545 21.915 16.0215 21.915 16.5476V20.5556C21.915 21.9056 20.9234 23 19.7002 23H18.5928C9.41887 23 1.98193 14.7919 1.98193 4.66667V3.44444Z" stroke="#FF7C08" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                                      </svg>
-                                  </span>
-                                        <div class="ms-3">
-                                            <span class="text-muted fs-xs">Phone & Telephone</span>
-                                            <h6 class="mb-0 mt-1 fs-sm">+80 157 058 4567</h6>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <button class="gshop-offcanvas-btn offcanvas-toggle ms-3">
-                                    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M3.5892 0C1.66061 0 0.0917969 1.56893 0.0917969 3.4974C0.0917969 5.42588 1.65997 6.9947 3.5892 6.9947C5.51844 6.9947 7.08661 5.42588 7.08661 3.4974C7.08661 1.56893 5.51768 0 3.5892 0Z" fill="white" />
-                                        <path d="M14.909 0C12.9805 0 11.4116 1.56893 11.4116 3.4974C11.4116 5.42588 12.9805 6.9947 14.909 6.9947C16.8376 6.9947 18.4068 5.42588 18.4068 3.4974C18.4068 1.56893 16.8383 0 14.909 0Z" fill="white" />
-                                        <path d="M26.411 6.99481C28.3391 6.99481 29.9084 5.42599 29.9084 3.49751C29.9084 1.56903 28.3404 0 26.411 0C24.4815 0 22.9136 1.56893 22.9136 3.4974C22.9136 5.42588 24.4827 6.99481 26.411 6.99481Z" fill="white" />
-                                        <path d="M3.49805 18.2016C5.42653 18.2016 6.99578 16.6331 6.99578 14.7043C6.99578 12.7754 5.42653 11.2066 3.49805 11.2066C1.56958 11.2066 0 12.7755 0 14.7043C0 16.6331 1.56958 18.2016 3.49805 18.2016Z" fill="white" />
-                                        <path d="M14.8172 18.2016C16.7454 18.2016 18.3146 16.6331 18.3146 14.7043C18.3146 12.7754 16.7467 11.2066 14.8172 11.2066C12.8881 11.2066 11.3198 12.7754 11.3198 14.7043C11.3198 16.6331 12.8888 18.2016 14.8172 18.2016Z" fill="white" />
-                                        <path d="M26.3205 18.2016C28.2494 18.2016 29.8179 16.6331 29.8179 14.7043C29.8179 12.7754 28.2494 11.2066 26.3205 11.2066C24.3916 11.2066 22.8218 12.7754 22.8218 14.7043C22.8218 16.6331 24.391 18.2016 26.3205 18.2016Z" fill="white" />
-                                        <path d="M3.57813 22.3786C1.64965 22.3786 0.0800781 23.9471 0.0800781 25.876C0.0800781 27.8041 1.64965 29.3733 3.57813 29.3733C5.50661 29.3733 7.07543 27.8049 7.07543 25.876C7.07543 23.9471 5.50661 22.3786 3.57813 22.3786Z" fill="white" />
-                                        <path d="M14.898 22.3786C12.9694 22.3786 11.3999 23.9471 11.3999 25.876C11.3999 27.8041 12.9688 29.3733 14.898 29.3733C16.8261 29.3733 18.3953 27.8049 18.3953 25.876C18.3953 23.9471 16.8261 22.3786 14.898 22.3786Z" fill="white" />
-                                        <path d="M26.4002 22.3786C24.4721 22.3786 22.9028 23.9471 22.9028 25.876C22.9028 27.8041 24.4721 29.3733 26.4002 29.3733C28.3291 29.3733 29.8976 27.8049 29.8976 25.876C29.8976 23.9471 28.3284 22.3786 26.4002 22.3786Z" fill="white" />
-                                    </svg>
-                                </button>
+                                <!--numero di telefono-->                       
                             </div>
                         </div>
                     </div>
@@ -321,106 +216,10 @@
             </div>
         </header> <!--header section end-->
 
-        <!--offcanvas menu start-->
-        <div class="offcanvas_menu position-fixed">
-            <div class="tt-short-info d-none d-md-none d-lg-none d-xl-block">
-                <button class="offcanvas-close"><i class="fa-solid fa-xmark"></i></button>
-                <a href="#" class="logo-wrapper d-inline-block mb-5"><img src="assets/img/logo.png" alt="logo"></a>
-                <div class="offcanvas-content">
-                    <h4 class="mb-4">About Us</h4>
-                    <p>Explain to you how all this mistaken denouncing pleasure and praising pain was born and we will give you a complete account of the system, and expound the actual teachings.</p>
-                    <p>Mistaken denouncing pleasure and praising pain was born and we will give you complete account of the system expound.</p>
-                    <a href="#" class="btn btn-primary mt-4">About Us</a>
-                </div>
-                <div class="offcanvas-contact mt-5">
-                    <h5 class="mb-20">Contact Info</h5>
-                    <address>
-                        Chicago 12, Melborne City, USA <br>
-                        <a href="tel:+8801682648101">+8801682648101</a> <br>
-                        <a href="mailto:info@example.com">info@example.com</a>
-                    </address>
-                </div>
-                <div class="social-contact offcanvas_social mt-4">
-                    <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
-                </div>
-            </div>
-            <div class="mobile-menu d-md-block d-lg-block d-xl-none">
-                <button class="offcanvas-close"><i class="fa-solid fa-xmark"></i></button>
-                <a href="#" class="d-inline-block mb-5"><img src="assets/img/logo.png" alt="logo"></a>
-                <nav class="mobile-menu-wrapper mt-4">
-                    <ul>
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)">Home<span class="ms-1 fs-xs float-end"><i class="fa-solid fa-angle-right"></i></span></a>
-                            <ul>
-                                <li><a href="index.html">Home One</a></li>
-                                <li><a href="index-2.html">Home Two</a></li>
-                                <li><a href="index-3.html">Home Three</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)">Products<span class="ms-1 fs-xs float-end"><i class="fa-solid fa-angle-right"></i></span></a>
-                            <ul>
-                                <li><a href="shop-grid2.html">Shop Grid</a></li>
-                                <li><a href="shop-grid-2.html">Shop Grid V2</a></li>
-                                <li><a href="product-details.html">Product Details</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)">Blog<span class="ms-1 fs-xs float-end"><i class="fa-solid fa-angle-right"></i></span></a>
-                            <ul>
-                                <li><a href="blog-grid.html">Blog Grid</a></li>
-                                <li><a href="blog-listing.html">Blog List</a></li>
-                                <li><a href="blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
-                        <li class="has-submenu">
-                            <a href="javascript:void(0)">Pages<span class="ms-1 fs-xs float-end"><i class="fa-solid fa-angle-right"></i></span></a>
-                            <ul>
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="services.html">Services</a></li>
-                                <li><a href="service-details.html">Service Details</a></li>
-                                <li><a href="my-account.html">My Account</a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
-                                <li><a href="invoice.html">Invoice</a></li>
-                                <li><a href="contact.html">Contact</a></li>
-                                <li><a href="team.html">Team</a></li>
-                                <li><a href="login.html">Login</a></li>
-                                <li><a href="signup.html">Sign Up</a></li>
-                                <li><a href="404.tpl">404 Page</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="contact-info mt-8">
-                    <h5 class="mb-20">Contact Info</h5>
-                    <address>
-                        Chicago 12, Melborne City, USA <br>
-                        <a href="tel:+8801682648101">+8801682648101</a> <br>
-                        <a href="mailto:info@example.com">info@example.com</a>
-                    </address>
-                    <div class="social-contact">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--offcanvas menu end-->
-
 {include file = "{$current_view}"}
 
         <!--footer section start-->
-        <div class="footer-curve position-relative overflow-hidden">
-            <span class="position-absolute section-curve-wrapper top-0 h-100" data-background="src/assets/img/shapes/section-curve.png"></span>
-        </div>
+       
         <footer class="gshop-footer position-relative pt-8 bg-dark z-1 overflow-hidden">  
             <div class="container">
                 <span class="gradient-spacer my-8 d-block"></span>
@@ -451,7 +250,7 @@
                         </div>
                         <div class="col-lg-4 d-none d-lg-block">
                             <div class="logo-wrapper text-center">
-                                <a href="index.tpl" class="logo"><img src="assets/img/logo-white.png" alt="logo" class="img-fluid"></a>
+                                <a  class="logo"><img src="assets/img/logo-white.png" alt="logo" class="img-fluid"></a>
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -502,6 +301,7 @@
     <script src="assets/js/app.js"></script>
 
     <!--endbuild-->
+
 </body>
 
 </html>

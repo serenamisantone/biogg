@@ -1,7 +1,8 @@
+<?php
 class Story{
     private $storyId;
     private $title;
-    private $caption
+    private $caption;
     private $description;
     private $image;
 

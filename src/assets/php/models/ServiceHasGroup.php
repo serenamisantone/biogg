@@ -1,3 +1,5 @@
+<?php
+
 class ServiceHasGroup{
     private $group;
     private $service;

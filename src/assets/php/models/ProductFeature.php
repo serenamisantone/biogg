@@ -1,3 +1,4 @@
+<?php
 class ProductFeature{
     private $productId;
     private $title;

@@ -1,3 +1,4 @@
+<?php
 class ProductOffer{
     private $offerId;
     private $product;

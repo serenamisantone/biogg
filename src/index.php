@@ -9,6 +9,6 @@ try {
     
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {
-    //$smarty->assign("content_load","404.tpl");
+    $smarty->assign("content_load","404.tpl");
     $smarty->display("404.tpl");
 }

@@ -1,19 +1,23 @@
+<?php
 class Category{
-    private $categoryId;
+    private $id;
     private $name;
 
-    public function __construct($categoryId, $name){
+    /*public function __construct($categoryId, $name){
         $this->categoryId = $categoryId;
         $this->name = $name;
+    }*/
+    public function __construct(){
+      
     }
-    
+  
 
-	  public function getCategoryId() {
-      return $this->categoryId;
+	  public function getId() {
+      return $this->id;
     }
 
-    public function setCategoryId($categoryId) {
-      $this->id = $categoryId;
+    public function setId($id) {
+      $this->id = $id;
     }
 
 

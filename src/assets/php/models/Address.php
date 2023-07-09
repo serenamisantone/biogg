@@ -1,9 +1,10 @@
+<?php
 class Address{
     private $userId;
     private $region;
     private $province;
     private $town;
-    private $street
+    private $street;
     private $houseNumber;
     private $otherInfo;
 

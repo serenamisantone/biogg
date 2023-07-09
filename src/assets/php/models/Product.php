@@ -1,5 +1,6 @@
+<?php
 class Product{
-    private $productId;
+    private $id;
     private $name;
     private $price;
     private $category;
@@ -7,7 +8,7 @@ class Product{
     private $isOnline;
     private $image;
 
-    public function __construct($productId, $name, $price, $category, $stock, $isOnline, $image)
+   /* public function __construct($productId, $name, $price, $category, $stock, $isOnline, $image)
     {
         $this->productId = $productId;
         $this->name = $name;
@@ -17,15 +18,17 @@ class Product{
         $this->isOnline = $isOnline;
         $this->image = $image;
         
-    }
+    }*/
+    public function __construct()
+    {}
 
 
-    public function getProductId() {
-    return $this->productId;
+    public function getId() {
+    return $this->id;
   }
 
-    public function setProductId($productId) {
-        $this->productId = $productId;
+    public function setId($id) {
+        $this->id = $id;
     }
 
 
@@ -47,12 +50,12 @@ class Product{
     }
 
 
-    public function getCategoryId() {
-        return $this->categoryId;
+    public function getCategory() {
+        return $this->category;
     }
 
-    public function setCategoryId($categoryId) {
-        $this->categoryId = $categoryId;
+    public function setCategory($category) {
+        $this->category = $category;
     }
 
 
@@ -71,5 +74,14 @@ class Product{
     public function setIsOnline($isOnline) {
         $this->isOnline = $isOnline;
     }
+
+    public function getImage() {
+        return $this->image;
+      }
+    
+        public function setImage($image) {
+            $this->image = $image;
+        }
+    
 
         }
