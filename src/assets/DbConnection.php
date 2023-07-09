@@ -9,7 +9,7 @@ class DatabaseConnection {
         $host = 'localhost';
         $username = 'root';
         $password = '';
-        $database = 'sweet-it';
+        $database = 'biogg';
         
         // Creazione della connessione
         $this->connection = new mysqli($host, $username, $password, $database);
