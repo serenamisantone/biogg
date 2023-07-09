@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-08 15:02:28
+/* Smarty version 4.3.0, created on 2023-07-09 11:46:28
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64a95e64f081e5_85978515',
+  'unifunc' => 'content_64aa81f4e6e8e5_31902393',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'eda301079029bfaac256925a5134c09db7efd1a2' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\home.tpl',
-      1 => 1688821251,
+      1 => 1688895983,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64a95e64f081e5_85978515 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64aa81f4e6e8e5_31902393 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
     <!--hero section start-->
     <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
@@ -44,7 +44,7 @@ function content_64a95e64f081e5_85978515 (Smarty_Internal_Template $_smarty_tpl)
                             </div>
                             <div class="col-xl-6 col-lg-7">
                                 <div class="hero-right text-center position-relative z-1 mt-8 mt-xl-0">
-                                    <img src="assets/img/home1/fruits.png" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
+                                    <img src="assets/img/home1/homeBio.jpg" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
                                     <img src="assets/img/shapes/tree.png" alt="tree" class="img-fluid position-absolute tree z-1">
                                     <img src="assets/img/shapes/orange-1.png" alt="orange" class="position-absolute orange-1 z-1">
                                     <img src="assets/img/shapes/orange-2.png" alt="orange" class="position-absolute orange-2 z-1">
@@ -69,7 +69,7 @@ function content_64a95e64f081e5_85978515 (Smarty_Internal_Template $_smarty_tpl)
                             </div>
                             <div class="col-xl-6 col-lg-7">
                                 <div class="hero-right text-center position-relative z-1 mt-8 mt-xl-0">
-                                    <img src="assets/img/home1/fruits.png" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
+                                    <img src="assets/img/home1/homeBio2.jpg" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
                                     <img src="assets/img/shapes/tree.png" alt="tree" class="img-fluid position-absolute tree z-1">
                                     <img src="assets/img/shapes/orange-1.png" alt="orange" class="position-absolute orange-1 z-1">
                                     <img src="assets/img/shapes/orange-2.png" alt="orange" class="position-absolute orange-2 z-1">
@@ -93,7 +93,7 @@ function content_64a95e64f081e5_85978515 (Smarty_Internal_Template $_smarty_tpl)
                             </div>
                             <div class="col-xl-6 col-lg-7">
                                 <div class="hero-right text-center position-relative z-1 mt-8 mt-xl-0">
-                                    <img src="assets/img/home1/fruits.png" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
+                                    <img src="assets/img/home1/homeBio3.jpg" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
                                     <img src="assets/img/shapes/tree.png" alt="tree" class="img-fluid position-absolute tree z-1">
                                     <img src="assets/img/shapes/orange-1.png" alt="orange" class="position-absolute orange-1 z-1">
                                     <img src="assets/img/shapes/orange-2.png" alt="orange" class="position-absolute orange-2 z-1">
@@ -129,7 +129,7 @@ function content_64a95e64f081e5_85978515 (Smarty_Internal_Template $_smarty_tpl)
                     <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6">
                         <div class="gshop-animated-iconbox py-5 px-4 text-center border rounded-3 position-relative overflow-hidden">
                             <div class="animated-icon d-inline-flex align-items-center justify-content-center rounded-circle position-relative">
-                                <img src="assets/img/category/vegetable.png" alt="flower" class="img-fluid">
+                                <img src="assets/img/category/verdura.jpg" alt="flower" class="img-fluid">
                             </div>
                             <a href="shop-grid2.html" class="text-dark fs-sm fw-bold d-block mt-3">Vegetable</a>
                             <span class="total-count position-relative ps-3 fs-sm fw-medium doted-primary">25 Items</span>
@@ -139,7 +139,7 @@ function content_64a95e64f081e5_85978515 (Smarty_Internal_Template $_smarty_tpl)
                     <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6">
                         <div class="gshop-animated-iconbox py-5 px-4 text-center border rounded-3 position-relative overflow-hidden color-2">
                             <div class="animated-icon d-inline-flex align-items-center justify-content-center rounded-circle position-relative">
-                                <img src="assets/img/category/fresh-fruits.png" alt="flower" class="img-fluid">
+                                <img src="assets/img/category/frutta.jpg" alt="flower" class="img-fluid">
                             </div>
                             <a href="shop-grid2.html" class="text-dark fs-sm fw-bold d-block mt-3">Fresh Fruits</a>
                             <span class="total-count position-relative ps-3 fs-sm fw-medium doted-primary">25 Items</span>

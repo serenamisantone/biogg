@@ -21,7 +21,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-7">
                                 <div class="hero-right text-center position-relative z-1 mt-8 mt-xl-0">
-                                    <img src="assets/img/home1/fruits.png" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
+                                    <img src="assets/img/home1/homeBio.jpg" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
                                     <img src="assets/img/shapes/tree.png" alt="tree" class="img-fluid position-absolute tree z-1">
                                     <img src="assets/img/shapes/orange-1.png" alt="orange" class="position-absolute orange-1 z-1">
                                     <img src="assets/img/shapes/orange-2.png" alt="orange" class="position-absolute orange-2 z-1">
@@ -46,7 +46,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-7">
                                 <div class="hero-right text-center position-relative z-1 mt-8 mt-xl-0">
-                                    <img src="assets/img/home1/fruits.png" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
+                                    <img src="assets/img/home1/homeBio2.jpg" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
                                     <img src="assets/img/shapes/tree.png" alt="tree" class="img-fluid position-absolute tree z-1">
                                     <img src="assets/img/shapes/orange-1.png" alt="orange" class="position-absolute orange-1 z-1">
                                     <img src="assets/img/shapes/orange-2.png" alt="orange" class="position-absolute orange-2 z-1">
@@ -70,7 +70,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-7">
                                 <div class="hero-right text-center position-relative z-1 mt-8 mt-xl-0">
-                                    <img src="assets/img/home1/fruits.png" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
+                                    <img src="assets/img/home1/homeBio3.jpg" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
                                     <img src="assets/img/shapes/tree.png" alt="tree" class="img-fluid position-absolute tree z-1">
                                     <img src="assets/img/shapes/orange-1.png" alt="orange" class="position-absolute orange-1 z-1">
                                     <img src="assets/img/shapes/orange-2.png" alt="orange" class="position-absolute orange-2 z-1">
@@ -106,7 +106,7 @@
                     <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6">
                         <div class="gshop-animated-iconbox py-5 px-4 text-center border rounded-3 position-relative overflow-hidden">
                             <div class="animated-icon d-inline-flex align-items-center justify-content-center rounded-circle position-relative">
-                                <img src="assets/img/category/vegetable.png" alt="flower" class="img-fluid">
+                                <img src="assets/img/category/verdura.jpg" alt="flower" class="img-fluid">
                             </div>
                             <a href="shop-grid2.html" class="text-dark fs-sm fw-bold d-block mt-3">Vegetable</a>
                             <span class="total-count position-relative ps-3 fs-sm fw-medium doted-primary">25 Items</span>
@@ -116,7 +116,7 @@
                     <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6">
                         <div class="gshop-animated-iconbox py-5 px-4 text-center border rounded-3 position-relative overflow-hidden color-2">
                             <div class="animated-icon d-inline-flex align-items-center justify-content-center rounded-circle position-relative">
-                                <img src="assets/img/category/fresh-fruits.png" alt="flower" class="img-fluid">
+                                <img src="assets/img/category/frutta.jpg" alt="flower" class="img-fluid">
                             </div>
                             <a href="shop-grid2.html" class="text-dark fs-sm fw-bold d-block mt-3">Fresh Fruits</a>
                             <span class="total-count position-relative ps-3 fs-sm fw-medium doted-primary">25 Items</span>
