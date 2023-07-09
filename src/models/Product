@@ -1,0 +1,75 @@
+class Product{
+    private $productId;
+    private $name;
+    private $price;
+    private $category;
+    private $stock;
+    private $isOnline;
+    private $image;
+
+    public function __construct($productId, $name, $price, $category, $stock, $isOnline, $image)
+    {
+        $this->productId = $productId;
+        $this->name = $name;
+        $this->price = $price;
+        $this->category = $category;
+        $this->stock = $stock;
+        $this->isOnline = $isOnline;
+        $this->image = $image;
+        
+    }
+
+
+    public function getProductId() {
+    return $this->productId;
+  }
+
+    public function setProductId($productId) {
+        $this->productId = $productId;
+    }
+
+
+    public function getName() {
+        return $this->name;
+    }
+
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+
+    public function getPrice() {
+        return $this->price;
+    }
+
+    public function setPrice($price) {
+        $this->price = $price;
+    }
+
+
+    public function getCategoryId() {
+        return $this->categoryId;
+    }
+
+    public function setCategoryId($categoryId) {
+        $this->categoryId = $categoryId;
+    }
+
+
+    public function getStock() {
+        return $this->stock;
+    }
+
+    public function setStock($stock) {
+        $this->stock = $stock;
+    }
+
+
+    public function getIsOnline() {
+        return $this->isOnline;
+    }
+    public function setIsOnline($isOnline) {
+        $this->isOnline = $isOnline;
+    }
+
+        }
