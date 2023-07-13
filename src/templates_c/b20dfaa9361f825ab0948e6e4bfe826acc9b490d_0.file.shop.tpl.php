@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-09 16:04:45
+/* Smarty version 4.3.0, created on 2023-07-12 16:42:01
   from 'C:\xampp\htdocs\biogg\src\templates\shop.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64aabe7d4a1af6_92879724',
+  'unifunc' => 'content_64aebbb94ddf13_21170040',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b20dfaa9361f825ab0948e6e4bfe826acc9b490d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\shop.tpl',
-      1 => 1688911481,
+      1 => 1689172917,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64aabe7d4a1af6_92879724 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64aebbb94ddf13_21170040 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
   
     <!--main content wrapper start-->
@@ -99,16 +99,7 @@ echo $_prefixVariable1;?>
                         <div class="shop-grid">
                             <div class="listing-top d-flex align-items-center justify-content-between flex-wrap gap-3 bg-white rounded-2 px-4 py-5 mb-6">
                                 <p class="mb-0 fw-bold">Showing 1-12 of 45 results</p>
-                                <div class="listing-top-right text-end d-inline-flex align-items-center gap-3 flex-wrap">
-                                    <div class="select-filter d-inline-flex align-items-center gap-3">
-                                        <label class="fw-bold fs-xs text-dark flex-shrink-0">Sort by:</label>
-                                        <select class="form-select fs-xxs fw-medium theme-select select-sm">
-                                            <option>Seleziona</option>
-                                            <option>Prezzo crescente</option>
-                                            <option>Prezzo decrescente</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="row g-4 justify-content-center">
                             <?php

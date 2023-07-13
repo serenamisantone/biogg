@@ -65,16 +65,7 @@
                         <div class="shop-grid">
                             <div class="listing-top d-flex align-items-center justify-content-between flex-wrap gap-3 bg-white rounded-2 px-4 py-5 mb-6">
                                 <p class="mb-0 fw-bold">Showing 1-12 of 45 results</p>
-                                <div class="listing-top-right text-end d-inline-flex align-items-center gap-3 flex-wrap">
-                                    <div class="select-filter d-inline-flex align-items-center gap-3">
-                                        <label class="fw-bold fs-xs text-dark flex-shrink-0">Sort by:</label>
-                                        <select class="form-select fs-xxs fw-medium theme-select select-sm">
-                                            <option>Seleziona</option>
-                                            <option>Prezzo crescente</option>
-                                            <option>Prezzo decrescente</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                             </div>
                             <div class="row g-4 justify-content-center">
                             {foreach $all_products as $product}

@@ -6,16 +6,11 @@ class User{
     private $username;
     private $password;
     private $email;
-
+    private $group;
     
-    public function __construct($userId, $name, $surname, $username, $password, $email)
+    public function __construct()
     {
-        $this->userId = $userId;
-        $this->name = $name;
-        $this->surname = $surname;
-        $this->username = $username;
-        $this->password = $password;
-        $this->email = $email;
+      
     }
 
 
@@ -70,6 +65,14 @@ class User{
 
   public function setEmail($email) {
     $this->email = $email;
+  }
+
+  public function getGroup() {
+    return $this->group;
+  }
+
+  public function setGroup($group) {
+    $this->group = $group;
   }
 
 }
