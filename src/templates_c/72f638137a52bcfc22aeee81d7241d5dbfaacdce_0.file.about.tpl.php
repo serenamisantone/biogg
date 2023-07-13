@@ -1,3 +1,4 @@
+
 <?php
 /* Smarty version 4.3.0, created on 2023-07-13 17:25:42
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\about.tpl' */
