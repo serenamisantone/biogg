@@ -1,14 +1,14 @@
 <?php
 class UserHasGroup{
     private $user;
-    private $group;
+    private $groups = [];
 
     
     public function __construct($user, $group)
     {
         $this->user = $user;
         $this->group = $group;
-  }
+    }
 
 
 	  public function getUser() {
@@ -21,10 +21,10 @@ class UserHasGroup{
 
     
     public function getGroup() {
-      return $this->group;
+      return $this->groups;
     }
 
-    public function setGroup($group) {
-      $this->group = $group;
+    public function setGroup($group) {      
+    array_push($this->group, $group);   
     }
 }

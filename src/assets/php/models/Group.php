@@ -3,10 +3,9 @@ class Group{
     private $id;
     private $name;
 
-  public function __construct($id, $name)
+  public function __construct()
     {
-        $this->id = $id;
-        $this->name = $name;
+      
     }
     
 
