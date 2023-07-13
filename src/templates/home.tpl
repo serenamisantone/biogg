@@ -10,11 +10,11 @@
                         <div class="row align-items-center justify-content-between">
                             <div class="col-xl-5 col-lg-8">
                                 <div class="hero-left-content">
-                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block">Genuine 100% Organic Products</span>
-                                    <h1 class="display-4 mb-3">Online Fresh <br>Grocery <mark class="p-0 bg-transparent text-secondary">Products</mark></h1>
-                                    <p class="mb-7 fs-6">Assertively target market-driven intellectual capital with worldwide human capital holistic.</p>
+                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block"> Benessere naturale</span>
+                                    <h1 class="display-4 mb-3">Prodotti<br>100% <mark class="p-0 bg-transparent text-secondary">Biologici</mark></h1>
+                                    <p class="mb-7 fs-6">Scopri il gusto autentico della natura: esplora la nostra selezione di prodotti alimentari bio di alta qualità!</p>
                                     <div class="hero-btns d-flex align-items-center gap-3 gap-sm-5 flex-wrap">
-                                        <a href="shop-grid.html" class="btn btn-secondary">Shop Now<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                        <a href="shop.php" class="btn btn-secondary">Shop<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                         <a href="about.php" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                     </div>
                                 </div>
@@ -34,12 +34,12 @@
                         <div class="row align-items-center justify-content-between">
                             <div class="col-xl-5 col-lg-8">
                                 <div class="hero-left-content">
-                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block">Genuine 100% Organic Products</span>
-                                    <h1 class="display-4 mb-3">Online Fresh <br>Grocery <mark class="p-0 bg-transparent text-secondary">Products</mark></h1>
-                                    <p class="mb-7 fs-6">Assertively target market-driven intellectual capital with worldwide human capital holistic.</p>
+                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block">Benessere naturale</span>
+                                    <h1 class="display-4 mb-3">Prodotti<br>100%<mark class="p-0 bg-transparent text-secondary">Biologici</mark></h1>
+                                    <p class="mb-7 fs-6">Scopri il gusto autentico della natura: esplora la nostra selezione di prodotti alimentari bio di alta qualità!</p>
                                     <div class="hero-btns d-flex align-items-center gap-3 gap-sm-5 flex-wrap">
                                         <a href="shop-grid.html"
-                                           class="btn btn-secondary">Shop Now<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                           class="btn btn-secondary">Shop<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                         <a href="about.php" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                     </div>
                                 </div>
@@ -59,11 +59,11 @@
                         <div class="row align-items-center justify-content-between">
                             <div class="col-xl-5 col-lg-8">
                                 <div class="hero-left-content">
-                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block">Genuine 100% Organic Products</span>
-                                    <h1 class="display-4 mb-3">Online Fresh <br>Grocery <mark class="p-0 bg-transparent text-secondary">Products</mark></h1>
-                                    <p class="mb-7 fs-6">Assertively target market-driven intellectual capital with worldwide human capital holistic.</p>
+                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block">Benessere naturale</span>
+                                    <h1 class="display-4 mb-3">Prodotti <br>100% <mark class="p-0 bg-transparent text-secondary">Biologici</mark></h1>
+                                    <p class="mb-7 fs-6">Scopri il gusto autentico della natura: esplora la nostra selezione di prodotti alimentari bio di alta qualità!</p>
                                     <div class="hero-btns d-flex align-items-center gap-3 gap-sm-5 flex-wrap">
-                                        <a href="shop-grid.html" class="btn btn-secondary">Shop Now<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
+                                        <a href="shop-grid.html" class="btn btn-secondary">Shop<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                         <a href="about.php" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                     </div>
                                 </div>
@@ -93,47 +93,6 @@
         </div>
         <div class="gshop-hero-slider-pagination theme-slider-control position-absolute top-50 translate-middle-y z-5"></div>
     </section> <!--hero section end-->
-
-    <!--category section start-->
-    <section class="gshop-category-section bg-white pt-120 position-relative z-1 overflow-hidden">
-        <img src="assets/img/shapes/bg-shape.png" alt="bg shape" class="position-absolute bottom-0 start-0 w-100 z--1">
-        <div class="container">
-            <div class="gshop-category-box border-secondary rounded-3 bg-white">
-                <div class="text-center section-title">
-                    <h4 class="d-inline-block px-2 bg-white mb-4">Our Top Category</h4>
-                </div>
-                <div class="row justify-content-center g-4">
-                    <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6">
-                        <div class="gshop-animated-iconbox py-5 px-4 text-center border rounded-3 position-relative overflow-hidden">
-                            <div class="animated-icon d-inline-flex align-items-center justify-content-center rounded-circle position-relative">
-                                <img src="assets/img/category/verdura.jpg" alt="flower" class="img-fluid">
-                            </div>
-                            <a href="shop-grid2.html" class="text-dark fs-sm fw-bold d-block mt-3">Vegetable</a>
-                            <span class="total-count position-relative ps-3 fs-sm fw-medium doted-primary">25 Items</span>
-                            <a href="shop-grid2.html" class="explore-btn position-absolute"><i class="fa-solid fa-arrow-up"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-xxl-2 col-lg-3 col-md-4 col-sm-6">
-                        <div class="gshop-animated-iconbox py-5 px-4 text-center border rounded-3 position-relative overflow-hidden color-2">
-                            <div class="animated-icon d-inline-flex align-items-center justify-content-center rounded-circle position-relative">
-                                <img src="assets/img/category/frutta.jpg" alt="flower" class="img-fluid">
-                            </div>
-                            <a href="shop-grid2.html" class="text-dark fs-sm fw-bold d-block mt-3">Fresh Fruits</a>
-                            <span class="total-count position-relative ps-3 fs-sm fw-medium doted-primary">25 Items</span>
-                            <a href="shop-grid2.html" class="explore-btn position-absolute"><i class="fa-solid fa-arrow-up"></i></a>
-                        </div>
-                    </div>
-
-
-
-                </div>
-            </div>
-        </div>
-    </section> <!--category section end-->
-
-
-
-
 
     <!--feedback section start-->
     <section class="ptb-120 bg-shade position-relative overflow-hidden z-1 feedback-section">

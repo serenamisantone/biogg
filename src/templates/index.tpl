@@ -78,7 +78,7 @@
                         <div class="col-xxl-10 col-xl-9 col-md-9 col-7">
                             <div class="gshop-navbar-right d-flex align-items-center justify-content-end position-relative" style="margin-right: 10%">
                                 <div class="category-dropdown position-relative d-none d-md-inline-block">
-                                    <a href="javascript:void(0)" class="category-dropdown-btn fw-bold d-none d-sm-inline-block">Browse Category<span
+                                    <a href="javascript:void(0)" class="category-dropdown-btn fw-bold d-none d-sm-inline-block">Categorie<span
                                       class="ms-1"><i class="fa-solid fa-angle-down"></i></span></a>
                                     <a href="javascript:void(0)" class="category-dropdown-btn fw-bold d-sm-none">Categories
                                         <span class="ms-1"><i class="fa-solid fa-angle-down"></i></span></a>
@@ -87,36 +87,55 @@
                                             <li>
                                                 <a href="shop-grid.html" class="d-flex align-items-center">
                                                     <div class="me-2 avatar-icon">
-                                                        <img src="assets/img/category/fresh-fruits.png" alt="vegetables" class="w-100 h-100 rounded-circle">
+                                                        <img src="assets/img/category/fruttafresca.jpg" alt="Frutta fresca" class="w-100 h-100 rounded-circle">
                                                     </div>
-                                                    <span>Fresh Fruits</span>
+                                                    <span>Frutta fresca</span>
                                                 </a>
                                             </li>
+                                           
                                             <li>
                                                 <a href="shop-grid.html" class="d-flex align-items-center">
                                                     <div class="me-2 avatar-icon">
-                                                        <img src="assets/img/category/honey.png" alt="vegetables" class="w-100 h-100 rounded-circle">
+                                                        <img src="assets/img/category/fruttasecca.jpg" alt="Frutta secca" class="w-100 h-100 rounded-circle">
                                                     </div>
-                                                    <span>Honey</span>
+                                                    <span>Frutta secca</span>
                                                 </a>
                                             </li>
-                                            <li>
+                                             <li>
                                                 <a href="shop-grid.html" class="d-flex align-items-center">
                                                     <div class="me-2 avatar-icon">
-                                                        <img src="assets/img/category/fresh-organic.png" alt="vegetables" class="w-100 h-100 rounded-circle">
+                                                        <img src="assets/img/category/verdura.jpg" alt="Verdura" class="w-100 h-100 rounded-circle">
                                                     </div>
-                                                    <span>Fresh & Organic</span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a onclick="handleNavigationClick('shop-grid.html')" class="d-flex align-items-center" >
-                                                    <div class="me-2 avatar-icon">
-                                                        <img src="assets/img/category/jam-jelly.png" alt="vegetables" class="w-100 h-100 rounded-circle">
-                                                    </div>
-                                                    <span>Jam & Jelly</span>
+                                                    <span>Verdura</span>
                                                 </a>
                                             </li>
 
+                                            <li>
+                                                <a href="shop-grid.html" class="d-flex align-items-center">
+                                                    <div class="me-2 avatar-icon">
+                                                        <img src="assets/img/category/legumi.jpg" alt="Legumi" class="w-100 h-100 rounded-circle">
+                                                    </div>
+                                                    <span>Legumi</span>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="shop-grid.html" class="d-flex align-items-center">
+                                                    <div class="me-2 avatar-icon">
+                                                        <img src="assets/img/category/miele.jpg" alt="Miele" class="w-100 h-100 rounded-circle">
+                                                    </div>
+                                                    <span>Miele</span>
+                                                </a>
+                                            </li>
+                                             <li>
+                                                <a href="shop-grid.html" class="d-flex align-items-center">
+                                                    <div class="me-2 avatar-icon">
+                                                        <img src="assets/img/category/confetturemarmellate.jpg" alt="Confetture & Marmellate" class="w-100 h-100 rounded-circle">
+                                                    </div>
+                                                    <span>Confetture & Marmellate</span>
+                                                </a>
+                                            </li>
+                                            
                                         </ul>
                                     </div>
                                 </div>
@@ -233,7 +252,7 @@
                                 <li><a href="#">Location & Working Hours</a></li>
                                 <li><a href="#">Purchase History</a></li>
                                 <li><a href="#">Latest News Blog</a></li>
-                                <li><a href="#">Home</a></li>
+                                <li><a href="home.php">Home</a></li>
                             </ul>
                         </div>
                     </div>
