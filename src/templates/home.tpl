@@ -113,37 +113,9 @@
                 <div class="col-xl-8">
                     <div class="gshop-feedback-slider-wrapper">
                         <div class="swiper gshop-feedback-thumb-slider">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-1.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-2.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-3.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-4.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-5.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                            </div>
                         </div>
                         <div class="swiper gshop-feedback-slider mt-4">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
-                                    <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
                                 <div class="swiper-slide feedback-single text-center">
                                     <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
                                     <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>

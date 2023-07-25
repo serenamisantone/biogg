@@ -6,13 +6,13 @@ class Review {
    private $description;
    private $user;
 
-   public function __construct($reviewId, $rate, $caption, $description, $user)
+   public function __construct(/*$reviewId, $rate, $caption, $description, $user*/)
     {
-        $this->reviewId = $reviewId;
+       /* $this->reviewId = $reviewId;
         $this->rate = $rate;
         $this->caption = $caption;
         $this->description = $description;
-        $this->user = $user;
+        $this->user = $user;*/
     }
 
 
@@ -22,6 +22,14 @@ class Review {
 
 	public function setReviewId($reviewId) {
 		$this->reviewId = $reviewId;
+	}
+
+  public function getRate() {
+		return $this->rate;
+	}
+
+	public function setRate($rate) {
+		$this->rate = $rate;
 	}
 
 

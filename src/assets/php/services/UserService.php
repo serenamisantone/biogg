@@ -10,7 +10,7 @@ class UserService{
 
     function __construct()
     {
-        $this->connection = DatabaseConnection::getInstance()->getConnection();
+        $this->connection = DbConnection::getInstance()->getConnection();
     }
 
     public function loginAction($email, $password){
@@ -44,5 +44,22 @@ class UserService{
 
         $user = new User($result['id'], $result['name'], $result['surname'], $result['email'], $result['password'], $result['groupName'],$result['serviceName']);
         return $user;
+    }
+    public function getAllReviews(){
+        $query = "SELECT * FROM review";
+        $result = $this->connection->query($query);
+        $all_reviews = array();
+        if(($result)&&($result->num_rows > 0)){
+            while ($row = $result->fetch_assoc()) {
+                $review = new Review();
+                $review->setReviewId($row['id']);
+                $review->setRate($row['rate']);
+                $review->setCaption($row['caption']);
+                $review->setDescription($row['description']);
+                $review->setUser($row['user_id']);
+            }
+            return $all_reviews;
+        }
+        return null;
     }
 }

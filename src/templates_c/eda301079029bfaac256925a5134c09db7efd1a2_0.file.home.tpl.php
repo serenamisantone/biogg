@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-11 00:09:01
+/* Smarty version 4.3.0, created on 2023-07-25 13:47:09
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64ac817d942c37_62420758',
+  'unifunc' => 'content_64bfb63d85dbf6_22499037',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'eda301079029bfaac256925a5134c09db7efd1a2' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\home.tpl',
-      1 => 1689026937,
+      1 => 1690285624,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64ac817d942c37_62420758 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64bfb63d85dbf6_22499037 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
     <!--hero section start-->
     <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
@@ -136,37 +136,9 @@ function content_64ac817d942c37_62420758 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="col-xl-8">
                     <div class="gshop-feedback-slider-wrapper">
                         <div class="swiper gshop-feedback-thumb-slider">
-                            <div class="swiper-wrapper">
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-1.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-2.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-3.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-4.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                                <div class="swiper-slide control-thumb">
-                                    <img src="assets/img/authors/client-5.png" alt="clients" class="img-fluid rounded-circle">
-                                </div>
-                            </div>
                         </div>
                         <div class="swiper gshop-feedback-slider mt-4">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
-                                    <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
                                 <div class="swiper-slide feedback-single text-center">
                                     <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
                                     <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
