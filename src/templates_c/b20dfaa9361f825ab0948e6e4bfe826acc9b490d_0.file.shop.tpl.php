@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-12 16:42:01
+/* Smarty version 4.3.0, created on 2023-07-25 11:37:42
   from 'C:\xampp\htdocs\biogg\src\templates\shop.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64aebbb94ddf13_21170040',
+  'unifunc' => 'content_64bf97e6ef8eb5_27344549',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64aebbb94ddf13_21170040 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64bf97e6ef8eb5_27344549 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
   
     <!--main content wrapper start-->

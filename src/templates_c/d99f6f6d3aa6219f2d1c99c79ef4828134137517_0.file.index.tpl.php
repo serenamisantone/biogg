@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-12 16:35:58
+/* Smarty version 4.3.0, created on 2023-07-22 11:29:03
   from 'C:\xampp\htdocs\biogg\src\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64aeba4e6dd8a8_53391089',
+  'unifunc' => 'content_64bba15f7485b4_30697320',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd99f6f6d3aa6219f2d1c99c79ef4828134137517' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\index.tpl',
-      1 => 1689172553,
+      1 => 1690016174,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64aeba4e6dd8a8_53391089 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64bba15f7485b4_30697320 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -125,10 +125,10 @@ function content_64aeba4e6dd8a8_53391089 (Smarty_Internal_Template $_smarty_tpl)
                                 </button>
                                 <div class="user-menu-wrapper">
                                     <ul class="user-menu">
-                                        <li><a href="my-account.html"><span class="me-2"><i class="fa-solid fa-user"></i></span>My Account</a></li>
+                                        <li><a href="login.php"><span class="me-2"><i class="fa-solid fa-user"></i></span>My Account</a></li>
                                         <li><a href="cart.html"><span class="me-2"><i class="fa-solid fa-tags"></i></span>My Cart</a></li>
                                         <li><a href="wishlist.html"><span class="me-2"><i class="fa-solid fa-heart"></i></span>My Wishlist</a></li>
-                                        <li><a href="#"><span class="me-2"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>Sign Out</a></li>
+                                        <li><a href="logout.php"><span class="me-2"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>Sign Out</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -176,9 +176,9 @@ function content_64aeba4e6dd8a8_53391089 (Smarty_Internal_Template $_smarty_tpl)
                 </div>
             </div>
         </header> <!--header section end-->
-
 <?php $_smarty_tpl->_subTemplateRender(((string)$_smarty_tpl->tpl_vars['current_view']->value), $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);
 ?>
+
 
         <!--footer section start-->
        
@@ -195,7 +195,7 @@ function content_64aeba4e6dd8a8_53391089 (Smarty_Internal_Template $_smarty_tpl)
                                 <li><a href="#">Location & Working Hours</a></li>
                                 <li><a href="#">Purchase History</a></li>
                                 <li><a href="#">Latest News Blog</a></li>
-                                <li><a href="#">Home</a></li>
+                                <li><a href="home.php">Home</a></li>
                             </ul>
                         </div>
                     </div>
