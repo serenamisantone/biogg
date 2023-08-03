@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-11 05:04:10
+/* Smarty version 4.3.0, created on 2023-07-25 11:37:44
   from 'C:\xampp\htdocs\biogg\src\templates\news.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64acc6aa2b44d3_10486239',
+  'unifunc' => 'content_64bf97e86f0595_32003725',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64acc6aa2b44d3_10486239 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64bf97e86f0595_32003725 (Smarty_Internal_Template $_smarty_tpl) {
 ?>  <!--breadcrumb section start-->
   <div class="gstore-breadcrumb position-relative z-1 overflow-hidden mt--50">
   <img src="assets/img/shapes/bg-shape-6.png" alt="bg-shape" class="position-absolute start-0 z--1 w-100 bg-shape">

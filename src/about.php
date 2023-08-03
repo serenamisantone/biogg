@@ -4,6 +4,7 @@ require_once("./assets/config.php");
 $smarty = new Config();
 
 try {
+    
     $smarty->assign("current_view","about.tpl");
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

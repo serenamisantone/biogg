@@ -1,5 +1,5 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-25 13:47:09
+/* Smarty version 4.3.0, created on 2023-07-29 12:38:57
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
@@ -12,7 +12,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
     'eda301079029bfaac256925a5134c09db7efd1a2' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\home.tpl',
-      1 => 1690285624,
+      1 => 1690627133,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64bfb63d85dbf6_22499037 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64c4ec41df8fd0_66032480 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
     <!--hero section start-->
     <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
@@ -140,8 +140,17 @@ function content_64bfb63d85dbf6_22499037 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="swiper gshop-feedback-slider mt-4">
                             <div class="swiper-wrapper">
                                 <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
+                                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['all_reviews']->value, 'review');
+$_smarty_tpl->tpl_vars['review']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['review']->value) {
+$_smarty_tpl->tpl_vars['review']->do_else = false;
+?>
+                                    <p class="mb-5"><?php echo $_smarty_tpl->tpl_vars['review']->value->getDescription();?>
+ </p>
+                                    <?php $_smarty_tpl->_assignInScope('user', $_smarty_tpl->tpl_vars['review']->value->getUser());?>
+                                    <span class="clients_name text-dark fw-bold d-block mb-1"><?php echo $_smarty_tpl->tpl_vars['user']->value->getName();?>
+</span>
                                     <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
                                         <li><i class="fas fa-star"></i></li>
                                         <li><i class="fas fa-star"></i></li>
@@ -160,30 +169,12 @@ function content_64bfb63d85dbf6_22499037 (Smarty_Internal_Template $_smarty_tpl)
                                         <li><i class="fas fa-star"></i></li>
                                         <li><i class="fas fa-star"></i></li>
                                     </ul>
-                                </div>
-                                <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
-                                    <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
-                                <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
-                                    <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <?php ob_start();
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
+$_prefixVariable1 = ob_get_clean();
+echo $_prefixVariable1;?>
+
                         </div>
                     </div>
                 </div>

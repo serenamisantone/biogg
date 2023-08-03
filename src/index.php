@@ -2,7 +2,7 @@
 
 
 require_once("assets/config.php");
-
+session_start();
 
 $smarty = new Config();
 try {

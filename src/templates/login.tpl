@@ -27,7 +27,6 @@
     <div id="preloader">
         <img src="assets/img/preloader.gif" alt="preloader" width="450" class="img-fluid">
     </div>
-    <!--preloader end-->
     <!--main content wrapper start-->
     <div class="main-wrapper">
 
@@ -37,56 +36,41 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-12 tt-login-img" data-background="assets/img/banner/login-banner.jpg"></div>
                     <div class="col-lg-5 col-12 bg-white d-flex p-0 tt-login-col shadow">
-                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100">
+                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action = "actions.php" method = "post">
                             <div class="mb-7">
-                                <a href="index.html">
+                                <a href="home.php">
                                     <img src="assets/img/logo.png" alt="logo">
                                 </a>
                             </div>
-                            <h2 class="mb-4 h3">Hey there! <br>Welcome back <span class="text-secondary">Grostore.</span>
+                            <h2 class="mb-4 h3">Bentornato! <br> Accedi a <span class="text-secondary">BioGG</span>
                             </h2>
                             <div class="row g-3">
                                 <div class="col-sm-12">
                                     <div class="input-field">
-                                        <label class="fw-bold text-dark fs-sm mb-1">Email</label>
-                                        <input type="email" placeholder="Enter your email" class="theme-input">
+                                        <label class="fw-bold text-dark fs-sm mb-1"  >Username</label>
+                                        <input placeholder="Inserisci la tua email" type="username" class="theme-input" name="username">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="input-field check-password">
-                                        <label class="fw-bold text-dark fs-sm mb-1">Password</label>
+                                        <label class="fw-bold text-dark fs-sm mb-1"  type="password">Password</label>
                                         <div class="check-password">
-                                            <input type="password" placeholder="Password" class="theme-input">
-                                            <span class="eye eye-icon">
-                 <i class="fa-solid fa-eye"></i>
-               </span>
-                                            <span class="eye eye-slash">
-                 <i class="fa-solid fa-eye-slash"></i>
-               </span>
+                                            <input type="password" placeholder="Password" class="theme-input"name="password">
+                                            <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
+                                            <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mt-4">
-                                <div class="checkbox d-inline-flex align-items-center gap-2">
-                                    <div class="theme-checkbox flex-shrink-0">
-                                        <input type="checkbox" id="save-password">
-                                        <span class="checkbox-field">
-               <i class="fa-solid fa-check"></i>
-             </span>
-                                    </div>
-                                    <label class="save-password fs-sm">Remember for 30 days</label>
-                                </div>
+                            
                                 <a href="#" class="fs-sm">Forgot Password</a>
                             </div>
                             <div class="row g-4 mt-4">
                                 <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                                    <button type="submit" class="btn btn-primary w-100" name="submit">Sign In</button>
                                 </div>
-                                <div class="col-sm-6">
-                                    <a href="#" class="btn btn-outline google-btn w-100">
-                                        <img src="assets/img/brands/google.png" alt="google" class="me-2">Sign with Google </a>
-                                </div>
+                               
                             </div>
                             <p class="mb-0 fs-xs mt-4">Don't have an Account? <a href="signup.html">Sign Up</a>
                             </p>
@@ -101,6 +85,7 @@
     <!--main content wrapper end-->
 
 
+   
     <!--scroll bottom to top button start-->
     <button class="scroll-top-btn">
         <i class="fa-regular fa-hand-pointer"></i>
