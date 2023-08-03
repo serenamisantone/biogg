@@ -19,8 +19,8 @@ class ShoppingCartProduct{
 		return $this->shoppingCart;
 	}
 
-	public function setShoppingCart($shoppingCarts) {
-		$this->shoppingCart = $setShoppingCart;
+	public function setShoppingCart($shoppingCart) {
+		$this->shoppingCart = $shoppingCart;
 	}
 
 

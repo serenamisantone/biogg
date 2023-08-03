@@ -107,7 +107,7 @@
             <div class="row justify-content-center">
                 <div class="col-xl-6">
                     <div class="section-title text-center">
-                        <h2 class="mb-6">What Our Clients Say</h2>
+                        <h2 class="mb-6 text-secondary">Cosa dicono i nostri clienti</h2>
                     </div>
                 </div>
                 <div class="col-xl-8">
@@ -116,50 +116,25 @@
                         </div>
                         <div class="swiper gshop-feedback-slider mt-4">
                             <div class="swiper-wrapper">
+                            {foreach $all_reviews as $review}
                                 <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
+                                    <p class="mb-1 fw-bold fs-5">{$review->getCaption()}</p>
+                                <div class="swiper-slide feedback-single text-center">
+                                    <p class="mb-5 fs-6">{$review -> getDescription()} </p>
+                                    {assign var="user" value=$review->getUser()}
+                                    <span class="clients_name text-dark fw-bold d-block mb-1 fs-5">{$user-> getName()}</span>
                                     <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
+                                        {for $i=1 to 5}
+                                            {if $i <= $review->getRate()}
+                                                <li><i class="fas fa-star"></i></li>
+                                            {else}
+                                                <li><i class="far fa-star"></i></li>
+                                            {/if}
+                                        {/for}
                                     </ul>
                                 </div>
-                                <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
-                                    <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
                                 </div>
-                                <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
-                                    <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
-                                <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
-                                    <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
-                                </div>
+                            {{/foreach}}
                             </div>
                         </div>
                     </div>

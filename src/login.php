@@ -20,7 +20,8 @@ $menuItems = array();
    }catch (SmartyException $e) {
     $smarty->assign("content_load","404.tpl");
     $smarty->display("index.tpl");
-}
-    function opneMenu($script){
+   }
+    function openMenu($script){
     $smarty->assign("menu",$script);
    }
+

@@ -2,6 +2,7 @@
 
 require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/models/User.php");
+require_once("./assets/php/models/Review.php");
 
 
 
@@ -22,7 +23,7 @@ class UserService{
         if(empty($result))return false;
 
         $user = new User();
-        $user -> setId($result['id']);
+        $user -> setuserId($result['id']);
         $user -> setName($result['name']);
         $user -> setSurname($result['surname']);
         $user -> setEmail($result['email']);
@@ -94,7 +95,7 @@ class UserService{
     }
 
     
- }
+ 
    /* public function login($email, $password){
         $encryptedPassword = md5($password);
         $query = "SELECT id FROM users WHERE email='{$email}' AND password='{$encryptedPassword}'";
@@ -143,7 +144,7 @@ class UserService{
         return $services;
 
     }*/
-
+  
     public function getAllReviews(){
         $query = "SELECT * FROM review";
         $result = $this->connection->query($query);
@@ -155,7 +156,8 @@ class UserService{
                 $review->setRate($row['rate']);
                 $review->setCaption($row['caption']);
                 $review->setDescription($row['description']);
-                $review->setUser($row['user_id']);
+                $review->setUser($this -> getUserById($row['user_id']));
+                $all_reviews[]= $review;
             }
             return $all_reviews;
         }

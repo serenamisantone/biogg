@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-29 12:38:57
+/* Smarty version 4.3.0, created on 2023-08-03 21:25:10
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64bfb63d85dbf6_22499037',
+  'unifunc' => 'content_64cbff1642c232_95018887',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'eda301079029bfaac256925a5134c09db7efd1a2' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\home.tpl',
-      1 => 1690627133,
+      1 => 1691090707,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64c4ec41df8fd0_66032480 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64cbff1642c232_95018887 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
     <!--hero section start-->
     <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
@@ -130,7 +130,7 @@ function content_64c4ec41df8fd0_66032480 (Smarty_Internal_Template $_smarty_tpl)
             <div class="row justify-content-center">
                 <div class="col-xl-6">
                     <div class="section-title text-center">
-                        <h2 class="mb-6">What Our Clients Say</h2>
+                        <h2 class="mb-6 text-secondary">Cosa dicono i nostri clienti</h2>
                     </div>
                 </div>
                 <div class="col-xl-8">
@@ -139,122 +139,51 @@ function content_64c4ec41df8fd0_66032480 (Smarty_Internal_Template $_smarty_tpl)
                         </div>
                         <div class="swiper gshop-feedback-slider mt-4">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide feedback-single text-center">
-                                <?php
+                            <?php
 $_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['all_reviews']->value, 'review');
 $_smarty_tpl->tpl_vars['review']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['review']->value) {
 $_smarty_tpl->tpl_vars['review']->do_else = false;
 ?>
-                                    <p class="mb-5"><?php echo $_smarty_tpl->tpl_vars['review']->value->getDescription();?>
+                                <div class="swiper-slide feedback-single text-center">
+                                    <p class="mb-1 fw-bold fs-5"><?php echo $_smarty_tpl->tpl_vars['review']->value->getCaption();?>
+</p>
+                                <div class="swiper-slide feedback-single text-center">
+                                    <p class="mb-5 fs-6"><?php echo $_smarty_tpl->tpl_vars['review']->value->getDescription();?>
  </p>
                                     <?php $_smarty_tpl->_assignInScope('user', $_smarty_tpl->tpl_vars['review']->value->getUser());?>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1"><?php echo $_smarty_tpl->tpl_vars['user']->value->getName();?>
+                                    <span class="clients_name text-dark fw-bold d-block mb-1 fs-5"><?php echo $_smarty_tpl->tpl_vars['user']->value->getName();?>
 </span>
                                     <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
+                                        <?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['i']->step = 1;$_smarty_tpl->tpl_vars['i']->total = (int) ceil(($_smarty_tpl->tpl_vars['i']->step > 0 ? 5+1 - (1) : 1-(5)+1)/abs($_smarty_tpl->tpl_vars['i']->step));
+if ($_smarty_tpl->tpl_vars['i']->total > 0) {
+for ($_smarty_tpl->tpl_vars['i']->value = 1, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
+$_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>
+                                            <?php if ($_smarty_tpl->tpl_vars['i']->value <= $_smarty_tpl->tpl_vars['review']->value->getRate()) {?>
+                                                <li><i class="fas fa-star"></i></li>
+                                            <?php } else { ?>
+                                                <li><i class="far fa-star"></i></li>
+                                            <?php }?>
+                                        <?php }
+}
+?>
                                     </ul>
                                 </div>
-                                <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5">“Distinctively unleash business technologies without backend metrics. Conveniently network distributed core competencies. Continually integrate backward-compatible information and backward-compatible” </p>
-                                    <span class="clients_name text-dark fw-bold d-block mb-1">Rasmus Geisler</span>
-                                    <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                        <li><i class="fas fa-star"></i></li>
-                                    </ul>
+                                </div>
                             <?php ob_start();
 }
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
 $_prefixVariable1 = ob_get_clean();
 echo $_prefixVariable1;?>
 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section> <!--feedback section end-->
-
-
-
-    <!--blog section start-->
-    <section class="blog-section pb-120 position-relative overflow-hidden z-1">
-        <img src="assets/img/shapes/dal.png" alt="shape" class="position-absolute dal-shape z--1">
-        <img src="assets/img/shapes/frame-circle.svg" alt="frame circle" class="position-absolute frame-circle z--1 d-none d-md-block">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-5 col-md-8">
-                    <div class="section-title text-center">
-                        <h2 class="mb-3">Browse Recent Post</h2>
-                        <p class="mb-0">Interactivel product distinctive paradigms whereas one-to-one intellectual capital. resource sucking services.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row g-4 justify-content-center mt-3">
-                <div class="col-xl-4 col-md-6">
-                    <article class="blog-card rounded-2 overflow-hidden bg-white">
-                        <div class="thumbnail overflow-hidden">
-                            <a href="blog-details.html"><img src="assets/img/blog/blog-thumb-1.jpg" alt="blog thumb" class="img-fluid"></a>
-                        </div>
-                        <div class="blog-card-content">
-                            <div class="blog-meta d-flex align-items-center gap-3 mb-1">
-                                <span class="fs-xs fw-medium"><i class="fa-solid fa-tags me-1"></i>Organic Vegetable</span>
-                                <span class="fs-xs fw-medium"><i class="fa-regular fa-clock me-1"></i>May 24, 2022</span>
-                            </div>
-                            <a href="blog-details.html">
-                                <h4 class="mb-3">Holiday Home Delivery We have Recently Ordered</h4>
-                            </a>
-                            <p class="mb-0 mb-5">Holisticly exploit equity invested growth strategies whereas enterpris</p>
-                            <a href="blog-details.html" class="btn btn-primary-light btn-md">Explore More<span class="ms-2"><i class="fas fa-arrow-right"></i></span></a>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-xl-4 col-md-6">
-                    <article class="blog-card rounded-2 overflow-hidden bg-white">
-                        <div class="thumbnail overflow-hidden">
-                            <a href="blog-details.html"><img src="assets/img/blog/blog-thumb-2.jpg" alt="blog thumb" class="img-fluid"></a>
-                        </div>
-                        <div class="blog-card-content">
-                            <div class="blog-meta d-flex align-items-center gap-3 mb-1">
-                                <span class="fs-xs fw-medium"><i class="fa-solid fa-tags me-1"></i>Organic Vegetable</span>
-                                <span class="fs-xs fw-medium"><i class="fa-regular fa-clock me-1"></i>May 24, 2022</span>
-                            </div>
-                            <a href="blog-details.html">
-                                <h4 class="mb-3">Holiday Home Delivery We have Recently Ordered</h4>
-                            </a>
-                            <p class="mb-0 mb-5">Holisticly exploit equity invested growth strategies whereas enterpris</p>
-                            <a href="blog-details.html" class="btn btn-primary-light btn-md">Explore More<span class="ms-2"><i class="fas fa-arrow-right"></i></span></a>
-                        </div>
-                    </article>
-                </div>
-                <div class="col-xl-4 col-md-6">
-                    <article class="blog-card rounded-2 overflow-hidden bg-white">
-                        <div class="thumbnail overflow-hidden">
-                            <a href="blog-details.html"><img src="assets/img/blog/blog-thumb-3.jpg" alt="blog thumb" class="img-fluid"></a>
-                        </div>
-                        <div class="blog-card-content">
-                            <div class="blog-meta d-flex align-items-center gap-3 mb-1">
-                                <span class="fs-xs fw-medium"><i class="fa-solid fa-tags me-1"></i>Organic Vegetable</span>
-                                <span class="fs-xs fw-medium"><i class="fa-regular fa-clock me-1"></i>May 24, 2022</span>
-                            </div>
-                            <a href="blog-details.html">
-                                <h4 class="mb-3">Holiday Home Delivery We have Recently Ordered</h4>
-                            </a>
-                            <p class="mb-0 mb-5">Holisticly exploit equity invested growth strategies whereas enterpris</p>
-                            <a href="blog-details.html" class="btn btn-primary-light btn-md">Explore More<span class="ms-2"><i class="fas fa-arrow-right"></i></span></a>
-                        </div>
-                    </article>
-                </div>
-            </div>
-        </div>
-    </section> <!--blog section end-->
     <!--scroll bottom to top button start-->
 
 

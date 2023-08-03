@@ -42,7 +42,7 @@ class Review {
   }
   
   
-  public function getDesciption() {
+  public function getDescription() {
     return $this->description;
   }
 
