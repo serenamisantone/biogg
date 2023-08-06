@@ -1,4 +1,27 @@
+<?php
+/* Smarty version 4.3.0, created on 2023-08-03 21:25:10
+  from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\home.tpl' */
 
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.3.0',
+  'unifunc' => 'content_64cbff1642c232_95018887',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    'eda301079029bfaac256925a5134c09db7efd1a2' => 
+    array (
+      0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\home.tpl',
+      1 => 1691090707,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_64cbff1642c232_95018887 (Smarty_Internal_Template $_smarty_tpl) {
+?>
     <!--hero section start-->
     <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
         <img src="assets/img/shapes/leaf-shadow.png" alt="leaf" class="position-absolute leaf-shape z--1 rounded-circle">
@@ -116,25 +139,44 @@
                         </div>
                         <div class="swiper gshop-feedback-slider mt-4">
                             <div class="swiper-wrapper">
-                            {foreach $all_reviews as $review}
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['all_reviews']->value, 'review');
+$_smarty_tpl->tpl_vars['review']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['review']->value) {
+$_smarty_tpl->tpl_vars['review']->do_else = false;
+?>
                                 <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-1 fw-bold fs-5">{$review->getCaption()}</p>
+                                    <p class="mb-1 fw-bold fs-5"><?php echo $_smarty_tpl->tpl_vars['review']->value->getCaption();?>
+</p>
                                 <div class="swiper-slide feedback-single text-center">
-                                    <p class="mb-5 fs-6">{$review -> getDescription()} </p>
-                                    {assign var="user" value=$review->getUser()}
-                                    <span class="clients_name text-dark fw-bold d-block mb-1 fs-5">{$user-> getName()}</span>
+                                    <p class="mb-5 fs-6"><?php echo $_smarty_tpl->tpl_vars['review']->value->getDescription();?>
+ </p>
+                                    <?php $_smarty_tpl->_assignInScope('user', $_smarty_tpl->tpl_vars['review']->value->getUser());?>
+                                    <span class="clients_name text-dark fw-bold d-block mb-1 fs-5"><?php echo $_smarty_tpl->tpl_vars['user']->value->getName();?>
+</span>
                                     <ul class="star-rating fs-sm d-inline-flex align-items-center text-warning">
-                                        {for $i=1 to 5}
-                                            {if $i <= $review->getRate()}
+                                        <?php
+$_smarty_tpl->tpl_vars['i'] = new Smarty_Variable(null, $_smarty_tpl->isRenderingCache);$_smarty_tpl->tpl_vars['i']->step = 1;$_smarty_tpl->tpl_vars['i']->total = (int) ceil(($_smarty_tpl->tpl_vars['i']->step > 0 ? 5+1 - (1) : 1-(5)+1)/abs($_smarty_tpl->tpl_vars['i']->step));
+if ($_smarty_tpl->tpl_vars['i']->total > 0) {
+for ($_smarty_tpl->tpl_vars['i']->value = 1, $_smarty_tpl->tpl_vars['i']->iteration = 1;$_smarty_tpl->tpl_vars['i']->iteration <= $_smarty_tpl->tpl_vars['i']->total;$_smarty_tpl->tpl_vars['i']->value += $_smarty_tpl->tpl_vars['i']->step, $_smarty_tpl->tpl_vars['i']->iteration++) {
+$_smarty_tpl->tpl_vars['i']->first = $_smarty_tpl->tpl_vars['i']->iteration === 1;$_smarty_tpl->tpl_vars['i']->last = $_smarty_tpl->tpl_vars['i']->iteration === $_smarty_tpl->tpl_vars['i']->total;?>
+                                            <?php if ($_smarty_tpl->tpl_vars['i']->value <= $_smarty_tpl->tpl_vars['review']->value->getRate()) {?>
                                                 <li><i class="fas fa-star"></i></li>
-                                            {else}
+                                            <?php } else { ?>
                                                 <li><i class="far fa-star"></i></li>
-                                            {/if}
-                                        {/for}
+                                            <?php }?>
+                                        <?php }
+}
+?>
                                     </ul>
                                 </div>
                                 </div>
-                            {{/foreach}}
+                            <?php ob_start();
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
+$_prefixVariable1 = ob_get_clean();
+echo $_prefixVariable1;?>
+
                             </div>
                         </div>
                     </div>
@@ -146,3 +188,5 @@
 
 
 
+<?php }
+}

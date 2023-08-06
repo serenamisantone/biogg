@@ -7,7 +7,7 @@ class User{
     private $password;
     private $email;
     private $groups = [];
-    
+    private $services;
     public function __construct()
     {
       
@@ -73,6 +73,13 @@ class User{
 
   public function setGroups($groups) {
     $this->groups = $groups;
+  }
+  public function getServices() {
+    return $this->services;
+  }
+
+  public function setServices($services) {
+    $this->services = $services;
   }
 
 }
