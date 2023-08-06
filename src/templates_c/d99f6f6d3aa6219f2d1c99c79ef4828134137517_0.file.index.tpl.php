@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-22 11:29:03
+/* Smarty version 4.3.0, created on 2023-08-02 13:43:44
   from 'C:\xampp\htdocs\biogg\src\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64bba15f7485b4_30697320',
+  'unifunc' => 'content_64ca41707a3c32_45118782',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd99f6f6d3aa6219f2d1c99c79ef4828134137517' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\index.tpl',
-      1 => 1690016174,
+      1 => 1690976619,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64bba15f7485b4_30697320 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64ca41707a3c32_45118782 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -125,7 +125,7 @@ function content_64bba15f7485b4_30697320 (Smarty_Internal_Template $_smarty_tpl)
                                 </button>
                                 <div class="user-menu-wrapper">
                                     <ul class="user-menu">
-                                        <li><a href="login.php"><span class="me-2"><i class="fa-solid fa-user"></i></span>My Account</a></li>
+                                        <li><a href="myAccount.php"><span class="me-2"><i class="fa-solid fa-user"></i></span>My Account</a></li>
                                         <li><a href="cart.html"><span class="me-2"><i class="fa-solid fa-tags"></i></span>My Cart</a></li>
                                         <li><a href="wishlist.html"><span class="me-2"><i class="fa-solid fa-heart"></i></span>My Wishlist</a></li>
                                         <li><a href="logout.php"><span class="me-2"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>Sign Out</a></li>
@@ -190,7 +190,7 @@ function content_64bba15f7485b4_30697320 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="footer-widget ">
                             <h5 class="text-white mb-4">Quick Links</h5>
                             <ul class="footer-nav">
-                                <li><a href="#">Your Account</a></li>
+                                <li><a href="myAccount.php">Your Account</a></li>
                                 <li><a href="#">Testimonials</a></li>
                                 <li><a href="#">Location & Working Hours</a></li>
                                 <li><a href="#">Purchase History</a></li>
