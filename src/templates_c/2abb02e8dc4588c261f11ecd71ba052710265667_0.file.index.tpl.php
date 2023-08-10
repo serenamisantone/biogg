@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-25 13:52:07
+/* Smarty version 4.3.0, created on 2023-08-03 22:08:36
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64bfb7670a6bf7_80779003',
+  'unifunc' => 'content_64cc0944c7c969_22460821',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2abb02e8dc4588c261f11ecd71ba052710265667' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\index.tpl',
-      1 => 1690285758,
+      1 => 1691093290,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64bfb7670a6bf7_80779003 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64cc0944c7c969_22460821 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -67,14 +67,14 @@ function content_64bfb7670a6bf7_80779003 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="col-xxl-8 col-xl-9">
                             <ul class="d-flex align-items-center justify-content-center justify-content-xl-end topbar-info-right">
                                 <li class="nav-item">
-                                    <a href="mailto:groshop@support.com">
+                                    <a href="mailto:biogg@support.com">
                                         <span class="me-1">
                                           <svg width="16" height="14" viewBox="0 0 20 14" fill="none"
                                                xmlns="http://www.w3.org/2000/svg">
                                               <path d="M18.2422 0H1.75781C0.790547 0 0 0.783572 0 1.75V12.25C0 13.2168 0.791055 14 1.75781 14H18.2422C19.2095 14 20 13.2164 20 12.25V1.75C20 0.783339 19.2091 0 18.2422 0ZM17.9723 1.16667C17.4039 1.73433 10.7283 8.40194 10.4541 8.67588C10.225 8.90462 9.77512 8.90478 9.54594 8.67588L2.02773 1.16667H17.9723ZM1.17188 12.0355V1.96447L6.21348 7L1.17188 12.0355ZM2.02773 12.8333L7.04078 7.82631L8.71598 9.49951C9.40246 10.1852 10.5978 10.1849 11.2841 9.49951L12.9593 7.82635L17.9723 12.8333H2.02773ZM18.8281 12.0355L13.7865 7L18.8281 1.96447V12.0355Z" fill="white"/>
                                           </svg>
                                       </span>
-                                        groshop@support.com
+                                        biogg@support.com
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -190,12 +190,10 @@ function content_64bfb7670a6bf7_80779003 (Smarty_Internal_Template $_smarty_tpl)
                         <div class="footer-widget ">
                             <h5 class="text-white mb-4">Quick Links</h5>
                             <ul class="footer-nav">
-                                <li><a href="#">Your Account</a></li>
-                                <li><a href="#">Testimonials</a></li>
-                                <li><a href="#">Location & Working Hours</a></li>
-                                <li><a href="#">Purchase History</a></li>
-                                <li><a href="#">Latest News Blog</a></li>
                                 <li><a href="home.php">Home</a></li>
+                                <li><a href="#">Il Mio Account</a></li>
+                                <li><a href="home.php#feedbacks-section">Recensioni</a></li>
+                                <li><a href="#">Storico Ordini</a></li>
                             </ul>
                         </div>
                     </div>
