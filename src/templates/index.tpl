@@ -102,7 +102,7 @@
                                 </button>
                                 <div class="user-menu-wrapper">
                                     <ul class="user-menu">
-                                        <li><a href="login.php"><span class="me-2"><i class="fa-solid fa-user"></i></span>My Account</a></li>
+                                        <li><a href="myAccount.php"><span class="me-2"><i class="fa-solid fa-user"></i></span>My Account</a></li>
                                         <li><a href="cart.html"><span class="me-2"><i class="fa-solid fa-tags"></i></span>My Cart</a></li>
                                         <li><a href="wishlist.html"><span class="me-2"><i class="fa-solid fa-heart"></i></span>My Wishlist</a></li>
                                         <li><a href="logout.php"><span class="me-2"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>Sign Out</a></li>
@@ -166,8 +166,9 @@
                         <div class="footer-widget ">
                             <h5 class="text-white mb-4">Quick Links</h5>
                             <ul class="footer-nav">
+        
                                 <li><a href="home.php">Home</a></li>
-                                <li><a href="#">Il Mio Account</a></li>
+                                <li><a href="myAccount.php">Il Mio Account</a></li>
                                 <li><a href="home.php#feedbacks-section">Recensioni</a></li>
                                 <li><a href="#">Storico Ordini</a></li>
                             </ul>

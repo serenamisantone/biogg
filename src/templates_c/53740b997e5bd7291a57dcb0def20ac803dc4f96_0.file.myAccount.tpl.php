@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-25 12:00:21
+/* Smarty version 4.3.0, created on 2023-08-02 12:55:50
   from 'C:\xampp\htdocs\biogg\src\templates\myAccount.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64bf9d3555dbe9_75202051',
+  'unifunc' => 'content_64ca36369be8b1_90043608',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '53740b997e5bd7291a57dcb0def20ac803dc4f96' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\myAccount.tpl',
-      1 => 1690279218,
+      1 => 1690279228,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64bf9d3555dbe9_75202051 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64ca36369be8b1_90043608 (Smarty_Internal_Template $_smarty_tpl) {
 ?>   <!--my account section-->
    <section class="my-account pt-6 pb-120">
    <div class="container">
@@ -59,7 +59,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
            </div>
            
       </div>
-      <div class="col-xl-7">
+      <div class="col-xl-9">
       <div class="tab-content">
           <div class="tab-pane fade show active"> 
                 <?php $_smarty_tpl->_subTemplateRender(((string)$_smarty_tpl->tpl_vars['menu']->value), $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, true);

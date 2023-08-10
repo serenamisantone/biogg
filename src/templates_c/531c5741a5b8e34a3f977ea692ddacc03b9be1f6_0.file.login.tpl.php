@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-25 11:18:32
+/* Smarty version 4.3.0, created on 2023-08-02 13:43:47
   from 'C:\xampp\htdocs\biogg\src\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64bf9368006af1_43766138',
+  'unifunc' => 'content_64ca4173c2ac62_65983350',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '531c5741a5b8e34a3f977ea692ddacc03b9be1f6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\login.tpl',
-      1 => 1689696570,
+      1 => 1690976415,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64bf9368006af1_43766138 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64ca4173c2ac62_65983350 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -59,7 +59,7 @@ function content_64bf9368006af1_43766138 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-12 tt-login-img" data-background="assets/img/banner/login-banner.jpg"></div>
                     <div class="col-lg-5 col-12 bg-white d-flex p-0 tt-login-col shadow">
-                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action = "actions.php" method = "post">
+                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action = "login.php" method = "post">
                             <div class="mb-7">
                                 <a href="home.php">
                                     <img src="assets/img/logo.png" alt="logo">

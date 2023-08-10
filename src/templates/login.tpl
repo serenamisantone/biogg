@@ -36,7 +36,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-12 tt-login-img" data-background="assets/img/banner/login-banner.jpg"></div>
                     <div class="col-lg-5 col-12 bg-white d-flex p-0 tt-login-col shadow">
-                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action = "actions.php" method = "post">
+                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action = "login.php" method = "post">
                             <div class="mb-7">
                                 <a href="home.php">
                                     <img src="assets/img/logo.png" alt="logo">

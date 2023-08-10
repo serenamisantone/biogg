@@ -57,24 +57,19 @@ class UserService{
                     $data = $result->fetch_assoc();
                     $_SESSION['auth']['user'] = $data;
 
-                    $result = $this ->connection->query("SELECT service.name, service.script
-                        from user
-                         join user_has_group on user_has_group.user_id = user.id
-                         join service_has_group on service_has_group.group_id = user_has_group.group_id
-                        join `service` on service.id = service_has_group.service_id
-                        where user.username = '{$username}'");
+                    $result = $this ->connection->query("SELECT `group`.name from user join user_has_group on user_has_group.user_id = user.id join `group` on user_has_group.group_id=`group`.id where user.username = '{$username}';");
                     if ($result === false) {
                         // Errore nella query
-                        Header("Location: error.php?generic");
+                        Header("Location: error.php?errorenellaquery");
                         exit;
+                    }else{
+                        $data = $result->fetch_assoc();
+                        $_SESSION['auth']['group'] = $data['name'];
                     }
+
+
                     $service = array();
 
-                    while ( $data = $result->fetch_assoc()) {
-                        $service[] = $data;
-                    }
-
-                    $_SESSION['auth']['service'] = $service;
                     
                     return true;
                 }
@@ -84,15 +79,8 @@ class UserService{
             // user already logged
 
         }
-
-        if(!isset($_SESSION['auth']['service'][basename($_SERVER['SCRIPT_FILENAME'])])) {
-            Header("Location: error.php?003-permission-denied");
-            exit;
-        }
-
-        
-
     }
+
 
     
  
