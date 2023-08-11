@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-08-02 13:43:44
+/* Smarty version 4.3.0, created on 2023-08-11 11:32:24
   from 'C:\xampp\htdocs\biogg\src\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64ca41707a3c32_45118782',
+  'unifunc' => 'content_64d600286213d1_03998330',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd99f6f6d3aa6219f2d1c99c79ef4828134137517' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\index.tpl',
-      1 => 1690976619,
+      1 => 1691742780,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64ca41707a3c32_45118782 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64d600286213d1_03998330 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -287,7 +287,9 @@ function content_64ca41707a3c32_45118782 (Smarty_Internal_Template $_smarty_tpl)
     <?php echo '<script'; ?>
  src="assets/js/app.js"><?php echo '</script'; ?>
 >
-
+    <?php echo '<script'; ?>
+ src="assets/js/methods.js"><?php echo '</script'; ?>
+>
     <!--endbuild-->
 
 </body>

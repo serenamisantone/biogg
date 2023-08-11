@@ -78,9 +78,9 @@
                                         <div class="card-content">
                                             <div class="mb-2 tt-category tt-line-clamp tt-clamp-1">
                                                 {assign var="category" value=$product->getCategory()}
-                                                <a href="#" class="d-inline-block text-muted fs-xxs">{$category -> getName()}</a>
+                                                <a  class="d-inline-block text-muted fs-xxs">{$category -> getName()}</a>
                                             </div>
-                                            <a href="#" class="card-title fw-bold d-block mb-2 tt-line-clamp tt-clamp-2">{$product->getName()}</a>
+                                            <a href="singleProduct.php?id={$product->getId()}" class="card-title fw-bold d-block mb-2 tt-line-clamp tt-clamp-2">{$product->getName()}</a>
                                             <h6 class="price text-danger mb-4">€{$product->getPrice()}</h6>
                                             <a href="#" class="btn btn-outline-secondary d-block btn-md">Add to Cart</a>
                                         </div>

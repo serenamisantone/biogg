@@ -237,7 +237,7 @@
     <script src="assets/js/vendors/waypoints.js"></script>
     <script src="assets/js/vendors/counterup.min.js"></script>
     <script src="assets/js/app.js"></script>
-
+    <script src="assets/js/methods.js"></script>
     <!--endbuild-->
 
 </body>
