@@ -6,6 +6,10 @@ require_once("./assets/php/services/UserService.php");
 session_start();
 $smarty = new Config();
 $loginService = new UserService();
+if (!isset($_SESSION['cart'])) {
+    $cartService->createShoppingCart();
+    
+}
 
     if(isset($_POST['submit'])){
        

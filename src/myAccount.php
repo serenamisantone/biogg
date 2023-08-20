@@ -29,7 +29,10 @@ $menuItems = array();
             {
             $smarty->display("login.tpl");
                 }
-        
+                if (!isset($_SESSION['cart'])) {
+                    $cartService->createShoppingCart();        
+                }
+        $smarty->assign("cart",$_SESSION['cart']);
         $smarty->display("index.tpl");
 
     }else{

@@ -10,17 +10,7 @@ class Product
     private $image;
     private $caption;
 
-    /* public function __construct($productId, $name, $price, $category, $stock, $isOnline, $image)
-     {
-         $this->productId = $productId;
-         $this->name = $name;
-         $this->price = $price;
-         $this->category = $category;
-         $this->stock = $stock;
-         $this->isOnline = $isOnline;
-         $this->image = $image;
-         
-     }*/
+    
     public function __construct()
     {
     }
@@ -108,6 +98,10 @@ class Product
     public function setCaption($caption)
     {
         $this->caption = $caption;
+    }
+    public function __toString()
+    {
+      return $this->name;
     }
 
 }

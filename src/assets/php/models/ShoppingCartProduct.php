@@ -1,52 +1,45 @@
 <?php
-class ShoppingCartProduct{
-    private $shoppingCart;
-    private $product;
-    private $addedQuantity;
-    private $actualPrice;
-
-    
-    public function __construct($shoppingCart, $product, $addedQuantity, $actualPrice)
-    {
-        $this->shoppingCart = $shoppingCart;
-        $this->product = $product;
-        $this->addedQuantity = $addedQuantity;
-        $this->actualPrice = $actualPrice;
-}
+require_once("assets/php/models/Product.php");
+class ShoppingCartProduct
+{
+  private $product;
+  private $addedQuantity;
+  private $actualPrice;
 
 
-	public function getShoppingCart() {
-		return $this->shoppingCart;
-	}
+  public function __construct($product, $addedQuantity)
+  {
 
-	public function setShoppingCart($shoppingCart) {
-		$this->shoppingCart = $shoppingCart;
-	}
+    $this->product = $product;
+    $this->addedQuantity = $addedQuantity;
+    $this->actualPrice = $product->getPrice();
+  }
 
-
-  public function getProduct() {
+  public function getProduct()
+  {
     return $this->product;
   }
 
-  public function setProduct($product) {
+  public function setProduct($product)
+  {
     $this->product = $product;
   }
 
 
-  public function getAddedQuantity() {
+  public function getAddedQuantity()
+  {
     return $this->addedQuantity;
   }
 
-  public function setAddedQuantity($addedQuantity) {
+  public function setAddedQuantity($addedQuantity)
+  {
     $this->addedQuantity = $addedQuantity;
   }
 
-  
-  public function getActualPrice() {
-    return $this->actualPrice;
+
+  public function getActualPrice()
+  {
+    return $this->product->getPrice();
   }
 
-  public function setActualPrice($actualPrice) {
-    $this->actualPrice = $actualPrice;
-  }
 }
