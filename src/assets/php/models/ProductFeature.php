@@ -1,40 +1,31 @@
 <?php
-class ProductFeature{
-    private $productId;
-    private $title;
-    private $description;
+class ProductFeature
+{
+  private $title;
+  private $description;
 
-    public function __construct($productId, $title, $description)
-    {
-        $this->productId = $productId;
-        $this->title = $title;
-        $this->description = $description;
-    }
-    
-
-	public function getProductId() {
-    return $this->productId;
+  public function __construct()
+  {
   }
 
-  public function setProductId($productId) {
-    $this->productId = $productId;
+  public function getTitle()
+  {
+    return $this->title;
+  }
+
+  public function setTitle($title)
+  {
+    $this->title = $title;
   }
 
 
-	public function getTitle() {
-		return $this->title;
-	}
+  public function getDescription()
+  {
+    return $this->description;
+  }
 
-	public function setTitle($title) {
-		$this->title = $title;
-	}
-
-
-  public function getDescription() {
-		return $this->description;
-	}
-
-	public function setDescription($description) {
-		$this->description = $description;
-	}
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
 }

@@ -5,7 +5,7 @@ require_once("./assets/php/models/User.php");
 
 $user = new User();
 $userService = new UserService();
-$user -> $userService.getUserById($_SESSION['auth']['user']);
+$user = $userService->getUserById($_SESSION['auth']['user']);
 
 try {
     $smarty->assign("menu","orders.tpl");

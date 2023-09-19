@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-25 11:37:42
+/* Smarty version 4.3.0, created on 2023-08-11 11:59:10
   from 'C:\xampp\htdocs\biogg\src\templates\shop.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64bf97e6ef8eb5_27344549',
+  'unifunc' => 'content_64d6066eb1c525_71330762',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'b20dfaa9361f825ab0948e6e4bfe826acc9b490d' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\shop.tpl',
-      1 => 1689172917,
+      1 => 1691737773,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64bf97e6ef8eb5_27344549 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64d6066eb1c525_71330762 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
   
     <!--main content wrapper start-->
@@ -118,10 +118,11 @@ $_smarty_tpl->tpl_vars['product']->do_else = false;
                                         <div class="card-content">
                                             <div class="mb-2 tt-category tt-line-clamp tt-clamp-1">
                                                 <?php $_smarty_tpl->_assignInScope('category', $_smarty_tpl->tpl_vars['product']->value->getCategory());?>
-                                                <a href="#" class="d-inline-block text-muted fs-xxs"><?php echo $_smarty_tpl->tpl_vars['category']->value->getName();?>
+                                                <a  class="d-inline-block text-muted fs-xxs"><?php echo $_smarty_tpl->tpl_vars['category']->value->getName();?>
 </a>
                                             </div>
-                                            <a href="#" class="card-title fw-bold d-block mb-2 tt-line-clamp tt-clamp-2"><?php echo $_smarty_tpl->tpl_vars['product']->value->getName();?>
+                                            <a href="singleProduct.php?id=<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
+" class="card-title fw-bold d-block mb-2 tt-line-clamp tt-clamp-2"><?php echo $_smarty_tpl->tpl_vars['product']->value->getName();?>
 </a>
                                             <h6 class="price text-danger mb-4">€<?php echo $_smarty_tpl->tpl_vars['product']->value->getPrice();?>
 </h6>
