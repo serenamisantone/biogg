@@ -3,9 +3,11 @@
 require_once("./assets/Config.php");
 require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/services/UserService.php");
+require_once("./assets/php/services/CartService.php");
 session_start();
 $smarty = new Config();
 $loginService = new UserService();
+$cartService = new CartService();
 if (!isset($_SESSION['cart'])) {
     $cartService->createShoppingCart();
     

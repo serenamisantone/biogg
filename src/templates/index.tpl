@@ -141,8 +141,9 @@
                                         </button>
 
                                         <div class="cart-box-wrapper">
-                                            {if (isset($cart)) }
+                                           
                                                 <div class="apt_cart_box theme-scrollbar">
+                                                 {if (isset($cart)) }
                                                     <ul class="at_scrollbar scrollbar">
                                                         {assign var="products" value = $cart -> getProducts()}
 
@@ -182,15 +183,18 @@
                                                             </li>
                                                         {/foreach}
                                                     </ul>
+                                                {/if}
+
                                                     <div class="d-flex align-items-center  mt-3">
                                                         <h6 class="mb-0">Subtotal:&nbsp</h6>
-                                                        <span class="fw-semibold text-primary">{$cart->getTotalPrice()}€</span>
+                                            <span class="fw-semibold text-primary"> {if (isset($cart)) }{$cart->getTotalPrice()} {else} 0 {/if}€</span>
                                                     </div>
                                                     <a href="checkout.html"
                                                         class="btn btn-primary btn-md d-block mt-4"><span class="me-2"><i
                                                                 class="fa-solid fa-wallet"></i></span>Checkout</a>
+                                                            
                                                 </div>
-                                            {/if}
+                                            
                                         </div>
 
                                     </div>
@@ -210,7 +214,7 @@
 
         <footer class="gshop-footer position-relative pt-8 bg-dark z-1 overflow-hidden">
             <div class="container">
-                <span class="gradient-spacer my-8 d-block"></span>
+                
                 <div class="row g-5 ">
                     <div class="align-content-center">
                         <div class="footer-widget ">
@@ -241,26 +245,7 @@
                                 <a class="logo"><img src="assets/img/logo-white.png" alt="logo" class="img-fluid"></a>
                             </div>
                         </div>
-                        <div class="col-lg-4">
-                            <div class="footer-payments-info d-flex align-items-center justify-content-lg-end gap-2">
-                                <div
-                                    class="supported-payment-box rounded-1 bg-dark-light d-inline-flex align-items-center justify-content-center p-2 flex-shrink-0">
-                                    <img src="assets/img/brands/visa.png" alt="visa" class="img-fluid">
-                                </div>
-                                <div
-                                    class="supported-payment-box rounded-1 bg-dark-light d-inline-flex align-items-center justify-content-center p-2 flex-shrink-0">
-                                    <img src="assets/img/brands/mastercard.png" alt="visa" class="img-fluid">
-                                </div>
-                                <div
-                                    class="supported-payment-box rounded-1 bg-dark-light d-inline-flex align-items-center justify-content-center p-2 flex-shrink-0">
-                                    <img src="assets/img/brands/payoneer.png" alt="visa" class="img-fluid">
-                                </div>
-                                <div
-                                    class="supported-payment-box rounded-1 bg-dark-light d-inline-flex align-items-center justify-content-center p-2 flex-shrink-0">
-                                    <img src="assets/img/brands/paypal.png" alt="visa" class="img-fluid">
-                                </div>
-                            </div>
-                        </div>
+                       
                     </div>
                 </div>
             </div>
