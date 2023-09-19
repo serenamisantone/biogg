@@ -64,40 +64,12 @@ class UserService
                 } else {
                     $data = $result->fetch_assoc();
                     $_SESSION['auth']['user'] = $data['id'];
-                    if (isset($_SESSION['cart'])) {
-                        //creo un carrello
-                        $serializedData = serialize($_SESSION['cart']);
-                        $cart = unserialize($serializedData);
-                        //creo i shopping_cart_products
-                        $shopping_cart_products = [];
-                        foreach ($_SESSION['cart']->getProducts() as $cart_product) {
+                    $userId = $_SESSION['auth']['user'];
 
-                            $serializedData = serialize($cart_product);
-                            $shopping_cart_products[] = unserialize($serializedData);
-                            $serializedData = serialize($cart_product->getProduct());
-                            $product = unserialize($serializedData);
-                        }
-
-                        $userId = $_SESSION['auth']['user'];
-                        $cart->setUser($this->getUserById($userId));
-                        $result = $this->connection->query("INSERT INTO shopping_cart(user_id, is_open) values ({$userId}, 1) ");
-                        if (!$result) {
-                            Header("Location: error.php?Shopping_cart_non_inserita");
-                        } else {
-                            $result = $this->connection->query("SELECT LAST_INSERT_ID() ");
-                            if ($result) {
-                                $lastInsertId = $result->fetch_assoc(); // Recupera un array associativo
-                                $shoppingCartId = $lastInsertId['LAST_INSERT_ID()'];
-                                foreach ($shopping_cart_products as $cart_product) {
-                                    $this->connection->query("INSERT INTO `shopping_cart_product` (shopping_cart_id, product_id, added_quantity ,actual_price) values ({$shoppingCartId}, {$cart_product->getProduct()->getId()}, {$cart_product->getAddedQuantity()}, {$cart_product->getActualPrice()}) ");
-                                }
-                            }
-                        }
-                    }
                     // $expiryTime = time() + (24 * 60 * 60);
                     //setcookie('user', $data['id'], $expiryTime, '/');
 
-
+                    //assegno il gruppo
                     $result = $this->connection->query("SELECT `group`.name from user join user_has_group on user_has_group.user_id = user.id join `group` on user_has_group.group_id=`group`.id where user.username = '{$username}';");
                     if ($result === false) {
                         // Errore nella query
@@ -109,8 +81,25 @@ class UserService
                     }
 
 
+                    $result = $this->connection->query("SELECT * from shopping_cart where shopping_cart.user_id = '{$userId}' AND shopping_cart.is_open= 1 ;");
+                    if ($result === false) {
+                        // Errore nella query
+                        Header("Location: error.php?errore_nella_query");
+                        exit;
+                    } else {
+                        if ($result->num_rows == 0) {
+                            Header("Location: error.php?carrello_non_trovato");
+                            exit;
+                        } else {
+                            $data = $result->fetch_assoc();
+                            $cart = new ShoppingCart();
+                            $cart->setIsOpen(true);
+                            $cart->setUser($this->getUserById($userId));
+                            //assegna prodotti al carrello                      
+                            $_SESSION['auth']['cart'] = $cart;
+                        }
 
-
+                    }
 
                     return true;
                 }
