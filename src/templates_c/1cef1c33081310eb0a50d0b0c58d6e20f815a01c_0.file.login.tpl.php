@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-07-25 13:52:21
+/* Smarty version 4.3.0, created on 2023-08-16 17:36:00
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64bfb7752d3dd7_57981116',
+  'unifunc' => 'content_64dcece0a896b7_12633770',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '1cef1c33081310eb0a50d0b0c58d6e20f815a01c' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\login.tpl',
-      1 => 1690285758,
+      1 => 1692200158,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64bfb7752d3dd7_57981116 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64dcece0a896b7_12633770 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -46,10 +46,6 @@ function content_64bfb7752d3dd7_57981116 (Smarty_Internal_Template $_smarty_tpl)
 
 <body>
 
-    <!--preloader start-->
-    <div id="preloader">
-        <img src="assets/img/preloader.gif" alt="preloader" width="450" class="img-fluid">
-    </div>
     <!--main content wrapper start-->
     <div class="main-wrapper">
 
@@ -59,7 +55,7 @@ function content_64bfb7752d3dd7_57981116 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-12 tt-login-img" data-background="assets/img/banner/login-banner.jpg"></div>
                     <div class="col-lg-5 col-12 bg-white d-flex p-0 tt-login-col shadow">
-                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action = "actions.php" method = "post">
+                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action = "login.php" method = "post">
                             <div class="mb-7">
                                 <a href="home.php">
                                     <img src="assets/img/logo.png" alt="logo">

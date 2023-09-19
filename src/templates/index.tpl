@@ -104,7 +104,7 @@
                                     <ul class="user-menu">
                                         <li><a href="myAccount.php"><span class="me-2"><i class="fa-solid fa-user"></i></span>My Account</a></li>
                                         <li><a href="cart.html"><span class="me-2"><i class="fa-solid fa-tags"></i></span>My Cart</a></li>
-                                        <li><a href="wishlist.html"><span class="me-2"><i class="fa-solid fa-heart"></i></span>My Wishlist</a></li>
+                                        <li><a href="wishlist.php"><span class="me-2"><i class="fa-solid fa-heart"></i></span>My Wishlist</a></li>
                                         <li><a href="logout.php"><span class="me-2"><i class="fa-solid fa-arrow-right-from-bracket"></i></span>Sign Out</a></li>
                                     </ul>
                                 </div>

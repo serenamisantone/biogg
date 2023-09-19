@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-08-03 22:08:36
+/* Smarty version 4.3.0, created on 2023-08-10 22:56:36
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64cc0944d80538_97876584',
+  'unifunc' => 'content_64d54f04a658d9_45977794',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'eda301079029bfaac256925a5134c09db7efd1a2' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\home.tpl',
-      1 => 1691093312,
+      1 => 1691700993,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64cc0944d80538_97876584 (Smarty_Internal_Template $_smarty_tpl) {
+function content_64d54f04a658d9_45977794 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
     <!--hero section start-->
     <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">
@@ -118,7 +118,7 @@ function content_64cc0944d80538_97876584 (Smarty_Internal_Template $_smarty_tpl)
     </section> <!--hero section end-->
 
     <!--feedback section start-->
-    <section id="feedbacks-section" class="ptb-120 bg-shade position-relative overflow-hidden z-1 feedback-section mt-20">
+    <section id="feedbacks-section" class="ptb-120 bg-shade position-relative overflow-hidden z-1 feedback-section">
         <img src="assets/img/shapes/bg-shape-5.png" alt="bg shape" class="position-absolute start-0 bottom-0 z--1 w-100">
         <img src="assets/img/shapes/map-bg.png" alt="map" class="position-absolute start-50 top-50 translate-middle z--1">
         <img src="assets/img/shapes/fd-1.png" alt="shape" class="position-absolute z--1 fd-1">
