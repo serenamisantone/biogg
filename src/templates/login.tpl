@@ -23,10 +23,6 @@
 
 <body>
 
-    <!--preloader start-->
-    <div id="preloader">
-        <img src="assets/img/preloader.gif" alt="preloader" width="450" class="img-fluid">
-    </div>
     <!--main content wrapper start-->
     <div class="main-wrapper">
 
