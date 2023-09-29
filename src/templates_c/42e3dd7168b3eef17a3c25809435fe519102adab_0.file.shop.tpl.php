@@ -1,4 +1,27 @@
-<head>
+<?php
+/* Smarty version 4.3.0, created on 2023-09-28 11:45:42
+  from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\shop.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.3.0',
+  'unifunc' => 'content_65154b460432e6_99993649',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '42e3dd7168b3eef17a3c25809435fe519102adab' => 
+    array (
+      0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\shop.tpl',
+      1 => 1695894311,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_65154b460432e6_99993649 (Smarty_Internal_Template $_smarty_tpl) {
+?><head>
 <link rel="stylesheet" href="src/assets/css/main.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -54,9 +77,20 @@
                             <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
                         </div>
                         <ul class="widget-nav mt-4">
-                        {foreach $all_categories as $category}
-                            <li><a href="#" class="d-flex justify-content-between align-items-center">{$category->getName()}</a></li>
-                         {{/foreach}}   
+                        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['all_categories']->value, 'category');
+$_smarty_tpl->tpl_vars['category']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['category']->value) {
+$_smarty_tpl->tpl_vars['category']->do_else = false;
+?>
+                            <li><a href="#" class="d-flex justify-content-between align-items-center"><?php echo $_smarty_tpl->tpl_vars['category']->value->getName();?>
+</a></li>
+                         <?php ob_start();
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);
+$_prefixVariable1 = ob_get_clean();
+echo $_prefixVariable1;?>
+   
                         </ul>
                     </div>
                     
@@ -71,35 +105,47 @@
                     </div>
                     
                         <div class="row g-4 justify-content-center">
-                        {foreach $all_products as $product}
+                        <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['all_products']->value, 'product');
+$_smarty_tpl->tpl_vars['product']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['product']->value) {
+$_smarty_tpl->tpl_vars['product']->do_else = false;
+?>
                         <div class="col-lg-4 col-md-6 col-sm-10">
                             <div class="vertical-product-card rounded-2 position-relative border-0 bg-white bg-white">
                                 <span class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">-12% OFF</span>
                                 <div class="thumbnail position-relative text-center p-4">
-                                <img src="assets/img/products/{$product->getImage()}" alt="apple" class="img-fluid"> 
-                                <a href="#" class="rounded-btn addToWishlist" data-product_id="{$product->getId()}">
+                                <img src="assets/img/products/<?php echo $_smarty_tpl->tpl_vars['product']->value->getImage();?>
+" alt="apple" class="img-fluid"> 
+                                <a href="#" class="rounded-btn addToWishlist" data-product_id="<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
+">
                                 <i class="fas fa-heart empty-heart"></i>
                                      </a>
                                     </div> 
                                 <div class="card-content">
                                     <div class="mb-2 tt-category tt-line-clamp tt-clamp-1">
-                                        {assign var="category" value=$product->getCategory()}
-                                        <a href="#" class="d-inline-block text-muted fs-xxs">{$category -> getName()} </a>
+                                        <?php $_smarty_tpl->_assignInScope('category', $_smarty_tpl->tpl_vars['product']->value->getCategory());?>
+                                        <a href="#" class="d-inline-block text-muted fs-xxs"><?php echo $_smarty_tpl->tpl_vars['category']->value->getName();?>
+ </a>
                                     </div>
                                     <div class="product-card">
                                     <div style="display: flex; align-items: center;">
                                         <a href="#" class="card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2" style="flex: 1; text-decoration: none;">
-                                            <span class="product-name">{$product->getName()}</span>
+                                            <span class="product-name"><?php echo $_smarty_tpl->tpl_vars['product']->value->getName();?>
+</span>
                                         </a>
                                     </div>
                                     </div>
-                                    <h6 class="price text-danger mb-4">€{$product->getPrice()} 
+                                    <h6 class="price text-danger mb-4">€<?php echo $_smarty_tpl->tpl_vars['product']->value->getPrice();?>
+ 
                                     </h6>
                                     <a href="#" class="btn btn-outline-secondary d-block btn-md">Aggiungi al carrello</a>
                                 </div>
                             </div>
                         </div>
-                    {/foreach} 
+                    <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?> 
                             
                     </div>
                     <ul class="template-pagination d-flex align-items-center mt-6">
@@ -116,8 +162,11 @@
 </section>
 <!--shop grid section end-->
 <!-- Includi jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+<?php echo '<script'; ?>
+ src="https://code.jquery.com/jquery-3.6.0.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
 $(document).ready(function() {
     $('.addToWishlist').click(function(event) {
         event.preventDefault(); // Evita il comportamento predefinito del collegamento e non ricaricare la pagina
@@ -146,4 +195,7 @@ $(document).ready(function() {
 });
 
     
-</script>
+<?php echo '</script'; ?>
+>
+<?php }
+}

@@ -5,6 +5,8 @@ require_once("./assets/php/models/User.php");
 require_once("./assets/php/models/ShoppingCart.php");
 require_once("./assets/php/models/Review.php");
 require_once("./assets/php/models/ShoppingCartProduct.php");
+require_once("./assets/php/models/Wishlist.php");
+require_once("./assets/php/models/WishlistProduct.php");
 
 
 
@@ -42,22 +44,20 @@ class UserService
 
     public function check($username, $password)
     {
-
-
         if (!isset($_SESSION['auth'])) {
-
+    
             if (!isset($username) or !isset($password)) {
                 Header("Location: error.php?002-username-and-password-not-entered");
                 exit;
             } else {
-
+    
                 $result = $this->connection->query("SELECT id FROM user WHERE username = '{$username}' AND password = '{$password}'");
-
+    
                 if (!$result) {
                     Header("Location: error.php?generic");
                     exit;
                 }
-
+    
                 if ($result->num_rows == 0) {
                     Header("Location: error.php?001-uknown-user");
                     exit;
@@ -65,10 +65,10 @@ class UserService
                     $data = $result->fetch_assoc();
                     $_SESSION['auth']['user'] = $data['id'];
                     $userId = $_SESSION['auth']['user'];
-
+    
                     // $expiryTime = time() + (24 * 60 * 60);
                     //setcookie('user', $data['id'], $expiryTime, '/');
-
+    
                     //assegno il gruppo
                     $result = $this->connection->query("SELECT `group`.name from user join user_has_group on user_has_group.user_id = user.id join `group` on user_has_group.group_id=`group`.id where user.username = '{$username}';");
                     if ($result === false) {
@@ -79,8 +79,7 @@ class UserService
                         $data = $result->fetch_assoc();
                         $_SESSION['auth']['group'] = $data['name'];
                     }
-
-
+    
                     $result = $this->connection->query("SELECT * from shopping_cart where shopping_cart.user_id = '{$userId}' AND shopping_cart.is_open= 1 ;");
                     if ($result === false) {
                         // Errore nella query
@@ -95,22 +94,40 @@ class UserService
                             $cart = new ShoppingCart();
                             $cart->setIsOpen(true);
                             $cart->setUser($this->getUserById($userId));
-                            //assegna prodotti al carrello                      
+                            //assegna prodotti al carrello
                             $_SESSION['auth']['cart'] = $cart;
                         }
-
                     }
-
+    
+                    $result = $this->connection->query("SELECT * from wishlist where wishlist.user_id = '{$userId}' AND wishlist.is_open= 1 ;");
+                    if ($result === false) {
+                        // Errore nella query
+                        Header("Location: error.php?errore_nella_query");
+                        exit;
+                    } else {
+                        if ($result->num_rows == 0) {
+                            Header("Location: error.php?carrello_non_trovato");
+                            exit;
+                        } else {
+                            $data = $result->fetch_assoc();
+                            $wishlist = new Wishlist();
+                            $wishlist->setIsOpen(true);
+                            $wishlist->setUser($this->getUserById($userId));
+                            //assegna prodotti alla wishlist
+                            $_SESSION['auth']['wishlist'] = $wishlist;
+                        }
+                    }
+    
                     return true;
                 }
             }
         } else {
-
+    
             // user already logged
-
+    
         }
     }
-
+    
 
 
     public function getGroupById($userId)

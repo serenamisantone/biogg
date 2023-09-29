@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-08-16 18:35:15
+/* Smarty version 4.3.0, created on 2023-09-28 11:26:28
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\wishlist.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_64dcfac3b963c6_56652071',
+  'unifunc' => 'content_651546c4f27162_81267579',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dd1945c9f608ed3a6238805c4e134bf46e481a31' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\wishlist.tpl',
-      1 => 1692203711,
+      1 => 1695891998,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_64dcfac3b963c6_56652071 (Smarty_Internal_Template $_smarty_tpl) {
+function content_651546c4f27162_81267579 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <body>
@@ -88,24 +88,26 @@ $_smarty_tpl->tpl_vars['item']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['item']->value) {
 $_smarty_tpl->tpl_vars['item']->do_else = false;
 ?>
-                                    <tr>
+                                    <tr>    
                                         <td class="text-center thumbnail">
-                                            <img src="assets/img/products/<?php echo $_smarty_tpl->tpl_vars['item']->value->getProduct()->getImage();?>
+                                            <img src="assets/img/products/<?php echo $_smarty_tpl->tpl_vars['item']->value->getImage();?>
 " alt="product-thumb" class="img-fluid">
                                         </td>
                                         <td>
-                                            <span class="fw-bold text-secondary fs-xs"><?php echo $_smarty_tpl->tpl_vars['item']->value->getProduct()->getCategory()->getName();?>
+                                            <span class="fw-bold text-secondary fs-xs"><?php echo $_smarty_tpl->tpl_vars['item']->value->getCategory()->getName();?>
 </span>
-                                            <h6 class="mb-1 mt-1"><?php echo $_smarty_tpl->tpl_vars['item']->value->getProduct()->getName();?>
+                                            <h6 class="mb-1 mt-1"><?php echo $_smarty_tpl->tpl_vars['item']->value->getName();?>
 </h6>
                                         </td>
                                         <td class="text-end">
-                                            <span class="price fw-bold text-dark">€<?php echo $_smarty_tpl->tpl_vars['item']->value->getProduct()->getPrice();?>
+                                            <span class="price fw-bold text-dark">€<?php echo $_smarty_tpl->tpl_vars['item']->value->getPrice();?>
 </s>
                                         </td>
                                         <td>
                                         <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">Aggiungi al carrello</a>
-                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1">Cancella</a>
+                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1 delete-from-wishlist" data-product_id="<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
+">Cancella</a>
+
                                     </td>
                                     
                                     </tr>
@@ -172,5 +174,37 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     <!--endbuild-->
 </body>
 
-</html><?php }
+</html>
+<?php echo '<script'; ?>
+ src="https://code.jquery.com/jquery-3.6.0.min.js"><?php echo '</script'; ?>
+>
+<?php echo '<script'; ?>
+>
+$(document).ready(function() {
+    $('.delete-from-wishlist').click(function(event) {
+        event.preventDefault();
+
+        var self = $(this); // Salva il riferimento all'elemento cliccato
+        var productId = self.data('product_id');
+        console.log('ID del prodotto:', productId);
+        var heartIcon = $(this).parent().find('.fa-heart'); // Trova l'icona del cuore associata a questo prodotto
+
+        $.post('myWishlist.php', { product_id: productId }, function(response) {
+            if (response.success) {
+                // Rimozione riuscita, esegui le azioni necessarie
+                self.remove(); // Rimuovi il link "Cancella" dalla pagina
+
+                // Aggiorna il cuore a vuoto
+                heartIcon.removeClass('filled-heart').addClass('empty-heart');
+                
+                alert('Prodotto rimosso dalla wishlist con successo!');
+            } else {
+                // Gestisci un eventuale errore
+                alert('Errore durante la rimozione dalla wishlist: ' + response.message);
+            }
+        }, 'json');
+    });
+});
+<?php echo '</script'; ?>
+><?php }
 }

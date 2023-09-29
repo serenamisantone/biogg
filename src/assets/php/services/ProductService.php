@@ -55,6 +55,7 @@ class ProductService
 
             
             return $product;
+
         }    
         return null;
     }

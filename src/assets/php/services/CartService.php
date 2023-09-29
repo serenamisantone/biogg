@@ -9,6 +9,7 @@ class CartService
     function __construct()
     {
         $this->connection = DbConnection::getInstance()->getConnection();
+        $this->userService = new UserService();
     }
 
     public function createShoppingCart()
@@ -30,7 +31,7 @@ class CartService
             }
 
             $userId = $_SESSION['auth']['user'];
-            $cart->setUser($this->getUserById($userId));
+            $cart->setUser($this->userService->getUserById($userId));
             $result = $this->connection->query("INSERT INTO shopping_cart(user_id, is_open) values ({$userId}, 1) ");
             if (!$result) {
                 Header("Location: error.php?Shopping_cart_non_inserita");
@@ -54,7 +55,7 @@ class CartService
             if (isset($_SESSION['cart'])) {
                 $userId = $_SESSION['auth']['user'];
                 $shoppingCartId = $this->connection->query("SELECT id FROM shopping_cart WHERE user_id = '{$userId}'; ");
-                $result = $this->connection->query("INSERT INTO shopping_cart_prduct(shopping_cart_product, product_id, added_quantity, actual_price) values ({$shoppingCartId}, {$cart_product->getProduct()->getId()},{$cart_product->getAddedQuantity()}, {$cart_product->getActualPrice()} ); ");
+                $result = $this->connection->query("INSERT INTO shopping_cart_product(shopping_cart_product, product_id, added_quantity, actual_price) values ({$shoppingCartId}, {$cart_product->getProduct()->getId()},{$cart_product->getAddedQuantity()}, {$cart_product->getActualPrice()} ); ");
             } else {
                 $this->createShoppingCart();
             }

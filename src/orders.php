@@ -2,7 +2,7 @@
 require_once("./assets/Config.php");
 require_once("./assets/php/services/UserService.php");
 require_once("./assets/php/models/User.php");
-
+session_start();
 $user = new User();
 $userService = new UserService();
 $user = $userService->getUserById($_SESSION['auth']['user']);

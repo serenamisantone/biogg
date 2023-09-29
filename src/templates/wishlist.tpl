@@ -60,20 +60,21 @@
                                 </thead>
                                 <tbody>
                                 {foreach $wishlistItems as $item}
-                                    <tr>
+                                    <tr>    
                                         <td class="text-center thumbnail">
-                                            <img src="assets/img/products/{$item->getProduct()->getImage()}" alt="product-thumb" class="img-fluid">
+                                            <img src="assets/img/products/{$item->getImage()}" alt="product-thumb" class="img-fluid">
                                         </td>
                                         <td>
-                                            <span class="fw-bold text-secondary fs-xs">{$item->getProduct()->getCategory()->getName()}</span>
-                                            <h6 class="mb-1 mt-1">{$item->getProduct()->getName()}</h6>
+                                            <span class="fw-bold text-secondary fs-xs">{$item->getCategory()->getName()}</span>
+                                            <h6 class="mb-1 mt-1">{$item->getName()}</h6>
                                         </td>
                                         <td class="text-end">
-                                            <span class="price fw-bold text-dark">€{$item->getProduct()->getPrice()}</s>
+                                            <span class="price fw-bold text-dark">€{$item->getPrice()}</s>
                                         </td>
                                         <td>
                                         <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">Aggiungi al carrello</a>
-                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1">Cancella</a>
+                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1 delete-from-wishlist" data-product_id="{$item->getId()}">Cancella</a>
+
                                     </td>
                                     
                                     </tr>
@@ -113,3 +114,31 @@
 </body>
 
 </html>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('.delete-from-wishlist').click(function(event) {
+        event.preventDefault();
+
+        var self = $(this); // Salva il riferimento all'elemento cliccato
+        var productId = self.data('product_id');
+        console.log('ID del prodotto:', productId);
+        var heartIcon = $(this).parent().find('.fa-heart'); // Trova l'icona del cuore associata a questo prodotto
+
+        $.post('myWishlist.php', { product_id: productId }, function(response) {
+            if (response.success) {
+                // Rimozione riuscita, esegui le azioni necessarie
+                self.remove(); // Rimuovi il link "Cancella" dalla pagina
+
+                // Aggiorna il cuore a vuoto
+                heartIcon.removeClass('filled-heart').addClass('empty-heart');
+                
+                alert('Prodotto rimosso dalla wishlist con successo!');
+            } else {
+                // Gestisci un eventuale errore
+                alert('Errore durante la rimozione dalla wishlist: ' + response.message);
+            }
+        }, 'json');
+    });
+});
+</script>
