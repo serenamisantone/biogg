@@ -73,7 +73,7 @@
                                         </td>
                                         <td>
                                         <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">Aggiungi al carrello</a>
-                                        <a href="#" id="remove-button"class="btn btn-primary btn-sm ms-5 rounded-1" data-product-id="{$item->getId()}">Cancella</a>
+                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1" onclick="removeFromWishlist({$item->getId()})"data-product-id="{$item->getId()}">Cancella</a>
 
                                     </td>
                                     

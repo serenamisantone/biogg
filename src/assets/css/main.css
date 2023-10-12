@@ -1,18 +1,7 @@
 @import"https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap";
 @import"https://fonts.googleapis.com/css2?family=Oleo+Script&display=swap";
-/* Icona del cuore vuota */
-.empty-heart::before {
-    content: '\f08a'; /* Codice Unicode dell'icona del cuore vuota (font Awesome) */
-    color: #ccc; /* Colore del cuore vuoto (grigio) */
-    font-size: 18px; /* Dimensione del cuore vuoto */
-}
 
-/* Icona del cuore piena */
-.filled-heart::before {
-    content: '\f004'; /* Codice Unicode dell'icona del cuore pieno (font Awesome) */
-    color: #e74c3c; /* Colore del cuore pieno (rosso o un altro colore a tua scelta) */
-    font-size: 18px; /* Dimensione del cuore pieno */
-}
+
 
 
 .bg-primary-light {

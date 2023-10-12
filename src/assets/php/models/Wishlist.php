@@ -45,16 +45,18 @@ class Wishlist
   {
     $this->productsId = $productsId;
   }
- public function addProducts($addedproduct){
-  $found=false;
-  foreach($this->productsId as $product){
-    if($product==$addedproduct){
-      $found=true;
-    } 
-  } if (!$found){
-array_push($this->productsId, $addedproduct);
-return true;
+  public function addProducts($addedproduct)
+  {
+    $found = false;
+    foreach ($this->productsId as $product) {
+      if ($product == $addedproduct) {
+        $found = true;
+      }
+    }
+    if (!$found) {
+      array_push($this->productsId, $addedproduct);
+      return true;
+    }
+    return false;
   }
-  return false;
- }
 }

@@ -15,8 +15,9 @@ try {
             if ($removeToWishlist) {
                 // Rimozione riuscita, ritorna una risposta JSON di successo
                 header('Content-Type: application/json');
-                $response = ['success' => true];
+                $response = ['success' => true, 'iconClass' => 'far fa-heart'];
                 echo json_encode($response);
+
                 exit; // Termina lo script dopo l'invio della risposta JSON
             } else {
                 // Gestisci l'errore di rimozione

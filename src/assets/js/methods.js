@@ -35,61 +35,72 @@ checkButtonState();
 
 
 
-function addToWishlist(linkElement) {
-  // Ottieni lo stato corrente della wishlist dall'attributo "data-isInWishlist".
-  const isInWishlist = linkElement.getAttribute('data-isInWishlist') === 'true';
-
-  
-  // Ottieni l'ID del prodotto dall'attributo "data-productId".
-  const productId = linkElement.getAttribute('data-productId');
-
-  // Determina l'URL del server in base a isInWishlist.
-  const serverUrl = isInWishlist ? 'myWishlist.php' : 'shop.php';
-
-
-  // Esegui una chiamata POST all'URL appropriato.
-  fetch(serverUrl, {
-      method: 'POST',
-      body: JSON.stringify({ product_id: productId }),
-      headers: {
-          'Content-Type': 'application/json'
-      }
-  })
-
-  .then(response => {
-    /*response.text() // Ottieni il corpo della risposta come testo
-    .then(bodyText => {
-      console.log(bodyText); // Stampa il corpo della risposta nella console come testo
-    })*/
-    // Stampa l'intera risposta HTTP nella console
-  
-    if (!response.ok) {
-        throw new Error('Errore nella chiamata POST1');
+function heartWishlist(button, productId) {
+  var icon = button.querySelector('i');
+  // Leggi il valore di isInWishlist dall'attributo data
+  var isInWishlist = icon.getAttribute("data-isInWishlist") === "true";
+  if (isInWishlist) {
+    var url = "/biogg/src/myWishlist.php"; // URL predefinito per l'aggiunta alla lista dei desideri
+    } else{
+      url = "/biogg/src/shop.php";
     }
-    return response.json();
-  })
-  
-  .then(data => {
-      // In base alla risposta dal server, aggiorna lo stato della wishlist e l'aspetto del cuore.
-      if (data.success) {
-          // La richiesta è stata completata con successo.
-          if (!isInWishlist) {
-              // Il prodotto è stato aggiunto alla wishlist, quindi cambia l'aspetto del cuore.
-              linkElement.setAttribute('data-isInWishlist', 'true');
-              linkElement.querySelector('i').classList.remove('empty-heart');
-              linkElement.querySelector('i').classList.add('filled-heart');
-          } else {
-              // Il prodotto è stato rimosso dalla wishlist, quindi cambia l'aspetto del cuore.
-              linkElement.setAttribute('data-isInWishlist', 'false');
-              linkElement.querySelector('i').classList.remove('filled-heart');
-              linkElement.querySelector('i').classList.add('empty-heart');
-          }
+  // Se isInWishlist è true, cambia l'URL per l'operazione di rimozione
+
+  $.ajax({
+    type: "POST",
+    url: url,
+    data: { product_id: productId },
+    success: function (response) {
+
+
+      if (response.success) {
+        
+        if (isInWishlist) {
+          alert("Prodotto rimosso dalla wishlist con successo");
+          // Cambia l'icona a cuore vuoto (rimozione dalla lista dei desideri)
+          icon.className= "far fa-heart";
+          icon.setAttribute("data-isInWishlist", "false");
+        } else {
+          alert("Prodotto aggiunto alla wishlist con successo");
+          // Cambia l'icona a cuore pieno (aggiunta alla lista dei desideri)
+          icon.className="fas fa-heart";
+          icon.setAttribute("data-isInWishlist", "true");
+          
+        }
+        // Aggiorna dinamicamente l'icona del cuore o l'interfaccia utente qui.
       } else {
-          console.error('Errore nella chiamata POST2:', data.message); // Mostra il messaggio di errore del server
+        alert("Errore durante l'operazione: " + response.message);
       }
-  })
-  
+    },
+    error: function () {
+      alert("Si è verificato un errore durante l'operazione");
+    }
+  });
 }
+
+function removeFromWishlist(productId){
+  $.ajax({
+    type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
+    url: "/biogg/src/myWishlist.php", // URL del tuo script PHP
+    data: { product_id: productId },// Dati da passare al server
+    success: function(response) {
+        // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+        if (response.success) {
+            alert("Prodotto rimosso dalla wishlist con successo!");
+            var row = document.querySelector('a[data-product-id="' + productId + '"]').closest('tr');
+            row.remove();
+        } else {
+            alert("Errore durante la rimozione del prodotto dalla wishlist: " + response.message);
+        }
+    },
+    error: function() {
+        // Gestisci eventuali errori durante la chiamata AJAX
+        alert("Si è verificato un errore durante la rimozione del prodotto dalla wishlist.");
+    }
+});
+
+}
+
 
 function removeFromCart(productId, cartId) {
   // Esegui una chiamata AJAX per chiamare il metodo PHP di rimozione dal carrello

@@ -56,6 +56,7 @@ try {
     $smarty->assign("current_view", "shop.tpl");
     $smarty->assign("all_products", $productService->getAllProductsOnline());
     $smarty->assign("all_categories", $productService->getAllCategories());
+    $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {
     $smarty->assign("content_load", "404.tpl");

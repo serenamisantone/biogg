@@ -88,9 +88,7 @@ function addProductToWishlist($productId) {
                     // Inserisci il prodotto nella wishlist
                     $result = $this->connection->query("INSERT INTO wishlist_product(wishlist_id, product_id) values ({$wishlistId}, {$productId});");
                   return true;
-                }else{
-                  return false;
-    }
+                }
     } 
       //se sono autenticata ma non ho una wishlist
       if(isset($_SESSION['wishlist'])){
@@ -103,31 +101,30 @@ function addProductToWishlist($productId) {
             // Inserisci il prodotto nella wishlist
             $result = $this->connection->query("INSERT INTO wishlist_product(wishlist_id, product_id) values ({$wishlistId}, {$productId});");
          return true;
-         }else{
-          return false;
-}
+        
     } else{ 
         //non avevo una wishlist prima di autenticarmi
          $wishlistId=  $this->createWishlist();
             // Inserisci il prodotto nella wishlist
             $result = $this->connection->query("INSERT INTO wishlist_product(wishlist_id, product_id) values ({$wishlistId}, {$productId});");
-           
+           return true;
 }
-      } else  { 
+      }} else  { 
     //se non sono autenticata
     //se non sono autenticata e ho una wishlist
     if(isset($_SESSION['wishlist'])){
         //controlla se è già nella wishlist e aggiunge nel caso
-        $_SESSION['wishlist']->addProducts($productId);
-        
+       $bool =  $_SESSION['wishlist']->addProducts($productId);
+        return $bool;
  
 } else{
         //se non sono autenticata e non ho una wishlist
        $this->createWishlist();
        //aggiunge il prodotto
-       $_SESSION['wishlist']->addProducts($productId);
-      
-}
+       $bool =  $_SESSION['wishlist']->addProducts($productId);
+        return $bool;
+}  
+
 }
 }
 
@@ -163,15 +160,18 @@ function removeToWishlist($productId) {
 
         // Rimuovi il prodotto dalla variabile di sessione
         if(isset($_SESSION['wishlist'])) {
-            $key = array_search($productId, $_SESSION['wishlist']);
-            if ($key !== false) {
-                unset($_SESSION['wishlist'][$key]);
-                // Aggiorna la variabile di sessione
-                $_SESSION['wishlist'] = array_values($_SESSION['wishlist']);
-                return true;
+                $wishlist = $_SESSION['wishlist'];
+                $updatedProductsId = $wishlist->getProductsId();
+                $key = array_search($productId, $updatedProductsId);
+        
+                if ($key !== false) {
+                    unset($updatedProductsId[$key]);
+                    $wishlist->setProductsId(array_values($updatedProductsId));
+                    $_SESSION['wishlist'] = $wishlist; // Aggiorna la Wishlist nella variabile di sessione
+                    return true;
+                }
+        
+                return false;
             }
-            return false;
         }
-  
-}
-}
+    }
