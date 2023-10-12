@@ -1,6 +1,8 @@
 <head>
 <link rel="stylesheet" href="src/assets/css/main.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
 </head>
 <!--main content wrapper start-->
 <div class="main-wrapper">
@@ -72,14 +74,23 @@
                     
                         <div class="row g-4 justify-content-center">
                         {foreach $all_products as $product}
+                            {assign var="isInWishlist" value=false}
+                            {foreach $product_wishlist as $wproduct}
+                                {if $wproduct->getId() == $product->getId()}
+                                    {assign var="isInWishlist" value=true}
+                                    {break}
+                                {/if}
+                            {/foreach}
                         <div class="col-lg-4 col-md-6 col-sm-10">
                             <div class="vertical-product-card rounded-2 position-relative border-0 bg-white bg-white">
                                 <span class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">-12% OFF</span>
                                 <div class="thumbnail position-relative text-center p-4">
                                 <img src="assets/img/products/{$product->getImage()}" alt="apple" class="img-fluid"> 
-                                <a href="#" class="rounded-btn addToWishlist" data-product_id="{$product->getId()}">
-                                <i class="fas fa-heart empty-heart"></i>
-                                     </a>
+                                
+                            <a href="#" class="rounded-btn" data-isInWishlist="{if $isInWishlist}true{else}false{/if}" data-productId="{$product->getId()}" onclick="addToWishlist(this)">
+                            <i class="fas {if $isInWishlist}fa-heart filled-heart{else}fa-heart empty-heart{/if}"></i>
+                        </a>
+                        
                                     </div> 
                                 <div class="card-content">
                                     <div class="mb-2 tt-category tt-line-clamp tt-clamp-1">
@@ -115,35 +126,10 @@
     </div>
 </section>
 <!--shop grid section end-->
-<!-- Includi jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="assets/js/methods.js"></script>
 <script>
-$(document).ready(function() {
-    $('.addToWishlist').click(function(event) {
-        event.preventDefault(); // Evita il comportamento predefinito del collegamento e non ricaricare la pagina
-
-        var self = $(this); // Salva il riferimento all'elemento cliccato
-        var productId = self.data('product_id');
-        var heartIcon = $(this).find('i.fa-heart');
-        
-        // Crea un oggetto di dati da inviare con la richiesta POST
-
-        // Esegui la richiesta POST
-        $.post('shop.php', { product_id: productId }, function(response) {
-            if (response.success) {
-                // Il prodotto è stato aggiunto con successo alla wishlist, esegui le azioni necessarie (cambia il colore dell'icona a cuore, mostra un messaggio, ecc.)
-                
-                // Cambia l'icona del cuore alla versione colorata
-                heartIcon.removeClass('empty-heart').addClass('filled-heart');
-                
-                alert('Prodotto aggiunto alla wishlist con successo!');
-            } else {
-                // Gestisci un eventuale errore
-                alert('Errore durante l\'aggiunta alla wishlist: ' + response.message);
-            }
-        }, 'json'); // Imposta il tipo di dati atteso come JSON
-    });
-});
-
-    
+  var isInWishlist = {$isInWishlist}; // Dichiarazione della variabile isInWishlist
+  var productId = {$product->getId()}; // Dichiarazione della variabile productId
 </script>
+

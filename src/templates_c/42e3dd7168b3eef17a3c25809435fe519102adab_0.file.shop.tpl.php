@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-09-28 11:45:42
+/* Smarty version 4.3.0, created on 2023-10-12 16:20:31
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\shop.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_65154b460432e6_99993649',
+  'unifunc' => 'content_652800afe8cfb2_57887159',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '42e3dd7168b3eef17a3c25809435fe519102adab' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\shop.tpl',
-      1 => 1695894311,
+      1 => 1697120398,
       2 => 'file',
     ),
   ),
@@ -20,10 +20,12 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65154b460432e6_99993649 (Smarty_Internal_Template $_smarty_tpl) {
+function content_652800afe8cfb2_57887159 (Smarty_Internal_Template $_smarty_tpl) {
 ?><head>
 <link rel="stylesheet" href="src/assets/css/main.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
 </head>
 <!--main content wrapper start-->
 <div class="main-wrapper">
@@ -111,16 +113,36 @@ $_smarty_tpl->tpl_vars['product']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['product']->value) {
 $_smarty_tpl->tpl_vars['product']->do_else = false;
 ?>
+                            <?php $_smarty_tpl->_assignInScope('isInWishlist', false);?>
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['product_wishlist']->value, 'wproduct');
+$_smarty_tpl->tpl_vars['wproduct']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['wproduct']->value) {
+$_smarty_tpl->tpl_vars['wproduct']->do_else = false;
+?>
+                                <?php if ($_smarty_tpl->tpl_vars['wproduct']->value->getId() == $_smarty_tpl->tpl_vars['product']->value->getId()) {?>
+                                    <?php $_smarty_tpl->_assignInScope('isInWishlist', true);?>
+                                    <?php break 1;?>
+                                <?php }?>
+                            <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                         <div class="col-lg-4 col-md-6 col-sm-10">
                             <div class="vertical-product-card rounded-2 position-relative border-0 bg-white bg-white">
                                 <span class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">-12% OFF</span>
                                 <div class="thumbnail position-relative text-center p-4">
                                 <img src="assets/img/products/<?php echo $_smarty_tpl->tpl_vars['product']->value->getImage();?>
 " alt="apple" class="img-fluid"> 
-                                <a href="#" class="rounded-btn addToWishlist" data-product_id="<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
+                                
+                                <form action="shop.php" method="POST">
+                                <!-- Includi un campo nascosto per l'ID del prodotto -->
+                                <input type="hidden" name="product_id" value="<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
 ">
-                                <i class="fas fa-heart empty-heart"></i>
-                                     </a>
+                                <button type="submit" class="rounded-btn">
+                                    <i class="fas <?php if ($_smarty_tpl->tpl_vars['isInWishlist']->value) {?>fa-heart filled-heart<?php } else { ?>fa-heart empty-heart<?php }?>"></i>
+                                </button>
+                            </form>
+                            
                                     </div> 
                                 <div class="card-content">
                                     <div class="mb-2 tt-category tt-line-clamp tt-clamp-1">
@@ -161,41 +183,20 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
     </div>
 </section>
 <!--shop grid section end-->
-<!-- Includi jQuery -->
 <?php echo '<script'; ?>
  src="https://code.jquery.com/jquery-3.6.0.min.js"><?php echo '</script'; ?>
 >
 <?php echo '<script'; ?>
+ src="assets/js/methods.js"><?php echo '</script'; ?>
 >
-$(document).ready(function() {
-    $('.addToWishlist').click(function(event) {
-        event.preventDefault(); // Evita il comportamento predefinito del collegamento e non ricaricare la pagina
-
-        var self = $(this); // Salva il riferimento all'elemento cliccato
-        var productId = self.data('product_id');
-        var heartIcon = $(this).find('i.fa-heart');
-        
-        // Crea un oggetto di dati da inviare con la richiesta POST
-
-        // Esegui la richiesta POST
-        $.post('shop.php', { product_id: productId }, function(response) {
-            if (response.success) {
-                // Il prodotto è stato aggiunto con successo alla wishlist, esegui le azioni necessarie (cambia il colore dell'icona a cuore, mostra un messaggio, ecc.)
-                
-                // Cambia l'icona del cuore alla versione colorata
-                heartIcon.removeClass('empty-heart').addClass('filled-heart');
-                
-                alert('Prodotto aggiunto alla wishlist con successo!');
-            } else {
-                // Gestisci un eventuale errore
-                alert('Errore durante l\'aggiunta alla wishlist: ' + response.message);
-            }
-        }, 'json'); // Imposta il tipo di dati atteso come JSON
-    });
-});
-
-    
+<?php echo '<script'; ?>
+>
+  var isInWishlist = <?php echo $_smarty_tpl->tpl_vars['isInWishlist']->value;?>
+; // Dichiarazione della variabile isInWishlist
+  var productId = <?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
+; // Dichiarazione della variabile productId
 <?php echo '</script'; ?>
 >
+
 <?php }
 }

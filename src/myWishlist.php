@@ -7,13 +7,10 @@ $smarty = new Config();
 $wishlistService = new WishlistService();
 
 try {
-    if (isset($_SESSION['auth'])) {
-        $userId = $_SESSION['auth']['user'];
-
         // Se è stata inviata una richiesta POST con un product_id, esegui la rimozione dalla wishlist
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
             $productId = $_POST['product_id'];
-            $removeToWishlist = $wishlistService->removeToWishlist($userId, $productId);
+            $removeToWishlist = $wishlistService->removeToWishlist($productId);
 
             if ($removeToWishlist) {
                 // Rimozione riuscita, ritorna una risposta JSON di successo
@@ -28,15 +25,17 @@ try {
                 echo json_encode($response);
                 exit; // Termina lo script dopo l'invio della risposta JSON
             }
-        }
 
         // Dopo la gestione della rimozione, ottieni i prodotti aggiornati nella wishlist
-        $smarty->assign("wishlistItems", $wishlistService->getUserWishlist($userId));
+        $smarty->assign("wishlistItems", $wishlistService->getUserWishlist());
         $smarty->assign("current_view", "wishlist.tpl");
         $smarty->display("index.tpl");
-    } else {
-        $smarty->assign("current_view", "login.tpl");
+    } else{
+        $smarty->assign("wishlistItems", $wishlistService->getUserWishlist());
+        $smarty->assign("current_view", "wishlist.tpl");
         $smarty->display("index.tpl");
+
+
     }
 } catch (Exception $e) {
     $smarty->assign("current_view", "404.tpl");

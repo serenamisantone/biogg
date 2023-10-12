@@ -73,7 +73,7 @@
                                         </td>
                                         <td>
                                         <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">Aggiungi al carrello</a>
-                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1 delete-from-wishlist" data-product_id="{$item->getId()}">Cancella</a>
+                                        <a href="#" id="remove-button"class="btn btn-primary btn-sm ms-5 rounded-1" data-product-id="{$item->getId()}">Cancella</a>
 
                                     </td>
                                     
@@ -98,47 +98,9 @@
     <!--scroll bottom to top button end-->
     <!--build:js-->
     <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/vendors/jquery-ui.min.js"></script>
-    <script src="assets/js/vendors/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/vendors/swiper-bundle.min.js"></script>
-    <script src="assets/js/vendors/jquery.magnific-popup.min.js"></script>
-    <script src="assets/js/vendors/simplebar.min.js"></script>
-    <script src="assets/js/vendors/parallax-scroll.js"></script>
-    <script src="assets/js/vendors/isotop.pkgd.min.js"></script>
-    <script src="assets/js/vendors/countdown.min.js"></script>
-    <script src="assets/js/vendors/range-slider.js"></script>
-    <script src="assets/js/vendors/waypoints.js"></script>
-    <script src="assets/js/vendors/counterup.min.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/methods.js"></script>
     <!--endbuild-->
 </body>
 
 </html>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.delete-from-wishlist').click(function(event) {
-        event.preventDefault();
 
-        var self = $(this); // Salva il riferimento all'elemento cliccato
-        var productId = self.data('product_id');
-        console.log('ID del prodotto:', productId);
-        var heartIcon = $(this).parent().find('.fa-heart'); // Trova l'icona del cuore associata a questo prodotto
-
-        $.post('myWishlist.php', { product_id: productId }, function(response) {
-            if (response.success) {
-                // Rimozione riuscita, esegui le azioni necessarie
-                self.remove(); // Rimuovi il link "Cancella" dalla pagina
-
-                // Aggiorna il cuore a vuoto
-                heartIcon.removeClass('filled-heart').addClass('empty-heart');
-                
-                alert('Prodotto rimosso dalla wishlist con successo!');
-            } else {
-                // Gestisci un eventuale errore
-                alert('Errore durante la rimozione dalla wishlist: ' + response.message);
-            }
-        }, 'json');
-    });
-});
-</script>

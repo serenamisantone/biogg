@@ -104,4 +104,14 @@ class Product
       return $this->name;
     }
 
+    public function isInWishlist($productId) {
+        // Verifica se l'ID del prodotto è presente nella wishlist dell'utente in sessione
+        if (isset($_SESSION['wishlist'])) {
+            return in_array($productId, $_SESSION['wishlist']);
+        }
+        return false;
+    }
+    
 }
+
+

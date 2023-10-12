@@ -13,25 +13,18 @@ $wishlistService = new WishlistService();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
     $addedToWishlist = false;
     $productId = $_POST['product_id'];
-    if (isset($_SESSION['auth']['wishlist'])) {
        $addedToWishlist= $wishlistService->addProductToWishlist($productId);
-    } else {
-        if (isset($_SESSION['wishlist'])) {
-            $addedToWishlist=$wishlistService->addProductToWishlist($productId);
-        } else {
-            $_SESSION['wishlist'] = new Wishlist();
-            $addedToWishlist=$wishlistService->addProductToWishlist($productId);
-        }
-    }
 
     if ($addedToWishlist) {
         header('Content-Type: application/json');
         $response = ['success' => true];
         echo json_encode($response);
+        exit;
     } else {
         header('Content-Type: application/json');
         $response = ['success' => false, 'message' => 'Prodotto già nella wishlist'];
         echo json_encode($response);
+        exit;
     }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addProduct'])) {
     $productId = $_POST['addProduct'];
@@ -53,10 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
         $smarty->assign("current_view", "shop.tpl");
         $smarty->assign("all_products", $productService->getAllProductsOnline());
         $smarty->assign("all_categories", $productService->getAllCategories());
+        $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
         $smarty->display("index.tpl");
     } catch (SmartyException $e) {
         $smarty->assign("content_load", "404.tpl");
         $smarty->display("index.tpl");
     }
 }
+
 ?>
