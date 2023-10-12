@@ -1,149 +1,172 @@
 <head>
-<link rel="stylesheet" href="src/assets/css/main.min.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="src/assets/css/main.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <!--main content wrapper start-->
 <div class="main-wrapper">
-<!--breadcrumb section start-->
-<div class="gstore-breadcrumb position-relative z-1 overflow-hidden mt--50">
-    <img src="assets/img/shapes/bg-shape-6.png" alt="bg-shape" class="position-absolute start-0 z--1 w-100 bg-shape">
-    <img src="assets/img/shapes/pata-xs.svg" alt="pata" class="position-absolute pata-xs z--1 vector-shape">
-    <img src="assets/img/shapes/onion.png" alt="onion" class="position-absolute z--1 onion start-0 top-0 vector-shape">
-    <img src="assets/img/shapes/frame-circle.svg" alt="frame circle" class="position-absolute z--1 frame-circle vector-shape">
-    <img src="assets/img/shapes/leaf.svg" alt="leaf" class="position-absolute z--1 leaf vector-shape">
-    <img src="assets/img/shapes/garlic-white.png" alt="garlic" class="position-absolute z--1 garlic vector-shape">
-    <img src="assets/img/shapes/roll-1.png" alt="roll" class="position-absolute z--1 roll vector-shape">
-    <img src="assets/img/shapes/roll-2.png" alt="roll" class="position-absolute z--1 roll-2 vector-shape">
-    <img src="assets/img/shapes/pata-xs.svg" alt="roll" class="position-absolute z--1 pata-xs-2 vector-shape">
-    <img src="assets/img/shapes/tomato-half.svg" alt="tomato" class="position-absolute z--1 tomato-half vector-shape">
-    <img src="assets/img/shapes/tomato-slice.svg" alt="tomato" class="position-absolute z--1 tomato-slice vector-shape">
-    <img src="assets/img/shapes/cauliflower.png" alt="tomato" class="position-absolute z--1 cauliflower vector-shape">
-    <img src="assets/img/shapes/leaf-gray.png" alt="tomato" class="position-absolute z--1 leaf-gray vector-shape">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="breadcrumb-content">
-                    <h1 class="mb-2 text-center">Shop</h1>
-                </div>
+    <!--breadcrumb section start-->
+    <div class="gstore-breadcrumb position-relative z-1 overflow-hidden mt--50">
+        <img src="assets/img/shapes/bg-shape-6.png" alt="bg-shape"
+            class="position-absolute start-0 z--1 w-100 bg-shape">
+        <img src="assets/img/shapes/pata-xs.svg" alt="pata" class="position-absolute pata-xs z--1 vector-shape">
+        <img src="assets/img/shapes/onion.png" alt="onion"
+            class="position-absolute z--1 onion start-0 top-0 vector-shape">
+        <img src="assets/img/shapes/frame-circle.svg" alt="frame circle"
+            class="position-absolute z--1 frame-circle vector-shape">
+        <img src="assets/img/shapes/leaf.svg" alt="leaf" class="position-absolute z--1 leaf vector-shape">
+        <img src="assets/img/shapes/garlic-white.png" alt="garlic" class="position-absolute z--1 garlic vector-shape">
+        <img src="assets/img/shapes/roll-1.png" alt="roll" class="position-absolute z--1 roll vector-shape">
+        <img src="assets/img/shapes/roll-2.png" alt="roll" class="position-absolute z--1 roll-2 vector-shape">
+        <img src="assets/img/shapes/pata-xs.svg" alt="roll" class="position-absolute z--1 pata-xs-2 vector-shape">
+        <img src="assets/img/shapes/tomato-half.svg" alt="tomato"
+            class="position-absolute z--1 tomato-half vector-shape">
+        <img src="assets/img/shapes/tomato-slice.svg" alt="tomato"
+            class="position-absolute z--1 tomato-slice vector-shape">
+        <img src="assets/img/shapes/cauliflower.png" alt="tomato"
+            class="position-absolute z--1 cauliflower vector-shape">
+        <img src="assets/img/shapes/leaf-gray.png" alt="tomato" class="position-absolute z--1 leaf-gray vector-shape">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadcrumb-content">
+                        <h1 class="mb-2 text-center">Shop</h1>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
-</div>
-<!--breadcrumb section end-->
+    <!--breadcrumb section end-->
 
-<!--shop grid section start-->
-<section class="gshop-gshop-grid ptb-120">
-    <div class="container">
-        <div class="row g-4">
-            <div class="col-xl-3">
-                <div class="gshop-sidebar bg-white rounded-2 overflow-hidden">
-                    <div class="sidebar-widget search-widget bg-white py-5 px-4">
-                        <div class="widget-title d-flex">
-                            <h6 class="mb-0 flex-shrink-0">Search Now</h6>
-                            <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
+    <!--shop grid section start-->
+    <section class="gshop-gshop-grid ptb-120">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-xl-3">
+                    <div class="gshop-sidebar bg-white rounded-2 overflow-hidden">
+                        <div class="sidebar-widget search-widget bg-white py-5 px-4">
+                            <div class="widget-title d-flex">
+                                <h6 class="mb-0 flex-shrink-0">Search Now</h6>
+                                <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
+                            </div>
+                            <form class="search-form d-flex align-items-center mt-4">
+                                <input type="text" placeholder="Search...">
+                                <button type="submit" class="submit-icon-btn-secondary"><i
+                                        class="fa-solid fa-magnifying-glass"></i></button>
+                            </form>
                         </div>
-                        <form class="search-form d-flex align-items-center mt-4">
-                            <input type="text" placeholder="Search...">
-                            <button type="submit" class="submit-icon-btn-secondary"><i class="fa-solid fa-magnifying-glass"></i></button>
-                        </form>
+                        <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top">
+                            <div class="widget-title d-flex">
+                                <h6 class="mb-0 flex-shrink-0">Categories</h6>
+                                <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
+                            </div>
+                            <ul class="widget-nav mt-4">
+                                {foreach $all_categories as $category}
+                                    <li><a href="#"
+                                            class="d-flex justify-content-between align-items-center">{$category->getName()}</a>
+                                    </li>
+                                {{/foreach}}
+                            </ul>
+                        </div>
+
+
                     </div>
-                    <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top">
-                        <div class="widget-title d-flex">
-                            <h6 class="mb-0 flex-shrink-0">Categories</h6>
-                            <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
+                </div>
+                <div class="col-xl-9">
+                    <div class="shop-grid">
+                        <div
+                            class="listing-top d-flex align-items-center justify-content-between flex-wrap gap-3 bg-white rounded-2 px-4 py-5 mb-6">
+                            <p class="mb-0 fw-bold">Showing 1-12 of 45 results</p>
+
                         </div>
-                        <ul class="widget-nav mt-4">
-                        {foreach $all_categories as $category}
-                            <li><a href="#" class="d-flex justify-content-between align-items-center">{$category->getName()}</a></li>
-                         {{/foreach}}   
+
+                        <div class="row g-4 justify-content-center">
+                            {foreach $all_products as $product}
+                                <div class="col-lg-4 col-md-6 col-sm-10">
+                                    <div
+                                        class="vertical-product-card rounded-2 position-relative border-0 bg-white bg-white">
+                                        <span
+                                            class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">-12%
+                                            OFF</span>
+                                        <div class="thumbnail position-relative text-center p-4">
+                                            <img src="assets/img/products/{$product->getImage()}" alt="apple"
+                                                class="img-fluid">
+                                            <a href="#" class="rounded-btn addToWishlist"
+                                                data-product_id="{$product->getId()}">
+                                                <i class="fas fa-heart empty-heart"></i>
+                                            </a>
+                                        </div>
+                                        <div class="card-content">
+                                            <div class="mb-2 tt-category tt-line-clamp tt-clamp-1">
+                                                {assign var="category" value=$product->getCategory()}
+                                                <a href="#"
+                                                    class="d-inline-block text-muted fs-xxs">{$category -> getName()} </a>
+                                            </div>
+                                            <div class="product-card">
+                                                <div style="display: flex; align-items: center;">
+                                                    <a href="#"
+                                                        class="card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2"
+                                                        style="flex: 1; text-decoration: none;">
+                                                        <span class="product-name">{$product->getName()}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <h6 class="price text-danger mb-4">€{$product->getPrice()}
+                                            </h6>
+                                            <form method="POST" action="shop.php">
+                                                <input type="hidden" name="addProduct" value="{$product->getId()}">
+                                                <button type="submit"
+                                                    class="btn btn-outline-secondary d-block btn-md">Aggiungi al
+                                                    carrello</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            {/foreach}
+
+                        </div>
+                        <ul class="template-pagination d-flex align-items-center mt-6">
+                            <li><a href="#" class="active">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
                         </ul>
                     </div>
-                    
-
-                </div>
-            </div>
-            <div class="col-xl-9">
-                <div class="shop-grid">
-                    <div class="listing-top d-flex align-items-center justify-content-between flex-wrap gap-3 bg-white rounded-2 px-4 py-5 mb-6">
-                        <p class="mb-0 fw-bold">Showing 1-12 of 45 results</p>
-                        
-                    </div>
-                    
-                        <div class="row g-4 justify-content-center">
-                        {foreach $all_products as $product}
-                        <div class="col-lg-4 col-md-6 col-sm-10">
-                            <div class="vertical-product-card rounded-2 position-relative border-0 bg-white bg-white">
-                                <span class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">-12% OFF</span>
-                                <div class="thumbnail position-relative text-center p-4">
-                                <img src="assets/img/products/{$product->getImage()}" alt="apple" class="img-fluid"> 
-                                <a href="#" class="rounded-btn addToWishlist" data-product_id="{$product->getId()}">
-                                <i class="fas fa-heart empty-heart"></i>
-                                     </a>
-                                    </div> 
-                                <div class="card-content">
-                                    <div class="mb-2 tt-category tt-line-clamp tt-clamp-1">
-                                        {assign var="category" value=$product->getCategory()}
-                                        <a href="#" class="d-inline-block text-muted fs-xxs">{$category -> getName()} </a>
-                                    </div>
-                                    <div class="product-card">
-                                    <div style="display: flex; align-items: center;">
-                                        <a href="#" class="card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2" style="flex: 1; text-decoration: none;">
-                                            <span class="product-name">{$product->getName()}</span>
-                                        </a>
-                                    </div>
-                                    </div>
-                                    <h6 class="price text-danger mb-4">€{$product->getPrice()} 
-                                    </h6>
-                                    <a href="#" class="btn btn-outline-secondary d-block btn-md">Aggiungi al carrello</a>
-                                </div>
-                            </div>
-                        </div>
-                    {/foreach} 
-                            
-                    </div>
-                    <ul class="template-pagination d-flex align-items-center mt-6">
-                        <li><a href="#" class="active">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
-                    </ul>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!--shop grid section end-->
-<!-- Includi jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-$(document).ready(function() {
-    $('.addToWishlist').click(function(event) {
-        event.preventDefault(); // Evita il comportamento predefinito del collegamento e non ricaricare la pagina
+    </section>
+    <!--shop grid section end-->
 
-        var self = $(this); // Salva il riferimento all'elemento cliccato
-        var productId = self.data('product_id');
-        var heartIcon = $(this).find('i.fa-heart');
-        
-        // Crea un oggetto di dati da inviare con la richiesta POST
+    <!-- Includi jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.addToWishlist').click(function(event) {
+                event
+            .preventDefault(); // Evita il comportamento predefinito del collegamento e non ricaricare la pagina
 
-        // Esegui la richiesta POST
-        $.post('shop.php', { product_id: productId }, function(response) {
-            if (response.success) {
-                // Il prodotto è stato aggiunto con successo alla wishlist, esegui le azioni necessarie (cambia il colore dell'icona a cuore, mostra un messaggio, ecc.)
-                
-                // Cambia l'icona del cuore alla versione colorata
-                heartIcon.removeClass('empty-heart').addClass('filled-heart');
-                
-                alert('Prodotto aggiunto alla wishlist con successo!');
-            } else {
-                // Gestisci un eventuale errore
-                alert('Errore durante l\'aggiunta alla wishlist: ' + response.message);
-            }
-        }, 'json'); // Imposta il tipo di dati atteso come JSON
-    });
-});
+                var self = $(this); // Salva il riferimento all'elemento cliccato
+                var productId = self.data('product_id');
+                var heartIcon = $(this).find('i.fa-heart');
 
-    
+                // Crea un oggetto di dati da inviare con la richiesta POST
+
+                // Esegui la richiesta POST
+                $.post('shop.php', { product_id: productId }, function(response) {
+                    if (response.success) {
+                        // Il prodotto è stato aggiunto con successo alla wishlist, esegui le azioni necessarie (cambia il colore dell'icona a cuore, mostra un messaggio, ecc.)
+
+                        // Cambia l'icona del cuore alla versione colorata
+                        heartIcon.removeClass('empty-heart').addClass('filled-heart');
+
+                        alert('Prodotto aggiunto alla wishlist con successo!');
+                    } else {
+                        // Gestisci un eventuale errore
+                        alert('Errore durante l\'aggiunta alla wishlist: ' + response.message);
+                    }
+                }, 'json'); // Imposta il tipo di dati atteso come JSON
+            });
+        });
 </script>

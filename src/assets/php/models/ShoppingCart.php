@@ -11,10 +11,11 @@ class ShoppingCart
 
   public function __construct()
   {
+    //arrai associativo formato da id prodotto e quantità
     $this->products = [];
     $this->shoppingCartId = null;
     $this->user = new User();
-    $this->totalPrice = 0;
+
     $this->isOpen = true;
   }
 
@@ -51,41 +52,46 @@ class ShoppingCart
     $this->isOpen = $isOpen;
   }
 
-  public function addProduct($addedProduct)
+  // Getter per $totalPrice
+  public function getTotalPrice() {
+    return $this->totalPrice;
+}
+
+// Setter per $totalPrice
+public function setTotalPrice($totalPrice) {
+    $this->totalPrice = $totalPrice;
+}
+
+  public function addProduct($id, $quantity)
   {
-    $found = false;
-    foreach ($this->products as $product) {
-      if ($product->getProduct()->getId() === $addedProduct->getProduct()->getId()) {
-        $found = true;
-        $product->setAddedQuantity($addedProduct->getAddedQuantity() + $product->getAddedQuantity());
-        $this->totalPrice += $addedProduct->getProduct()->getPrice();
-      }
-    }
-    if (!$found) {
-      array_push($this->products, $addedProduct);
-      $this->totalPrice += $addedProduct->getProduct()->getPrice();
-    }
+    if (isset($this->products[$id])) {
+      // Il prodotto è già presente nel carrello, incrementa la quantità
+      $this->products[$id] += $quantity;
+  } else {
+      // Il prodotto non è presente nel carrello, aggiungilo
+      $this->products[$id] = $quantity;
+  }
+
+  }
+
+  public function setProducts($products)
+  {
+    $this->products = $products;
   }
 
   public function getProducts()
   {
-    if (isset($this->products)) {
-      return $this->products;
-    } else
-      return null;
+    return $this->products;
   }
 
-  public function getTotalPrice()
-  {
-    return $this->totalPrice;
-  }
+
 
   public function __toString()
   {
 
     if (!empty($this->products)) {
       foreach ($this->products as $product)
-        $string = $string + $product->getProduct()->getName();
+        $string = $string . $product->getProduct()->getName();
       return $string;
     }
     return 'Questo è un carrello vuoto';

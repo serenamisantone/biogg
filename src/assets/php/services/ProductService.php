@@ -5,7 +5,7 @@ require_once("./assets/php/models/Product.php");
 require_once("./assets/php/models/Category.php");
 require_once("./assets/php/models/ProductInfo.php");
 require_once("./assets/php/models/ProductFeature.php");
-
+require_once("./assets/php/models/ShoppingCart.php");
 class ProductService
 {
 
@@ -39,7 +39,8 @@ class ProductService
         }
         return null;
     }
-    public function getProductById($productId){
+    public function getProductById($productId)
+    {
         $query = "SELECT * FROM product WHERE id= '{$productId}'";
         $result = $this->connection->query($query);
         if ($result && $result->num_rows > 0) {
@@ -48,15 +49,15 @@ class ProductService
             $product->setId($row['id']);
             $product->setName($row['name']);
             $product->setPrice($row['price']);
-                $product->setImage($row['image']);
-                $product->setStock($row['stock']);
-                $product->setIsOnline($row['is_online']);
-                $product->setCategory($this -> getCategoryById($row['category_id']));
+            $product->setImage($row['image']);
+            $product->setStock($row['stock']);
+            $product->setIsOnline($row['is_online']);
+            $product->setCategory($this->getCategoryById($row['category_id']));
 
-            
+
             return $product;
 
-        }    
+        }
         return null;
     }
 
@@ -83,18 +84,18 @@ class ProductService
 
     public function addProductFeatures($product)
     {
-        $id=$product->getProductId();
+        $id = $product->getProductId();
         $query = "SELECT * FROM product_feature where product_id=$id";
         $result = $this->connection->query($query);
         if (($result) && ($result->num_rows > 0)) {
-           
+
             while ($row = $result->fetch_assoc()) {
-               
-                $product->addFeatures($row['title'],$row['description']);
-                
+
+                $product->addFeatures($row['title'], $row['description']);
+
             }
-            
-        }else{
+
+        } else {
             Header("Location: error.php?features_non_inserite_");
         }
     }
@@ -129,6 +130,38 @@ class ProductService
             return $categories;
         }
         return array();
+
+    }
+
+    public function getCartProducts($cart)
+    {
+        $products = array();
+        $cartProducts = $cart->getProducts();
+        foreach ($cartProducts as $productId => $quantity) {
+            $product = $this->getProductById($productId);
+
+
+            $productWithQuantity = array(
+                'product' => $product,
+                'quantity' => $quantity
+            );
+            // Aggiungiamo questo array all'array principale
+            $products[] = $productWithQuantity;
+        }
+        return $products;
+    }
+
+    public function getTotalPrice($cart)
+    {
+        $totalPrice=0;
+        $cartProducts = $cart->getProducts();
+        foreach ($cartProducts as $productId => $quantity) {
+            $product = $this->getProductById($productId);
+
+            $totalPrice = $totalPrice+$product->getPrice()*$quantity;
+
+        }
+        return $totalPrice;
 
     }
 }
