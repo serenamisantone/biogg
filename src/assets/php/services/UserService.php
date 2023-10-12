@@ -7,16 +7,18 @@ require_once("./assets/php/models/Review.php");
 require_once("./assets/php/models/ShoppingCartProduct.php");
 require_once("./assets/php/models/Wishlist.php");
 require_once("./assets/php/models/WishlistProduct.php");
+require_once("./assets/php/services/CartService.php");
 
 
 
 class UserService
 {
     private $connection;
-
+    private $cartService;
     function __construct()
     {
         $this->connection = DbConnection::getInstance()->getConnection();
+        $this->cartService = new CartService();
     }
 
     public function getUserById($userId)
@@ -28,7 +30,7 @@ class UserService
 
         if (empty($result)) {
             Header("Location: error.php?user_not_found");
-            return false;
+            return null;
         }
 
         $user = new User();
@@ -79,25 +81,13 @@ class UserService
                         $data = $result->fetch_assoc();
                         $_SESSION['auth']['group'] = $data['name'];
                     }
-    
-                    $result = $this->connection->query("SELECT * from shopping_cart where shopping_cart.user_id = '{$userId}' AND shopping_cart.is_open= 1 ;");
-                    if ($result === false) {
-                        // Errore nella query
-                        Header("Location: error.php?errore_nella_query3");
-                        exit;
-                    } else {
-                        if ($result->num_rows == 0) {
-                            Header("Location: error.php?carrello_non_trovato");
-                            exit;
-                        } else {
-                            $data = $result->fetch_assoc();
-                            $cart = new ShoppingCart();
-                            $cart->setIsOpen(true);
-                            $cart->setUser($this->getUserById($userId));
-                            //assegna prodotti al carrello
-                            $_SESSION['auth']['cart'] = $cart;
-                        }
-                    }
+                     //assegno carrello all'user
+                     $user = $this->getUserById($userId);                    
+                     $this->cartService->assignShoppingCart($user);
+                   
+
+                     
+                    
                     $result = $this->connection->query("SELECT * from wishlist where wishlist.user_id = '{$userId}';");
                     if ($result === false) {
                         // Errore nella query
@@ -111,14 +101,7 @@ class UserService
                             $wishlistId = $lastInsertId['LAST_INSERT_ID()'];
                             foreach($_SESSION['wishlist']->getProductsId() as $productId){
                                 $result = $this->connection->query("INSERT INTO wishlist_product (wishlist_id,product_id) VALUES ('{$wishlistId}','{$productId}') ;");
-                            }
-                            $wishlist = new Wishlist();
-                            $wishlist->setUser($this->getUserById($userId));
-                            $wishlist->setWishlistId($wishlistId);
-                            //assegna prodotti alla wishlist
-                            $_SESSION['auth']['wishlist'] = $wishlist;
-
-                        }}else{
+                            }} else{
                             $data = $result->fetch_assoc();
                             $wishlist = new Wishlist();
                             $wishlist->setUser($this->getUserById($userId));
@@ -126,17 +109,13 @@ class UserService
                             //assegna prodotti alla wishlist
                             $_SESSION['auth']['wishlist'] = $wishlist;
                         }
-                           
-                        }
-                    }
     
                     return true;
                 } else {
         }
+    }}}}
     
-            // user already logged
     
-        }
     
 
 
@@ -192,4 +171,5 @@ class UserService
         }
         return null;
     }
+
 }

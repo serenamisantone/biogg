@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-09-12 15:06:11
+/* Smarty version 4.3.0, created on 2023-10-03 16:12:06
   from 'C:\xampp\htdocs\biogg\src\templates\login.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_65006243700d39_88806130',
+  'unifunc' => 'content_651c213637c1b8_67363523',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '531c5741a5b8e34a3f977ea692ddacc03b9be1f6' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\login.tpl',
-      1 => 1690976415,
+      1 => 1695128845,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65006243700d39_88806130 (Smarty_Internal_Template $_smarty_tpl) {
+function content_651c213637c1b8_67363523 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -46,10 +46,6 @@ function content_65006243700d39_88806130 (Smarty_Internal_Template $_smarty_tpl)
 
 <body>
 
-    <!--preloader start-->
-    <div id="preloader">
-        <img src="assets/img/preloader.gif" alt="preloader" width="450" class="img-fluid">
-    </div>
     <!--main content wrapper start-->
     <div class="main-wrapper">
 

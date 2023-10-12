@@ -91,3 +91,23 @@ function addToWishlist(linkElement) {
   
 }
 
+function removeFromCart(productId, cartId) {
+  // Esegui una chiamata AJAX per chiamare il metodo PHP di rimozione dal carrello
+  $.ajax({
+      type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
+      url: "/biogg/src/index.php", // URL del tuo script PHP
+      data: { productId: productId, cartId: cartId },// Dati da passare al server
+      success: function(response) {
+          // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+          if (response.success) {
+              alert("Prodotto rimosso dal carrello con successo!");
+          } else {
+              alert("Errore durante la rimozione del prodotto dal carrello: " + response.message);
+          }
+      },
+      error: function() {
+          // Gestisci eventuali errori durante la chiamata AJAX
+          alert("Si è verificato un errore durante la rimozione del prodotto dal carrello.");
+      }
+  });
+}
