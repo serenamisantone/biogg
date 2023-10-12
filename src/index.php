@@ -1,34 +1,35 @@
 <?php
-
 require_once("assets/php/services/CartService.php");
 require_once("assets/php/services/UserService.php");
 require_once("assets/php/services/ProductService.php");
 require_once("assets/config.php");
-
 session_start();
 $cartService = new CartService();
 $userService = new UserService();
 $productService = new ProductService();
 $smarty = new Config();
-try {
 
-    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["productId"]) && isset($_POST["cartId"])) {
-        $productId = $_POST["productId"];
-        $cartId = $_POST["cartId"];
-    
-        error_log("Il metodo removeFromCart è stato chiamato con productId: $productId e cartId: $cartId");
-    
-        // Aggiungi istruzioni di debug
-        var_dump($productId, $cartId);
-    
-        $cartService->removeFromCart($productId, $cartId);
+if ($_POST['action'] == 'removeProduct') {
+    $idProduct = $_POST['idProduct'];
+    $idCart = $_POST['idCart'];
+
+    // Effettua la logica per rimuovere il prodotto dal carrello.
+    // Questa logica varierà a seconda di come hai implementato il carrello.
+$result = $cartService->removeFromCart($idProduct,$idCart);
+    // Dopo aver completato la rimozione, puoi restituire una risposta appropriata in formato JSON.
+
+    if ($result) {
+        echo json_encode(['success' => true, 'message' => 'Prodotto rimosso con successo']);
+        exit;
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Prodotto non rimosso']);
+        exit;
     }
-   
-    
-    
-    
-    
-    
+}
+
+
+try {
+  
     if (!isset($_SESSION['cart'])) {
         $cartService->createShoppingCart();
     }
@@ -41,7 +42,6 @@ try {
         $smarty->assign('cartProducts', $productService->getCartProducts($_SESSION['cart']));
         $smarty->assign("totalPrice", $productService->getTotalPrice($_SESSION['cart']));
     }
-
     $smarty->assign("all_reviews", $userService->getAllReviews());
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

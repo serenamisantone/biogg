@@ -74,6 +74,14 @@ public function setTotalPrice($totalPrice) {
 
   }
 
+
+  public function removeProduct($id)
+  {
+    unset($this->product[$id]);
+  }
+
+  
+
   public function setProducts($products)
   {
     $this->products = $products;

@@ -29,26 +29,27 @@ incrementButton.addEventListener('click', () => {
   updateQuantity(true);
 });
 
-// Controlla lo stato dei pulsanti all'avvio
-checkButtonState();
+$(document).on('click', '.remove-product', function(e) {
+  e.preventDefault(); // Previeni il comportamento predefinito del link
+  var idProduct = $(this).data('product-id');
+  var idCart = $(this).data('cart-id');
 
-function removeFromCart(productId, cartId) {
-  // Esegui una chiamata AJAX per chiamare il metodo PHP di rimozione dal carrello
   $.ajax({
-      type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
-      url: "/biogg/src/index.php", // URL del tuo script PHP
-      data: { productId: productId, cartId: cartId },// Dati da passare al server
+      type: 'POST',
+      url: '/biogg/src/index.php?action=removeProduct',
+      data: { idProduct: idProduct, idCart: idCart },
       success: function(response) {
-          // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
-          if (response.success) {
-              alert("Prodotto rimosso dal carrello con successo!");
+          // Analizza la risposta JSON
+          var jsonResponse = JSON.parse(response);
+          if (jsonResponse.success) {
+              // Rimozione riuscita, aggiorna la visualizzazione del carrello
+              // Puoi utilizzare jQuery per selezionare l'elemento del carrello da rimuovere.
+              // Ad esempio, $(this).closest('.product-container').remove();
+              alert("tutto ok: " + jsonResponse.message);
           } else {
-              alert("Errore durante la rimozione del prodotto dal carrello: " + response.message);
+              // Errore durante la rimozione
+              alert("Errore durante la rimozione del prodotto dal carrello: " + jsonResponse.message);
           }
-      },
-      error: function() {
-          // Gestisci eventuali errori durante la chiamata AJAX
-          alert("Si è verificato un errore durante la rimozione del prodotto dal carrello.");
       }
   });
-}
+});

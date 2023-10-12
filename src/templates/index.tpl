@@ -173,12 +173,14 @@
                                                                                 class="price text-primary fw-semibold">{$product->GetPrice()}€
                                                                             </span>
                                                                             <span class="count">x
-                                                                                {$cartProduct['quantity']}</span>
+                                                                                {$cartProduct['quantity']}&nbsp;</span>
                                                                         </div>
-                                                                        <button class="remove_cart_btn"
-                                                                            onclick="removeFromCart({$product->getId()},{$cart->getShoppingCartId()})">
-                                                                            <i class="fas fa-trash-alt"></i>
-                                                                        </button>
+                                                                        <a  class="remove-product"
+                                                                            data-product-id="{$product->getId()}"
+                                                                            data-cart-id="{$cart->getShoppingCartId()}">
+                                                                            <i class="fas fa-trash-alt"></i> 
+                                                                        </a>
+
                                                                     </div>
                                                                 </div>
 

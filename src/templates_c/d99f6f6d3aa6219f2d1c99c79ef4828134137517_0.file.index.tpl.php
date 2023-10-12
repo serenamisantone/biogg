@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-10-07 17:11:20
+/* Smarty version 4.3.0, created on 2023-10-13 00:01:44
   from 'C:\xampp\htdocs\biogg\src\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_652175189aa0f1_68643760',
+  'unifunc' => 'content_65286cc87b7a99_04614674',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd99f6f6d3aa6219f2d1c99c79ef4828134137517' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\index.tpl',
-      1 => 1696691476,
+      1 => 1697147873,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_652175189aa0f1_68643760 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65286cc87b7a99_04614674 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -206,14 +206,16 @@ $_smarty_tpl->tpl_vars['cartProduct']->do_else = false;
                                                                             </span>
                                                                             <span class="count">x
                                                                                 <?php echo $_smarty_tpl->tpl_vars['cartProduct']->value['quantity'];?>
-</span>
+&nbsp;</span>
                                                                         </div>
-                                                                        <button class="remove_cart_btn"
-                                                                            onclick="removeFromCart(<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
-,<?php echo $_smarty_tpl->tpl_vars['cart']->value->getShoppingCartId();?>
-)">
-                                                                            <i class="fas fa-trash-alt"></i>
-                                                                        </button>
+                                                                        <a  class="remove-product"
+                                                                            data-product-id="<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
+"
+                                                                            data-cart-id="<?php echo $_smarty_tpl->tpl_vars['cart']->value->getShoppingCartId();?>
+">
+                                                                            <i class="fas fa-trash-alt"></i> 
+                                                                        </a>
+
                                                                     </div>
                                                                 </div>
 

@@ -174,12 +174,10 @@ class CartService
 
     function removeFromCart($productId,$shoppingCartId) {
         if(isset($_SESSION['auth'])){
-            unset($_SESSION['auth']['cart']->getProducts()[$productId]);
+            $_SESSION['auth']['cart']->removeProduct($productId);
             $result  = $this->connection->query("DELETE FROM shopping_cart_product where shopping_cart_id='{$shoppingCartId}'and product_id='{$productId}'");
+            return $result;
             
-            if(!$result){
-                Header("Location: error.php?errore_nella_rimozione");
-            }
         }else{
 
         }
