@@ -1,55 +1,138 @@
-const decrementButton = document.getElementById('decrement');
-const incrementButton = document.getElementById('increment');
-const quantityInput = document.getElementById('quantity');
-
-function updateQuantity(increment) {
-  let currentValue = parseInt(quantityInput.value);
-  if (increment) {
-    quantityInput.value = currentValue + 1;
+function heartWishlist(button, productId) {
+  var icon = button.querySelector('i');
+  // Leggi il valore di isInWishlist dall'attributo data
+  var isInWishlist = icon.getAttribute("data-isInWishlist") === "true";
+  if (isInWishlist) {
+    var url = "/biogg/src/myWishlist.php"; // URL predefinito per l'aggiunta alla lista dei desideri
   } else {
-    if (currentValue > 1) {
-      quantityInput.value = currentValue - 1;
-    }
+    url = "/biogg/src/shop.php";
   }
-  checkButtonState();
-}
-
-function checkButtonState() {
-  const currentValue = parseInt(quantityInput.value);
-  const maxQuantity = parseInt(quantityInput.getAttribute('data-max')); // Leggi il valore da attributo data-max
-  decrementButton.disabled = currentValue <= 1;
-  incrementButton.disabled = currentValue >= maxQuantity;
-}
-
-decrementButton.addEventListener('click', () => {
-  updateQuantity(false);
-});
-
-incrementButton.addEventListener('click', () => {
-  updateQuantity(true);
-});
-
-$(document).on('click', '.remove-product', function(e) {
-  e.preventDefault(); // Previeni il comportamento predefinito del link
-  var idProduct = $(this).data('product-id');
-  var idCart = $(this).data('cart-id');
+  // Se isInWishlist è true, cambia l'URL per l'operazione di rimozione
 
   $.ajax({
-      type: 'POST',
-      url: '/biogg/src/index.php?action=removeProduct',
-      data: { idProduct: idProduct, idCart: idCart },
-      success: function(response) {
-          // Analizza la risposta JSON
-          var jsonResponse = JSON.parse(response);
-          if (jsonResponse.success) {
-              // Rimozione riuscita, aggiorna la visualizzazione del carrello
-              // Puoi utilizzare jQuery per selezionare l'elemento del carrello da rimuovere.
-              // Ad esempio, $(this).closest('.product-container').remove();
-              alert("tutto ok: " + jsonResponse.message);
-          } else {
-              // Errore durante la rimozione
-              alert("Errore durante la rimozione del prodotto dal carrello: " + jsonResponse.message);
-          }
+    type: "POST",
+    url: url,
+    data: { product_id: productId },
+    success: function (response) {
+
+
+      if (response.success) {
+
+        if (isInWishlist) {
+          alert("Prodotto rimosso dalla wishlist con successo");
+          // Cambia l'icona a cuore vuoto (rimozione dalla lista dei desideri)
+          icon.className = "far fa-heart";
+          icon.setAttribute("data-isInWishlist", "false");
+        } else {
+          alert("Prodotto aggiunto alla wishlist con successo");
+          // Cambia l'icona a cuore pieno (aggiunta alla lista dei desideri)
+          icon.className = "fas fa-heart";
+          icon.setAttribute("data-isInWishlist", "true");
+
+        }
+        // Aggiorna dinamicamente l'icona del cuore o l'interfaccia utente qui.
+      } else {
+        alert("Errore durante l'operazione: " + response.message);
       }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante l'operazione");
+    }
   });
-});
+}
+
+function removeFromWishlist(productId) {
+  $.ajax({
+    type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
+    url: "/biogg/src/myWishlist.php", // URL del tuo script PHP
+    data: { product_id: productId },// Dati da passare al server
+    success: function (response) {
+      // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+      if (response.success) {
+        alert("Prodotto rimosso dalla wishlist con successo!");
+        var row = document.querySelector('a[data-product-id="' + productId + '"]').closest('tr');
+        row.remove();
+      } else {
+        alert("Errore durante la rimozione del prodotto dalla wishlist: " + response.message);
+      }
+    },
+    error: function () {
+      // Gestisci eventuali errori durante la chiamata AJAX
+      alert("Si è verificato un errore durante la rimozione del prodotto dalla wishlist.");
+    }
+  });
+
+}
+
+function removeFromCart(productId2) {
+
+  $.ajax({
+    type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
+    url: "index.php", // URL del tuo script PHP
+    data: {productId: productId2},// Dati da passare al server
+    success: function (response) {
+     
+      // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+      if (response.success) {
+        
+        var productToRemoveId = productId2;
+        $("li.cart-product").each(function () {
+          var itemProductId = $(this).find(".remove_cart_btn").data("product-id");
+          if (itemProductId === productToRemoveId) {
+            $(this).remove();
+          }
+        });
+        var newTotalPrice = response.totalPrice;
+        $("#cartTotal").text(newTotalPrice + " €");
+      } 
+      else {
+       // console.log("vivimi senza paura"+response.message);
+        alert("Errore durante la rimozione del prodotto dal carrello: " + response.message);
+      }
+    },
+    error: function () {
+      // Gestisci eventuali errori durante la chiamata AJAX
+      alert("Si è verificato un errore durante la rimozione del prodotto dalla wishlist.");
+    }
+  });
+
+}
+
+
+    $(document).ready(function() {
+        $(".decrease, .increase").click(function() {
+            var productId = $(this).data("product-id");
+            var quantityInput = $("input[data-product-id='" + productId + "']");
+            var quantity = parseInt(quantityInput.data("quantity"));
+
+            if ($(this).hasClass("decrease")) {
+                if (quantity > 1) {
+                    quantity--;
+                }
+            } else if ($(this).hasClass("increase")) {
+                quantity++;
+            }
+
+            // Esegui la chiamata AJAX per aggiornare la quantità lato server
+            $.ajax({
+                type: "POST",
+                url: "/biogg/src/cart.php", // Sostituisci con il percorso del tuo script PHP
+                data: { productId: productId, quantity: quantity },
+                success: function(response) {
+                    if (response.success) {
+                        // Aggiorna la quantità visualizzata nell'input e nei dati dell'input
+                        quantityInput.val(quantity);
+                        quantityInput.data("quantity", quantity);
+                    } else {
+                        alert("Errore durante l'aggiornamento della quantità: " + response.message);
+                    }
+                },
+                error: function() {
+                    alert("Si è verificato un errore durante l'aggiornamento della quantità.");
+                }
+            });
+        });
+    });
+
+
+

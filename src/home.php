@@ -9,7 +9,6 @@ $smarty = new Config();
 $userService = new UserService();
 $productService = new ProductService();
 $cartService = new CartService();
-$wishlistService = new WishlistService();
 
 try {
     if (!isset($_SESSION['cart'])) {

@@ -81,40 +81,41 @@ class UserService
                         $data = $result->fetch_assoc();
                         $_SESSION['auth']['group'] = $data['name'];
                     }
-                  
-                    //assegno carrello all'user
-                    $user = $this->getUserById($userId);                    
-                    $this->cartService->assignShoppingCart($user);
-                  
-    
-                    $result = $this->connection->query("SELECT * from wishlist where wishlist.user_id = '{$userId}' AND wishlist.is_open= 1 ;");
+                     //assegno carrello all'user
+                     $user = $this->getUserById($userId);                    
+                     $this->cartService->assignShoppingCart($user);
+                   
+
+                     
+                    
+                    $result = $this->connection->query("SELECT * from wishlist where wishlist.user_id = '{$userId}';");
                     if ($result === false) {
                         // Errore nella query
-                        Header("Location: error.php?errore_nella_query2");
+                        Header("Location: error.php?errore_nella_query4");
                         exit;
-                    } else {
-                        if ($result->num_rows == 0) {
-                            Header("Location: error.php?wishlist_non_trovato");
-                            exit;
-                        } else {
+                    }if ($result->num_rows == 0) {
+                        if(isset($_SESSION['wishlist'])){
+                            $result = $this->connection->query("INSERT INTO wishlist ( user_id) VALUES ('{$userId}') ;");
+                            $result = $this->connection->query("SELECT LAST_INSERT_ID() ");
+                            $lastInsertId = $result->fetch_assoc(); // Recupera un array associativo
+                            $wishlistId = $lastInsertId['LAST_INSERT_ID()'];
+                            foreach($_SESSION['wishlist']->getProductsId() as $productId){
+                                $result = $this->connection->query("INSERT INTO wishlist_product (wishlist_id,product_id) VALUES ('{$wishlistId}','{$productId}') ;");
+                            }} else{
                             $data = $result->fetch_assoc();
                             $wishlist = new Wishlist();
-                            $wishlist->setIsOpen(true);
                             $wishlist->setUser($this->getUserById($userId));
+                            $wishlist->setWishlistId($data['id']);
                             //assegna prodotti alla wishlist
                             $_SESSION['auth']['wishlist'] = $wishlist;
                         }
-                    }
     
                     return true;
-                }
-            }
-        } else {
-    
-            // user already logged
-    
+                } else {
         }
-    }
+    }}}}
+    
+    
     
 
 
@@ -170,4 +171,5 @@ class UserService
         }
         return null;
     }
+
 }

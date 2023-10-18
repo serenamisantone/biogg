@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-09-28 11:26:28
+/* Smarty version 4.3.0, created on 2023-10-13 00:02:05
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\wishlist.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_651546c4f27162_81267579',
+  'unifunc' => 'content_65286cdd054300_61721259',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dd1945c9f608ed3a6238805c4e134bf46e481a31' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\wishlist.tpl',
-      1 => 1695891998,
+      1 => 1697148079,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_651546c4f27162_81267579 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65286cdd054300_61721259 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <body>
@@ -105,7 +105,8 @@ $_smarty_tpl->tpl_vars['item']->do_else = false;
                                         </td>
                                         <td>
                                         <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">Aggiungi al carrello</a>
-                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1 delete-from-wishlist" data-product_id="<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
+                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1" onclick="removeFromWishlist(<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
+)"data-product-id="<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
 ">Cancella</a>
 
                                     </td>
@@ -136,75 +137,12 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
  src="assets/js/vendors/jquery-3.6.0.min.js"><?php echo '</script'; ?>
 >
     <?php echo '<script'; ?>
- src="assets/js/vendors/jquery-ui.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/bootstrap.bundle.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/swiper-bundle.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/jquery.magnific-popup.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/simplebar.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/parallax-scroll.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/isotop.pkgd.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/countdown.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/range-slider.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/waypoints.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/vendors/counterup.min.js"><?php echo '</script'; ?>
->
-    <?php echo '<script'; ?>
- src="assets/js/app.js"><?php echo '</script'; ?>
+ src="assets/js/methods.js"><?php echo '</script'; ?>
 >
     <!--endbuild-->
 </body>
 
 </html>
-<?php echo '<script'; ?>
- src="https://code.jquery.com/jquery-3.6.0.min.js"><?php echo '</script'; ?>
->
-<?php echo '<script'; ?>
->
-$(document).ready(function() {
-    $('.delete-from-wishlist').click(function(event) {
-        event.preventDefault();
 
-        var self = $(this); // Salva il riferimento all'elemento cliccato
-        var productId = self.data('product_id');
-        console.log('ID del prodotto:', productId);
-        var heartIcon = $(this).parent().find('.fa-heart'); // Trova l'icona del cuore associata a questo prodotto
-
-        $.post('myWishlist.php', { product_id: productId }, function(response) {
-            if (response.success) {
-                // Rimozione riuscita, esegui le azioni necessarie
-                self.remove(); // Rimuovi il link "Cancella" dalla pagina
-
-                // Aggiorna il cuore a vuoto
-                heartIcon.removeClass('filled-heart').addClass('empty-heart');
-                
-                alert('Prodotto rimosso dalla wishlist con successo!');
-            } else {
-                // Gestisci un eventuale errore
-                alert('Errore durante la rimozione dalla wishlist: ' + response.message);
-            }
-        }, 'json');
-    });
-});
-<?php echo '</script'; ?>
-><?php }
+<?php }
 }

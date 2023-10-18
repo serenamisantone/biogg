@@ -26,12 +26,14 @@ class WishlistService{
   
     
 
-    public function getUserWishlist($userId)
+    public function getUserWishlist()
 {
     $wishlistItems = array();
 
-    // Query per ottenere la wishlist dell'utente
-    $query = "SELECT wp.product_id
+    // Query per ottenere la wishlist dell'utente se sono autenticato
+    if(isset($_SESSION ['auth'])){
+        $userId = $_SESSION ['auth'] ['user'];
+            $query = "SELECT wp.product_id
               FROM wishlist AS w
               JOIN wishlist_product AS wp ON w.id = wp.wishlist_id
               WHERE w.user_id = '{$userId}'";
@@ -42,67 +44,87 @@ class WishlistService{
             $wishlistItems[] = $this->productService->getProductById($row['product_id']);
     }
     }
+} else{
+//se non sono autenticato
+if(isset($_SESSION['wishlist'])){
+    $productsId = $_SESSION['wishlist']-> getProductsId();
+    foreach($productsId as $product){
+        $wishlistItems[] = $this->productService->getProductById($product);
+    }
+}
+}
     
     return $wishlistItems;
 }
 
 
-public function checkWishlist($userId) {
-    // Verifica se l'utente ha già una wishlist aperta
-    if (!$this->isWishlistOpen($userId)) {
-        // Se l'utente non ha una wishlist aperta, crea una nuova wishlist
-        $this->createWishlist($userId);
-    }
-}
 
-private function isWishlistOpen($userId) {
-    // Verifica se l'utente ha una wishlist aperta
-    $result = $this->connection->query ("SELECT COUNT(*) as count FROM wishlist WHERE user_id = $userId AND is_open = 1");
-    if ($result) {
-        $row = $result->fetch_assoc();
-        $count = $row['count'];
-        $result->close();
-        return $count > 0;
-    } else {
-        // Gestisci l'errore se la query non è riuscita
-        // Esempio: log dell'errore o ritorno di un valore predefinito
-        return false;
-    }
-}
-
-private function createWishlist($userId) {
+private function createWishlist() {
     // Crea una nuova wishlist per l'utente
-    $result = $this->connection->query ("INSERT INTO wishlist (user_id, is_open) VALUES ($userId, 1)");
-    return $result;
+    if(isset($_SESSION ['auth'] ['user'])){
+        $userId = $_SESSION ['auth'] ['user'];
+    $result = $this->connection->query ("INSERT INTO wishlist (user_id) VALUES ($userId)");
+    
+    } else {
+        $wishlist = new Wishlist();
+        $_SESSION ['wishlist'] = $wishlist;    
+}
+
+$result = $this->connection->query("SELECT LAST_INSERT_ID() ");
+$lastInsertId = $result->fetch_assoc(); // Recupera un array associativo
+$id = $lastInsertId['LAST_INSERT_ID()'];
+return $id;
 }
 
 function addProductToWishlist($productId) {
-    if (isset($_SESSION['auth']['user'])) {
-        if (isset($_SESSION['wishlist'])) {
-            $userId = $_SESSION['auth']['user'];
-
-            // Ottieni l'ID della wishlist dal database
-            $wishlistIdResult = $this->connection->query("SELECT id FROM wishlist WHERE user_id = '{$userId}'; ");
-            
-            if ($wishlistIdResult && $wishlistIdResult->num_rows > 0) {
-                $row = $wishlistIdResult->fetch_assoc();
-                $wishlistId = $row['id'];
+    if(isset($_SESSION ['auth'] ['user'])){
+        //se sono autenticata
+            if(isset($_SESSION ['auth'] ['wishlist'])){
+                //se sono autenticata e ho una wishlist
+                $wishlist= $_SESSION ['auth'] ['wishlist'];
+                $wishlistId= $wishlist->getWishlistId();
                 $productAlreadyInWishlist = $this->isProductInWishlist($wishlistId, $productId);
                 if (!$productAlreadyInWishlist) {
                     // Inserisci il prodotto nella wishlist
                     $result = $this->connection->query("INSERT INTO wishlist_product(wishlist_id, product_id) values ({$wishlistId}, {$productId});");
-
-                    if ($result) {
-                        return true;
-                    }
+                  return true;
                 }
-            }
-        } else {
-            return false;
-        }
-    } else {
+    } 
+      //se sono autenticata ma non ho una wishlist
+      if(isset($_SESSION['wishlist'])){
+        //avevo una wishlist prima di autenticarmi
+      $_SESSION ['auth']['wishlist'] = $_SESSION['wishlist'];
+      $wishlist= $_SESSION ['auth']['wishlist'];
+         $wishlistId= $wishlist->getWishlistId();
+        $productAlreadyInWishlist = $this->isProductInWishlist($wishlistId, $productId);
+        if (!$productAlreadyInWishlist) {
+            // Inserisci il prodotto nella wishlist
+            $result = $this->connection->query("INSERT INTO wishlist_product(wishlist_id, product_id) values ({$wishlistId}, {$productId});");
+         return true;
+        
+    } else{ 
+        //non avevo una wishlist prima di autenticarmi
+         $wishlistId=  $this->createWishlist();
+            // Inserisci il prodotto nella wishlist
+            $result = $this->connection->query("INSERT INTO wishlist_product(wishlist_id, product_id) values ({$wishlistId}, {$productId});");
+           return true;
+}
+      }} else  { 
+    //se non sono autenticata
+    //se non sono autenticata e ho una wishlist
+    if(isset($_SESSION['wishlist'])){
+        //controlla se è già nella wishlist e aggiunge nel caso
+       $bool =  $_SESSION['wishlist']->addProducts($productId);
+        return $bool;
+ 
+} else{
+        //se non sono autenticata e non ho una wishlist
+       $this->createWishlist();
+       //aggiunge il prodotto
+       $bool =  $_SESSION['wishlist']->addProducts($productId);
+        return $bool;
+}  
 
-    return false; // Restituisci false in caso di errore
 }
 }
 
@@ -111,35 +133,45 @@ private function isProductInWishlist($wishlistId, $productId) {
     $query = "SELECT COUNT(*) as count FROM wishlist_product WHERE wishlist_id = {$wishlistId} AND product_id = {$productId}";
     $result = $this->connection->query($query);
     $row = $result->fetch_assoc();
-    $count = $row['count'];
-
-    return $count > 0;
-}
-
-
-    
-
-function removeToWishlist($userId, $productId) {
-    // Esegui una query SQL per eliminare il prodotto dalla wishlist dell'utente
-    $query = "DELETE wp
-              FROM wishlist_product AS wp
-              INNER JOIN wishlist AS w ON wp.wishlist_id = w.id
-              WHERE w.user_id = '{$userId}' AND wp.product_id = '{$productId}'";
-    
-    $result = $this->connection->query($query);
-    
-    if ($result) {
-        // Rimozione riuscita, puoi anche aggiornare la variabile di sessione $_SESSION['wishlist'] se necessario
-        // Ad esempio, aggiornando la lista dei prodotti nella sessione dopo la rimozione dal database
-        //$_SESSION['wishlist']->removeProductById($productId);
-        
+    if($row['count']>0){
         return true;
-    } else {
-        // Gestisci un eventuale errore nella query
+    }else {
         return false;
     }
+   
 }
 
 
+    
 
-}
+function removeToWishlist($productId) {
+    if(isset($_SESSION['auth']['user'])) {
+        $userId = $_SESSION['auth']['user'];
+
+        // Esegui una query SQL per eliminare il prodotto dalla wishlist dell'utente
+        $query = "DELETE wp
+                  FROM wishlist_product AS wp
+                  INNER JOIN wishlist AS w ON wp.wishlist_id = w.id
+                  WHERE w.user_id = '{$userId}' AND wp.product_id = '{$productId}'";
+                    $result = $this->connection->query($query);
+                    if($result){return true;}else{return false;}
+    }
+        // Esegui la query in modo sicuro utilizzando istruzioni preparate o la tua API di database preferita
+
+        // Rimuovi il prodotto dalla variabile di sessione
+        if(isset($_SESSION['wishlist'])) {
+                $wishlist = $_SESSION['wishlist'];
+                $updatedProductsId = $wishlist->getProductsId();
+                $key = array_search($productId, $updatedProductsId);
+        
+                if ($key !== false) {
+                    unset($updatedProductsId[$key]);
+                    $wishlist->setProductsId(array_values($updatedProductsId));
+                    $_SESSION['wishlist'] = $wishlist; // Aggiorna la Wishlist nella variabile di sessione
+                    return true;
+                }
+        
+                return false;
+            }
+        }
+    }

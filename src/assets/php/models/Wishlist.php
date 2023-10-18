@@ -5,15 +5,13 @@ class Wishlist
 {
   private $wishlistId;
   private $user;
-  private $isOpen;
-  private $products;
+  private $productsId;
 
   public function __construct()
   {
-    $this->products = [];
+    $this->productsId = [];
     $this->wishlistId = null;
     $this->user = new User();
-    $this->isOpen = true;
   }
 
 
@@ -38,25 +36,27 @@ class Wishlist
     $this->user = $user;
   }
 
-
-  public function getIsOpen()
+  public function getProductsId()
   {
-    return $this->isOpen;
+    return $this->productsId;
   }
 
-  public function setIsOpen($isOpen)
+  public function setProductsId($productsId)
   {
-    $this->isOpen = $isOpen;
+    $this->productsId = $productsId;
   }
-
-  public function getProducts()
+  public function addProducts($addedproduct)
   {
-    return $this->products;
+    $found = false;
+    foreach ($this->productsId as $product) {
+      if ($product == $addedproduct) {
+        $found = true;
+      }
+    }
+    if (!$found) {
+      array_push($this->productsId, $addedproduct);
+      return true;
+    }
+    return false;
   }
-
-  public function setProducts($products)
-  {
-    $this->products = $products;
-  }
-
 }
