@@ -88,7 +88,7 @@ public function setTotalPrice($totalPrice) {
 
   public function __toString()
   {
-
+  $string="";
     if (!empty($this->products)) {
       foreach ($this->products as $product)
         $string = $string . $product->getProduct()->getName();

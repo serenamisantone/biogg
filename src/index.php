@@ -16,7 +16,6 @@ try {
         $productId = $_POST["productId"];
         $cartId = $_POST["cartId"];
     
-        error_log("Il metodo removeFromCart è stato chiamato con productId: $productId e cartId: $cartId");
     
         // Aggiungi istruzioni di debug
         var_dump($productId, $cartId);
@@ -40,6 +39,7 @@ try {
         $smarty->assign("cart", $_SESSION['cart']);
         $smarty->assign('cartProducts', $productService->getCartProducts($_SESSION['cart']));
         $smarty->assign("totalPrice", $productService->getTotalPrice($_SESSION['cart']));
+        $totalPrice=$productService->getTotalPrice($_SESSION['cart']);
     }
 
     $smarty->assign("all_reviews", $userService->getAllReviews());

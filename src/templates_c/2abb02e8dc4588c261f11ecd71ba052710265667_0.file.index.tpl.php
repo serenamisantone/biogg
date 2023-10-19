@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-10-12 17:13:44
+/* Smarty version 4.3.0, created on 2023-10-19 19:10:33
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_65280d28aaeec3_17395405',
+  'unifunc' => 'content_653163094a47f7_77832316',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '2abb02e8dc4588c261f11ecd71ba052710265667' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\index.tpl',
-      1 => 1697121063,
+      1 => 1697735430,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65280d28aaeec3_17395405 (Smarty_Internal_Template $_smarty_tpl) {
+function content_653163094a47f7_77832316 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -107,7 +107,7 @@ function content_65280d28aaeec3_17395405 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="gshop-navbar bg-white rounded ps-lg-5 position-relative">
                     <div class="row align-items-center">
                         <div class="col-xxl-2 col-xl-3 col-md-3 col-5">
-                            <a href="index.tpl" class="logo"><img src="assets/img/logo.png" alt="logo"
+                            <a href="index.tpl" class="logo"><img src="assets/img/login/logo2.jpeg" alt="logo"
                                     class="img-fluid"></a>
                         </div>
                         <div class="col-xxl-10 col-xl-9 col-md-9 col-7">
@@ -224,12 +224,11 @@ $_smarty_tpl->tpl_vars['cartProduct']->do_else = false;
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                                     </ul>
                                                 <?php }?>
-
                                                 <div class="d-flex align-items-center  mt-3">
                                                     <h6 class="mb-0">Subtotal:&nbsp</h6>
-                                                    <span class="fw-semibold text-primary"> <?php echo $_smarty_tpl->tpl_vars['totalPrice']->value;?>
- €</span>
+                                                    <span class="fw-semibold text-primary"> 200 €</span>
                                                 </div>
+                        
                                                 <a href="checkout.html"
                                                     class="btn btn-primary btn-md d-block mt-4"><span class="me-2"><i
                                                             class="fa-solid fa-wallet"></i></span>Checkout</a>

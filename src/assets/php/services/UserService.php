@@ -11,10 +11,13 @@ require_once("./assets/php/services/CartService.php");
 
 
 
+
 class UserService
 {
     private $connection;
     private $cartService;
+    private $error_message;
+
     function __construct()
     {
         $this->connection = DbConnection::getInstance()->getConnection();
@@ -47,29 +50,31 @@ class UserService
     public function check($username, $password)
     {
         if (!isset($_SESSION['auth'])) {
-    
+
             if (!isset($username) or !isset($password)) {
                 Header("Location: error.php?002-username-and-password-not-entered");
                 exit;
             } else {
-    
-                $result = $this->connection->query("SELECT id FROM user WHERE username = '{$username}' AND password = '{$password}'");
-    
+
+                $result = $this->connection->query("SELECT * FROM user WHERE username = '{$username}'");
+
                 if (!$result) {
                     Header("Location: error.php?generic");
                     exit;
                 }
-    
+
                 if ($result->num_rows == 0) {
                     Header("Location: error.php?001-uknown-user");
                     exit;
                 } else {
                     $data = $result->fetch_assoc();
-                    $_SESSION['auth']['user'] = $data['id'];
-                    $userId = $_SESSION['auth']['user'];
-    
+                    $hashedPassword = $data['password'];
+
                     // $expiryTime = time() + (24 * 60 * 60);
                     //setcookie('user', $data['id'], $expiryTime, '/');
+                    if (password_verify($password, $hashedPassword)) {
+                        $_SESSION['auth']['user'] = $data['id'];
+                        $userId = $_SESSION['auth']['user'];
     
                     //assegno il gruppo
                     $result = $this->connection->query("SELECT `group`.name from user join user_has_group on user_has_group.user_id = user.id join `group` on user_has_group.group_id=`group`.id where user.username = '{$username}';");
@@ -81,42 +86,22 @@ class UserService
                         $data = $result->fetch_assoc();
                         $_SESSION['auth']['group'] = $data['name'];
                     }
-                     //assegno carrello all'user
-                     $user = $this->getUserById($userId);                    
-                     $this->cartService->assignShoppingCart($user);
-                   
-
-                     
-                    
-                    $result = $this->connection->query("SELECT * from wishlist where wishlist.user_id = '{$userId}';");
-                    if ($result === false) {
-                        // Errore nella query
-                        Header("Location: error.php?errore_nella_query4");
-                        exit;
-                    }if ($result->num_rows == 0) {
-                        if(isset($_SESSION['wishlist'])){
-                            $result = $this->connection->query("INSERT INTO wishlist ( user_id) VALUES ('{$userId}') ;");
-                            $result = $this->connection->query("SELECT LAST_INSERT_ID() ");
-                            $lastInsertId = $result->fetch_assoc(); // Recupera un array associativo
-                            $wishlistId = $lastInsertId['LAST_INSERT_ID()'];
-                            foreach($_SESSION['wishlist']->getProductsId() as $productId){
-                                $result = $this->connection->query("INSERT INTO wishlist_product (wishlist_id,product_id) VALUES ('{$wishlistId}','{$productId}') ;");
-                            }} else{
-                            $data = $result->fetch_assoc();
-                            $wishlist = new Wishlist();
-                            $wishlist->setUser($this->getUserById($userId));
-                            $wishlist->setWishlistId($data['id']);
-                            //assegna prodotti alla wishlist
-                            $_SESSION['auth']['wishlist'] = $wishlist;
-                        }
-    
+                    //assegno carrello all'user
+                    $user = $this->getUserById($userId);
+                    //$this->cartService->assignShoppingCart($user);
                     return true;
-                } else {
-        }
-    }}}}
-    
-    
-    
+                }else{
+                    Header("Location: error.php?003-incorrect-password");
+                    exit;
+                }
+            }
+        } 
+    }
+    return false;
+    }
+
+
+
 
 
     public function getGroupById($userId)
@@ -132,8 +117,6 @@ class UserService
         }
         $group = new Group($result['id'], $result['name']);
         return $group;
-
-
     }
 
     /* public function getServicesById($groupId){
@@ -171,5 +154,69 @@ class UserService
         }
         return null;
     }
+
+function createAccount($name, $surname, $email, $username, $password) {
+    if (empty($name) || empty($surname) || empty($email) || empty($username) || empty($password)) {
+        $this->error_message = "Per favore, inserisci tutti i dati richiesti.";
+        return false;
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $this->error_message = "L'email non è nel formato corretto.";
+        return false;
+    }
+
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+    $checkEmailQuery = "SELECT email FROM user WHERE email = '$email'";
+    $checkUsernameQuery = "SELECT username FROM user WHERE username = '$username'";
+
+    $resultEmail = $this->connection->query($checkEmailQuery);
+    $resultUsername = $this->connection->query($checkUsernameQuery);
+
+    if ($resultEmail->num_rows > 0) {
+        $this->error_message = "L'utente è già registrato.";
+        return false;
+    }
+
+    if ($resultUsername->num_rows > 0) {
+        $this->error_message = "Username già in uso.";
+        return false;
+    }
+
+    $insertQuery = "INSERT INTO user (name, surname, username, password, email) VALUES ('$name', '$surname', '$username', '$hashedPassword', '$email')";
+    $insertResult = $this->connection->query($insertQuery);
+
+    if ($insertResult) {
+        $userId = $this->getUserIdByUsername($username);
+
+        if ($userId) {
+            $insertUserGroupQuery = "INSERT INTO user_has_group (user_id, group_id) VALUES ('$userId', 1)";
+            $insertUserGroupResult = $this->connection->query($insertUserGroupQuery);
+
+            if ($insertUserGroupResult) {
+                return true;
+            }
+        }
+    }
+
+    $this->error_message = "Si è verificato un errore durante la registrazione";
+    return false;
+}
+
+function getUserIdByUsername($username) {
+    $query = "SELECT id FROM user WHERE username = '$username'";
+    $result = $this->connection->query($query);
+
+    if ($result) {
+        $row = $result->fetch_assoc();
+        return $row['id'];
+    }
+
+    return null;
+}
+public function getErrorMessage() {
+    return $this->error_message;
+}
 
 }

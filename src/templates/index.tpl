@@ -84,7 +84,7 @@
                 <div class="gshop-navbar bg-white rounded ps-lg-5 position-relative">
                     <div class="row align-items-center">
                         <div class="col-xxl-2 col-xl-3 col-md-3 col-5">
-                            <a href="index.tpl" class="logo"><img src="assets/img/logo.png" alt="logo"
+                            <a href="index.tpl" class="logo"><img src="assets/img/login/logo2.jpeg" alt="logo"
                                     class="img-fluid"></a>
                         </div>
                         <div class="col-xxl-10 col-xl-9 col-md-9 col-7">
@@ -187,11 +187,11 @@
                                                         {/foreach}
                                                     </ul>
                                                 {/if}
-
                                                 <div class="d-flex align-items-center  mt-3">
                                                     <h6 class="mb-0">Subtotal:&nbsp</h6>
-                                                    <span class="fw-semibold text-primary"> {$totalPrice} €</span>
+                                                    <span class="fw-semibold text-primary"> 200 €</span>
                                                 </div>
+                        
                                                 <a href="checkout.html"
                                                     class="btn btn-primary btn-md d-block mt-4"><span class="me-2"><i
                                                             class="fa-solid fa-wallet"></i></span>Checkout</a>

@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-10-12 23:58:51
+/* Smarty version 4.3.0, created on 2023-10-17 16:50:51
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\shop.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_65286c1b6146f6_55697554',
+  'unifunc' => 'content_652e9f4bdab639_82592175',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '42e3dd7168b3eef17a3c25809435fe519102adab' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\shop.tpl',
-      1 => 1697147922,
+      1 => 1697554247,
       2 => 'file',
     ),
   ),
@@ -20,47 +20,15 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65286c1b6146f6_55697554 (Smarty_Internal_Template $_smarty_tpl) {
+function content_652e9f4bdab639_82592175 (Smarty_Internal_Template $_smarty_tpl) {
 ?><head>
-    <link rel="stylesheet" href="src/assets/css/main.min.css">
+    <link rel="stylesheet" href="/biogg/src/assets/css/main.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <!--main content wrapper start-->
 <div class="main-wrapper">
-    <!--breadcrumb section start-->
-    <div class="gstore-breadcrumb position-relative z-1 overflow-hidden mt--50">
-        <img src="assets/img/shapes/bg-shape-6.png" alt="bg-shape"
-            class="position-absolute start-0 z--1 w-100 bg-shape">
-        <img src="assets/img/shapes/pata-xs.svg" alt="pata" class="position-absolute pata-xs z--1 vector-shape">
-        <img src="assets/img/shapes/onion.png" alt="onion"
-            class="position-absolute z--1 onion start-0 top-0 vector-shape">
-        <img src="assets/img/shapes/frame-circle.svg" alt="frame circle"
-            class="position-absolute z--1 frame-circle vector-shape">
-        <img src="assets/img/shapes/leaf.svg" alt="leaf" class="position-absolute z--1 leaf vector-shape">
-        <img src="assets/img/shapes/garlic-white.png" alt="garlic" class="position-absolute z--1 garlic vector-shape">
-        <img src="assets/img/shapes/roll-1.png" alt="roll" class="position-absolute z--1 roll vector-shape">
-        <img src="assets/img/shapes/roll-2.png" alt="roll" class="position-absolute z--1 roll-2 vector-shape">
-        <img src="assets/img/shapes/pata-xs.svg" alt="roll" class="position-absolute z--1 pata-xs-2 vector-shape">
-        <img src="assets/img/shapes/tomato-half.svg" alt="tomato"
-            class="position-absolute z--1 tomato-half vector-shape">
-        <img src="assets/img/shapes/tomato-slice.svg" alt="tomato"
-            class="position-absolute z--1 tomato-slice vector-shape">
-        <img src="assets/img/shapes/cauliflower.png" alt="tomato"
-            class="position-absolute z--1 cauliflower vector-shape">
-        <img src="assets/img/shapes/leaf-gray.png" alt="tomato" class="position-absolute z--1 leaf-gray vector-shape">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb-content">
-                        <h1 class="mb-2 text-center">Shop</h1>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--breadcrumb section end-->
-
+    
     <!--shop grid section start-->
     <section class="gshop-gshop-grid ptb-120">
         <div class="container">
@@ -72,11 +40,13 @@ function content_65286c1b6146f6_55697554 (Smarty_Internal_Template $_smarty_tpl)
                                 <h6 class="mb-0 flex-shrink-0">Search Now</h6>
                                 <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
                             </div>
-                            <form class="search-form d-flex align-items-center mt-4">
-                                <input type="text" placeholder="Search...">
-                                <button type="submit" class="submit-icon-btn-secondary"><i
-                                        class="fa-solid fa-magnifying-glass"></i></button>
-                            </form>
+                            <form class="search-form d-flex align-items-center mt-4" action="shop.php" method="GET">
+                            <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
+                            <button class="submit-icon-btn-secondary" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+
                         </div>
                         <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top">
                             <div class="widget-title d-flex">
@@ -177,8 +147,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                                 <input type="hidden" name="addProduct" value="<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
 ">
                                                 <button type="submit"
-                                                    class="btn btn-outline-secondary d-block btn-md">Aggiungi al
-                                                    carrello</button>
+                                                    class="btn btn-outline-secondary d-block btn-md">Aggiungi al carrello</button>
                                             </form>
                                         </div>
                                     </div>
@@ -211,14 +180,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
 <?php echo '<script'; ?>
  src="assets/js/methods.js"><?php echo '</script'; ?>
 >
-<?php echo '<script'; ?>
->
-  var isInWishlist = <?php echo $_smarty_tpl->tpl_vars['isInWishlist']->value;?>
-; // Dichiarazione della variabile isInWishlist
-  var productId = <?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
-; // Dichiarazione della variabile productId
-<?php echo '</script'; ?>
->
+
 
 <?php }
 }

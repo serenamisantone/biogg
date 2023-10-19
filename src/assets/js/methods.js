@@ -56,12 +56,12 @@ function heartWishlist(button, productId) {
       if (response.success) {
         
         if (isInWishlist) {
-          alert("Prodotto rimosso dalla wishlist con successo");
+        //  alert("Prodotto rimosso dalla wishlist con successo");
           // Cambia l'icona a cuore vuoto (rimozione dalla lista dei desideri)
           icon.className= "far fa-heart";
           icon.setAttribute("data-isInWishlist", "false");
         } else {
-          alert("Prodotto aggiunto alla wishlist con successo");
+        //  alert("Prodotto aggiunto alla wishlist con successo");
           // Cambia l'icona a cuore pieno (aggiunta alla lista dei desideri)
           icon.className="fas fa-heart";
           icon.setAttribute("data-isInWishlist", "true");
@@ -86,11 +86,11 @@ function removeFromWishlist(productId){
     success: function(response) {
         // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
         if (response.success) {
-            alert("Prodotto rimosso dalla wishlist con successo!");
+           // alert("Prodotto rimosso dalla wishlist con successo!");
             var row = document.querySelector('a[data-product-id="' + productId + '"]').closest('tr');
             row.remove();
         } else {
-            alert("Errore durante la rimozione del prodotto dalla wishlist: " + response.message);
+           // alert("Errore durante la rimozione del prodotto dalla wishlist: " + response.message);
         }
     },
     error: function() {
@@ -103,6 +103,7 @@ function removeFromWishlist(productId){
 
 
 function removeFromCart(productId, cartId) {
+  console.log(productId,cartId);
   // Esegui una chiamata AJAX per chiamare il metodo PHP di rimozione dal carrello
   $.ajax({
       type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
@@ -111,7 +112,7 @@ function removeFromCart(productId, cartId) {
       success: function(response) {
           // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
           if (response.success) {
-              alert("Prodotto rimosso dal carrello con successo!");
+             alert("Prodotto rimosso dal carrello con successo!");
           } else {
               alert("Errore durante la rimozione del prodotto dal carrello: " + response.message);
           }
@@ -122,3 +123,5 @@ function removeFromCart(productId, cartId) {
       }
   });
 }
+
+

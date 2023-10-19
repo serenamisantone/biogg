@@ -35,7 +35,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addProduct'])) {
     header("location: shop.php");
     exit();
 }
-
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
+    $searchQuery = $_GET['searchQuery'];
+    $smarty->assign("current_view", "shop.tpl");
+    $smarty->assign("all_products", $productService->searchProducts($searchQuery));
+    $smarty->assign("all_categories", $productService->getAllCategories());
+    $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
+    $smarty->display("index.tpl");
+    exit();
+}
 
 
 if (!isset($_SESSION['cart'])) {

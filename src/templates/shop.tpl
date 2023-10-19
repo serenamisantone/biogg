@@ -1,43 +1,11 @@
 <head>
-    <link rel="stylesheet" href="src/assets/css/main.min.css">
+    <link rel="stylesheet" href="/biogg/src/assets/css/main.min.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <!--main content wrapper start-->
 <div class="main-wrapper">
-    <!--breadcrumb section start-->
-    <div class="gstore-breadcrumb position-relative z-1 overflow-hidden mt--50">
-        <img src="assets/img/shapes/bg-shape-6.png" alt="bg-shape"
-            class="position-absolute start-0 z--1 w-100 bg-shape">
-        <img src="assets/img/shapes/pata-xs.svg" alt="pata" class="position-absolute pata-xs z--1 vector-shape">
-        <img src="assets/img/shapes/onion.png" alt="onion"
-            class="position-absolute z--1 onion start-0 top-0 vector-shape">
-        <img src="assets/img/shapes/frame-circle.svg" alt="frame circle"
-            class="position-absolute z--1 frame-circle vector-shape">
-        <img src="assets/img/shapes/leaf.svg" alt="leaf" class="position-absolute z--1 leaf vector-shape">
-        <img src="assets/img/shapes/garlic-white.png" alt="garlic" class="position-absolute z--1 garlic vector-shape">
-        <img src="assets/img/shapes/roll-1.png" alt="roll" class="position-absolute z--1 roll vector-shape">
-        <img src="assets/img/shapes/roll-2.png" alt="roll" class="position-absolute z--1 roll-2 vector-shape">
-        <img src="assets/img/shapes/pata-xs.svg" alt="roll" class="position-absolute z--1 pata-xs-2 vector-shape">
-        <img src="assets/img/shapes/tomato-half.svg" alt="tomato"
-            class="position-absolute z--1 tomato-half vector-shape">
-        <img src="assets/img/shapes/tomato-slice.svg" alt="tomato"
-            class="position-absolute z--1 tomato-slice vector-shape">
-        <img src="assets/img/shapes/cauliflower.png" alt="tomato"
-            class="position-absolute z--1 cauliflower vector-shape">
-        <img src="assets/img/shapes/leaf-gray.png" alt="tomato" class="position-absolute z--1 leaf-gray vector-shape">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="breadcrumb-content">
-                        <h1 class="mb-2 text-center">Shop</h1>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--breadcrumb section end-->
-
+    
     <!--shop grid section start-->
     <section class="gshop-gshop-grid ptb-120">
         <div class="container">
@@ -49,11 +17,13 @@
                                 <h6 class="mb-0 flex-shrink-0">Search Now</h6>
                                 <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
                             </div>
-                            <form class="search-form d-flex align-items-center mt-4">
-                                <input type="text" placeholder="Search...">
-                                <button type="submit" class="submit-icon-btn-secondary"><i
-                                        class="fa-solid fa-magnifying-glass"></i></button>
-                            </form>
+                            <form class="search-form d-flex align-items-center mt-4" action="shop.php" method="GET">
+                            <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
+                            <button class="submit-icon-btn-secondary" type="submit">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </button>
+                        </form>
+
                         </div>
                         <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top">
                             <div class="widget-title d-flex">
@@ -125,8 +95,7 @@
                                             <form method="POST" action="shop.php">
                                                 <input type="hidden" name="addProduct" value="{$product->getId()}">
                                                 <button type="submit"
-                                                    class="btn btn-outline-secondary d-block btn-md">Aggiungi al
-                                                    carrello</button>
+                                                    class="btn btn-outline-secondary d-block btn-md">Aggiungi al carrello</button>
                                             </form>
                                         </div>
                                     </div>
@@ -153,8 +122,5 @@
 <!--shop grid section end-->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="assets/js/methods.js"></script>
-<script>
-  var isInWishlist = {$isInWishlist}; // Dichiarazione della variabile isInWishlist
-  var productId = {$product->getId()}; // Dichiarazione della variabile productId
-</script>
+
 

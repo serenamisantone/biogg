@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-10-13 00:02:05
+/* Smarty version 4.3.0, created on 2023-10-16 22:50:31
   from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\wishlist.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_65286cdd054300_61721259',
+  'unifunc' => 'content_652da217baed29_23055677',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'dd1945c9f608ed3a6238805c4e134bf46e481a31' => 
     array (
       0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\wishlist.tpl',
-      1 => 1697148079,
+      1 => 1697488915,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65286cdd054300_61721259 (Smarty_Internal_Template $_smarty_tpl) {
+function content_652da217baed29_23055677 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <body>
@@ -104,7 +104,13 @@ $_smarty_tpl->tpl_vars['item']->do_else = false;
 </s>
                                         </td>
                                         <td>
-                                        <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">Aggiungi al carrello</a>
+                                        <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">
+                                        <form method="POST" action="shop.php">
+                                                <input type="hidden" name="addProduct" value="<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
+">
+                                                <button type="submit">Aggiungi al carrello</button>
+                                            </form>
+                                            </a>
                                         <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1" onclick="removeFromWishlist(<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
 )"data-product-id="<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
 ">Cancella</a>

@@ -23,9 +23,7 @@ try {
         $smarty->assign('cartProducts', $productService->getCartProducts($_SESSION['cart']));
         $smarty->assign("totalPrice", $productService->getTotalPrice($_SESSION['cart']) );
     }
-    if (!isset($_SESSION['wishlist'])) {
-        //   $wishlistService->createWishlist();        
-    }
+   
     $smarty->assign("all_reviews", $userService->getAllReviews());
     $smarty->assign("current_view", "home.tpl");
 
