@@ -72,7 +72,12 @@
                                             <span class="price fw-bold text-dark">€{$item->getPrice()}</s>
                                         </td>
                                         <td>
-                                        <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">Aggiungi al carrello</a>
+                                        <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">
+                                        <form method="POST" action="shop.php">
+                                                <input type="hidden" name="addProduct" value="{$item->getId()}">
+                                                <button type="submit">Aggiungi al carrello</button>
+                                            </form>
+                                            </a>
                                         <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1" onclick="removeFromWishlist({$item->getId()})"data-product-id="{$item->getId()}">Cancella</a>
 
                                     </td>

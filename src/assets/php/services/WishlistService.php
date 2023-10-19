@@ -27,7 +27,7 @@ class WishlistService
 
 
 
-    public function getUserWishlist()
+    function getUserWishlist()
     {
         $wishlistItems = array();
 
@@ -78,27 +78,22 @@ class WishlistService
         return $id;
     }
 
+
     function addProductToWishlist($productId)
     {
         if (isset($_SESSION['auth']['user'])) {
+            $userId = $_SESSION['auth']['user'];
             //se sono autenticata
-            if (isset($_SESSION['auth']['wishlist'])) {
-                //se sono autenticata e ho una wishlist
-                $wishlist = $_SESSION['auth']['wishlist'];
-                $wishlistId = $wishlist->getWishlistId();
-                $productAlreadyInWishlist = $this->isProductInWishlist($wishlistId, $productId);
-                if (!$productAlreadyInWishlist) {
-                    // Inserisci il prodotto nella wishlist
-                    $result = $this->connection->query("INSERT INTO wishlist_product(wishlist_id, product_id) values ({$wishlistId}, {$productId});");
-                    return true;
-                }
-            }
-            //se sono autenticata ma non ho una wishlist
-            if (isset($_SESSION['wishlist'])) {
-                //avevo una wishlist prima di autenticarmi
-                $_SESSION['auth']['wishlist'] = $_SESSION['wishlist'];
-                $wishlist = $_SESSION['auth']['wishlist'];
-                $wishlistId = $wishlist->getWishlistId();
+            $query = "SELECT COUNT(*) as count FROM wishlist WHERE user_id = {$userId}";
+            $result = $this->connection->query($query);
+            $row = $result->fetch_assoc();
+
+            if ($row['count'] > 0) {
+                // Una wishlist per l'utente esiste già, otteniamo il suo ID
+                $query = "SELECT id FROM wishlist WHERE user_id = {$userId}";
+                $result = $this->connection->query($query);
+                $row = $result->fetch_assoc();
+                $wishlistId = $row['id'];
                 $productAlreadyInWishlist = $this->isProductInWishlist($wishlistId, $productId);
                 if (!$productAlreadyInWishlist) {
                     // Inserisci il prodotto nella wishlist
@@ -112,27 +107,32 @@ class WishlistService
                     $result = $this->connection->query("INSERT INTO wishlist_product(wishlist_id, product_id) values ({$wishlistId}, {$productId});");
                     return true;
                 }
-            }
-        } else {
-            //se non sono autenticata
-            //se non sono autenticata e ho una wishlist
-            if (isset($_SESSION['wishlist'])) {
-                //controlla se è già nella wishlist e aggiunge nel caso
-                $bool = $_SESSION['wishlist']->addProducts($productId);
-                return $bool;
-
             } else {
-                //se non sono autenticata e non ho una wishlist
-                $this->createWishlist();
-                //aggiunge il prodotto
-                $bool = $_SESSION['wishlist']->addProducts($productId);
-                return $bool;
+                //non avevo una wishlist prima di autenticarmi
+                $wishlistId = $this->createWishlist();
+                // Inserisci il prodotto nella wishlist
+                $result = $this->connection->query("INSERT INTO wishlist_product(wishlist_id, product_id) values ({$wishlistId}, {$productId});");
+                return true;
             }
-
+            // }
         }
-    }
+        //se non sono autenticata
+        //se non sono autenticata e ho una wishlist
+        if (isset($_SESSION['wishlist'])) {
+            //controlla se è già nella wishlist e aggiunge nel caso
+            $bool = $_SESSION['wishlist']->addProducts($productId);
+            return $bool;
 
-    private function isProductInWishlist($wishlistId, $productId)
+        } else {
+            //se non sono autenticata e non ho una wishlist
+            $this->createWishlist();
+            //aggiunge il prodotto
+            $bool = $_SESSION['wishlist']->addProducts($productId);
+            return $bool;
+        }
+
+    }
+    function isProductInWishlist($wishlistId, $productId)
     {
         // Verifica se il prodotto è già presente nella wishlist
         $query = "SELECT COUNT(*) as count FROM wishlist_product WHERE wishlist_id = {$wishlistId} AND product_id = {$productId}";
@@ -143,9 +143,7 @@ class WishlistService
         } else {
             return false;
         }
-
     }
-
 
 
 
@@ -182,6 +180,51 @@ class WishlistService
             }
 
             return false;
+        }
+    }
+    function assignWishlist()
+    {
+        if (isset($_SESSION['auth']['user'])) {
+
+            $userId = $_SESSION['auth']['user'];
+
+
+            // Verifica se esiste già una wishlist per l'utente
+            $query = "SELECT COUNT(*) as count FROM wishlist WHERE user_id = {$userId}";
+            $result = $this->connection->query($query);
+            $row = $result->fetch_assoc();
+
+            if ($row['count'] > 0) {
+                // Una wishlist per l'utente esiste già, otteniamo il suo ID
+                $query = "SELECT id FROM wishlist WHERE user_id = {$userId}";
+                $result = $this->connection->query($query);
+                $row = $result->fetch_assoc();
+                $wishlistId = $row['id'];
+            } else {
+                // Nessuna wishlist per l'utente, creiamo una nuova wishlist
+                $query = "INSERT INTO wishlist (user_id) VALUES ({$userId})";
+                $this->connection->query($query);
+                $result = $this->connection->query("SELECT LAST_INSERT_ID() ");
+                $lastInsertId = $result->fetch_assoc(); // Recupera un array associativo
+                $wishlistId = $lastInsertId['LAST_INSERT_ID()'];
+            }
+
+            // Ora possiamo associare i prodotti dalla variabile di sessione 'wishlist' alla wishlist dell'utente
+            $productIds = $_SESSION['wishlist']->getProductsId();
+
+
+            foreach ($productIds as $productId) {
+                // Verifica se il prodotto è già nella wishlist dell'utente
+                $query = "SELECT COUNT(*) as 'count' FROM wishlist_product WHERE wishlist_product.wishlist_id = '{$wishlistId}' AND wishlist_product.product_id = '{$productId}'";
+                $result = $this->connection->query($query);
+                $row = $result->fetch_assoc();
+
+                if ($row['count'] == 0) {
+                    // Inserisci il prodotto nella wishlist dell'utente
+                    $query = "INSERT INTO wishlist_product (wishlist_id, product_id) VALUES ('{$wishlistId}', '{$productId}')";
+                    $this->connection->query($query);
+                }
+            }
         }
     }
 }

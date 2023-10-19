@@ -133,11 +133,35 @@ class ProductService
 
     }
 
+
+    
+    public function searchProducts($searchQuery) {
+    if (!empty($searchQuery)) {
+        // Esegui la query per cercare i prodotti
+        $query = "SELECT * FROM product WHERE product.name LIKE '%$searchQuery%'";
+        
+    } else{
+        $query = "SELECT * FROM product";
+
+    }
+    $result = $this->connection->query($query);
+    $all_products = array();
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $product = new Product();
+                $product->setId($row['id']);
+                $product->setName($row['name']);
+                $product->setPrice($row['price']);
+                $product->setImage($row['image']);
+                $product->setStock($row['stock']);
+                $product->setIsOnline($row['is_online']);
+                $product->setCategory($this->getCategoryById($row['category_id']));
+                if ($product->getIsOnline() == 1)
+                    $all_products[] = $product;
+            }
+            return $all_products;
+            
+        }
+        return null;
+    }
 }
-
-
-
-
-
-
-
