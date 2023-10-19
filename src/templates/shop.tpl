@@ -1,5 +1,5 @@
 <head>
-    <link rel="stylesheet" href="src/assets/css/main.min.css">
+    <link rel="stylesheet" href="assets/css/main.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <!--main content wrapper start-->

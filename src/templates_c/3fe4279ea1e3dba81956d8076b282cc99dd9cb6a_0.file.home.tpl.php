@@ -1,11 +1,11 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-09-12 15:03:18
+/* Smarty version 4.3.0, created on 2023-10-18 14:55:48
   from 'C:\xampp\htdocs\biogg\src\templates\home.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_6500619680a0d5_61682962',
+  'unifunc' => 'content_652fd5d4c27b01_43077683',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6500619680a0d5_61682962 (Smarty_Internal_Template $_smarty_tpl) {
+function content_652fd5d4c27b01_43077683 (Smarty_Internal_Template $_smarty_tpl) {
 ?>
     <!--hero section start-->
     <section class="gshop-hero pt-120 bg-white position-relative z-1 overflow-hidden">

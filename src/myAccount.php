@@ -31,18 +31,19 @@ try {
                     }
 
             }
+            
             if (!isset($_SESSION['cart'])) {
                 $cartService->createShoppingCart();
             }
             if(isset($_SESSION['auth']['cart'])){
                 $smarty->assign("cart", $_SESSION['auth']['cart']);
-                $smarty->assign('cartProducts', $productService->getCartProducts($_SESSION['auth']['cart']));
-                $smarty->assign("totalPrice", $productService->getTotalPrice($_SESSION['auth']['cart']) );
+                
             }else{
                 $smarty->assign("cart", $_SESSION['cart']);
-                $smarty->assign('cartProducts', $productService->getCartProducts($_SESSION['cart']));
-                $smarty->assign("totalPrice", $productService->getTotalPrice($_SESSION['cart']) );
+                
             }
+            $smarty->assign('cartProducts', $cartService->getCartProducts());
+            $smarty->assign("totalPrice", $cartService->getTotalPrice() );
         $smarty->display("index.tpl");
 
     } else {

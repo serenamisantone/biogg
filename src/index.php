@@ -9,39 +9,44 @@ $userService = new UserService();
 $productService = new ProductService();
 $smarty = new Config();
 
-if ($_POST['action'] == 'removeProduct') {
-    $idProduct = $_POST['idProduct'];
-    $idCart = $_POST['idCart'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId'])) {
+    $idProduct = $_POST['productId'];
 
     // Effettua la logica per rimuovere il prodotto dal carrello.
     // Questa logica varierà a seconda di come hai implementato il carrello.
-$result = $cartService->removeFromCart($idProduct,$idCart);
+        $result = $cartService->removeFromCart($idProduct);
+        $newTotalPrice = $cartService->getTotalPrice();
     // Dopo aver completato la rimozione, puoi restituire una risposta appropriata in formato JSON.
-
-    if ($result) {
-        echo json_encode(['success' => true, 'message' => 'Prodotto rimosso con successo']);
+        error_log("questo è il risultato  ".$result);
+    if ($result==1) {
+        header('Content-Type: application/json');
+        $response = ['success' => true, 'message' => 'Prodotto rimosso con successo', 'totalPrice'=> $newTotalPrice ];
+        echo json_encode($response);
         exit;
     } else {
-        echo json_encode(['success' => false, 'message' => 'Prodotto non rimosso']);
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Prodotto non rimosso con successo', 'totalPrice'=> $newTotalPrice];
+        echo json_encode($response);
         exit;
     }
 }
-
+    
 
 try {
-  
-    if (!isset($_SESSION['cart'])) {
+  if (!isset($_SESSION['cart'])) {
         $cartService->createShoppingCart();
     }
     if (isset($_SESSION['auth']['cart'])) {
-        $smarty->assign("cart", $_SESSION['auth']['cart']);
-        $smarty->assign('cartProducts', $productService->getCartProducts($_SESSION['auth']['cart']));
-        $smarty->assign("totalPrice", $productService->getTotalPrice($_SESSION['auth']['cart']));
+        $smarty->assign('cart', $_SESSION['auth']['cart']);
+       
     } else {
-        $smarty->assign("cart", $_SESSION['cart']);
-        $smarty->assign('cartProducts', $productService->getCartProducts($_SESSION['cart']));
-        $smarty->assign("totalPrice", $productService->getTotalPrice($_SESSION['cart']));
+        $smarty->assign('cart', $_SESSION['cart']);
+        
     }
+
+    $smarty->assign('cartProducts', $cartService->getCartProducts());
+    $smarty->assign('totalPrice', $cartService->getTotalPrice());
+  
     $smarty->assign("all_reviews", $userService->getAllReviews());
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

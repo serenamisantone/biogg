@@ -47,7 +47,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="wishlist-table bg-white">
+                        <div class="cart-table bg-white">
                             <table class="w-100">
                                 <thead>
                                     <tr>

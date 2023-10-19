@@ -125,7 +125,7 @@
                                             <ul class="user-menu">
                                                 <li><a href="myAccount.php"><span class="me-2"><i
                                                                 class="fa-solid fa-user"></i></span>My Account</a></li>
-                                                <li><a href="cart.html"><span class="me-2"><i
+                                                <li><a href="cart.php"><span class="me-2"><i
                                                                 class="fa-solid fa-tags"></i></span>My Cart</a></li>
                                                 <li><a href="myWishlist.php"><span class="me-2"><i
                                                                 class="fa-solid fa-heart"></i></span>My Wishlist</a>
@@ -154,7 +154,7 @@
 
 
                                                         {foreach $cartProducts as $cartProduct }
-                                                            <li class="d-flex align-items-center">
+                                                            <li class="d-flex align-items-center cart-product">
                                                                 {$product= $cartProduct['product']}
 
                                                                 <div class="thumb-wrapper">
@@ -175,10 +175,9 @@
                                                                             <span class="count">x
                                                                                 {$cartProduct['quantity']}&nbsp;</span>
                                                                         </div>
-                                                                        <a  class="remove-product"
-                                                                            data-product-id="{$product->getId()}"
-                                                                            data-cart-id="{$cart->getShoppingCartId()}">
-                                                                            <i class="fas fa-trash-alt"></i> 
+                                                                        <a class="remove_cart_btn"
+                                                                            onclick="removeFromCart({$product->getId()})" data-product-id="{$product->getId()}">
+                                                                            <i class="fas fa-trash-alt"></i>
                                                                         </a>
 
                                                                     </div>
@@ -192,7 +191,7 @@
 
                                                 <div class="d-flex align-items-center  mt-3">
                                                     <h6 class="mb-0">Subtotal:&nbsp</h6>
-                                                    <span class="fw-semibold text-primary"> {$totalPrice} €</span>
+                                                    <span id="cartTotal" class="fw-semibold text-primary"> {$totalPrice} €</span>
                                                 </div>
                                                 <a href="checkout.html"
                                                     class="btn btn-primary btn-md d-block mt-4"><span class="me-2"><i

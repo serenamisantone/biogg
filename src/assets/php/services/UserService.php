@@ -47,30 +47,31 @@ class UserService
     public function check($username, $password)
     {
         if (!isset($_SESSION['auth'])) {
-    
+
             if (!isset($username) or !isset($password)) {
                 Header("Location: error.php?002-username-and-password-not-entered");
                 exit;
             } else {
-    
+
                 $result = $this->connection->query("SELECT id FROM user WHERE username = '{$username}' AND password = '{$password}'");
-    
+
                 if (!$result) {
                     Header("Location: error.php?generic");
                     exit;
                 }
-    
+
                 if ($result->num_rows == 0) {
                     Header("Location: error.php?001-uknown-user");
                     exit;
                 } else {
                     $data = $result->fetch_assoc();
-                    $_SESSION['auth']['user'] = $data['id'];
-                    $userId = $_SESSION['auth']['user'];
-    
+                    $userId = $data['id'];
+                    $_SESSION['auth']['user'] = $userId;
+                   
+
                     // $expiryTime = time() + (24 * 60 * 60);
                     //setcookie('user', $data['id'], $expiryTime, '/');
-    
+
                     //assegno il gruppo
                     $result = $this->connection->query("SELECT `group`.name from user join user_has_group on user_has_group.user_id = user.id join `group` on user_has_group.group_id=`group`.id where user.username = '{$username}';");
                     if ($result === false) {
@@ -81,42 +82,45 @@ class UserService
                         $data = $result->fetch_assoc();
                         $_SESSION['auth']['group'] = $data['name'];
                     }
-                     //assegno carrello all'user
-                     $user = $this->getUserById($userId);                    
-                     $this->cartService->assignShoppingCart($user);
-                   
-
-                     
                     
-                    $result = $this->connection->query("SELECT * from wishlist where wishlist.user_id = '{$userId}';");
-                    if ($result === false) {
-                        // Errore nella query
-                        Header("Location: error.php?errore_nella_query4");
-                        exit;
-                    }if ($result->num_rows == 0) {
-                        if(isset($_SESSION['wishlist'])){
-                            $result = $this->connection->query("INSERT INTO wishlist ( user_id) VALUES ('{$userId}') ;");
-                            $result = $this->connection->query("SELECT LAST_INSERT_ID() ");
-                            $lastInsertId = $result->fetch_assoc(); // Recupera un array associativo
-                            $wishlistId = $lastInsertId['LAST_INSERT_ID()'];
-                            foreach($_SESSION['wishlist']->getProductsId() as $productId){
-                                $result = $this->connection->query("INSERT INTO wishlist_product (wishlist_id,product_id) VALUES ('{$wishlistId}','{$productId}') ;");
-                            }} else{
-                            $data = $result->fetch_assoc();
-                            $wishlist = new Wishlist();
-                            $wishlist->setUser($this->getUserById($userId));
-                            $wishlist->setWishlistId($data['id']);
-                            //assegna prodotti alla wishlist
-                            $_SESSION['auth']['wishlist'] = $wishlist;
-                        }
-    
+                    //assegno carrello all'user
+                    $_SESSION['auth']['cart'] = $this->cartService->assignShoppingCart($userId);
                     return true;
-                } else {
+
+
+
+                    /*  $result = $this->connection->query("SELECT * from wishlist where wishlist.user_id = '{$userId}';");
+                      if ($result === false) {
+                          // Errore nella query
+                          Header("Location: error.php?errore_nella_query4");
+                          exit;
+                      }if ($result->num_rows == 0) {
+                          if(isset($_SESSION['wishlist'])){
+                              $result = $this->connection->query("INSERT INTO wishlist ( user_id) VALUES ('{$userId}') ;");
+                              $result = $this->connection->query("SELECT LAST_INSERT_ID() ");
+                              $lastInsertId = $result->fetch_assoc(); // Recupera un array associativo
+                              $wishlistId = $lastInsertId['LAST_INSERT_ID()'];
+                              foreach($_SESSION['wishlist']->getProductsId() as $productId){
+                                  $result = $this->connection->query("INSERT INTO wishlist_product (wishlist_id,product_id) VALUES ('{$wishlistId}','{$productId}') ;");
+                              }} else{
+                              $data = $result->fetch_assoc();
+                              $wishlist = new Wishlist();
+                              $wishlist->setUser($this->getUserById($userId));
+                              $wishlist->setWishlistId($data['id']);
+                              //assegna prodotti alla wishlist
+                              $_SESSION['auth']['wishlist'] = $wishlist;
+                          }
+      
+                      return true;
+                  } else {
+          }*/
+                }
+            }
         }
-    }}}}
-    
-    
-    
+    }
+
+
+
 
 
     public function getGroupById($userId)
