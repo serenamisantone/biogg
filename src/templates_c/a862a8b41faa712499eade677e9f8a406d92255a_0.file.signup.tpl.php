@@ -1,17 +1,17 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-10-21 13:42:54
-  from 'C:\xampp\htdocs\biogg\src\templates\login.tpl' */
+/* Smarty version 4.3.0, created on 2023-10-21 15:17:19
+  from 'C:\xampp\htdocs\biogg\src\templates\signup.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_6533b93e578975_89813174',
+  'unifunc' => 'content_6533cf5f854573_41180860',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    '531c5741a5b8e34a3f977ea692ddacc03b9be1f6' => 
+    'a862a8b41faa712499eade677e9f8a406d92255a' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\login.tpl',
+      0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\signup.tpl',
       1 => 1697749110,
       2 => 'file',
     ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_6533b93e578975_89813174 (Smarty_Internal_Template $_smarty_tpl) {
+function content_6533cf5f854573_41180860 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -49,51 +49,62 @@ function content_6533b93e578975_89813174 (Smarty_Internal_Template $_smarty_tpl)
     <!--main content wrapper start-->
     <div class="main-wrapper">
 
+
         <!--login section start-->
         <section class="login-section py-5">
             <div class="container">
+            <?php if ((isset($_smarty_tpl->tpl_vars['error_message']->value))) {?>
+                <div class="alert alert-danger" role="alert"><?php echo $_smarty_tpl->tpl_vars['error_message']->value;?>
+</div>
+            <?php }?>
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-12 tt-login-img" data-background="assets/img/login/logo.jpeg"></div>
                     <div class="col-lg-5 col-12 bg-white d-flex p-0 tt-login-col shadow">
-                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action = "login.php" method = "post">
-                            <div class="mb-7">
-                                <a href="home.php">
-                                    <img src="assets/img/logo.png" alt="logo">
-                                </a>
+                        <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action= "signup.php" method= "post">
+                            <div class="text-center mb-7">
+                                <a href="index.php"><img src="assets/img/login/logo2.jpeg" alt="logo"></a>
                             </div>
-                            <h2 class="mb-4 h3">Bentornato! <br> Accedi a <span class="text-secondary">BioGG</span>
-                            </h2>
+                            <h4 class="mb-3">Registrati</h4>
+                            <p class="fs-xs">Already have an account? <a href="login.php" class="text-secondary">Sign in</a></p>
                             <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <div class="input-field">
+                                        <input type="text" name= "name" placeholder="First name" class="theme-input">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input-field">
+                                        <input type="text" name= "surname" placeholder="Last name" class="theme-input">
+                                    </div>
+                                </div>
                                 <div class="col-sm-12">
                                     <div class="input-field">
-                                        <label class="fw-bold text-dark fs-sm mb-1"  >Username</label>
-                                        <input placeholder="Inserisci il tuo username" type="username" class="theme-input" name="username">
+                                        <input type="email" name="email" placeholder="Email address" class="theme-input">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="input-field">
+                                        <input type="text" name="username" placeholder="Username" class="theme-input">
                                     </div>
                                 </div>
                                 <div class="col-sm-12">
                                     <div class="input-field check-password">
-                                        <label class="fw-bold text-dark fs-sm mb-1"  type="password">Password</label>
-                                        <div class="check-password">
-                                            <input type="password" placeholder="Password" class="theme-input"name="password">
-                                            <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
-                                            <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
-                                        </div>
+                                        <input type="password" name="password" placeholder="Password" class="theme-input">
+                                        <span class="eye eye-icon"><i class="fa-solid fa-eye"></i></span>
+                                        <span class="eye eye-slash"><i class="fa-solid fa-eye-slash"></i></span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-between mt-4">
-                            
-                                <a href="#" class="fs-sm">Forgot Password</a>
-                            </div>
                             <div class="row g-4 mt-4">
-                                <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-primary w-100" name="submit">Sign In</button>
+                                <div class="col-sm-6 text-center">
+                                    <button type="submit" class="btn btn-primary mx-auto d-block">Create account</button>
                                 </div>
-                               
+                                <div>
+                            <p class="mb-0 fs-xxs mt-4 text-center">By signing up, I agree to <a href="#" class="text-dark">Terms of Use and Privacy Policy</a></p>
                             </div>
-                            <p class="mb-0 fs-xs mt-4">Don't have an Account? <a href="signup.php">Sign Up</a>
-                            </p>
-                        </form>
+                            </div>
+                            </form>
+                            
                     </div>
                 </div>
             </div>
@@ -104,7 +115,6 @@ function content_6533b93e578975_89813174 (Smarty_Internal_Template $_smarty_tpl)
     <!--main content wrapper end-->
 
 
-   
     <!--scroll bottom to top button start-->
     <button class="scroll-top-btn">
         <i class="fa-regular fa-hand-pointer"></i>

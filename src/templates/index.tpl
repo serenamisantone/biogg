@@ -192,9 +192,6 @@
                                                     <h6 class="mb-0">Subtotal:&nbsp</h6>
 <<<<<<< HEAD
                                                     <span id="cartTotal" class="fw-semibold text-primary"> {$totalPrice} €</span>
-=======
-                                                    <span class="fw-semibold text-primary"> 200 €</span>
->>>>>>> 04fb4df559152c49262f0676f99880f8c2ae16c1
                                                 </div>
                         
                                                 <a href="checkout.html"

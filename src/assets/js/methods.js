@@ -108,6 +108,9 @@ function removeFromCartPage(productId2) {
       // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
       if (response.success) {
 
+       
+        document.querySelector('#cartTotal').textContent = response.totalPrice + "€";
+
         var row = document.querySelector('tr[data-product-id="' + productId2 + '"]');
         if (row) {
           row.remove();
@@ -170,12 +173,13 @@ $(document).ready(function () {
           // Aggiorna il prezzo totale complessivo, ad esempio, se hai un elemento separato per il totale
           var newTotalPrice = response.totalPrice;
           $("#final-total-price").text(newTotalPrice + "€");
-
+          updateToolbarCart(response);
           if (actualQuantity <= 1) {
             $(".decrease[data-product-id='" + productId + "']").prop("disabled", true);
         } else {
             $(".decrease[data-product-id='" + productId + "']").prop("disabled", false);
         }
+
 
 
         } else {
@@ -190,4 +194,43 @@ $(document).ready(function () {
 });
 
 
+function updateToolbarCart(response) {
+  var row = document.querySelector('tr[data-product-id="' + productId2 + '"]');
+  if (row) {
+    row.remove();
+  }
 
+    // Aggiorna il prezzo totale complessivo, ad esempio, se hai un elemento separato per il totale
+    var newTotalPrice = response.totalPrice;
+    $("#final-total-price").text(newTotalPrice + "€");
+}
+
+ function addToCart(productId2){
+  
+
+    $.ajax({
+      type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
+      url: "shop.php", // URL del tuo script PHP
+      data: { productId: productId2 },// Dati da passare al server
+      success: function (response) {
+  
+        // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+        if (response.success) {
+  
+         
+          var newTotalPrice = response.totalPrice;
+          $("#cartTotal").text(newTotalPrice + " €");
+        }
+        else {
+          // console.log("vivimi senza paura"+response.message);
+          alert("Errore durante la rimozione del prodotto dal carrello: " + response.message);
+        }
+      },
+      error: function () {
+        // Gestisci eventuali errori durante la chiamata AJAX
+        alert("Si è verificato un errore durante la rimozione del prodotto dalla wishlist.");
+      }
+    });
+  
+  
+}

@@ -29,8 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addProduct'])) {
     $productId = $_POST['addProduct'];
-   // $cart_product = new ShoppingCartProduct($productService->getProductById($productId), 1);
-   $cartService->addProduct($productId, '1');
+    $cartService->addProduct($productId, '1');
     
     header("location: shop.php");
     exit();

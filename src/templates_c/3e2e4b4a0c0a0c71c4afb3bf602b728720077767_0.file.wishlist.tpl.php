@@ -1,4 +1,27 @@
-<!DOCTYPE html>
+<?php
+/* Smarty version 4.3.0, created on 2023-10-19 23:25:25
+  from 'C:\xampp\htdocs\biogg\src\templates\wishlist.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.3.0',
+  'unifunc' => 'content_65319ec50fca93_93354360',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '3e2e4b4a0c0a0c71c4afb3bf602b728720077767' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\wishlist.tpl',
+      1 => 1697750717,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_65319ec50fca93_93354360 (Smarty_Internal_Template $_smarty_tpl) {
+?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 <body>
 
@@ -59,33 +82,47 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {foreach $wishlistItems as $item}
+                                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['wishlistItems']->value, 'item');
+$_smarty_tpl->tpl_vars['item']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['item']->value) {
+$_smarty_tpl->tpl_vars['item']->do_else = false;
+?>
                                     <tr>    
                                         <td class="text-center thumbnail">
-                                            <img src="assets/img/products/{$item->getImage()}" alt="product-thumb" class="img-fluid">
+                                            <img src="assets/img/products/<?php echo $_smarty_tpl->tpl_vars['item']->value->getImage();?>
+" alt="product-thumb" class="img-fluid">
                                         </td>
                                         <td>
-                                            <span class="fw-bold text-secondary fs-xs">{$item->getCategory()->getName()}</span>
-                                            <h6 class="mb-1 mt-1">{$item->getName()}</h6>
+                                            <span class="fw-bold text-secondary fs-xs"><?php echo $_smarty_tpl->tpl_vars['item']->value->getCategory()->getName();?>
+</span>
+                                            <h6 class="mb-1 mt-1"><?php echo $_smarty_tpl->tpl_vars['item']->value->getName();?>
+</h6>
                                         </td>
                                         <td class="text-end">
-                                            <span class="price fw-bold text-dark">€{$item->getPrice()}</s>
+                                            <span class="price fw-bold text-dark">€<?php echo $_smarty_tpl->tpl_vars['item']->value->getPrice();?>
+</s>
                                         </td>
                                         <td>
                                         
                                         <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">
                                         
                                         <form method="POST" action="shop.php">
-                                                <input type="hidden" name="addProduct" value="{$item->getId()}">
+                                                <input type="hidden" name="addProduct" value="<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
+">
                                                 <button type="submit">Aggiungi al carrello</button>
                                             </form>
                                             </a>
-                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1" onclick="removeFromWishlist({$item->getId()})"data-product-id="{$item->getId()}">Cancella</a>
+                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1" onclick="removeFromWishlist(<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
+)"data-product-id="<?php echo $_smarty_tpl->tpl_vars['item']->value->getId();?>
+">Cancella</a>
 
                                     </td>
                                     
                                     </tr>
-                                {/foreach} 
+                                <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?> 
                                 </tbody>
                             </table>
                         </div>
@@ -104,10 +141,16 @@
     </button>
     <!--scroll bottom to top button end-->
     <!--build:js-->
-    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/methods.js"></script>
+    <?php echo '<script'; ?>
+ src="assets/js/vendors/jquery-3.6.0.min.js"><?php echo '</script'; ?>
+>
+    <?php echo '<script'; ?>
+ src="assets/js/methods.js"><?php echo '</script'; ?>
+>
     <!--endbuild-->
 </body>
 
 </html>
 
+<?php }
+}
