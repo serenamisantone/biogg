@@ -41,28 +41,26 @@ function heartWishlist(button, productId) {
   });
 }
 
-function removeFromWishlist(productId) {
+function removeFromWishlist(productId){
   $.ajax({
     type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
     url: "/biogg/src/myWishlist.php", // URL del tuo script PHP
-    data: { wishlist_product_id: productId },// Dati da passare al server
-    success: function (response) {
-      // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
-      if (response.success) {
-        // alert("Prodotto rimosso dalla wishlist con successo!");
-        var row = document.querySelector('a[data-product-id="' + productId + '"]').closest('tr');
-        row.remove();
-        
-      } else {
-        alert("Errore durante la rimozione del prodotto dalla wishlist: " + response.message);
-      }
+    data: {wishlist_product_id: productId },// Dati da passare al server
+    success: function(response) {
+        // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+        if (response.success) {
+           // alert("Prodotto rimosso dalla wishlist con successo!");
+            var row = document.querySelector('a[data-product-id="' + productId + '"]').closest('tr');
+            row.remove();
+        } else {
+           // alert("Errore durante la rimozione del prodotto dalla wishlist: " + response.message);
+        }
     },
-    error: function () {
-      // Gestisci eventuali errori durante la chiamata AJAX
-      alert("Si è verificato un errore durante la rimozione del prodotto dalla wishlist.");
+    error: function() {
+        // Gestisci eventuali errori durante la chiamata AJAX
+        alert("Si è verificato un errore durante la rimozione del prodotto dalla wishlist.");
     }
-  });
-
+});
 }
 
 function removeFromCart(productId2) {
