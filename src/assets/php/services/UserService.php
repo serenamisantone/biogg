@@ -191,7 +191,7 @@ function createAccount($name, $surname, $email, $username, $password) {
         $userId = $this->getUserIdByUsername($username);
 
         if ($userId) {
-            $insertUserGroupQuery = "INSERT INTO user_has_group (user_id, group_id) VALUES ('$userId', 1)";
+            $insertUserGroupQuery = "INSERT INTO user_has_group (user_id, group_id) VALUES ('$userId',1)";
             $insertUserGroupResult = $this->connection->query($insertUserGroupQuery);
 
             if ($insertUserGroupResult) {

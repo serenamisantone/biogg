@@ -10,10 +10,12 @@
               <div class="product-details">
                   <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
                       <div class="row align-items-center g-4">
+                      {foreach $product_infos as $product_info}
                           <div class="col-xl-6 align-self-end">
                               <div class="quickview-double-slider">
                                   <div class="quickview-product-slider swiper">
                                       <div class="swiper-wrapper">
+                                      
                                           <div class="swiper-slide text-center">
                                               <img src="assets/img/products/{$product_info ->getImage1()}"  class="img-fluid">
                                           </div>
@@ -23,18 +25,10 @@
                                           </div>
                                       </div>
                                   </div>
-                                  <div class="product-thumbnail-slider swiper mt-80">
-                                      <div class="swiper-wrapper">
-                                          <div class="swiper-slide product-thumb-single rounded-2 d-flex align-items-center justify-content-center">
-                                              <img src="assets/img/products/{$product_info ->getImage1()}" alt="jam" class="img-fluid">
-                                          </div>
-                                          <div class="swiper-slide product-thumb-single rounded-2 d-flex align-items-center justify-content-center">
-                                              <img src="assets/img/products/{$product_info->getImage2()}" alt="jam" class="img-fluid">
-                                          </div>                                       
-                                      </div>
-                                  </div>
                               </div>
                           </div>
+                          
+                          {foreach $products as $product}
                           <div class="col-xl-6">
                               <div class="product-info">
                                   <h4 class="mt-1 mb-3">{$product->getName()}</h4>
@@ -46,8 +40,7 @@
                                   <div class="widget-title d-flex mt-4">
                                       <h6 class="mb-1 flex-shrink-0">Descrizione</h6>
                                       <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
-                                  </div>
-                                  <p class="mb-3">{$product->getCaption()} </p>                               
+                                  </div>                            
                                   <ul class="d-flex flex-column gap-2">   
                                   {assign var="features" value = $product_info -> getFeatures()}
                                   {foreach $features as $feature }
@@ -68,6 +61,7 @@
                                   
                               </div>
                           </div>
+                        {/foreach}
                       </div>
                   </div>
                   <div class="product-info-tab bg-white rounded-2 overflow-hidden pt-6 mt-4">
@@ -96,7 +90,7 @@
                                   
                               </table>
                           </div>
-                         
+                        {/foreach}
                       </div>
                   </div>
               </div>

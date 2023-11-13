@@ -17,11 +17,12 @@ class ProductService
         $this->connection = DbConnection::getInstance()->getConnection();
     }
 
-    public function getAllProductsOnline()
-    {
-        $query = "SELECT * FROM product";
+    public function getAllProductsOnline($offset, $limit) {
+        $query = "SELECT * FROM product WHERE is_online = 1 LIMIT {$offset}, {$limit}";
+    
         $result = $this->connection->query($query);
         $all_products = array();
+    
         if (($result) && ($result->num_rows > 0)) {
             while ($row = $result->fetch_assoc()) {
                 $product = new Product();
@@ -32,13 +33,15 @@ class ProductService
                 $product->setStock($row['stock']);
                 $product->setIsOnline($row['is_online']);
                 $product->setCategory($this->getCategoryById($row['category_id']));
-                if ($product->getIsOnline() == 1)
-                    $all_products[] = $product;
+                $all_products[] = $product;
             }
+    
             return $all_products;
         }
-        return null;
+    
+        return array();
     }
+    
     public function getProductById($productId)
     {
         $query = "SELECT * FROM product WHERE id= '{$productId}'";
@@ -60,6 +63,20 @@ class ProductService
         }
         return null;
     }
+    public function getProductsByCategory($categoryId)
+{
+    $query = "SELECT * FROM product WHERE category_id= '{$categoryId}'";
+    $result = $this->connection->query($query);
+    $products = array();
+    if (($result) && ($result->num_rows > 0)) {
+        while ($row = $result->fetch_assoc()) {
+            $products[] = $row;
+        }
+        return $products;
+    }
+    return null;
+}
+
 
     public function getProductInfoById($productId)
     {
@@ -73,7 +90,6 @@ class ProductService
             $product->setIngredients($row['ingredients']);
             $product->setImage1($row['image1']);
             $product->setImage2($row['image2']);
-            $product->setDescription($row['description']);
             $this->addProductFeatures($product);
             return $product;
         } else {
@@ -193,4 +209,55 @@ class ProductService
         }
         return null;
     }
+
+     function getTotalProduct(){
+        $query = "SELECT COUNT(*) as total FROM product"; 
+        $result = $this->connection->query($query);
+        $total_products = $result->fetch_assoc();
+        return $total_products['total'];
+    }
+    function getImpagination(){
+        $total_products= $this->getTotalProduct();
+        $products_per_page = 9;
+        $total_pages = ceil($total_products / $products_per_page);
+        return $total_pages;
+
+    }
+
+function getDataProducts(){
+
+    $query = "SELECT * FROM product";
+    
+    $result = $this->connection->query($query);
+    $all_products = array();
+
+    if (($result) && ($result->num_rows > 0)) {
+        while ($row = $result->fetch_assoc()) {
+            $product = new Product();
+            $product->setId($row['id']);
+            $product->setName($row['name']);
+            $product->setPrice($row['price']);
+            $product->setImage($row['image']);
+            $product->setStock($row['stock']);
+            $product->setIsOnline($row['is_online']);
+            $product->setCategory($this->getCategoryById($row['category_id']));
+            $data_products[] = $product;
+        }
+
+        return $data_products;
+    }
+
+    return array();
 }
+    function updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage){
+      $query="
+        UPDATE product
+        SET name = $editedName, price = $editedPrice, category = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = $editedImage
+        WHERE id = $productId";
+        $result = $this->connection->query($query);
+        if($result){
+            return true;}else{return false;}
+        }
+        
+
+    }
