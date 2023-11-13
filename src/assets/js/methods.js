@@ -50,8 +50,15 @@ function removeFromWishlist(productId) {
       // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
       if (response.success) {
         // alert("Prodotto rimosso dalla wishlist con successo!");
-        var row = document.querySelector('a[data-product-id="' + productId + '"]').closest('tr');
-        row.remove();
+      /*  var row = document.querySelector('a[data-product-id="' + productId+'"]').closest('tr');
+        row.remove();*/
+        var productToRemoveId = productId;
+        $(".wishlist_product").each(function () {
+          var itemProductId = $(this).find(".remove_cart_btn").data("product-id");
+          if (itemProductId === productToRemoveId) {
+            $(this).remove();
+          }
+        });
         
       } else {
         alert("Errore durante la rimozione del prodotto dalla wishlist: " + response.message);
@@ -221,7 +228,7 @@ $(document).ready(function () {
       }
     });
   });
-
+  
 });
 
 function category(categoryId){
@@ -312,7 +319,7 @@ function saveChanges(productId) {
   $.ajax({
     type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
     url: "/biogg/src/adminAccount.php", // URL del tuo script PHP
-    data: { edited_data: JSON.stringify(editedData) },// Dati da passare al server
+    data: { edited_data: editedData },// Dati da passare al server
     success: function(response) {
         // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
         if (response.success) {

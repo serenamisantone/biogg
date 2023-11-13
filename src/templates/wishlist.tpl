@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
+
 <body>
 
     <!--main content wrapper start-->
@@ -9,19 +10,27 @@
 
         <!--breadcrumb section start-->
         <div class="gstore-breadcrumb position-relative z-1 overflow-hidden mt--50">
-            <img src="assets/img/shapes/bg-shape-6.png" alt="bg-shape" class="position-absolute start-0 z--1 w-100 bg-shape">
+            <img src="assets/img/shapes/bg-shape-6.png" alt="bg-shape"
+                class="position-absolute start-0 z--1 w-100 bg-shape">
             <img src="assets/img/shapes/pata-xs.svg" alt="pata" class="position-absolute pata-xs z--1 vector-shape">
-            <img src="assets/img/shapes/onion.png" alt="onion" class="position-absolute z--1 onion start-0 top-0 vector-shape">
-            <img src="assets/img/shapes/frame-circle.svg" alt="frame circle" class="position-absolute z--1 frame-circle vector-shape">
+            <img src="assets/img/shapes/onion.png" alt="onion"
+                class="position-absolute z--1 onion start-0 top-0 vector-shape">
+            <img src="assets/img/shapes/frame-circle.svg" alt="frame circle"
+                class="position-absolute z--1 frame-circle vector-shape">
             <img src="assets/img/shapes/leaf.svg" alt="leaf" class="position-absolute z--1 leaf vector-shape">
-            <img src="assets/img/shapes/garlic-white.png" alt="garlic" class="position-absolute z--1 garlic vector-shape">
+            <img src="assets/img/shapes/garlic-white.png" alt="garlic"
+                class="position-absolute z--1 garlic vector-shape">
             <img src="assets/img/shapes/roll-1.png" alt="roll" class="position-absolute z--1 roll vector-shape">
             <img src="assets/img/shapes/roll-2.png" alt="roll" class="position-absolute z--1 roll-2 vector-shape">
             <img src="assets/img/shapes/pata-xs.svg" alt="roll" class="position-absolute z--1 pata-xs-2 vector-shape">
-            <img src="assets/img/shapes/tomato-half.svg" alt="tomato" class="position-absolute z--1 tomato-half vector-shape">
-            <img src="assets/img/shapes/tomato-slice.svg" alt="tomato" class="position-absolute z--1 tomato-slice vector-shape">
-            <img src="assets/img/shapes/cauliflower.png" alt="tomato" class="position-absolute z--1 cauliflower vector-shape">
-            <img src="assets/img/shapes/leaf-gray.png" alt="tomato" class="position-absolute z--1 leaf-gray vector-shape">
+            <img src="assets/img/shapes/tomato-half.svg" alt="tomato"
+                class="position-absolute z--1 tomato-half vector-shape">
+            <img src="assets/img/shapes/tomato-slice.svg" alt="tomato"
+                class="position-absolute z--1 tomato-slice vector-shape">
+            <img src="assets/img/shapes/cauliflower.png" alt="tomato"
+                class="position-absolute z--1 cauliflower vector-shape">
+            <img src="assets/img/shapes/leaf-gray.png" alt="tomato"
+                class="position-absolute z--1 leaf-gray vector-shape">
             <div class="container">
                 <div class="row">
                     <div class="col-12">
@@ -29,7 +38,8 @@
                             <h2 class="mb-2 text-center">Wishlist Page</h2>
                             <nav>
                                 <ol class="breadcrumb justify-content-center">
-                                    <li class="breadcrumb-item fw-bold" aria-current="page"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item fw-bold" aria-current="page"><a
+                                            href="index.html">Home</a></li>
                                     <li class="breadcrumb-item fw-bold" aria-current="page">Page</li>
                                     <li class="breadcrumb-item fw-bold" aria-current="page">Wishlist Page</li>
                                 </ol>
@@ -55,39 +65,44 @@
                                         <th class="text-center">Prodotto</th>
                                         <th class="text-center">Prezzo</th>
                                         <th class="text-center"></th>
-
+                                        <th class="text-center"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                {foreach $wishlistItems as $item}
-                                    <tr>    
-                                        <td class="text-center thumbnail">
-                                            <img src="assets/img/products/{$item->getImage()}" alt="product-thumb" class="img-fluid">
-                                        </td>
-                                        <td>
-                                            <span class="fw-bold text-secondary fs-xs">{$item->getCategory()->getName()}</span>
-                                            <h6 class="mb-1 mt-1">{$item->getName()}</h6>
-                                        </td>
-                                        <td class="text-end">
-                                            <span class="price fw-bold text-dark">€{$item->getPrice()}</s>
-                                        </td>
-                                        <td>
-                                        
-                                        <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">
-                                        
-                                        <form method="POST" >
-                                                
-                                                <button type="button"
-                                                        class="addToCartButton"
-                                                        data-product-id="{$item->getId()}">Aggiungi al carrello</button>
-                                            </form>
-                                            </a>
-                                        <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1" onclick="removeFromWishlist({$item->getId()})"data-product-id="{$item->getId()}">Cancella</a>
+                                    {foreach $wishlistItems as $item}
+                                        <tr class="wishlist_product">
+                                            <td class="text-center thumbnail">
+                                                <img src="assets/img/products/{$item->getImage()}" alt="product-thumb"
+                                                    class="img-fluid">
+                                            </td>
+                                            <td>
+                                                <span
+                                                    class="fw-bold text-secondary fs-xs">{$item->getCategory()->getName()}</span>
+                                                <h6 class="mb-1 mt-1">{$item->getName()}</h6>
+                                            </td>
+                                            <td class="text-end">
+                                                <span class="price fw-bold text-dark">€{$item->getPrice()}</s>
+                                            </td>
+                                            <td>
 
-                                    </td>
-                                    
-                                    </tr>
-                                {/foreach} 
+                                                <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">
+
+                                                    <form method="POST">
+
+                                                        <button type="button" class="addToCartButton"
+                                                            data-product-id="{$item->getId()}">Aggiungi al carrello</button>
+                                                    </form>
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <a  class="btn btn-primary btn-sm ms-5 rounded-1 remove_cart_btn"
+                                                    onclick="removeFromWishlist({$item->getId()})"
+                                                    data-product-id="{$item->getId()}">Cancella</a>
+
+                                            </td>
+
+                                        </tr>
+                                    {/foreach}
                                 </tbody>
                             </table>
                         </div>
@@ -105,8 +120,7 @@
         <i class="fa-regular fa-hand-pointer"></i>
     </button>
     <!--scroll bottom to top button end-->
-    
+
 </body>
 
 </html>
-
