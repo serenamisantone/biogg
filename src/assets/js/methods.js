@@ -220,7 +220,7 @@ $(document).ready(function () {
       }
     });
   });
-  
+
 });
 
 function category(categoryId){
@@ -311,7 +311,7 @@ function saveChanges(productId) {
   $.ajax({
     type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
     url: "/biogg/src/adminAccount.php", // URL del tuo script PHP
-    data: { edited_data: editedData },// Dati da passare al server
+    data: { edited_data: JSON.stringify(editedData) },// Dati da passare al server
     success: function(response) {
         // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
         if (response.success) {

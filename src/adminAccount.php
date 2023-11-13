@@ -8,9 +8,7 @@ $productService = new ProductService();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edited_data'])) {
     $editedData = $_POST['edited_data'];
     
-    // Leggi i dati JSON dalla richiesta
-    $json_data = file_get_contents("php://input");
-    $editedData = json_decode($json_data);
+    $editedData = json_decode($editedData);
 
     // Esempio di come accedere ai dati
     $productId = $editedData->id;

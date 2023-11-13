@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-11-13 14:21:48
-  from 'C:\xampp\htdocs\biogg\src\templates\index.tpl' */
+/* Smarty version 4.3.0, created on 2023-11-13 16:13:07
+  from 'C:\Users\fpall\Desktop\camillabiogg\htdocs\biogg\src\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_655222ec169a75_68556515',
+  'unifunc' => 'content_65523d03b41b57_55278635',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
-    'd99f6f6d3aa6219f2d1c99c79ef4828134137517' => 
+    '2abb02e8dc4588c261f11ecd71ba052710265667' => 
     array (
-      0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\index.tpl',
-      1 => 1699880108,
+      0 => 'C:\\Users\\fpall\\Desktop\\camillabiogg\\htdocs\\biogg\\src\\templates\\index.tpl',
+      1 => 1699886547,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_655222ec169a75_68556515 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65523d03b41b57_55278635 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
