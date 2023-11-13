@@ -147,41 +147,35 @@ class WishlistService
 
 
 
-    function removeToWishlist($productId)
-    {
-        if (isset($_SESSION['auth']['user'])) {
+    function removeToWishlist($productId) {
+        if(isset($_SESSION['auth']['user'])) {
             $userId = $_SESSION['auth']['user'];
-
             // Esegui una query SQL per eliminare il prodotto dalla wishlist dell'utente
             $query = "DELETE wp
-                  FROM wishlist_product AS wp
-                  INNER JOIN wishlist AS w ON wp.wishlist_id = w.id
-                  WHERE w.user_id = '{$userId}' AND wp.product_id = '{$productId}'";
-            $result = $this->connection->query($query);
-            if ($result) {
-                return true;
-            } else {
-                return false;
-            }
+                      FROM wishlist_product AS wp
+                      INNER JOIN wishlist AS w ON wp.wishlist_id = w.id
+                      WHERE w.user_id = '{$userId}' AND wp.product_id = '{$productId}'";
+                        $result = $this->connection->query($query);
+                        if($result){return true;}else{return false;}
         }
-        // Esegui la query in modo sicuro utilizzando istruzioni preparate o la tua API di database preferita
-
-        // Rimuovi il prodotto dalla variabile di sessione
-        if (isset($_SESSION['wishlist'])) {
-            $wishlist = $_SESSION['wishlist'];
-            $updatedProductsId = $wishlist->getProductsId();
-            $key = array_search($productId, $updatedProductsId);
-
-            if ($key !== false) {
-                unset($updatedProductsId[$key]);
-                $wishlist->setProductsId(array_values($updatedProductsId));
-                $_SESSION['wishlist'] = $wishlist; // Aggiorna la Wishlist nella variabile di sessione
-                return true;
+            // Esegui la query in modo sicuro utilizzando istruzioni preparate o la tua API di database preferita
+            // Rimuovi il prodotto dalla variabile di sessione
+            if(isset($_SESSION['wishlist'])) {
+                    $wishlist = $_SESSION['wishlist'];
+                    $updatedProductsId = $wishlist->getProductsId();
+                    $key = array_search($productId, $updatedProductsId);
+            
+                    if ($key !== false) {
+                        unset($updatedProductsId[$key]);
+                        $wishlist->setProductsId(array_values($updatedProductsId));
+                        $_SESSION['wishlist'] = $wishlist; // Aggiorna la Wishlist nella variabile di sessione
+                        return true;
+                    }
+            
+                    return false;
+                }
             }
-
-            return false;
-        }
-    }
+        
     function assignWishlist()
     {
         if (isset($_SESSION['auth']['user'])) {
