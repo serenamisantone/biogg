@@ -3,6 +3,7 @@
 require_once("./assets/Config.php");
 require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/services/UserService.php");
+require_once("./assets/php/services/WishlistService.php");
 
 session_start();
 $smarty = new Config();

@@ -81,7 +81,7 @@ class CartService
            $result = $this->connection->query($query);
             if ($result && $this->connection->affected_rows > 0) {
                 // Il prodotto era già nel carrello e l'aggiornamento ha avuto successo
-                
+                return true; 
             } else {
                 // Il prodotto non era nel carrello, inseriscilo nel carrello
                 $insertQuery = "INSERT INTO shopping_cart_product (shopping_cart_id, product_id, added_quantity) 

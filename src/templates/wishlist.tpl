@@ -75,9 +75,11 @@
                                         
                                         <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">
                                         
-                                        <form method="POST" action="shop.php">
-                                                <input type="hidden" name="addProduct" value="{$item->getId()}">
-                                                <button type="submit">Aggiungi al carrello</button>
+                                        <form method="POST" >
+                                                
+                                                <button type="button"
+                                                        class="addToCartButton"
+                                                        data-product-id="{$item->getId()}">Aggiungi al carrello</button>
                                             </form>
                                             </a>
                                         <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1" onclick="removeFromWishlist({$item->getId()})"data-product-id="{$item->getId()}">Cancella</a>
@@ -103,10 +105,7 @@
         <i class="fa-regular fa-hand-pointer"></i>
     </button>
     <!--scroll bottom to top button end-->
-    <!--build:js-->
-    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/methods.js"></script>
-    <!--endbuild-->
+    
 </body>
 
 </html>
