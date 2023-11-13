@@ -3,7 +3,6 @@
 
 
 
-
 .bg-primary-light {
     background-color: rgba(110, 179, 86, .1)
 }
@@ -29953,7 +29952,9 @@ body {
 }
 
 .tt-category {
-    line-height: 1.2
+    line-height: 1.2;
+    margin-bottom: 0px;
+    margin-top:0px;
 }
 
 .tt-category a {
@@ -30050,7 +30051,7 @@ body {
 }
 
 .vertical-product-card .card-btn {
-    padding: 0 24px 32px;
+    padding: 0 24px 16px;
     position: absolute;
     top: 100%;
     left: 0;

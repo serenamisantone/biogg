@@ -22,7 +22,7 @@ try {
                         break;
                     }
                 case "admin": {
-                        $smarty->assign("current_view", "adminAccount.tpl");
+                    header("Location: adminAccount.php");
                         break;
                     }
                 case "employee": {

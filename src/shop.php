@@ -63,8 +63,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
     $smarty->assign("totalPrice", $cartService->getTotalPrice());
     $smarty->assign("all_categories", $productService->getAllCategories());
     $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
+    $smarty->assign("total_products", $productService->getTotalProduct());
+    $smarty->assign("total_pages", $productService->getImpagination());
     $smarty->display("index.tpl");
     exit();
+}
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['categoryId'])) {
+    $categoryId = $_GET['categoryId'];
+    error_log($categoryId);
+    $products = $productService->getProductsByCategory($categoryId);
+
+    header('Content-Type: application/json');
+            echo json_encode($products);
+            exit();
 }
 
 try {
@@ -81,9 +92,14 @@ try {
     $smarty->assign('cartProducts', $cartService->getCartProducts());
     $smarty->assign("totalPrice", $cartService->getTotalPrice());
     $smarty->assign("current_view", "shop.tpl");
-    $smarty->assign("all_products", $productService->getAllProductsOnline());
+    $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $products_per_page = 9; 
+    $offset = ($current_page - 1) * $products_per_page;
+    $smarty->assign("all_products", $productService->getAllProductsOnline($offset, $products_per_page));
     $smarty->assign("all_categories", $productService->getAllCategories());
     $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
+    $smarty->assign("total_products", $productService->getTotalProduct());
+    $smarty->assign("total_pages", $productService->getImpagination());
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {
     $smarty->assign("content_load", "404.tpl");

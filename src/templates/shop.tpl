@@ -6,7 +6,7 @@
 <div class="main-wrapper">
 
     <!--shop grid section start-->
-    <section class="gshop-gshop-grid ptb-120">
+    <section class="gshop-gshop-grid ptb-100">
         <div class="container">
             <div class="row g-4">
                 <div class="col-xl-3">
@@ -32,7 +32,7 @@
                             <ul class="widget-nav mt-4">
                                 {foreach $all_categories as $category}
                                     <li><a href="#"
-                                            class="d-flex justify-content-between align-items-center">{$category->getName()}</a>
+                                           class="d-flex justify-content-between align-items-center"  onclick="category({$category->getId()})"data-category-id="{$category->getId()}">{$category->getName()}</a>
                                     </li>
                                 {{/foreach}}
                             </ul>
@@ -44,12 +44,12 @@
                 <div class="col-xl-9">
                     <div class="shop-grid">
                         <div
-                            class="listing-top d-flex align-items-center justify-content-between flex-wrap gap-3 bg-white rounded-2 px-4 py-5 mb-6">
-                            <p class="mb-0 fw-bold">Showing 1-12 of 45 results</p>
+                            class="listing-top d-flex align-items-center justify-content-between flex-wrap gap-3 bg-white rounded-2 px-4 py-2 mb-6">
+                            <p class="mb-0 fw-bold">Showing 1-9 of {$total_products} results</p>
 
                         </div>
 
-                        <div class="row g-4 justify-content-center">
+                        <div class="row g-4 justify-content-center" id="products-section">
                             {foreach $all_products as $product}
                                 {assign var="isInWishlist" value=false}
                                 {foreach $product_wishlist as $wproduct}
@@ -105,12 +105,14 @@
 
                         </div>
                         <ul class="template-pagination d-flex align-items-center mt-6">
-                            <li><a href="#" class="active">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
-                        </ul>
+                        {for $page = 1 to $total_pages}
+                            <li><a href="shop.php?page={$page}">{$page}</a></li>
+                        {/for}
+                        <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
+                    </ul>
+
+                    
+
                     </div>
 
 

@@ -1,5 +1,8 @@
 
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
     <!--main content wrapper start-->
+    <body>
     <div class="main-wrapper">
 
                 <div class="row g-4">
@@ -7,29 +10,21 @@
                         <div class="account-nav bg-white rounded py-5">
                             <h6 class="mb-4 px-4">Manage My Account</h6>
                             <ul class="nav nav-tabs border-0 d-block account-nav-menu">
+                            <li>
+                            <a href="#products" data-bs-toggle="tab">
+                                <span class="me-2">
+                                    <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Il tuo codice SVG per l'icona qui -->
+                                    </svg>
+                                </span>
+                                Prodotti
+                            </a>
+
+                        </li>
+                        
+                        
                                 <li>
-                                    <a href="#dashboard" data-bs-toggle="tab" class="active">
-                                        <span class="me-2">
-                        <svg
-                          width="13"
-                          height="12"
-                          viewBox="0 0 13 12"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            clip-rule="evenodd"
-                            d="M0.332031 1.33333V0.666667C0.332031 0.3 0.632031 0 0.998698 0H12.332C12.6987 0 12.9987 0.3 12.9987 0.666667V1.33333C12.9987 1.7 12.6987 2 12.332 2H0.998698C0.632031 2 0.332031 1.7 0.332031 1.33333ZM12.332 3.33333H0.998698C0.632031 3.33333 0.332031 3.63333 0.332031 4V8C0.332031 8.36667 0.632031 8.66667 0.998698 8.66667H12.332C12.6987 8.66667 12.9987 8.36667 12.9987 8V4C12.9987 3.63333 12.6987 3.33333 12.332 3.33333ZM0.998698 12H12.332C12.6987 12 12.9987 11.7 12.9987 11.3333V10.6667C12.9987 10.3 12.6987 10 12.332 10H0.998698C0.632031 10 0.332031 10.3 0.332031 10.6667V11.3333C0.332031 11.7 0.632031 12 0.998698 12Z"
-                            fill="#4EB529"
-                          />
-                        </svg>
-                      </span>
-                                        Dashboard
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#order-history" data-bs-toggle="tab">
+                                    <a href="#aggiungi-prodotto" data-bs-toggle="tab">
                                         <span class="me-2">
                         <svg
                           width="24"
@@ -56,7 +51,7 @@
                           />
                         </svg>
                       </span>
-                                        Order History
+                                        Aggiungi prodotto
                                     </a>
                                 </li>
                                 <li>
@@ -87,7 +82,7 @@
                           />
                         </svg>
                       </span>
-                                        Address Book
+                                        Offerte
                                     </a>
                                 </li>
                                 <li>
@@ -118,7 +113,7 @@
                           />
                         </svg>
                       </span>
-                                        Payment Methods
+                                        Aggiungi offerta
                                     </a>
                                 </li>
                                 <li>
@@ -219,47 +214,56 @@
                     </div>
                     <div class="col-xl-9">
                         <div class="tab-content">
-                            <div class="tab-pane fade show active" id="dashboard">
-                                <div class="address-book bg-white rounded p-5">
-                                    <div class="row g-6">
-                                        <div class="col-md-6">
-                                            <div class="address-book-content pe-md-4 border-right position-relative">
-                                                <div class="d-flex align-items-center gap-5 mb-4">
-                                                    <h6 class="mb-0">Address Book</h6>
-                                                    <a href="#">Edit</a>
-                                                </div>
-                                                <p class="text-uppercase fw-medium mb-3">
-                                                    Default Shipping Address
-                                                </p>
-                                                <div class="address">
-                                                    <p class="text-dark fw-bold mb-1">Saiful Talukdar</p>
-                                                    <p class="mb-0">
-                                                        Ghunshe, Muksudpur Dhaka - Gopalganj.
-                                                        <br />
-                              (+880) 1633082302
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 align-self-end">
-                                            <div class="address-book-content ps-md-4">
-                                                <p class="text-uppercase fw-medium mb-3">
-                                                    Default Billing Address
-                                                </p>
-                                                <div class="address">
-                                                    <p class="text-dark fw-bold mb-1">Saiful Talukdar</p>
-                                                    <p class="mb-0">
-                                                        Ghunshe, Muksudpur Dhaka - Gopalganj.
-                                                        <br />
-                              (+880) 1633082302
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="tab-pane fade show active" id="products">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Nome</th>
+                                            <th>Prezzo</th>
+                                            <th>Categoria</th>
+                                            <th>Stock</th>
+                                            <th>Online</th>
+                                            <th>Immagine</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {foreach $data_products as $product}
+                                            <tr>
+                                                <td>{$product->getId()}</td>
+                                                <td>{$product->getName()}</td>
+                                                <td>{$product->getPrice()}</td>
+                                                {assign var="category" value=$product->getCategory()}
+                                                <td>{$category -> getName()}</td>
+                                                <td>{$product->getStock()}</td>
+                                                <td>{$product->getIsOnline()}</td>
+                                                <td>{$product->getImage()}</td>
+                                                <td>
+                                                <form id="editForm_{$product->getId()}" class="edit-form" style="display: none;">
+                <input type="text" id="edit_name_{$product->getId()}" value="{$product->getName()}">
+                <input type="text" id="edit_price_{$product->getId()}" value="{$product->getPrice()}">
+                <input type="text" id="edit_category_{$product->getId()}" value="{$product->getCategory()->getName()}">
+                <input type="text" id="edit_stock_{$product->getId()}" value="{$product->getStock()}">
+                <input type="text" id="edit_online_{$product->getId()}" value="{$product->getIsOnline()}">
+                <input type="text" id="edit_image_{$product->getId()}" value="{$product->getImage()}">
+                <button onclick="saveChanges({$product->getId()})" class="btn btn-success btn-sm">Salva</button>
+            </form>
+
+            <button onclick="toggleEditForm({$product->getId()})" class="btn btn-primary btn-sm btn-edit-product" data-productId="{$product->getId()}">
+                Modifica
+            </button>
+                                                <button onclick="deleteProduct({$product->getId()})" class="btn btn-secondary btn-sm">Elimina</button>
+                                            </td>
+                                                
+                                            </tr>
+                                        {/foreach}
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="tab-pane fade" id="order-history">
+                        </div>
+                            </div>
+                            <div class="tab-pane fade" id="aggiungi-prodotto">
                                 <div class="recent-orders bg-white rounded py-5">
                                     <h6 class="mb-4 px-4">Recent Orders</h6>
                                     <div class="table-responsive">
@@ -703,8 +707,12 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        
+        <!--build:js-->
+    <script src="assets/js/vendors/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/methods.js"></script>
+    <!--endbuild-->
+    </body>
         <!--my account section end-->
+</html>
 
      
