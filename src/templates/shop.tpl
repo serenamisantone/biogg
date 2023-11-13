@@ -4,7 +4,7 @@
 </head>
 <!--main content wrapper start-->
 <div class="main-wrapper">
-    
+
     <!--shop grid section start-->
     <section class="gshop-gshop-grid ptb-120">
         <div class="container">
@@ -17,11 +17,11 @@
                                 <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
                             </div>
                             <form class="search-form d-flex align-items-center mt-4" action="shop.php" method="GET">
-                            <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
-                            <button class="submit-icon-btn-secondary" type="submit">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </form>
+                                <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
+                                <button class="submit-icon-btn-secondary" type="submit">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
 
                         </div>
                         <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top">
@@ -67,11 +67,11 @@
                                         <div class="thumbnail position-relative text-center p-4">
                                             <img src="assets/img/products/{$product->getImage()}" alt="apple"
                                                 class="img-fluid">
-                                                <button class="add_wishlist_btn"
+                                            <button class="add_wishlist_btn"
                                                 onclick="heartWishlist(this, {$product->getId()})">
-                                            <i class="{if $isInWishlist} fas {else}far {/if} fa-heart" style="color:red";
-                                            data-isInWishlist="{if $isInWishlist}true{else}false{/if}"></i>
-                                        </button>
+                                                <i class="{if $isInWishlist} fas {else}far {/if} fa-heart" style="color:red"
+                                                    ; data-isInWishlist="{if $isInWishlist}true{else}false{/if}"></i>
+                                            </button>
                                             </a>
                                         </div>
                                         <div class="card-content">
@@ -82,20 +82,22 @@
                                             </div>
                                             <div class="product-card">
                                                 <div style="display: flex; align-items: center;">
-                                                    <a href="#"
+                                                    <a href="singleProduct.php?id={$product->getId()}"
                                                         class="card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2"
                                                         style="flex: 1; text-decoration: none;">
                                                         <span class="product-name">{$product->getName()}</span>
                                                     </a>
                                                 </div>
+
+                                                <h6 class="price text-danger mb-4">€{$product->getPrice()}
+                                                </h6>
+                                                <form method="POST">
+                                                  
+                                                    <button type="button"
+                                                        class="btn btn-outline-secondary d-block btn-md addToCartButton"
+                                                        data-product-id="{$product->getId()}">Aggiungi al carrello</button>
+                                                </form>
                                             </div>
-                                            <h6 class="price text-danger mb-4">€{$product->getPrice()}
-                                            </h6>
-                                            <form method="POST" action="shop.php">
-                                                <input type="hidden" name="addProduct" value="{$product->getId()}">
-                                                <button type="submit"
-                                                    class="btn btn-outline-secondary d-block btn-md">Aggiungi al carrello</button>
-                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -110,16 +112,12 @@
                             <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
                         </ul>
                     </div>
-                    
+
 
                 </div>
             </div>
-            
+
         </div>
-    </div>
+</div>
 </section>
 <!--shop grid section end-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="assets/js/methods.js"></script>
-
-

@@ -5,6 +5,7 @@ require_once("./assets/php/services/UserService.php");
 require_once("./assets/php/services/CartService.php");
 require_once("./assets/php/services/WishlistService.php");
 require_once("./assets/php/services/ProductService.php");
+require_once("./assets/php/models/Product.php");
 session_start();
 $smarty = new Config();
 $loginService = new UserService;
@@ -29,12 +30,21 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         $result = $cartService->addProduct($productId, $quantity);
         $price = $cartService->getPrice($productId);
         $totalPrice = $cartService->getTotalPrice();
-        error_log("questo il valore di price: ".$price);
-        error_log("questo il valore di totalprice: ".$totalPrice);
         if ($result==1) {
+            $updatedCartData = [
+                'totalPrice' => $cartService->getTotalPrice(),
+                'cartProduct' => [],
+            ];
+            
+            foreach ($cartService->getCartProducts() as $cartProduct) {
+                $productDetails = $cartProduct['product']->getDetails();
+                $productDetails['quantity'] = $cartProduct['quantity'];
+                $updatedCartData['cartProduct'][] = $productDetails;
+            }
             // Invia una risposta JSON di successo
             header('Content-Type: application/json');
-            $response = array("success" =>true, "message" => "Aggiornamento andato a buon fine", "totalPrice"=>$totalPrice, "price"=>$price);
+           
+            $response = array("success" =>true, "message" => "Aggiornamento andato a buon fine", "updatedCartData"=>$updatedCartData, "price"=>$price);
             echo json_encode($response);
             exit;
         } else {
@@ -43,6 +53,7 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
             $response = array("success" =>false, "message" => "Errore nell'aggiornamento della quantità");
             echo json_encode($response);
             exit;
+
         }
     } else {
         // Invia una risposta JSON di errore se i dati non sono validi

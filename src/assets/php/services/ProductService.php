@@ -73,7 +73,7 @@ class ProductService
             $product->setIngredients($row['ingredients']);
             $product->setImage1($row['image1']);
             $product->setImage2($row['image2']);
-            $product->setDescription($row['description']);
+            
             $this->addProductFeatures($product);
             return $product;
         } else {

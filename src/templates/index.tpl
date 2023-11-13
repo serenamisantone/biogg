@@ -146,11 +146,11 @@
                                             </svg>
                                         </button>
 
-                                        <div class="cart-box-wrapper">
+                                        <div class="cart-box-wrapper" id="cartContainer">
 
                                             <div class="apt_cart_box theme-scrollbar">
                                                 {if (isset($cart)) }
-                                                    <ul class="at_scrollbar scrollbar">
+                                                    <ul class="at_scrollbar scrollbar cartList">
 
 
                                                         {foreach $cartProducts as $cartProduct }
@@ -190,7 +190,7 @@
                                                 {/if}
                                                 <div class="d-flex align-items-center  mt-3">
                                                     <h6 class="mb-0">Subtotal:&nbsp</h6>
-<<<<<<< HEAD
+
                                                     <span id="cartTotal" class="fw-semibold text-primary"> {$totalPrice} €</span>
                                                 </div>
                         

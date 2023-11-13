@@ -12,27 +12,12 @@
                       <div class="row align-items-center g-4">
                           <div class="col-xl-6 align-self-end">
                               <div class="quickview-double-slider">
-                                  <div class="quickview-product-slider swiper">
-                                      <div class="swiper-wrapper">
-                                          <div class="swiper-slide text-center">
-                                              <img src="assets/img/products/{$product_info ->getImage1()}"  class="img-fluid">
+                                 
+                                      
+                                          <div class=" text-center">
+                                              <img src="assets/img/products/{$product ->getImage()}"  class="img-fluid">
                                           </div>
-                                         
-                                          <div class="swiper-slide text-center">
-                                              <img src="assets/img/products/{$product_info ->getImage2()}"  class="img-fluid">
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="product-thumbnail-slider swiper mt-80">
-                                      <div class="swiper-wrapper">
-                                          <div class="swiper-slide product-thumb-single rounded-2 d-flex align-items-center justify-content-center">
-                                              <img src="assets/img/products/{$product_info ->getImage1()}" alt="jam" class="img-fluid">
-                                          </div>
-                                          <div class="swiper-slide product-thumb-single rounded-2 d-flex align-items-center justify-content-center">
-                                              <img src="assets/img/products/{$product_info->getImage2()}" alt="jam" class="img-fluid">
-                                          </div>                                       
-                                      </div>
-                                  </div>
+                                  
                               </div>
                           </div>
                           <div class="col-xl-6">

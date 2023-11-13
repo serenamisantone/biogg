@@ -23,8 +23,8 @@ $smarty->assign("totalPrice", $cartService->getTotalPrice() );
 try {
 
         // Se è stata inviata una richiesta POST con un product_id, esegui la rimozione dalla wishlist
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_id'])) {
-            $productId = $_POST['product_id'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['wishlist_product_id'])) {
+            $productId = $_POST['wishlist_product_id'];
             $removeToWishlist = $wishlistService->removeToWishlist($productId);
 
             if ($removeToWishlist) {
