@@ -47,7 +47,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <div class="wishlist-table bg-white">
+                        <div class="wishlist-table w-100  bg-white">
                             <table class="w-100">
                                 <thead>
                                     <tr>
@@ -72,7 +72,9 @@
                                             <span class="price fw-bold text-dark">€{$item->getPrice()}</s>
                                         </td>
                                         <td>
+                                        
                                         <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">
+                                        
                                         <form method="POST" action="shop.php">
                                                 <input type="hidden" name="addProduct" value="{$item->getId()}">
                                                 <button type="submit">Aggiungi al carrello</button>

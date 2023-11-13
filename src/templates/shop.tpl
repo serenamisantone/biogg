@@ -1,11 +1,10 @@
 <head>
-    <link rel="stylesheet" href="/biogg/src/assets/css/main.min.css">
-
+    <link rel="stylesheet" href="assets/css/main.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <!--main content wrapper start-->
 <div class="main-wrapper">
-    
+
     <!--shop grid section start-->
     <section class="gshop-gshop-grid ptb-100">
         <div class="container">
@@ -18,11 +17,11 @@
                                 <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
                             </div>
                             <form class="search-form d-flex align-items-center mt-4" action="shop.php" method="GET">
-                            <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
-                            <button class="submit-icon-btn-secondary" type="submit">
-                                <i class="fa-solid fa-magnifying-glass"></i>
-                            </button>
-                        </form>
+                                <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
+                                <button class="submit-icon-btn-secondary" type="submit">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
 
                         </div>
                         <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top">
@@ -68,11 +67,11 @@
                                         <div class="thumbnail position-relative text-center p-4">
                                             <img src="assets/img/products/{$product->getImage()}" alt="apple"
                                                 class="img-fluid">
-                                                <button class="add_wishlist_btn"
+                                            <button class="add_wishlist_btn"
                                                 onclick="heartWishlist(this, {$product->getId()})">
-                                            <i class="{if $isInWishlist} fas {else}far {/if} fa-heart" style="color:red";
-                                            data-isInWishlist="{if $isInWishlist}true{else}false{/if}"></i>
-                                        </button>
+                                                <i class="{if $isInWishlist} fas {else}far {/if} fa-heart" style="color:red"
+                                                    ; data-isInWishlist="{if $isInWishlist}true{else}false{/if}"></i>
+                                            </button>
                                             </a>
                                         </div>
                                         <div class="card-content">
@@ -82,17 +81,23 @@
                                                     class="d-inline-block text-muted fs-xxs">{$category -> getName()} </a>
                                             </div>
                                             <div class="product-card">
-                                            <div style="display: flex; align-items: center;">
-                                                <a href="singleProduct.php?id={$product->getId()}" class="card-title fw-bold d-block mb-2 tt-line-clamp tt-clamp-2">{$product->getName()}</a>
-                                                <h6 class="price text-danger mb-5 ms-5">€{$product->getPrice()}</h6>
-                                            </div>
-                                        </div>
+                                                <div style="display: flex; align-items: center;">
+                                                    <a href="singleProduct.php?id={$product->getId()}"
+                                                        class="card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2"
+                                                        style="flex: 1; text-decoration: none;">
+                                                        <span class="product-name">{$product->getName()}</span>
+                                                    </a>
+                                                </div>
 
-                                            <form method="POST" action="shop.php">
-                                                <input type="hidden" name="addProduct" value="{$product->getId()}">
-                                                <button type="submit"
-                                                    class="btn btn-outline-secondary d-block btn-md">Aggiungi al carrello</button>
-                                            </form>
+                                                <h6 class="price text-danger mb-4">€{$product->getPrice()}
+                                                </h6>
+                                                <form method="POST">
+                                                  
+                                                    <button type="button"
+                                                        class="btn btn-outline-secondary d-block btn-md addToCartButton"
+                                                        data-product-id="{$product->getId()}">Aggiungi al carrello</button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -109,16 +114,12 @@
                     
 
                     </div>
-                    
+
 
                 </div>
             </div>
-            
+
         </div>
-    </div>
+</div>
 </section>
 <!--shop grid section end-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="assets/js/methods.js"></script>
-
-

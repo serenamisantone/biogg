@@ -111,7 +111,18 @@ class Product
         }
         return false;
     }
-    
+    public function getDetails() {
+        return [
+            'id' => $this->getId(),
+            'name' => $this->getName(),
+            'price' => $this->getPrice(),
+            'category' => $this->getCategory(),
+            'stock' => $this->getStock(),
+            'isOnline' => $this->getIsOnline(),
+            'image' => $this->getImage(),
+            'caption' => $this->getCaption(),
+        ];
+    }
 }
 
 

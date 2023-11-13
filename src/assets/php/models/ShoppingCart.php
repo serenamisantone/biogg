@@ -11,7 +11,7 @@ class ShoppingCart
 
   public function __construct()
   {
-    //arrai associativo formato da id prodotto e quantità
+    //id proarrai associativo formato da dotto e quantità
     $this->products = [];
     $this->shoppingCartId = null;
     $this->user = new User();
@@ -53,26 +53,41 @@ class ShoppingCart
   }
 
   // Getter per $totalPrice
-  public function getTotalPrice() {
+  public function getTotalPrice()
+  {
     return $this->totalPrice;
-}
+  }
 
-// Setter per $totalPrice
-public function setTotalPrice($totalPrice) {
+  // Setter per $totalPrice
+  public function setTotalPrice($totalPrice)
+  {
     $this->totalPrice = $totalPrice;
-}
+  }
 
   public function addProduct($id, $quantity)
   {
     if (isset($this->products[$id])) {
       // Il prodotto è già presente nel carrello, incrementa la quantità
       $this->products[$id] += $quantity;
-  } else {
+    } else {
       // Il prodotto non è presente nel carrello, aggiungilo
       $this->products[$id] = $quantity;
-  }
+    }
 
   }
+
+
+  public function removeProduct($id)
+  {
+    if (isset($this->products[$id])) {
+      unset($this->products[$id]);
+      return true; // Elemento rimosso con successo
+    } else {
+      return false; // Elemento non trovato
+    }
+  }
+
+
 
   public function setProducts($products)
   {

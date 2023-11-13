@@ -32335,16 +32335,22 @@ body {
     }
 
     .cart-table tbody tr {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: vertical;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-        flex-direction: column;
+        
+
+        width: 35px;
+        height: 35px;
+        display: -webkit-inline-box;
+        display: -ms-inline-flexbox;
+        display: inline-flex;
         -webkit-box-align: center;
         -ms-flex-align: center;
-        align-items: center
+        align-items: center;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        justify-content: center;
+        background-color: #f9f9f9;
+        color: #191d28;
+        border-radius: 3px
     }
 
     .cart-table tbody tr:last-child {
@@ -34077,6 +34083,10 @@ blockquote::before {
         border-radius: 4px
     }
 }
+
+
+    
+
 
 
 

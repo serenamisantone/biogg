@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-10-07 17:11:20
+/* Smarty version 4.3.0, created on 2023-11-13 14:21:48
   from 'C:\xampp\htdocs\biogg\src\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_652175189aa0f1_68643760',
+  'unifunc' => 'content_655222ec169a75_68556515',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd99f6f6d3aa6219f2d1c99c79ef4828134137517' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\index.tpl',
-      1 => 1696691476,
+      1 => 1699880108,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_652175189aa0f1_68643760 (Smarty_Internal_Template $_smarty_tpl) {
+function content_655222ec169a75_68556515 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -107,7 +107,7 @@ function content_652175189aa0f1_68643760 (Smarty_Internal_Template $_smarty_tpl)
                 <div class="gshop-navbar bg-white rounded ps-lg-5 position-relative">
                     <div class="row align-items-center">
                         <div class="col-xxl-2 col-xl-3 col-md-3 col-5">
-                            <a href="index.tpl" class="logo"><img src="assets/img/logo.png" alt="logo"
+                            <a href="index.tpl" class="logo"><img src="assets/img/login/logo2.jpeg" alt="logo"
                                     class="img-fluid"></a>
                         </div>
                         <div class="col-xxl-10 col-xl-9 col-md-9 col-7">
@@ -148,7 +148,7 @@ function content_652175189aa0f1_68643760 (Smarty_Internal_Template $_smarty_tpl)
                                             <ul class="user-menu">
                                                 <li><a href="myAccount.php"><span class="me-2"><i
                                                                 class="fa-solid fa-user"></i></span>My Account</a></li>
-                                                <li><a href="cart.html"><span class="me-2"><i
+                                                <li><a href="cart.php"><span class="me-2"><i
                                                                 class="fa-solid fa-tags"></i></span>My Cart</a></li>
                                                 <li><a href="myWishlist.php"><span class="me-2"><i
                                                                 class="fa-solid fa-heart"></i></span>My Wishlist</a>
@@ -169,11 +169,11 @@ function content_652175189aa0f1_68643760 (Smarty_Internal_Template $_smarty_tpl)
                                             </svg>
                                         </button>
 
-                                        <div class="cart-box-wrapper">
+                                        <div class="cart-box-wrapper" id="cartContainer">
 
                                             <div class="apt_cart_box theme-scrollbar">
                                                 <?php if (((isset($_smarty_tpl->tpl_vars['cart']->value)))) {?>
-                                                    <ul class="at_scrollbar scrollbar">
+                                                    <ul class="at_scrollbar scrollbar cartList">
 
 
                                                         <?php
@@ -182,7 +182,7 @@ $_smarty_tpl->tpl_vars['cartProduct']->do_else = true;
 if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['cartProduct']->value) {
 $_smarty_tpl->tpl_vars['cartProduct']->do_else = false;
 ?>
-                                                            <li class="d-flex align-items-center">
+                                                            <li class="d-flex align-items-center cart-product">
                                                                 <?php $_smarty_tpl->_assignInScope('product', $_smarty_tpl->tpl_vars['cartProduct']->value['product']);?>
 
                                                                 <div class="thumb-wrapper">
@@ -206,14 +206,15 @@ $_smarty_tpl->tpl_vars['cartProduct']->do_else = false;
                                                                             </span>
                                                                             <span class="count">x
                                                                                 <?php echo $_smarty_tpl->tpl_vars['cartProduct']->value['quantity'];?>
-</span>
+&nbsp;</span>
                                                                         </div>
-                                                                        <button class="remove_cart_btn"
+                                                                        <a class="remove_cart_btn"
                                                                             onclick="removeFromCart(<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
-,<?php echo $_smarty_tpl->tpl_vars['cart']->value->getShoppingCartId();?>
-)">
+)" data-product-id="<?php echo $_smarty_tpl->tpl_vars['product']->value->getId();?>
+">
                                                                             <i class="fas fa-trash-alt"></i>
-                                                                        </button>
+                                                                        </a>
+
                                                                     </div>
                                                                 </div>
 
@@ -224,12 +225,13 @@ $_smarty_tpl->tpl_vars['cartProduct']->do_else = false;
 $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                                     </ul>
                                                 <?php }?>
-
                                                 <div class="d-flex align-items-center  mt-3">
                                                     <h6 class="mb-0">Subtotal:&nbsp</h6>
-                                                    <span class="fw-semibold text-primary"> <?php echo $_smarty_tpl->tpl_vars['totalPrice']->value;?>
+
+                                                    <span id="cartTotal" class="fw-semibold text-primary"> <?php echo $_smarty_tpl->tpl_vars['totalPrice']->value;?>
  €</span>
                                                 </div>
+                        
                                                 <a href="checkout.html"
                                                     class="btn btn-primary btn-md d-block mt-4"><span class="me-2"><i
                                                             class="fa-solid fa-wallet"></i></span>Checkout</a>

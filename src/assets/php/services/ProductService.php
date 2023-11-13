@@ -90,6 +90,7 @@ class ProductService
             $product->setIngredients($row['ingredients']);
             $product->setImage1($row['image1']);
             $product->setImage2($row['image2']);
+            
             $this->addProductFeatures($product);
             return $product;
         } else {
@@ -149,37 +150,8 @@ class ProductService
 
     }
 
-    public function getCartProducts($cart)
-    {
-        $products = array();
-        $cartProducts = $cart->getProducts();
-        foreach ($cartProducts as $productId => $quantity) {
-            $product = $this->getProductById($productId);
 
-
-            $productWithQuantity = array(
-                'product' => $product,
-                'quantity' => $quantity
-            );
-            // Aggiungiamo questo array all'array principale
-            $products[] = $productWithQuantity;
-        }
-        return $products;
-    }
-
-    public function getTotalPrice($cart)
-    {
-        $totalPrice=0;
-        $cartProducts = $cart->getProducts();
-        foreach ($cartProducts as $productId => $quantity) {
-            $product = $this->getProductById($productId);
-
-            $totalPrice = $totalPrice+$product->getPrice()*$quantity;
-
-        }
-        return $totalPrice;
-
-    }
+    
     public function searchProducts($searchQuery) {
     if (!empty($searchQuery)) {
         // Esegui la query per cercare i prodotti

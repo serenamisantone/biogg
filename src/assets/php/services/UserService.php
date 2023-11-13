@@ -86,9 +86,9 @@ class UserService
                         $data = $result->fetch_assoc();
                         $_SESSION['auth']['group'] = $data['name'];
                     }
-                    //assegno carrello all'user
-                    $user = $this->getUserById($userId);
-                    //$this->cartService->assignShoppingCart($user);
+                    //assegno carrello allo user
+                    
+                    $_SESSION['auth']['cart'] = $this->cartService->assignShoppingCart($userId);
                     return true;
                 }else{
                     Header("Location: error.php?003-incorrect-password");

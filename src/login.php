@@ -3,17 +3,10 @@
 require_once("./assets/Config.php");
 require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/services/UserService.php");
-require_once("./assets/php/services/CartService.php");
-require_once("./assets/php/services/WishlistService.php");
+
 session_start();
 $smarty = new Config();
 $loginService = new UserService();
-$cartService = new CartService();
-$wishlistService = new WishlistService();
-if (!isset($_SESSION['cart'])) {
-    $cartService->createShoppingCart();
-    
-}
 
 
 if (isset($_POST['submit'])) {
