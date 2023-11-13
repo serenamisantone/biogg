@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-10-19 23:16:00
+/* Smarty version 4.3.0, created on 2023-11-13 14:21:48
   from 'C:\xampp\htdocs\biogg\src\templates\index.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_65319c90bf48f1_73304132',
+  'unifunc' => 'content_655222ec169a75_68556515',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     'd99f6f6d3aa6219f2d1c99c79ef4828134137517' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\index.tpl',
-      1 => 1697750154,
+      1 => 1699880108,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_65319c90bf48f1_73304132 (Smarty_Internal_Template $_smarty_tpl) {
+function content_655222ec169a75_68556515 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
 
@@ -169,11 +169,11 @@ function content_65319c90bf48f1_73304132 (Smarty_Internal_Template $_smarty_tpl)
                                             </svg>
                                         </button>
 
-                                        <div class="cart-box-wrapper">
+                                        <div class="cart-box-wrapper" id="cartContainer">
 
                                             <div class="apt_cart_box theme-scrollbar">
                                                 <?php if (((isset($_smarty_tpl->tpl_vars['cart']->value)))) {?>
-                                                    <ul class="at_scrollbar scrollbar">
+                                                    <ul class="at_scrollbar scrollbar cartList">
 
 
                                                         <?php
@@ -227,6 +227,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                                                 <?php }?>
                                                 <div class="d-flex align-items-center  mt-3">
                                                     <h6 class="mb-0">Subtotal:&nbsp</h6>
+
                                                     <span id="cartTotal" class="fw-semibold text-primary"> <?php echo $_smarty_tpl->tpl_vars['totalPrice']->value;?>
  €</span>
                                                 </div>
