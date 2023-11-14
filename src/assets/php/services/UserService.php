@@ -4,7 +4,6 @@ require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/models/User.php");
 require_once("./assets/php/models/ShoppingCart.php");
 require_once("./assets/php/models/Review.php");
-require_once("./assets/php/models/ShoppingCartProduct.php");
 require_once("./assets/php/models/Wishlist.php");
 require_once("./assets/php/models/WishlistProduct.php");
 require_once("./assets/php/services/CartService.php");

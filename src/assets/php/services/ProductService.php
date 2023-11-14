@@ -6,42 +6,38 @@ require_once("./assets/php/models/Category.php");
 require_once("./assets/php/models/ProductInfo.php");
 require_once("./assets/php/models/ProductFeature.php");
 require_once("./assets/php/models/ShoppingCart.php");
+require_once("./assets/php/services/OfferService.php");
 class ProductService
 {
 
     private $connection;
-
+    private $offerService;
 
     function __construct()
     {
         $this->connection = DbConnection::getInstance()->getConnection();
+        $this->offerService = new OfferService();
     }
 
-    public function getAllProductsOnline($offset, $limit) {
-        $query = "SELECT * FROM product WHERE is_online = 1 LIMIT {$offset}, {$limit}";
-    
+    public function getAllProductsOnline($offset, $limit)
+    {
+        $query = "SELECT id FROM product WHERE is_online = 1 LIMIT {$offset}, {$limit}";
+
         $result = $this->connection->query($query);
         $all_products = array();
-    
+
         if (($result) && ($result->num_rows > 0)) {
             while ($row = $result->fetch_assoc()) {
-                $product = new Product();
-                $product->setId($row['id']);
-                $product->setName($row['name']);
-                $product->setPrice($row['price']);
-                $product->setImage($row['image']);
-                $product->setStock($row['stock']);
-                $product->setIsOnline($row['is_online']);
-                $product->setCategory($this->getCategoryById($row['category_id']));
+                $product = $this->getProductById($row["id"]);
                 $all_products[] = $product;
             }
-    
+
             return $all_products;
         }
-    
+
         return array();
     }
-    
+
     public function getProductById($productId)
     {
         $query = "SELECT * FROM product WHERE id= '{$productId}'";
@@ -56,7 +52,14 @@ class ProductService
             $product->setStock($row['stock']);
             $product->setIsOnline($row['is_online']);
             $product->setCategory($this->getCategoryById($row['category_id']));
-
+            $product->setOffers($this->offerService->getOfferByProductId($productId));
+            if (empty($product->getOffers())) {
+                error_log("è vuoto");
+            } else {
+                foreach ($product->getOffers() as $offer) {
+                    error_log('' . $offer->getId() . '' . $offer->getName());
+                }
+            }
 
             return $product;
 
@@ -64,19 +67,18 @@ class ProductService
         return null;
     }
     public function getProductsByCategory($categoryId)
-{
-    $query = "SELECT * FROM product WHERE category_id= '{$categoryId}'";
-    $result = $this->connection->query($query);
-    $products = array();
-    if (($result) && ($result->num_rows > 0)) {
-        while ($row = $result->fetch_assoc()) {
-            $products[] = $row;
+    {
+        $query = "SELECT * FROM product WHERE category_id= '{$categoryId}'";
+        $result = $this->connection->query($query);
+        $products = array();
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $products[] = $row;
+            }
+            return $products;
         }
-        return $products;
+        return null;
     }
-    return null;
-}
-
 
     public function getProductInfoById($productId)
     {
@@ -90,7 +92,7 @@ class ProductService
             $product->setIngredients($row['ingredients']);
             $product->setImage1($row['image1']);
             $product->setImage2($row['image2']);
-            
+
             $this->addProductFeatures($product);
             return $product;
         } else {
@@ -151,18 +153,56 @@ class ProductService
     }
 
 
-    
-    public function searchProducts($searchQuery) {
-    if (!empty($searchQuery)) {
-        // Esegui la query per cercare i prodotti
-        $query = "SELECT * FROM product WHERE product.name LIKE '%$searchQuery%'";
-        
-    } else{
-        $query = "SELECT * FROM product";
+
+    public function searchProducts($searchQuery)
+    {
+        if (!empty($searchQuery)) {
+            // Esegui la query per cercare i prodotti
+            $query = "SELECT id FROM product WHERE product.name LIKE '%$searchQuery%'";
+
+        } else {
+            $query = "SELECT * FROM product";
+
+        }
+        $result = $this->connection->query($query);
+        $all_products = array();
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $product = $this->getProductById($row["id"]);
+
+                if ($product->getIsOnline() == 1)
+                    $all_products[] = $product;
+            }
+            return $all_products;
+
+        }
+        return null;
+    }
+
+    function getTotalProduct()
+    {
+        $query = "SELECT COUNT(*) as total FROM product";
+        $result = $this->connection->query($query);
+        $total_products = $result->fetch_assoc();
+        return $total_products['total'];
+    }
+    function getImpagination()
+    {
+        $total_products = $this->getTotalProduct();
+        $products_per_page = 9;
+        $total_pages = ceil($total_products / $products_per_page);
+        return $total_pages;
 
     }
-    $result = $this->connection->query($query);
-    $all_products = array();
+
+    function getDataProducts()
+    {
+
+        $query = "SELECT * FROM product";
+
+        $result = $this->connection->query($query);
+        $all_products = array();
+
         if (($result) && ($result->num_rows > 0)) {
             while ($row = $result->fetch_assoc()) {
                 $product = new Product();
@@ -173,63 +213,27 @@ class ProductService
                 $product->setStock($row['stock']);
                 $product->setIsOnline($row['is_online']);
                 $product->setCategory($this->getCategoryById($row['category_id']));
-                if ($product->getIsOnline() == 1)
-                    $all_products[] = $product;
+                $data_products[] = $product;
             }
-            return $all_products;
-            
-        }
-        return null;
-    }
 
-     function getTotalProduct(){
-        $query = "SELECT COUNT(*) as total FROM product"; 
-        $result = $this->connection->query($query);
-        $total_products = $result->fetch_assoc();
-        return $total_products['total'];
-    }
-    function getImpagination(){
-        $total_products= $this->getTotalProduct();
-        $products_per_page = 9;
-        $total_pages = ceil($total_products / $products_per_page);
-        return $total_pages;
-
-    }
-
-function getDataProducts(){
-
-    $query = "SELECT * FROM product";
-    
-    $result = $this->connection->query($query);
-    $all_products = array();
-
-    if (($result) && ($result->num_rows > 0)) {
-        while ($row = $result->fetch_assoc()) {
-            $product = new Product();
-            $product->setId($row['id']);
-            $product->setName($row['name']);
-            $product->setPrice($row['price']);
-            $product->setImage($row['image']);
-            $product->setStock($row['stock']);
-            $product->setIsOnline($row['is_online']);
-            $product->setCategory($this->getCategoryById($row['category_id']));
-            $data_products[] = $product;
+            return $data_products;
         }
 
-        return $data_products;
+        return array();
     }
-
-    return array();
-}
-    function updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage){
-      $query="
+    function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage)
+    {
+        $query = "
         UPDATE product
         SET name = $editedName, price = $editedPrice, category_id = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = $editedImage
         WHERE id = $productId";
         $result = $this->connection->query($query);
-        if($result){
-            return true;}else{return false;}
+        if ($result) {
+            return true;
+        } else {
+            return false;
         }
-        
-
     }
+
+
+}

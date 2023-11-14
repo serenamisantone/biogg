@@ -31,8 +31,9 @@
                             </div>
                             <ul class="widget-nav mt-4">
                                 {foreach $all_categories as $category}
-                                    <li><a href="#"
-                                           class="d-flex justify-content-between align-items-center"  onclick="category({$category->getId()})"data-category-id="{$category->getId()}">{$category->getName()}</a>
+                                    <li><a href="#" class="d-flex justify-content-between align-items-center"
+                                            onclick="category({$category->getId()})"
+                                            data-category-id="{$category->getId()}">{$category->getName()}</a>
                                     </li>
                                 {{/foreach}}
                             </ul>
@@ -48,7 +49,7 @@
                             <p class="mb-0 fw-bold">Showing 1-9 of {$total_products} results</p>
 
                         </div>
-
+                       
                         <div class="row g-4 justify-content-center" id="products-section">
                             {foreach $all_products as $product}
                                 {assign var="isInWishlist" value=false}
@@ -61,9 +62,11 @@
                                 <div class="col-lg-4 col-md-6 col-sm-10">
                                     <div
                                         class="vertical-product-card rounded-2 position-relative border-0 bg-white bg-white">
-                                        <span
-                                            class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">-12%
-                                            OFF</span>
+                                        
+                                        {if $product->getOffersString() neq null}
+                                            <span class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">{$product->getOffersString()}</span>
+                                        {/if}
+
                                         <div class="thumbnail position-relative text-center p-4">
                                             <img src="assets/img/products/{$product->getImage()}" alt="apple"
                                                 class="img-fluid">
@@ -92,7 +95,7 @@
                                                 <h6 class="price text-danger mb-4">€{$product->getPrice()}
                                                 </h6>
                                                 <form method="POST">
-                                                  
+
                                                     <button type="button"
                                                         class="btn btn-outline-secondary d-block btn-md addToCartButton"
                                                         data-product-id="{$product->getId()}">Aggiungi al carrello</button>
@@ -105,13 +108,13 @@
 
                         </div>
                         <ul class="template-pagination d-flex align-items-center mt-6">
-                        {for $page = 1 to $total_pages}
-                            <li><a href="shop.php?page={$page}">{$page}</a></li>
-                        {/for}
-                        <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
-                    </ul>
+                            {for $page = 1 to $total_pages}
+                                <li><a href="shop.php?page={$page}">{$page}</a></li>
+                            {/for}
+                            <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
+                        </ul>
 
-                    
+
 
                     </div>
 
