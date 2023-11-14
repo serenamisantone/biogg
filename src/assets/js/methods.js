@@ -132,7 +132,7 @@ function removeFromCartPage(productId2) {
     },
     error: function () {
       // Gestisci eventuali errori durante la chiamata AJAX
-      alert("Si è verificato un errore durante la rimozione del prodotto dalla wishlist.");
+      alert("Si è verificato un errore durante la rimozione del prodotto dalla cart page.");
     }
   });
 
@@ -231,13 +231,11 @@ $(document).ready(function () {
 });
 
 function category(categoryId){
-  console.log(categoryId);
   $.ajax({
     type: "GET",
     url:"/biogg/src/shop.php",
     data:{ categoryId: categoryId},
     success: function (response){
-      console.log('Response from server:', response);
         updateProductsSection(response);
     },
   });
@@ -245,7 +243,6 @@ function category(categoryId){
 function updateProductsSection(products) {
   $('#products-section').empty();
   products.forEach(function (product) {
-    console.log('Product:', product);
 
     //Crea un nuovo elemento di prodotto con tutte le informazioni
     var productElement = '<div class="col-lg-4 col-md-6 col-sm-10">';
@@ -329,7 +326,7 @@ function saveChanges(productId) {
     },
     error: function() {
         // Gestisci eventuali errori durante la chiamata AJAX
-        alert("Si è verificato un errore durante il salavataggio2.");
+        alert("Si è verificato un errore durante il salavataggio.");
     }
 });
 }

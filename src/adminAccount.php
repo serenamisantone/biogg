@@ -7,17 +7,24 @@ $smarty = new Config();
 $productService = new ProductService();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edited_data'])) {
     $editedData = $_POST['edited_data'];
-    
-    $editedData = json_decode($editedData);
+    $jsonString = json_encode($editedData);
+$editedData = json_decode($jsonString, true); 
 
     // Esempio di come accedere ai dati
-    $productId = $editedData->id;
-    $editedName = $editedData->name;
-    $editedPrice = $editedData->price;
-    $editedCategory = $editedData->category;
-    $editedStock = $editedData->stock;
-    $editedOnline = $editedData->isOnline;
-    $editedImage = $editedData->image;
+    $productId = $editedData['id'];
+    $editedName = $editedData['name'];
+    $editedPrice = $editedData['price'];
+    $editedCategory = $editedData['category'];
+    $editedStock = $editedData['stock'];
+    $editedOnline = $editedData['isOnline'];
+    $editedImage = $editedData['image'];
+    /*error_log($productId);
+    error_log($editedName);
+    error_log($editedPrice);
+    error_log($editedCategory);
+    error_log($editedStock);
+    error_log($editedOnline);
+    error_log($editedImage);*/
     $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage);
     if ($updateChanges) {
         header('Content-Type: application/json');
@@ -27,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edited_data'])) {
         exit; 
     } else {
         header('Content-Type: application/json');
-        $response = ['success' => false, 'message' => 'Errore nel salvataggio'];
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
         echo json_encode($response);
         exit; 
     }

@@ -85,7 +85,7 @@
                                             </td>
                                             <td>
 
-                                                <a href="#" class="btn btn-secondary btn-sm ms-5 rounded-1">
+                                                <a class="btn btn-secondary btn-sm ms-5 rounded-1">
 
                                                     <form method="POST">
 

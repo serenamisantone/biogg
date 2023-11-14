@@ -222,6 +222,7 @@ function getDataProducts(){
     return array();
 }
     function updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage){
+        
       $query="
         UPDATE product
         SET name = $editedName, price = $editedPrice, category_id = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = $editedImage
@@ -231,5 +232,5 @@ function getDataProducts(){
             return true;}else{return false;}
         }
         
-
+        
     }
