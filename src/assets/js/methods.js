@@ -283,7 +283,6 @@ function toggleEditForm(productId) {
   const editButtons = document.querySelectorAll(`.btn-edit-product`);
   editButtons.forEach(button => {
     const buttonProductId = button.getAttribute('data-productId');
-    console.log(buttonProductId);
       if (buttonProductId == productId) {
         editForm.style.display = (editForm.style.display === 'none') ? 'block' : 'none';
       }else{
@@ -311,7 +310,6 @@ function saveChanges(productId) {
       isOnline: editedOnline,
       image: editedImage
   };
-  console.log(editedData);
   $.ajax({
     type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
     url: "/biogg/src/adminAccount.php", // URL del tuo script PHP
@@ -319,9 +317,9 @@ function saveChanges(productId) {
     success: function(response) {
         // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
         if (response.success) {
-           alert("Modifiche salvate");
+           //alert("Modifiche salvate");
         } else {
-            alert("Errore: " + response.message);
+           // alert("Errore: " + response.message);
         }
     },
     error: function() {
@@ -360,4 +358,69 @@ function updateCart(cartData) {
   // Aggiorna il totale del carrello
   var cartTotal = cartContainer.querySelector('#cartTotal');
   cartTotal.textContent = updatedCartData.totalPrice + ' €';
+}
+
+function addProduct() {
+  // Ottenere i valori modificati dai campi di input
+  const name = document.getElementById('product_name').value;
+  const price = document.getElementById('product_price').value;
+  const category = document.getElementById('product_category').value;
+  const stock = document.getElementById('product_stock').value;
+  const online = document.getElementById('online_yes').checked ? 1 : 0;
+  const image = document.getElementById('product_image').value;
+
+  // Costruire l'oggetto con i dati modificati
+  const productData = {
+      name: name,
+      price: price,
+      category: category,
+      stock: stock,
+      isOnline: online,
+      image: image
+  };
+  $.ajax({
+    type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
+    url: "/biogg/src/adminAccount.php", // URL del tuo script PHP
+    data: { product_data: productData },// Dati da passare al server
+    success: function(response) {
+        // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+        if (response.success) {
+           //alert("Prodotto Aggiunto");
+        } else {
+            alert("Errore: " + response.message);
+        }
+    },
+    error: function() {
+        // Gestisci eventuali errori durante la chiamata AJAX
+        alert("Si è verificato un errore durante l'aggiunta.");
+    }
+});
+}
+function deleteProduct(productId) {
+  const confirmation = confirm("Sei sicuro di voler eliminare questo prodotto?");
+  
+  if (!confirmation) {
+      return;
+  }
+
+  // Esegui la chiamata AJAX per eliminare il prodotto
+  $.ajax({
+      type: "POST",
+      url: "/biogg/src/adminAccount.php",
+      data: { action: "delete_product", productId: productId },
+      success: function(response) {
+          // Gestisci la risposta dal server
+          if (response.success) {
+              //alert("Prodotto eliminato con successo.");
+              // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
+              const rowId = `editForm_${productId}`;
+              $("#" + rowId).closest('tr').remove();
+          } else {
+              alert("Errore: " + response.message);
+          }
+      },
+      error: function() {
+          alert("Si è verificato un errore durante l'eliminazione del prodotto.");
+      }
+  });
 }

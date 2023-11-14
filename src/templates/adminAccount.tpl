@@ -14,7 +14,22 @@
                             <a href="#products" data-bs-toggle="tab">
                                 <span class="me-2">
                                     <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <!-- Il tuo codice SVG per l'icona qui -->
+                                    <path
+                            d="M5 12C5 12.5523 4.55228 13 4 13C3.44772 13 3 12.5523 3 12C3 11.4477 3.44772 11 4 11C4.55228 11 5 11.4477 5 12Z"
+                            fill="#212B36"
+                          />
+                          <path
+                            d="M7 11.94C7 11.4209 7.42085 11 7.94 11H20.06C20.5791 11 21 11.4209 21 11.94V12.06C21 12.5791 20.5791 13 20.06 13H7.94C7.42085 13 7 12.5791 7 12.06V11.94Z"
+                            fill="#212B36"
+                          />
+                          <path
+                            d="M3 16.94C3 16.4209 3.42085 16 3.94 16H20.06C20.5791 16 21 16.4209 21 16.94V17.06C21 17.5791 20.5791 18 20.06 18H3.94C3.42085 18 3 17.5791 3 17.06V16.94Z"
+                            fill="#212B36"
+                          />
+                          <path
+                            d="M3 6.94C3 6.42085 3.42085 6 3.94 6H20.06C20.5791 6 21 6.42085 21 6.94V7.06C21 7.57915 20.5791 8 20.06 8H3.94C3.42085 8 3 7.57915 3 7.06V6.94Z"
+                            fill="#212B36"
+                          />
                                     </svg>
                                 </span>
                                 Prodotti
@@ -241,14 +256,22 @@
                                                 <td>{$product->getImage()}</td>
                                                 <td>
                                                 <form id="editForm_{$product->getId()}" class="edit-form" style="display: none;">
-                <input type="text" id="edit_name_{$product->getId()}" value="{$product->getName()}">
-                <input type="text" id="edit_price_{$product->getId()}" value="{$product->getPrice()}">
-                <input type="text" id="edit_category_{$product->getId()}" value="{$product->getCategory()->getName()}">
-                <input type="text" id="edit_stock_{$product->getId()}" value="{$product->getStock()}">
-                <input type="text" id="edit_online_{$product->getId()}" value="{$product->getIsOnline()}">
-                <input type="text" id="edit_image_{$product->getId()}" value="{$product->getImage()}">
-                <button onclick="saveChanges({$product->getId()})" class="btn btn-success btn-sm">Salva</button>
-            </form>
+                                                <input type="text" id="edit_name_{$product->getId()}" class="edit-input" value="{$product->getName()}">
+                                                <input type="text" id="edit_price_{$product->getId()}" class="edit-input" value="{$product->getPrice()}">
+                                                <select id="edit_category_{$product->getId()}" name="edit_category" class="edit-select">
+                                                    {foreach $categories as $category}
+                                                        <option value="{$category->getId()}">{$category->getName()}</option>
+                                                    {/foreach}
+                                                </select>
+                                                <input type="text" id="edit_stock_{$product->getId()}" class="edit-input" value="{$product->getStock()}">
+                                                <select id="edit_online_{$product->getId()}" class="edit-select">
+                                                <option value="0" {if $product->getIsOnline() == 0}selected{/if}>Offline</option>
+                                                <option value="1" {if $product->getIsOnline() == 1}selected{/if}>Online</option>
+                                                </select>
+                                                    <input type="text" id="edit_image_{$product->getId()}" class="edit-input" value="{$product->getImage()}">
+                                                    <button onclick="saveChanges({$product->getId()})" class="btn btn-success btn-sm">Salva</button>
+                                                </form>
+
 
             <button onclick="toggleEditForm({$product->getId()})" class="btn btn-primary btn-sm btn-edit-product" data-productId="{$product->getId()}">
                 Modifica
@@ -263,149 +286,62 @@
                             </div>
                         </div>
                             </div>
-                            <div class="tab-pane fade" id="aggiungi-prodotto">
-                                <div class="recent-orders bg-white rounded py-5">
-                                    <h6 class="mb-4 px-4">Recent Orders</h6>
-                                    <div class="table-responsive">
-                                        <table class="order-history-table table">
-                                            <tr>
-                                                <th>Order Number#</th>
-                                                <th>Placed on</th>
-                                                <th>Method</th>
-                                                <th>Items</th>
-                                                <th>Total</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                            <tr>
-                                                <td>635981586200289</td>
-                                                <td>03/12/2022</td>
-                                                <td>COD</td>
-                                                <td class="thumbnail">
-                                                    <img src="assets/img/products/cauliflower-xs.png" alt="product" />
-                                                </td>
-                                                <td class="text-secondary">$105.60</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-invoice fs-xs">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>635981586200289</td>
-                                                <td>03/12/2022</td>
-                                                <td>COD</td>
-                                                <td class="thumbnail">
-                                                    <img src="assets/img/products/cauliflower-xs.png" alt="product" />
-                                                </td>
-                                                <td class="text-secondary">$105.60</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-invoice fs-xs">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>635981586200289</td>
-                                                <td>03/12/2022</td>
-                                                <td>COD</td>
-                                                <td class="thumbnail">
-                                                    <img src="assets/img/products/cauliflower-xs.png" alt="product" />
-                                                </td>
-                                                <td class="text-secondary">$105.60</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-invoice fs-xs">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>635981586200289</td>
-                                                <td>03/12/2022</td>
-                                                <td>COD</td>
-                                                <td class="thumbnail">
-                                                    <img src="assets/img/products/cauliflower-xs.png" alt="product" />
-                                                </td>
-                                                <td class="text-secondary">$105.60</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-invoice fs-xs">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>635981586200289</td>
-                                                <td>03/12/2022</td>
-                                                <td>COD</td>
-                                                <td class="thumbnail">
-                                                    <img src="assets/img/products/cauliflower-xs.png" alt="product" />
-                                                </td>
-                                                <td class="text-secondary">$105.60</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-invoice fs-xs">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>635981586200289</td>
-                                                <td>03/12/2022</td>
-                                                <td>COD</td>
-                                                <td class="thumbnail">
-                                                    <img src="assets/img/products/cauliflower-xs.png" alt="product" />
-                                                </td>
-                                                <td class="text-secondary">$105.60</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-invoice fs-xs">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>635981586200289</td>
-                                                <td>03/12/2022</td>
-                                                <td>COD</td>
-                                                <td class="thumbnail">
-                                                    <img src="assets/img/products/cauliflower-xs.png" alt="product" />
-                                                </td>
-                                                <td class="text-secondary">$105.60</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-invoice fs-xs">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>635981586200289</td>
-                                                <td>03/12/2022</td>
-                                                <td>COD</td>
-                                                <td class="thumbnail">
-                                                    <img src="assets/img/products/cauliflower-xs.png" alt="product" />
-                                                </td>
-                                                <td class="text-secondary">$105.60</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-invoice fs-xs">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>635981586200289</td>
-                                                <td>03/12/2022</td>
-                                                <td>COD</td>
-                                                <td class="thumbnail">
-                                                    <img src="assets/img/products/cauliflower-xs.png" alt="product" />
-                                                </td>
-                                                <td class="text-secondary">$105.60</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-invoice fs-xs">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+
+
+<div class="tab-pane fade" id="aggiungi-prodotto">
+    <div class="container-fluid bg-light py-4">
+        <div class="container bg-white p-4 rounded">
+        <h2 class="text-center mb-4 text-secondary display-4">Aggiungi un nuovo prodotto</h2>
+
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="product_name">Nome:</label>
+                    <input type="text" id="product_name" name="product_name" class="form-control" placeholder="Inserisci il nome" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="product_price">Prezzo:</label>
+                    <input type="number" id="product_price" name="product_price" class="form-control" step="0.01" placeholder="Inserisci il prezzo" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="product_category">Categoria:</label>
+                    <select id="product_category" name="product_category" class="custom-select" required>
+                        {foreach $categories as $category}
+                            <option value="{$category->getId()}">{$category->getName()}</option>
+                        {/foreach}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="product_stock">Quantità in magazzino:</label>
+                    <input type="number" id="product_stock" name="product_stock" class="form-control" placeholder="Inserisci la quantità" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Disponibile online:</label>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="online_yes" name="product_online" class="custom-control-input" value="1" checked>
+                        <label class="custom-control-label" for="online_yes">Sì</label>
+                    </div>
+                    <div class="custom-control custom-radio">
+                        <input type="radio" id="online_no" name="product_online" class="custom-control-input" value="0">
+                        <label class="custom-control-label" for="online_no">No</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="product_image">URL dell'immagine:</label>
+                    <input type="text" id="product_image" name="product_image" class="form-control" placeholder="Inserisci l'URL dell'immagine">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" onclick="addProduct()">Aggiungi Prodotto</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+
                             <div class="tab-pane fade" id="address-book">
                                 <div class="address-book bg-white rounded p-5">
                                     <div class="row g-6">
