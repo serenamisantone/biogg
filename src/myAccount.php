@@ -32,19 +32,8 @@ try {
 
             }
             
-            if (!isset($_SESSION['cart'])) {
-                $cartService->createShoppingCart();
-            }
-            if(isset($_SESSION['auth']['cart'])){
-                $smarty->assign("cart", $_SESSION['auth']['cart']);
-                
-            }else{
-                $smarty->assign("cart", $_SESSION['cart']);
-                
-            }
-            $smarty->assign('cartProducts', $cartService->getCartProducts());
-            $smarty->assign("totalPrice", $cartService->getTotalPrice() );
-        $smarty->display("index.tpl");
+                       
+            $smarty->display("index.tpl");
 
     } else {
         $smarty->display("login.tpl");

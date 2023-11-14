@@ -86,9 +86,11 @@ class UserService
                         $data = $result->fetch_assoc();
                         $_SESSION['auth']['group'] = $data['name'];
                     }
-                    //assegno carrello allo user
+                    //update cart
                     
+                    //assegno carrello allo user
                     $_SESSION['auth']['cart'] = $this->cartService->assignShoppingCart($userId);
+                    
                     return true;
                 }else{
                     Header("Location: error.php?003-incorrect-password");
@@ -119,21 +121,7 @@ class UserService
         return $group;
     }
 
-    /* public function getServicesById($groupId){
-         $validateUserQuery = "SELECT service.code, service.name FROM `service` JOIN service_has_group ON service.code=service_has_group.service_code WHERE service_has_group.group_id='{$group_id}'";
-         $queryResult = $this->connection->query($validateUserQuery); 
-         $result = $queryResult->fetch_assoc();
-         $services =array();
-         if(($result)&&($result->num_rows > 0)){
-             while ($row = $result->fetch_assoc()) {
-             $service = new Service($row['code'],$row['name']);            
-             $services[] = $service ;
-             }
-             return $services;
-         }
-         return $services;
-
-     }*/
+  
 
     public function getAllReviews()
     {
@@ -193,8 +181,9 @@ function createAccount($name, $surname, $email, $username, $password) {
         if ($userId) {
             $insertUserGroupQuery = "INSERT INTO user_has_group (user_id, group_id) VALUES ('$userId',1)";
             $insertUserGroupResult = $this->connection->query($insertUserGroupQuery);
-
-            if ($insertUserGroupResult) {
+            $insertCartQuery = "INSERT INTO shopping_cart (user_id, is_open) VALUES ('$userId',1)";
+            $insertCartResult = $this->connection->query($insertCartQuery);
+            if ($insertUserGroupResult && $insertCartResult) {
                 return true;
             }
         }
