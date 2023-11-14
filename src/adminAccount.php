@@ -9,17 +9,17 @@ $productService = new ProductService();
 $cartService = new CartService();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edited_data'])) {
     $editedData = $_POST['edited_data'];
-    
-    $editedData = json_decode($editedData);
+    $jsonString = json_encode($editedData);
+$editedData = json_decode($jsonString, true); 
 
     // Esempio di come accedere ai dati
-    $productId = $editedData->id;
-    $editedName = $editedData->name;
-    $editedPrice = $editedData->price;
-    $editedCategory = $editedData->category;
-    $editedStock = $editedData->stock;
-    $editedOnline = $editedData->isOnline;
-    $editedImage = $editedData->image;
+    $productId = $editedData['id'];
+    $editedName = $editedData['name'];
+    $editedPrice = $editedData['price'];
+    $editedCategory = $editedData['category'];
+    $editedStock = $editedData['stock'];
+    $editedOnline = $editedData['isOnline'];
+    $editedImage = $editedData['image'];
     $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage);
     if ($updateChanges) {
         header('Content-Type: application/json');
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edited_data'])) {
         exit; 
     } else {
         header('Content-Type: application/json');
-        $response = ['success' => false, 'message' => 'Errore nel salvataggio'];
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
         echo json_encode($response);
         exit; 
     }
@@ -37,6 +37,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edited_data'])) {
     $smarty->assign("data_products", $productService->getDataProducts());
     $smarty->display("index.tpl");
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['product_data'])) {
+    $productData = $_POST['product_data'];
+    $jsonString = json_encode($productData);
+$productData = json_decode($jsonString, true); 
+
+    $productName = $productData['name'];
+    $productPrice = $productData['price'];
+    $productCategory = $productData['category'];
+    $productStock = $productData['stock'];
+    $productOnline = $productData['isOnline'];
+    $productImage = $productData['image'];
+    $addProduct = $productService->addNewProduct($productName,$productPrice, $productCategory, $productStock, $productOnline,$productImage);
+    if ($addProduct) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId'])) {
+    $productId = $_POST['productId'];
+
+    $removeProduct = $productService->removeFromProduct($productId);
+    if ($removeProduct) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+}
+
 try {
     if (!isset($_SESSION['cart'])) {
         $cartService->createShoppingCart();
@@ -49,6 +92,7 @@ try {
     }
     $smarty->assign('cartProducts', $cartService->getCartProducts());
     $smarty->assign("totalPrice", $cartService->getTotalPrice() );
+    $smarty->assign("categories", $productService->getAllCategories() );
     $smarty->assign("current_view","adminAccount.tpl");
     $smarty->assign("data_products", $productService->getDataProducts());
     $smarty->display("index.tpl");

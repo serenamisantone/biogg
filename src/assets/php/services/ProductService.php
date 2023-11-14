@@ -132,6 +132,18 @@ class ProductService
         }
         return null;
     }
+    public function getCategoryByName($categoryName)
+    {
+        $query = "SELECT id FROM category WHERE name='{$categoryName}'";
+        $result = $this->connection->query($query);
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $id=($row['id']);
+
+            return $id;
+        }
+        return null;
+    }
 
     public function getAllCategories()
     {
@@ -219,21 +231,39 @@ class ProductService
             return $data_products;
         }
 
-        return array();
-    }
-    function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage)
-    {
-        $query = "
-        UPDATE product
-        SET name = $editedName, price = $editedPrice, category_id = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = $editedImage
-        WHERE id = $productId";
-        $result = $this->connection->query($query);
-        if ($result) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-
+    return array();
 }
+function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage) {
+    $query = "UPDATE product SET name = '$editedName', price = $editedPrice, category_id = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = '$editedImage' WHERE id = {$productId}";
+
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        return false;
+    }
+
+    return true;
+}
+function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage) {
+    $query = "INSERT INTO product (name, price, category_id, stock, is_online, image) VALUES ('{$productName}', '{$productPrice}', '{$productCategory}', '{$productStock}', '{$productOnline}', '{$productImage}')";
+
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        return false;
+    }
+
+    return true;
+}
+        
+function removeFromProduct($productId){
+    $query= "DELETE FROM product WHERE id={$productId}";
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        return false;
+    }
+
+    return true;
+} 
+    }
