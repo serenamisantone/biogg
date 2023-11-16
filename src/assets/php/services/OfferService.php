@@ -20,6 +20,7 @@ class OfferService
             $offer = new Offer($data['id'], $data['name'], $data['start_date'], $data['end_date'], $data['type']);
             return $offer;
         }
+        return null;
     }
     public function addOffer($offer)
     {
@@ -82,7 +83,6 @@ class OfferService
             while ($offerData = $result->fetch_assoc()) {
                 $offer = $this->getOfferById($offerData["offer_id"]);
                 $offers[] = $offer;
-                error_log("Id dell'offerta: " . $offer->getId() . "nome: " . $offer->getName());
             }
         }
         return $offers;

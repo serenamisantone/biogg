@@ -10,7 +10,7 @@ $smarty = new Config();
 $productService = new ProductService;
 $wishlistService = new WishlistService();
 $cartService = new CartService();
-try {
+
     if (!isset($_SESSION['cart'])) {
         $cartService->createShoppingCart();
     }
@@ -21,12 +21,13 @@ try {
         $smarty->assign('cart', $_SESSION['cart']);
         
     }
-
+    try {
+    $smarty->assign("singleProduct", $productService->getProductById($_GET['id']));
+    $smarty->assign("product_info", $productService->getProductInfoById($_GET['id']));
     $smarty->assign('cartProducts', $cartService->getCartProducts());
     $smarty->assign('totalPrice', $cartService->getTotalPrice());
   
-    $smarty->assign("product", $productService->getProductById($_GET['id']));
-    $smarty->assign("product_info", $productService->getProductInfoById($_GET['id']));
+   
     $smarty->assign("current_view", "singleProduct.tpl");
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

@@ -206,6 +206,8 @@ class CartService
             foreach ($cartProducts as $productData) {
                 $product = $productData['product'];
                 $quantity = $productData['quantity'];
+                $offers=$product->getOffers();
+               
                 $totalPrice += $product->getPrice() * $quantity;
             }
         } else {
@@ -220,7 +222,7 @@ class CartService
 
 
         }
-
+        $totalPrice=number_format($totalPrice,2,'.','');
         return $totalPrice;
 
     }

@@ -40,26 +40,29 @@ class ProductService
 
     public function getProductById($productId)
     {
-        $query = "SELECT * FROM product WHERE id= '{$productId}'";
+        $query = "SELECT * FROM product WHERE id= $productId";
         $result = $this->connection->query($query);
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $product = new Product();
             $product->setId($row['id']);
             $product->setName($row['name']);
-            $product->setPrice($row['price']);
+            
             $product->setImage($row['image']);
+            error_log($row['image']);
             $product->setStock($row['stock']);
             $product->setIsOnline($row['is_online']);
             $product->setCategory($this->getCategoryById($row['category_id']));
             $product->setOffers($this->offerService->getOfferByProductId($productId));
-            if (empty($product->getOffers())) {
-                error_log("è vuoto");
-            } else {
-                foreach ($product->getOffers() as $offer) {
-                    error_log('' . $offer->getId() . '' . $offer->getName());
+            $finalPrice=$row['price'];
+            $offers=$product->getOffers();
+            if(!empty($offers)){
+                foreach ($offers as $offer){
+               $finalPrice-=$finalPrice*$offer->getType()/100 ;
                 }
             }
+            $finalPrice=number_format($finalPrice,2,'.','');
+            $product->setPrice($finalPrice);
 
             return $product;
 
@@ -233,37 +236,15 @@ class ProductService
 
     return array();
 }
-function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage) {
-    $query = "UPDATE product SET name = '$editedName', price = $editedPrice, category_id = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = '$editedImage' WHERE id = {$productId}";
-
-    $result = $this->connection->query($query);
-
-    if ($result === false) {
-        return false;
-    }
-
-    return true;
-}
-function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage) {
-    $query = "INSERT INTO product (name, price, category_id, stock, is_online, image) VALUES ('{$productName}', '{$productPrice}', '{$productCategory}', '{$productStock}', '{$productOnline}', '{$productImage}')";
-
-    $result = $this->connection->query($query);
-
-    if ($result === false) {
-        return false;
-    }
-
-    return true;
-}
+    function updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage){
+      $query="
+        UPDATE product
+        SET name = $editedName, price = $editedPrice, category_id = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = $editedImage
+        WHERE id = $productId";
+        $result = $this->connection->query($query);
+        if($result){
+            return true;}else{return false;}
+        }
         
-function removeFromProduct($productId){
-    $query= "DELETE FROM product WHERE id={$productId}";
-    $result = $this->connection->query($query);
 
-    if ($result === false) {
-        return false;
-    }
-
-    return true;
-} 
     }
