@@ -40,26 +40,29 @@ class ProductService
 
     public function getProductById($productId)
     {
-        $query = "SELECT * FROM product WHERE id= '{$productId}'";
+        $query = "SELECT * FROM product WHERE id= $productId";
         $result = $this->connection->query($query);
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $product = new Product();
             $product->setId($row['id']);
             $product->setName($row['name']);
-            $product->setPrice($row['price']);
+
             $product->setImage($row['image']);
+            error_log($row['image']);
             $product->setStock($row['stock']);
             $product->setIsOnline($row['is_online']);
             $product->setCategory($this->getCategoryById($row['category_id']));
             $product->setOffers($this->offerService->getOfferByProductId($productId));
-            if (empty($product->getOffers())) {
-                error_log("è vuoto");
-            } else {
-                foreach ($product->getOffers() as $offer) {
-                    error_log('' . $offer->getId() . '' . $offer->getName());
+            $finalPrice = $row['price'];
+            $offers = $product->getOffers();
+            if (!empty($offers)) {
+                foreach ($offers as $offer) {
+                    $finalPrice -= $finalPrice * $offer->getType() / 100;
                 }
             }
+            $finalPrice = number_format($finalPrice, 2, '.', '');
+            $product->setPrice($finalPrice);
 
             return $product;
 
@@ -138,7 +141,7 @@ class ProductService
         $result = $this->connection->query($query);
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $id=($row['id']);
+            $id = ($row['id']);
 
             return $id;
         }
@@ -231,8 +234,9 @@ class ProductService
             return $data_products;
         }
 
-    return array();
-}
+        return array();
+    }
+
 function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage) {
     $imageQuery = "SELECT image FROM product WHERE id=$productId";
     $result = $this->connection->query($imageQuery);
@@ -331,8 +335,9 @@ public function uploadImage($image)
         }
    
 }
+}
 
 
     
 
-    }
+    

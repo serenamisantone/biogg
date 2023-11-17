@@ -1,5 +1,5 @@
 <?php
-require_once("./assets/config.php");
+require_once("./assets/Config.php");
 
 $smarty = new Config();
 

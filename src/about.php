@@ -1,7 +1,8 @@
 <?php
-require_once("./assets/config.php");
+require_once("./assets/Config.php");
 require_once("./assets/php/services/ProductService.php");
 require_once("./assets/php/services/CartService.php");
+session_start();
 $smarty = new Config();
 $cartService = new CartService();
 try {

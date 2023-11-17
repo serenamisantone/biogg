@@ -215,7 +215,7 @@ $(document).ready(function () {
         if (response.success) {
           // Estrai i dati dal JSON
           updateCart(response);
-
+          document.querySelector('.updateQuantity').classList.remove('hide');
 
            // Mostra un messaggio di successo
         } else {
@@ -443,4 +443,63 @@ function deleteProduct(productId) {
           alert("Si è verificato un errore durante l'eliminazione del prodotto.");
       }
   });
+}
+
+function updateQuantity(){
+  $("#decrease, #increase").click(function () {
+    var productId = $(this).data("product-id");
+    var quantityInput = $("input[data-product-id='" + productId + "']");
+    var actualQuantity = parseInt(quantityInput.data("quantity"));
+
+    var qunatityToAdd = 0;
+    if ($(this).hasClass("decrease")) {
+
+      qunatityToAdd--;
+
+    } else if ($(this).hasClass("increase")) {
+      qunatityToAdd++;
+      $(".decrease[data-product-id='" + productId + "']").removeAttr("disabled");
+    }
+
+    // Esegui la chiamata AJAX per aggiornare la quantità lato server
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/cart.php", // Sostituisci con il percorso del tuo script PHP
+      data: { productId: productId, quantity: qunatityToAdd },
+      success: function (response) {
+        if (response.success) {
+          updateCart(response);
+          // Aggiorna la quantità visualizzata nell'input e nei dati dell'input
+          actualQuantity = actualQuantity + qunatityToAdd;
+          quantityInput.val(actualQuantity);
+          quantityInput.data("quantity", actualQuantity);
+          console.log(response.price);
+          var totalPriceElement = $("#total-price-" + productId);
+
+          // Calcola il nuovo prezzo moltiplicando il prezzo unitario per la nuova quantità
+
+          totalPriceElement.text(response.price + "€");
+
+
+          // Aggiorna il prezzo totale complessivo, ad esempio, se hai un elemento separato per il totale
+          var newTotalPrice = response.updatedCartData.totalPrice;
+          $("#final-total-price").text(newTotalPrice + "€");
+          if (actualQuantity <= 1) {
+            $(".decrease[data-product-id='" + productId + "']").prop("disabled", true);
+          } else {
+            $(".decrease[data-product-id='" + productId + "']").prop("disabled", false);
+          }
+
+
+
+        } else {
+          alert("Errore durante l'aggiornamento della quantità: " + response.message);
+        }
+      },
+      error: function () {
+        alert("Si è verificato un errore durante l'aggiornamento della quantità.");
+      }
+    });
+  });
+
 }

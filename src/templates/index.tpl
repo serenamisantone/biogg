@@ -19,6 +19,7 @@
 
     <!--build:css-->
     <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/accessory.css">
     <!-- endbuild -->
 </head>
 
