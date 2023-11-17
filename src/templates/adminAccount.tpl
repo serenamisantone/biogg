@@ -273,7 +273,8 @@
                                                 <input type="file" id="fileInput2_{$product->getId()}" name="image" class="custom-file-input" required> 
                                             </div>
                                                     
-                                                    <button onclick="saveChanges({$product->getId()})" class="btn btn-success btn-sm">Salva</button>
+                                                    <button onclick="saveChanges({$product->getId()})" class="btn btn-primary btn-sm">Salva</button>
+                                                    <button type="button" onclick="cancelEdit({$product->getId()})" class="btn btn-secondary btn-sm">Annulla</button>
                                                 </form>
 
 

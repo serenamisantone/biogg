@@ -411,7 +411,12 @@ function addProduct() {
 }
 
 
+function cancelEdit(productId) {
+  // Nascondi il form
+  const form = document.getElementById(`editForm_${productId}`);
+  form.style.display = 'none';
 
+}
 
 
 
@@ -501,5 +506,8 @@ function updateQuantity(){
       }
     });
   });
+
+
+
 
 }
