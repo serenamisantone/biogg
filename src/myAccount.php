@@ -13,6 +13,7 @@ $cartService = new CartService;
 $wishlistService = new WishlistService;
 $productService = new productService;
 $menuItems = array();
+
 try {
     if (isset($_SESSION['auth']['group'])) {
         

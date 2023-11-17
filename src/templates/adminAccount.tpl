@@ -11,7 +11,7 @@
                             <h6 class="mb-4 px-4">Manage My Account</h6>
                             <ul class="nav nav-tabs border-0 d-block account-nav-menu">
                             <li>
-                            <a href="#products" data-bs-toggle="tab">
+                            <a href="#products" data-bs-toggle="tab" class="active">
                                 <span class="me-2">
                                     <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -255,7 +255,7 @@
                                                 <td>{$product->getIsOnline()}</td>
                                                 <td>{$product->getImage()}</td>
                                                 <td>
-                                                <form id="editForm_{$product->getId()}" class="edit-form" style="display: none;">
+                                                <form id="editForm_{$product->getId()}" enctype="multipart/form-data" class="edit-form" style="display: none;">
                                                 <input type="text" id="edit_name_{$product->getId()}" class="edit-input" value="{$product->getName()}">
                                                 <input type="text" id="edit_price_{$product->getId()}" class="edit-input" value="{$product->getPrice()}">
                                                 <select id="edit_category_{$product->getId()}" name="edit_category" class="edit-select">
@@ -268,7 +268,11 @@
                                                 <option value="0" {if $product->getIsOnline() == 0}selected{/if}>Offline</option>
                                                 <option value="1" {if $product->getIsOnline() == 1}selected{/if}>Online</option>
                                                 </select>
-                                                    <input type="text" id="edit_image_{$product->getId()}" class="edit-input" value="{$product->getImage()}">
+                                                <div id="drop-area">
+                                                <input type="text" id="edit_image_{$product->getId()}" class="edit-input" value="{$product->getImage()}">
+                                                <input type="file" id="fileInput2_{$product->getId()}" name="image" class="custom-file-input" required> 
+                                            </div>
+                                                    
                                                     <button onclick="saveChanges({$product->getId()})" class="btn btn-success btn-sm">Salva</button>
                                                 </form>
 
@@ -293,19 +297,19 @@
         <div class="container bg-white p-4 rounded">
         <h2 class="text-center mb-4 text-secondary display-4">Aggiungi un nuovo prodotto</h2>
 
-            <form id="addProductForm">
+            <form id="addProductForm" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="product_name">Nome:</label>
+                    <label for="product_name"class="text-primary">Nome:</label>
                     <input type="text" id="product_name" name="product_name" class="form-control" placeholder="Inserisci il nome" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="product_price">Prezzo:</label>
+                    <label for="product_price"class="text-primary">Prezzo:</label>
                     <input type="number" id="product_price" name="product_price" class="form-control" step="0.01" placeholder="Inserisci il prezzo" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="product_category">Categoria:</label>
+                    <label for="product_category"class="text-primary">Categoria:</label>
                     <select id="product_category" name="product_category" class="custom-select" required>
                         {foreach $categories as $category}
                             <option value="{$category->getId()}">{$category->getName()}</option>
@@ -314,12 +318,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="product_stock">Quantità in magazzino:</label>
+                    <label for="product_stock"class="text-primary">Quantità in magazzino:</label>
                     <input type="number" id="product_stock" name="product_stock" class="form-control" placeholder="Inserisci la quantità" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Disponibile online:</label>
+                    <label class="text-primary">Disponibile online:</label>
                     <div class="custom-control custom-radio">
                         <input type="radio" id="online_yes" name="product_online" class="custom-control-input" value="1" checked>
                         <label class="custom-control-label" for="online_yes">Sì</label>
@@ -329,11 +333,12 @@
                         <label class="custom-control-label" for="online_no">No</label>
                     </div>
                 </div>
+                <div id="drop-area">
+                <label for="fileInput" class="text-primary">Immagine:</label>
+                <input type="file" id="fileInput" name="image" class="custom-file-input" required> 
+            </div>
+            
 
-                <div class="form-group">
-                    <label for="product_image">URL dell'immagine:</label>
-                    <input type="text" id="product_image" name="product_image" class="form-control" placeholder="Inserisci l'URL dell'immagine">
-                </div>
 
                 <button type="submit" class="btn btn-primary btn-block" onclick="addProduct()">Aggiungi Prodotto</button>
             </form>
@@ -348,34 +353,7 @@
                                         <div class="col-md-6">
                                             <div class="address-book-content pe-md-4 border-right position-relative">
                                                 <div class="d-flex align-items-center gap-5 mb-4">
-                                                    <h6 class="mb-0">Address Book</h6>
-                                                    <a href="#">Edit</a>
-                                                </div>
-                                                <p class="text-uppercase fw-medium mb-3">
-                                                    Default Shipping Address
-                                                </p>
-                                                <div class="address">
-                                                    <p class="text-dark fw-bold mb-1">Saiful Talukdar</p>
-                                                    <p class="mb-0">
-                                                        Ghunshe, Muksudpur Dhaka - Gopalganj.
-                                                        <br />
-                              (+880) 1633082302
-                                                    </p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 align-self-end">
-                                            <div class="address-book-content ps-md-4">
-                                                <p class="text-uppercase fw-medium mb-3">
-                                                    Default Billing Address
-                                                </p>
-                                                <div class="address">
-                                                    <p class="text-dark fw-bold mb-1">Saiful Talukdar</p>
-                                                    <p class="mb-0">
-                                                        Ghunshe, Muksudpur Dhaka - Gopalganj.
-                                                        <br />
-                              (+880) 1633082302
-                                                    </p>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
@@ -385,210 +363,13 @@
                             <div class="tab-pane fade" id="payments">
                                 <div class="payment-methods bg-white rounded py-5 px-4">
                                     <h6 class="mb-4">Default Payment Methods</h6>
-                                    <div class="table-responsive">
-                                        <table class="payments-list-table table">
-                                            <tr>
-                                                <th>Credit / Debit cards info</th>
-                                                <th>Name</th>
-                                                <th>Expires on</th>
-                                                <th class="text-center">Action</th>
-                                            </tr>
-                                            <tr>
-                                                <td class="d-flex align-items-center gap-3">
-                                                    <span
-                              class="icon d-inline-flex align-items-center justify-content-center rounded-circle"
-                            >
-                              <img
-                                src="assets/img/brands/paypal-icon.png"
-                                alt="icon"
-                              />
-                            </span>
-                                                    <p class="d-inline-block mb-0">
-                                                        <strong>PayPal</strong>
-                                                        youremail@domain.com
-                                                        <span
-                                class="badge bg-secondary-light text-secondary fw-normal ms-1"
-                              >
-                                Active
-                              </span>
-                                                    </p>
-                                                </td>
-                                                <td>Talukdar</td>
-                                                <td>25/2024</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-more">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="d-flex align-items-center gap-3">
-                                                    <span
-                              class="icon d-inline-flex align-items-center justify-content-center rounded-circle"
-                            >
-                              <img
-                                src="assets/img/brands/paypal-icon.png"
-                                alt="icon"
-                              />
-                            </span>
-                                                    <p class="d-inline-block mb-0">
-                                                        <strong>PayPal</strong>
-                                                        youremail@domain.com
-                                                    </p>
-                                                </td>
-                                                <td>Talukdar</td>
-                                                <td>25/2024</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-more">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="d-flex align-items-center gap-3">
-                                                    <span
-                              class="icon d-inline-flex align-items-center justify-content-center rounded-circle"
-                            >
-                              <img
-                                src="assets/img/brands/paypal-icon.png"
-                                alt="icon"
-                              />
-                            </span>
-                                                    <p class="d-inline-block mb-0">
-                                                        <strong>PayPal</strong>
-                                                        youremail@domain.com
-                                                    </p>
-                                                </td>
-                                                <td>Talukdar</td>
-                                                <td>25/2024</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-more">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="d-flex align-items-center gap-3">
-                                                    <span
-                              class="icon d-inline-flex align-items-center justify-content-center rounded-circle"
-                            >
-                              <img
-                                src="assets/img/brands/paypal-icon.png"
-                                alt="icon"
-                              />
-                            </span>
-                                                    <p class="d-inline-block mb-0">
-                                                        <strong>PayPal</strong>
-                                                        youremail@domain.com
-                                                    </p>
-                                                </td>
-                                                <td>Talukdar</td>
-                                                <td>25/2024</td>
-                                                <td class="text-center">
-                                                    <a href="#" class="view-more">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <a href="#" class="btn btn-primary mt-4">
-                                        <span class="me-2"><i class="fas fa-plus"></i></span>
-                                        Add Payment
-                                    </a>
+                                    
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="update-profile">
                                 <div class="update-profile bg-white py-5 px-4">
                                     <h6 class="mb-4">Update Profile</h6>
-                                    <form class="profile-form">
-                                        <div class="file-upload text-center rounded-3 mb-5">
-                                            <input type="file" name="dp" />
-                                            <img src="assets/img/icons/image.svg" alt="dp" class="img-fluid" />
-                                            <p class="text-dark fw-bold mb-2 mt-3">
-                                                Drop your files here or
-                                                <a href="#" class="text-primary">browse</a>
-                                            </p>
-                                            <p class="mb-0 file-name">
-                                                (Only *.jpeg and *.png images will be accepted)
-                                            </p>
-                                        </div>
-                                        <div class="row g-4">
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>First Name</label>
-                                                    <input type="text" placeholder="Gene J." />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>Last Name</label>
-                                                    <input type="text" placeholder="Larose" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>Phone/Mobile</label>
-                                                    <input type="tel" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>Email Address</label>
-                                                    <input type="email" placeholder="themetags@gmail.com" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>Birthday</label>
-                                                    <input type="date" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>User Name</label>
-                                                    <input type="text" placeholder="Username" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mt-6">
-                                            Update Profile
-                                        </button>
-                                    </form>
-                                </div>
-                                <div class="change-password bg-white py-5 px-4 mt-4 rounded">
-                                    <h6 class="mb-4">Change Password</h6>
-                                    <form class="password-reset-form">
-                                        <div class="row g-4">
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>Email Address</label>
-                                                    <input type="email" placeholder="themetags@gmail.com" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>Current Password</label>
-                                                    <input type="password" placeholder="Current password" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>New Password</label>
-                                                    <input type="password" placeholder="New password" />
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="label-input-field">
-                                                    <label>Re-type Password</label>
-                                                    <input type="password" placeholder="Confirm password" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary mt-6">
-                                            Change Password
-                                        </button>
-                                    </form>
+                                    
                                 </div>
                             </div>
 
