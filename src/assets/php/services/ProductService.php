@@ -335,6 +335,30 @@ public function uploadImage($image)
         }
    
 }
+
+function removeFromCategory($categoryId){
+    $query = "DELETE FROM category WHERE id={$categoryId}";
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        // Gestisci l'errore se necessario
+        return false;
+    }
+
+    return true;
+}
+
+function addNewCategory($categoryName){
+    $query = "INSERT INTO category (name) VALUES ('{$categoryName}')";
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        // Gestisci l'errore se necessario
+        return false;
+    }
+
+    return true;
+}
 }
 
 

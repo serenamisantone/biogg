@@ -506,8 +506,57 @@ function updateQuantity(){
       }
     });
   });
-
-
-
-
 }
+
+  function deleteCategory(categoryId) {
+    const confirmation = confirm("Sei sicuro di voler eliminare questa categoria?");
+    
+    if (!confirmation) {
+        return;
+    }
+  
+    // Esegui la chiamata AJAX per eliminare il prodotto
+    $.ajax({
+        type: "POST",
+        url: "/biogg/src/adminAccount.php",
+        data: { action: "delete_category", categoryId: categoryId },
+        success: function(response) {
+            // Gestisci la risposta dal server
+            if (response.success) {
+                //alert("Prodotto eliminato con successo.");
+                // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
+                const rowId = `categoryRow_${categoryId}`;
+                $("#" + rowId).remove();
+                location.reload();
+                window.location.hash = '#category';
+
+            } else {
+                alert("Errore: " + response.message);
+            }
+        },
+        error: function() {
+            alert("Si è verificato un errore durante l'eliminazione della categoria.");
+        }
+    });
+  }
+  
+
+  function addNewCategory() {
+    // Ottieni il valore del nome della categoria dal campo di input
+    var categoryName = document.getElementById('category_name').value;
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/adminAccount.php", // Sostituisci con il percorso del tuo script PHP
+      data: { categoryName: categoryName},
+      success: function (response) {
+        if (response.success) {
+          location.reload();
+          window.location.hash = '#category';
+
+
+  }else{
+
+  }
+      }
+    });
+    }

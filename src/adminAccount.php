@@ -91,7 +91,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId'])) {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoryId'])) {
+    $categoryId = $_POST['categoryId'];
 
+    $removeCategory = $productService->removeFromCategory($categoryId);
+    if ($removeCategory) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoryName'])) {
+    $categoryName = $_POST['categoryName'];
+
+    $addCategory = $productService->addNewCategory($categoryName);
+    if ($addCategory) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+}
 
 try {
     if (!isset($_SESSION['cart'])) {
