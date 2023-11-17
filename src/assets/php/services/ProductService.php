@@ -47,21 +47,21 @@ class ProductService
             $product = new Product();
             $product->setId($row['id']);
             $product->setName($row['name']);
-            
+
             $product->setImage($row['image']);
             error_log($row['image']);
             $product->setStock($row['stock']);
             $product->setIsOnline($row['is_online']);
             $product->setCategory($this->getCategoryById($row['category_id']));
             $product->setOffers($this->offerService->getOfferByProductId($productId));
-            $finalPrice=$row['price'];
-            $offers=$product->getOffers();
-            if(!empty($offers)){
-                foreach ($offers as $offer){
-               $finalPrice-=$finalPrice*$offer->getType()/100 ;
+            $finalPrice = $row['price'];
+            $offers = $product->getOffers();
+            if (!empty($offers)) {
+                foreach ($offers as $offer) {
+                    $finalPrice -= $finalPrice * $offer->getType() / 100;
                 }
             }
-            $finalPrice=number_format($finalPrice,2,'.','');
+            $finalPrice = number_format($finalPrice, 2, '.', '');
             $product->setPrice($finalPrice);
 
             return $product;
@@ -141,7 +141,7 @@ class ProductService
         $result = $this->connection->query($query);
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
-            $id=($row['id']);
+            $id = ($row['id']);
 
             return $id;
         }
@@ -234,17 +234,22 @@ class ProductService
             return $data_products;
         }
 
-    return array();
-}
-    function updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage){
-      $query="
+        return array();
+    }
+    function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage)
+    {
+        $query = "
         UPDATE product
         SET name = $editedName, price = $editedPrice, category_id = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = $editedImage
         WHERE id = $productId";
         $result = $this->connection->query($query);
-        if($result){
-            return true;}else{return false;}
+        if ($result) {
+            return true;
+        } else {
+            return false;
         }
-        
-
     }
+
+
+}
+

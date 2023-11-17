@@ -3,7 +3,7 @@ require_once("assets/php/services/CartService.php");
 require_once("assets/php/services/UserService.php");
 require_once("assets/php/services/ProductService.php");
 require_once("./assets/php/models/Product.php");
-require_once("assets/config.php");
+require_once("assets/Config.php");
 session_start();
 $cartService = new CartService();
 $userService = new UserService();

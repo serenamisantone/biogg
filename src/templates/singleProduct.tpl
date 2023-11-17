@@ -48,20 +48,19 @@
                                           <li></li>
                                       </ul>
                                       <div class="d-flex align-items-center gap-4 flex-wrap">
-                                          <div class="product-qty d-inline-flex align-items-center">
-                                              <button class="decrease" data-product-id="{$product->getId()}"
+                                        <div class="product-qty d-inline-flex align-items-center updateQuantity {if $quantity=0}hide{/if}">
+                                              <button id="decrease" data-product-id="{$singleProduct->getId()}"
                                                   >-</button>
 
-                                              <input type="text" value="{$cartProduct['quantity']}"
-                                                  data-quantity="{$cartProduct['quantity']}"
+                                              <input type="text" value="{$quantity}"
+                                                 
                                                   data-product-id="{$singleProduct->getId()}" max="{$singleProduct->getStock()}">
-                                              <button class="increase" data-product-id="{$singleProduct->getId()}">+</button>
+                                              <button id="increase" data-product-id="{$singleProduct->getId()}">+</button>
                                           </div>
 
 
                                           <a class="btn btn-secondary btn-md addToCartButton"
-                                              data-product-id="{$singleProduct->getId()}"  {if $cartProduct['quantity'] = $singleProduct->getStock()} disabled="disabled"
-                                              {/if}><span class="me-2"><i
+                                              data-product-id="{$singleProduct->getId()}"  ><span class="me-2"><i
                                                       class="fa-solid fa-bag-shopping"></i></span>Aggiungi al
                                               carrello</a>
                                       </div>

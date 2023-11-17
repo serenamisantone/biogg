@@ -275,4 +275,26 @@ class CartService
             }
         }
     }
+
+    public function getQuantity($productId){
+        if(isset($_SESSION['auth'])){
+          
+            $cartId = $_SESSION['auth']['cart']->getShoppingCartId();
+            $query="SELECT * from shopping_cart_product as scp where scp.shopping_cart_id=$cartId";
+            $result = $this->connection->query($query); 
+            if ($result && $result->num_rows > 0) {
+            return $result->fetch_assoc()["added_quantity"];
+            }
+
+        }else{
+            $cartProducts=$_SESSION['cart']->getProducts();
+            foreach ($cartProducts as $cartProductId => $quantity) {
+                if($cartProductId==$productId){
+                    return $quantity;
+                }
+            }
+
+            return 0;
+        }
+    }
 }

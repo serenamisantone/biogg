@@ -9,13 +9,9 @@ class Config extends Smarty
     {
         parent::__construct();
 
-        $this->setTemplateDir("templates");
-       //$this->setCompileDir("templates_c");
+        $this->setTemplateDir("./templates");
         //$this->setCacheDir('./cache');
-       $this->cache_lifetime = 1;
-       
-       $this->setCaching(false); // Set to true for production
-        $this->setCompileCheck(false); // Set to false for production
+        $this->cache_lifetime = 1;
         $this->assign('app_name', 'BioGG');
        // $this->assign('icon_file_name', 'favicon.png');
        // $this->assign('logo_file_name', 'logo.png');

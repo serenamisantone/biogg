@@ -1,5 +1,5 @@
 <?php
-require_once("./assets/config.php");
+require_once("./assets/Config.php");
 
 require_once("./assets/php/services/ProductService.php");
 require_once("./assets/php/services/WishlistService.php");
@@ -22,6 +22,7 @@ $cartService = new CartService();
         
     }
     try {
+    $smarty->assign('quantity',$cartService->getQuantity($_GET['id']));
     $smarty->assign("singleProduct", $productService->getProductById($_GET['id']));
     $smarty->assign("product_info", $productService->getProductInfoById($_GET['id']));
     $smarty->assign('cartProducts', $cartService->getCartProducts());
