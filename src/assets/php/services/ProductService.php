@@ -19,6 +19,8 @@ class ProductService
         $this->offerService = new OfferService();
     }
 
+
+    //metodi per i prodotti
     public function getAllProductsOnline($offset, $limit)
     {
         $query = "SELECT id FROM product WHERE is_online = 1 LIMIT {$offset}, {$limit}";
@@ -121,6 +123,60 @@ class ProductService
             Header("Location: error.php?features_non_inserite_");
         }
     }
+
+    function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage) {
+        $query = "INSERT INTO product (name, price, category_id, stock, is_online, image) VALUES ('{$productName}', '{$productPrice}', '{$productCategory}', '{$productStock}', '{$productOnline}', '{$productImage}')";
+    
+        $result = $this->connection->query($query);
+    
+        if ($result === false) {
+            return false;
+        }
+    
+        return true;
+    }
+            
+    function removeFromProduct($productId){
+        // Ottieni il nome dell'immagine dal database
+        $imageQuery = "SELECT image FROM product WHERE id={$productId}";
+        $imageResult = $this->connection->query($imageQuery);
+    
+        if ($imageResult === false) {
+            // Gestisci l'errore se necessario
+            return false;
+        }
+    
+        $imageRow = $imageResult->fetch_assoc();
+        $imageName = $imageRow['image'];
+    
+        // Specifica il percorso completo dell'immagine
+        $imagePath = "assets/img/products/{$imageName}";
+    
+        // Elimina l'immagine dalla cartella
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+        }
+    
+        // Elimina il record dal database
+        $query = "DELETE FROM product WHERE id={$productId}";
+        $result = $this->connection->query($query);
+    
+        if ($result === false) {
+            // Gestisci l'errore se necessario
+            return false;
+        }
+    
+        return true;
+    }
+
+    
+
+
+
+
+
+
+//metodi per le categorie
     public function getCategoryById($categoryId)
     {
         $query = "SELECT * FROM category WHERE id='{$categoryId}'";
@@ -167,8 +223,42 @@ class ProductService
 
     }
 
+    function removeFromCategory($categoryId){
+        $query = "DELETE FROM category WHERE id={$categoryId}";
+        $result = $this->connection->query($query);
+    
+        if ($result === false) {
+            // Gestisci l'errore se necessario
+            return false;
+        }else{
+    
+        return true;
+        }
+    }
+    
+    function addNewCategory($categoryName){
+        if (empty($categoryName)) {
+            return false;
+        }else{
+        $query = "INSERT INTO category (name) VALUES ('{$categoryName}')";
+        $result = $this->connection->query($query);
+    
+        if ($result === false) {
+            // Gestisci l'errore se necessario
+            return false;
+        }else{
+    
+        return true;
+        }
+    }
+    }
 
 
+
+
+
+
+//metodi per la ricerca dei prodotti
     public function searchProducts($searchQuery)
     {
         if (!empty($searchQuery)) {
@@ -237,6 +327,14 @@ class ProductService
         return array();
     }
 
+
+
+
+
+
+
+//metodi per la modifica dei prodotti
+
 function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage) {
     $imageQuery = "SELECT image FROM product WHERE id=$productId";
     $result = $this->connection->query($imageQuery);
@@ -260,50 +358,6 @@ function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $
     $result = $this->connection->query($query);
 
     if ($result === false) {
-        return false;
-    }
-
-    return true;
-}
-function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage) {
-    $query = "INSERT INTO product (name, price, category_id, stock, is_online, image) VALUES ('{$productName}', '{$productPrice}', '{$productCategory}', '{$productStock}', '{$productOnline}', '{$productImage}')";
-
-    $result = $this->connection->query($query);
-
-    if ($result === false) {
-        return false;
-    }
-
-    return true;
-}
-        
-function removeFromProduct($productId){
-    // Ottieni il nome dell'immagine dal database
-    $imageQuery = "SELECT image FROM product WHERE id={$productId}";
-    $imageResult = $this->connection->query($imageQuery);
-
-    if ($imageResult === false) {
-        // Gestisci l'errore se necessario
-        return false;
-    }
-
-    $imageRow = $imageResult->fetch_assoc();
-    $imageName = $imageRow['image'];
-
-    // Specifica il percorso completo dell'immagine
-    $imagePath = "assets/img/products/{$imageName}";
-
-    // Elimina l'immagine dalla cartella
-    if (file_exists($imagePath)) {
-        unlink($imagePath);
-    }
-
-    // Elimina il record dal database
-    $query = "DELETE FROM product WHERE id={$productId}";
-    $result = $this->connection->query($query);
-
-    if ($result === false) {
-        // Gestisci l'errore se necessario
         return false;
     }
 
@@ -336,35 +390,7 @@ public function uploadImage($image)
    
 }
 
-function removeFromCategory($categoryId){
-    $query = "DELETE FROM category WHERE id={$categoryId}";
-    $result = $this->connection->query($query);
 
-    if ($result === false) {
-        // Gestisci l'errore se necessario
-        return false;
-    }else{
-
-    return true;
-    }
-}
-
-function addNewCategory($categoryName){
-    if (empty($categoryName)) {
-        return false;
-    }else{
-    $query = "INSERT INTO category (name) VALUES ('{$categoryName}')";
-    $result = $this->connection->query($query);
-
-    if ($result === false) {
-        // Gestisci l'errore se necessario
-        return false;
-    }else{
-
-    return true;
-    }
-}
-}
 }
 
 

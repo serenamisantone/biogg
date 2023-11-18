@@ -35,7 +35,6 @@
                         <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action = "login.php" method = "post">
                             <div class="mb-7">
                                 <a href="home.php">
-                                    <img src="assets/img/logo.png" alt="logo">
                                 </a>
                             </div>
                             <h2 class="mb-4 h3">Bentornato! <br> Accedi a <span class="text-secondary">BioGG</span>
