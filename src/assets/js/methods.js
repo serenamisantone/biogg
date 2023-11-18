@@ -1,4 +1,5 @@
-function heartWishlist(button, productId) {
+function heartWishlist(event,button, productId) {
+  event.preventDefault();
   var icon = button.querySelector('i');
   // Leggi il valore di isInWishlist dall'attributo data
   var isInWishlist = icon.getAttribute("data-isInWishlist") === "true";
@@ -41,7 +42,7 @@ function heartWishlist(button, productId) {
   });
 }
 
-function removeFromWishlist(productId){
+function removeFromWishlist(productId) {
   $.ajax({
     type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
     url: "/biogg/src/myWishlist.php", // URL del tuo script PHP
@@ -50,8 +51,8 @@ function removeFromWishlist(productId){
       // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
       if (response.success) {
         // alert("Prodotto rimosso dalla wishlist con successo!");
-      /*  var row = document.querySelector('a[data-product-id="' + productId+'"]').closest('tr');
-        row.remove();*/
+        /*  var row = document.querySelector('a[data-product-id="' + productId+'"]').closest('tr');
+          row.remove();*/
         var productToRemoveId = productId;
         $(".wishlist_product").each(function () {
           var itemProductId = $(this).find(".remove_cart_btn").data("product-id");
@@ -59,16 +60,16 @@ function removeFromWishlist(productId){
             $(this).remove();
           }
         });
-        
+
       } else {
         alert("Errore durante la rimozione del prodotto dalla wishlist: " + response.message);
       }
     },
-    error: function() {
-        // Gestisci eventuali errori durante la chiamata AJAX
-        alert("Si è verificato un errore durante la rimozione del prodotto dalla wishlist.");
+    error: function () {
+      // Gestisci eventuali errori durante la chiamata AJAX
+      alert("Si è verificato un errore durante la rimozione del prodotto dalla wishlist.");
     }
-});
+  });
 }
 
 function removeFromCart(productId2) {
@@ -209,15 +210,16 @@ $(document).ready(function () {
     $.ajax({
       type: "POST",
       url: '/biogg/src/shop.php',
-      data: { cart_product_id: productId }, // Passa l'ID del prodotto
+      data: { cart_product_id: productId, quantity_to_add: '1' }, // Passa l'ID del prodotto
       success: function (response) {
         // Gestisci la risposta del server
         if (response.success) {
           // Estrai i dati dal JSON
           updateCart(response);
-          document.querySelector('.updateQuantity').classList.remove('hide');
 
-           // Mostra un messaggio di successo
+
+
+          // Mostra un messaggio di successo
         } else {
           alert('Errore durante l\'aggiunta al carrello.');
         }
@@ -227,16 +229,16 @@ $(document).ready(function () {
       }
     });
   });
-  
+
 });
 
-function category(categoryId){
+function category(categoryId) {
   $.ajax({
     type: "GET",
-    url:"/biogg/src/shop.php",
-    data:{ categoryId: categoryId},
-    success: function (response){
-        updateProductsSection(response);
+    url: "/biogg/src/shop.php",
+    data: { categoryId: categoryId },
+    success: function (response) {
+      updateProductsSection(response);
     },
   });
 }
@@ -283,12 +285,12 @@ function toggleEditForm(productId) {
   const editButtons = document.querySelectorAll(`.btn-edit-product`);
   editButtons.forEach(button => {
     const buttonProductId = button.getAttribute('data-productId');
-      if (buttonProductId == productId) {
-        editForm.style.display = (editForm.style.display === 'none') ? 'block' : 'none';
-      }else{
-          const otherEditForm = document.getElementById(`editForm_${buttonProductId}`);
-          otherEditForm.style.display = 'none';
-      }
+    if (buttonProductId == productId) {
+      editForm.style.display = (editForm.style.display === 'none') ? 'block' : 'none';
+    } else {
+      const otherEditForm = document.getElementById(`editForm_${buttonProductId}`);
+      otherEditForm.style.display = 'none';
+    }
   });
 }
 function saveChanges(productId) {
@@ -315,20 +317,20 @@ function saveChanges(productId) {
     data: formData,// Dati da passare al server
     contentType: false,
     processData: false,
-    success: function(response) {
-        // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
-        if (response.success) {
-          window.location.href = "/biogg/src/adminAccount.php";
-           //alert("Modifiche salvate");
-        } else {
-           // alert("Errore: " + response.message);
-        }
+    success: function (response) {
+      // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+      if (response.success) {
+        window.location.href = "/biogg/src/adminAccount.php";
+        //alert("Modifiche salvate");
+      } else {
+        // alert("Errore: " + response.message);
+      }
     },
-    error: function() {
-        // Gestisci eventuali errori durante la chiamata AJAX
-        alert("Si è verificato un errore durante il salavataggio.");
+    error: function () {
+      // Gestisci eventuali errori durante la chiamata AJAX
+      alert("Si è verificato un errore durante il salavataggio.");
     }
-});
+  });
 }
 
 
@@ -422,89 +424,65 @@ function cancelEdit(productId) {
 
 function deleteProduct(productId) {
   const confirmation = confirm("Sei sicuro di voler eliminare questo prodotto?");
-  
+
   if (!confirmation) {
-      return;
+    return;
   }
 
   // Esegui la chiamata AJAX per eliminare il prodotto
   $.ajax({
-      type: "POST",
-      url: "/biogg/src/adminAccount.php",
-      data: { action: "delete_product", productId: productId },
-      success: function(response) {
-          // Gestisci la risposta dal server
-          if (response.success) {
-              //alert("Prodotto eliminato con successo.");
-              // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
-              const rowId = `editForm_${productId}`;
-              $("#" + rowId).closest('tr').remove();
-              window.location.href = "/biogg/src/adminAccount.php";
-          } else {
-              alert("Errore: " + response.message);
-          }
-      },
-      error: function() {
-          alert("Si è verificato un errore durante l'eliminazione del prodotto.");
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: { action: "delete_product", productId: productId },
+    success: function (response) {
+      // Gestisci la risposta dal server
+      if (response.success) {
+        //alert("Prodotto eliminato con successo.");
+        // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
+        const rowId = `editForm_${productId}`;
+        $("#" + rowId).closest('tr').remove();
+        window.location.href = "/biogg/src/adminAccount.php";
+      } else {
+        alert("Errore: " + response.message);
       }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante l'eliminazione del prodotto.");
+    }
   });
 }
 
-function updateQuantity(){
-  $("#decrease, #increase").click(function () {
-    var productId = $(this).data("product-id");
-    var quantityInput = $("input[data-product-id='" + productId + "']");
-    var actualQuantity = parseInt(quantityInput.data("quantity"));
-
-    var qunatityToAdd = 0;
-    if ($(this).hasClass("decrease")) {
-
-      qunatityToAdd--;
-
-    } else if ($(this).hasClass("increase")) {
-      qunatityToAdd++;
-      $(".decrease[data-product-id='" + productId + "']").removeAttr("disabled");
-    }
-
-    // Esegui la chiamata AJAX per aggiornare la quantità lato server
-    $.ajax({
-      type: "POST",
-      url: "/biogg/src/cart.php", // Sostituisci con il percorso del tuo script PHP
-      data: { productId: productId, quantity: qunatityToAdd },
-      success: function (response) {
-        if (response.success) {
-          updateCart(response);
-          // Aggiorna la quantità visualizzata nell'input e nei dati dell'input
-          actualQuantity = actualQuantity + qunatityToAdd;
-          quantityInput.val(actualQuantity);
-          quantityInput.data("quantity", actualQuantity);
-          console.log(response.price);
-          var totalPriceElement = $("#total-price-" + productId);
-
-          // Calcola il nuovo prezzo moltiplicando il prezzo unitario per la nuova quantità
-
-          totalPriceElement.text(response.price + "€");
 
 
-          // Aggiorna il prezzo totale complessivo, ad esempio, se hai un elemento separato per il totale
-          var newTotalPrice = response.updatedCartData.totalPrice;
-          $("#final-total-price").text(newTotalPrice + "€");
-          if (actualQuantity <= 1) {
-            $(".decrease[data-product-id='" + productId + "']").prop("disabled", true);
-          } else {
-            $(".decrease[data-product-id='" + productId + "']").prop("disabled", false);
-          }
+function deleteCategory(categoryId) {
+  const confirmation = confirm("Sei sicuro di voler eliminare questa categoria?");
 
+  if (!confirmation) {
+    return;
+  }
 
+  // Esegui la chiamata AJAX per eliminare il prodotto
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: { action: "delete_category", categoryId: categoryId },
+    success: function (response) {
+      // Gestisci la risposta dal server
+      if (response.success) {
+        //alert("Prodotto eliminato con successo.");
+        // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
+        const rowId = `categoryRow_${categoryId}`;
+        $("#" + rowId).remove();
+        location.reload();
+        window.location.hash = '#category';
 
-        } else {
-          alert("Errore durante l'aggiornamento della quantità: " + response.message);
-        }
-      },
-      error: function () {
-        alert("Si è verificato un errore durante l'aggiornamento della quantità.");
+      } else {
+        alert("Errore: " + response.message);
       }
-    });
+    },
+    error: function () {
+      alert("Si è verificato un errore durante l'eliminazione della categoria.");
+    }
   });
 }
 
@@ -554,10 +532,65 @@ function deleteCategory(categoryId) {
         if (response.success) {
           location.reload();
 
-  }else{
+      } else {
 
-  }
       }
-    });
     }
-  
+  });
+}
+
+// Assume che tu abbia già del codice per gestire gli eventi di clic
+// sui pulsanti "increase" e "decrease".
+
+// Aggiungi un event listener al pulsante "Aggiungi al carrello"
+document.querySelector('.addToCartFromSingleProduct').addEventListener('click', function (event) {
+  // Ottieni il valore della quantità
+  var quantity = parseInt(document.querySelector('.quantity-input').value, 10);
+  // Ottieni l'ID del prodotto
+  var productId = this.getAttribute('data-product-id');
+
+  $.ajax({
+    type: "POST",
+    url: '/biogg/src/shop.php',
+    data: { cart_product_id: productId, quantity_to_add: quantity }, // Passa l'ID del prodotto
+    success: function (response) {
+      // Gestisci la risposta del server
+      if (response.success) {
+               
+      } else {
+        alert('Errore durante l\'aggiunta al carrello.');
+      }
+    },
+    error: function () {
+      alert('Errore durante la richiesta AJAX.');
+    }
+  });
+});
+
+// Funzione per l'evento clic sul pulsante "Decrease"
+function decreaseQuantity() {
+  var input = document.querySelector('.quantity-input');
+  var value = parseInt(input.value, 10);
+
+  if (value > 1) {
+    value--;
+    input.value = value;
+  }
+}
+
+// Funzione per l'evento clic sul pulsante "Increase"
+function increaseQuantity() {
+  var input = document.querySelector('.quantity-input');
+  var value = parseInt(input.value, 10);
+  var maxStock = parseInt(input.getAttribute('max'), 10);
+
+  if (value < maxStock) {
+    value++;
+    input.value = value;
+  }
+}
+
+// Aggiungi gli event listener ai pulsanti
+document.querySelector('.decreaseFromSingleProduct').addEventListener('click', decreaseQuantity);
+document.querySelector('.increaseFromSingleProduct').addEventListener('click', increaseQuantity);
+

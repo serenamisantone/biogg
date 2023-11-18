@@ -51,7 +51,7 @@ class CartService
         if (isset($_SESSION['auth'])) {
 
             $cartId = $_SESSION['auth']['cart']->getShoppingCartId();
-            $query = '';
+            
 
             //se il prodotto è gia nel carrello incremento la quantità
             $query = "UPDATE shopping_cart_product SET added_quantity = added_quantity + $quantity WHERE product_id = {$productId} and shopping_cart_id= {$cartId}";

@@ -49,7 +49,7 @@ class ProductService
             $product->setName($row['name']);
 
             $product->setImage($row['image']);
-            error_log($row['image']);
+           
             $product->setStock($row['stock']);
             $product->setIsOnline($row['is_online']);
             $product->setCategory($this->getCategoryById($row['category_id']));

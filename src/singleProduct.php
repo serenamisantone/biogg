@@ -22,7 +22,9 @@ $cartService = new CartService();
         
     }
     try {
-    $smarty->assign('quantity',$cartService->getQuantity($_GET['id']));
+    $smarty->assign('quantityProduct',$cartService->getQuantity($_GET['id']));
+    error_log('quantityProduct'.$cartService->getQuantity($_GET['id']));
+    
     $smarty->assign("singleProduct", $productService->getProductById($_GET['id']));
     $smarty->assign("product_info", $productService->getProductInfoById($_GET['id']));
     $smarty->assign('cartProducts', $cartService->getCartProducts());
