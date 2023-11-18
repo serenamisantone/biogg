@@ -1,4 +1,5 @@
-function heartWishlist(button, productId) {
+function heartWishlist(event,button, productId) {
+  event.preventDefault();
   var icon = button.querySelector('i');
   // Leggi il valore di isInWishlist dall'attributo data
   var isInWishlist = icon.getAttribute("data-isInWishlist") === "true";

@@ -49,7 +49,7 @@
                             <p class="mb-0 fw-bold">Showing 1-9 of {$total_products} results</p>
 
                         </div>
-                       
+
                         <div class="row g-4 justify-content-center" id="products-section">
                             {foreach $all_products as $product}
                                 {assign var="isInWishlist" value=false}
@@ -62,20 +62,22 @@
                                 <div class="col-lg-4 col-md-6 col-sm-10">
                                     <div
                                         class="vertical-product-card rounded-2 position-relative border-0 bg-white bg-white">
-                                        
+
                                         {if $product->getOffersString() neq null}
-                                            <span class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">{$product->getOffersString()}</span>
+                                            <span
+                                                class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">{$product->getOffersString()}</span>
                                         {/if}
 
                                         <div class="thumbnail position-relative text-center p-4">
                                             <img src="assets/img/products/{$product->getImage()}" alt="apple"
                                                 class="img-fluid">
-                                            <button class="add_wishlist_btn"
-                                                onclick="heartWishlist(this, {$product->getId()})">
-                                                <i class="{if $isInWishlist} fas {else}far {/if} fa-heart" style="color:red"
-                                                    ; data-isInWishlist="{if $isInWishlist}true{else}false{/if}"></i>
+                                                <button class="add_wishlist_btn"
+                                                onclick="heartWishlist(event,this, {$product->getId()})">
+                                                <i class="{if $isInWishlist} fas {else}far {/if} fa-heart"
+                                                    style="color:red" ;
+                                                    data-isInWishlist="{if $isInWishlist}true{else}false{/if}"></i>
                                             </button>
-                                            </a>
+
                                         </div>
                                         <div class="card-content">
                                             <div class="mb-2 tt-category tt-line-clamp tt-clamp-1">
@@ -83,22 +85,27 @@
                                                 <a href="#"
                                                     class="d-inline-block text-muted fs-xxs">{$category -> getName()} </a>
                                             </div>
-                                            <div class="product-card">
-                                                <div style="display: flex; align-items: center;">
+                                            <div class="product-card" style="display: flex; flex-direction: column;">
+                                                <div
+                                                    style="display: flex; align-items: center; justify-content: space-between;">
                                                     <a href="singleProduct.php?id={$product->getId()}"
                                                         class="card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2"
                                                         style="flex: 1; text-decoration: none;">
                                                         <span class="product-name">{$product->getName()}</span>
                                                     </a>
+
+                                                    <h6 class="price text-danger mb-4">€{$product->getPrice()}</h6>
                                                 </div>
 
-                                                <h6 class="price text-danger mb-4">€{$product->getPrice()}
-                                                </h6>
-                                                <form method="POST">
-
+                                                <form method="POST"
+                                                    style="display: flex; justify-content: space-between; align-items: center;">
+                                                    <!-- Pulsante "Aggiungi al carrello" -->
                                                     <button type="button"
                                                         class="btn btn-outline-secondary d-block btn-md addToCartButton"
                                                         data-product-id="{$product->getId()}">Aggiungi al carrello</button>
+
+                                                    <!-- Icona del cuore della wishlist -->
+                                                   
                                                 </form>
                                             </div>
                                         </div>
