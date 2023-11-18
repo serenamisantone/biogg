@@ -13,7 +13,6 @@ if (!isset($_SESSION['auth'])) {
     exit();}
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['editedImage'])) {
     $productId = $_POST['productId'];
-    error_log($productId);
     $editedName = $_POST['editedName'];
     $editedPrice = $_POST['editedPrice'];
     $editedCategory = $_POST['editedCategory'];
@@ -22,9 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['editedImage'])) {
     $editedImage = $productService->uploadImage($_FILES['editedImage']);
     
    
-    error_log($editedImage);
     $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage);
     $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage);
+
     if ($updateChanges) {
         header('Content-Type: application/json');
         $response = ['success' => true];
@@ -95,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoryId'])) {
     $categoryId = $_POST['categoryId'];
 
     $removeCategory = $productService->removeFromCategory($categoryId);
+    error_log($removeCategory);
     if ($removeCategory) {
         header('Content-Type: application/json');
         $response = ['success' => true];
@@ -113,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoryName'])) {
     $categoryName = $_POST['categoryName'];
 
     $addCategory = $productService->addNewCategory($categoryName);
+    error_log($addCategory);
     if ($addCategory) {
         header('Content-Type: application/json');
         $response = ['success' => true];

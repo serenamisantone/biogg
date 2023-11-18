@@ -11,7 +11,7 @@
                     <h6 class="mb-4 px-4">Manage My Account</h6>
                     <ul class="nav nav-tabs border-0 d-block account-nav-menu">
                         <li>
-                            <a href="#products" data-bs-toggle="tab" class="active">
+                            <a href="adminAccount.php#products" data-bs-toggle="tab" class="active">
                                 <span class="me-2">
                                     <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -36,7 +36,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#aggiungi-prodotto" data-bs-toggle="tab">
+                                <a href="adminAccount.php#aggiungi-prodotto" data-bs-toggle="tab">
                                     <span class="me-2">
                         <svg
                           width="24"
@@ -66,8 +66,8 @@
                         Aggiungi prodotto
                     </a>
                 </li>
-                <li>
-                    <a href="#category" data-bs-toggle="tab">
+                <li id="categoryTab">
+                    <a href="adminAccount.php#category" data-bs-toggle="tab" >
                         <span class="me-2">
                         <svg
                           width="16"
@@ -98,7 +98,7 @@
                     </a>
                 </li>
                 <li>
-                <a href="#add-category" data-bs-toggle="tab">
+                <a href="adminAccount.php#add-category" data-bs-toggle="tab">
                     <span class="me-2">
                     <svg
                       width="16"
@@ -264,11 +264,11 @@
         </thead>
         <tbody>
             {foreach $categories as $category}
-                <tr>
+                <tr class = "category">
                     <td>{$category->getId()}</td>
                     <td>{$category->getName()}</td>
                     <td>
-                        <button onclick="deleteCategory({$category->getId()})" class="btn btn-primary btn-sm">Elimina</button>
+                        <button onclick="deleteCategory({$category->getId()})" class="btn btn-primary btn-sm remove_cart_btn" data-category-id="{$category->getId()}">Elimina</button>
                     </td>
                 </tr>
             {/foreach}

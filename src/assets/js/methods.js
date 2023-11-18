@@ -508,37 +508,39 @@ function updateQuantity(){
   });
 }
 
-  function deleteCategory(categoryId) {
-    const confirmation = confirm("Sei sicuro di voler eliminare questa categoria?");
-    
-    if (!confirmation) {
-        return;
-    }
+function deleteCategory(categoryId) {
+  const confirmation = confirm("Sei sicuro di voler eliminare questa categoria?");
   
-    // Esegui la chiamata AJAX per eliminare il prodotto
-    $.ajax({
-        type: "POST",
-        url: "/biogg/src/adminAccount.php",
-        data: { action: "delete_category", categoryId: categoryId },
-        success: function(response) {
-            // Gestisci la risposta dal server
-            if (response.success) {
-                //alert("Prodotto eliminato con successo.");
-                // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
-                const rowId = `categoryRow_${categoryId}`;
-                $("#" + rowId).remove();
-                location.reload();
-                window.location.hash = '#category';
-
-            } else {
-                alert("Errore: " + response.message);
-            }
-        },
-        error: function() {
-            alert("Si è verificato un errore durante l'eliminazione della categoria.");
-        }
-    });
+  if (!confirmation) {
+      return;
   }
+
+  // Esegui la chiamata AJAX per eliminare la categoria
+  $.ajax({
+      type: "POST",
+      url: "/biogg/src/adminAccount.php",
+      data: { action: "delete_category", categoryId: categoryId },
+      success: function(response) {
+          // Gestisci la risposta dal server
+          if (response.success) {
+              // Rimuovi l'elemento visuale dalla tabella
+              var categoryToRemoveId = categoryId;
+              $(".category").each(function () {
+                var itemCategoryId = $(this).find(".remove_cart_btn").data("category-id");
+                if (itemCategoryId === categoryToRemoveId) {
+                  $(this).remove();
+                }
+              });
+          } else {
+              alert("Errore: " + response.message);
+          }
+      },
+      error: function() {
+          alert("Si è verificato un errore durante l'eliminazione della categoria.");
+      }
+  });
+}
+
   
 
   function addNewCategory() {
@@ -551,8 +553,6 @@ function updateQuantity(){
       success: function (response) {
         if (response.success) {
           location.reload();
-          window.location.hash = '#category';
-
 
   }else{
 
@@ -560,3 +560,4 @@ function updateQuantity(){
       }
     });
     }
+  

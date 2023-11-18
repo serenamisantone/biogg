@@ -343,21 +343,27 @@ function removeFromCategory($categoryId){
     if ($result === false) {
         // Gestisci l'errore se necessario
         return false;
-    }
+    }else{
 
     return true;
+    }
 }
 
 function addNewCategory($categoryName){
+    if (empty($categoryName)) {
+        return false;
+    }else{
     $query = "INSERT INTO category (name) VALUES ('{$categoryName}')";
     $result = $this->connection->query($query);
 
     if ($result === false) {
         // Gestisci l'errore se necessario
         return false;
-    }
+    }else{
 
     return true;
+    }
+}
 }
 }
 
