@@ -48,11 +48,11 @@
                                           <li></li>
                                       </ul>
                                       <div class="d-flex align-items-center gap-4 flex-wrap">
-                                        <div class="product-qty d-inline-flex align-items-center updateQuantity {if $quantity=0}hide{/if}">
+                                        <div class="{if $quantityProduct==0}hide{/if} product-qty d-inline-flex align-items-center updateQuantity">
                                               <button id="decrease" data-product-id="{$singleProduct->getId()}"
                                                   >-</button>
 
-                                              <input type="text" value="{$quantity}"
+                                              <input type="text" value="{$quantityProduct}"
                                                  
                                                   data-product-id="{$singleProduct->getId()}" max="{$singleProduct->getStock()}">
                                               <button id="increase" data-product-id="{$singleProduct->getId()}">+</button>
