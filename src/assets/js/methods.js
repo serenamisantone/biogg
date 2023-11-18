@@ -298,25 +298,27 @@ function saveChanges(productId) {
   const editedCategory = document.getElementById(`edit_category_${productId}`).value;
   const editedStock = document.getElementById(`edit_stock_${productId}`).value;
   const editedOnline = document.getElementById(`edit_online_${productId}`).value;
-  const editedImage = document.getElementById(`edit_image_${productId}`).value;
-
+  const fileInput = document.getElementById(`fileInput2_${productId}`);
+  const file = fileInput.files[0];
   // Costruire l'oggetto con i dati modificati
-  const editedData = {
-      id: productId,
-      name: editedName,
-      price: editedPrice,
-      category: editedCategory,
-      stock: editedStock,
-      isOnline: editedOnline,
-      image: editedImage
-  };
+  const formData = new FormData();
+  formData.append('productId', productId);
+  formData.append('editedName', editedName);
+  formData.append('editedPrice', editedPrice);
+  formData.append('editedCategory', editedCategory);
+  formData.append('editedStock', editedStock);
+  formData.append('editedOnline', editedOnline);
+  formData.append('editedImage', file);
   $.ajax({
     type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
     url: "/biogg/src/adminAccount.php", // URL del tuo script PHP
-    data: { edited_data: editedData },// Dati da passare al server
+    data: formData,// Dati da passare al server
+    contentType: false,
+    processData: false,
     success: function(response) {
         // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
         if (response.success) {
+          window.location.href = "/biogg/src/adminAccount.php";
            //alert("Modifiche salvate");
         } else {
            // alert("Errore: " + response.message);
@@ -360,42 +362,64 @@ function updateCart(cartData) {
   cartTotal.textContent = updatedCartData.totalPrice + ' €';
 }
 
+
 function addProduct() {
+  console.log("funzione addProduct chiamata");
+
   // Ottenere i valori modificati dai campi di input
   const name = document.getElementById('product_name').value;
   const price = document.getElementById('product_price').value;
   const category = document.getElementById('product_category').value;
   const stock = document.getElementById('product_stock').value;
   const online = document.getElementById('online_yes').checked ? 1 : 0;
-  const image = document.getElementById('product_image').value;
+  const fileInput = document.getElementById('fileInput');
+  const file = fileInput.files[0];
+  console.log(file);
 
-  // Costruire l'oggetto con i dati modificati
-  const productData = {
-      name: name,
-      price: price,
-      category: category,
-      stock: stock,
-      isOnline: online,
-      image: image
-  };
-  $.ajax({
-    type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
-    url: "/biogg/src/adminAccount.php", // URL del tuo script PHP
-    data: { product_data: productData },// Dati da passare al server
-    success: function(response) {
-        // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+  // Invia una richiesta AJAX solo quando tutti i campi obbligatori sono compilati
+  if (name && price && category && stock !== null) {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('price', price);
+    formData.append('category', category);
+    formData.append('stock', stock);
+    formData.append('isOnline', online);
+    formData.append('image', file);
+
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/adminAccount.php",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        // Gestisci la risposta dal server
         if (response.success) {
-           //alert("Prodotto Aggiunto");
+          window.location.href = "/biogg/src/adminAccount.php";
+          // Se la risposta è positiva, esegui ulteriori azioni
         } else {
-            alert("Errore: " + response.message);
+          alert("Errore: " + response.message);
         }
-    },
-    error: function() {
-        // Gestisci eventuali errori durante la chiamata AJAX
+      },
+      error: function () {
         alert("Si è verificato un errore durante l'aggiunta.");
-    }
-});
+      }
+    });
+  } else {
+    alert("Compila tutti i campi prima di aggiungere il prodotto.");
+  }
 }
+
+
+function cancelEdit(productId) {
+  // Nascondi il form
+  const form = document.getElementById(`editForm_${productId}`);
+  form.style.display = 'none';
+
+}
+
+
+
 function deleteProduct(productId) {
   const confirmation = confirm("Sei sicuro di voler eliminare questo prodotto?");
   
@@ -415,6 +439,7 @@ function deleteProduct(productId) {
               // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
               const rowId = `editForm_${productId}`;
               $("#" + rowId).closest('tr').remove();
+              window.location.href = "/biogg/src/adminAccount.php";
           } else {
               alert("Errore: " + response.message);
           }
@@ -481,5 +506,57 @@ function updateQuantity(){
       }
     });
   });
-
 }
+
+  function deleteCategory(categoryId) {
+    const confirmation = confirm("Sei sicuro di voler eliminare questa categoria?");
+    
+    if (!confirmation) {
+        return;
+    }
+  
+    // Esegui la chiamata AJAX per eliminare il prodotto
+    $.ajax({
+        type: "POST",
+        url: "/biogg/src/adminAccount.php",
+        data: { action: "delete_category", categoryId: categoryId },
+        success: function(response) {
+            // Gestisci la risposta dal server
+            if (response.success) {
+                //alert("Prodotto eliminato con successo.");
+                // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
+                const rowId = `categoryRow_${categoryId}`;
+                $("#" + rowId).remove();
+                location.reload();
+                window.location.hash = '#category';
+
+            } else {
+                alert("Errore: " + response.message);
+            }
+        },
+        error: function() {
+            alert("Si è verificato un errore durante l'eliminazione della categoria.");
+        }
+    });
+  }
+  
+
+  function addNewCategory() {
+    // Ottieni il valore del nome della categoria dal campo di input
+    var categoryName = document.getElementById('category_name').value;
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/adminAccount.php", // Sostituisci con il percorso del tuo script PHP
+      data: { categoryName: categoryName},
+      success: function (response) {
+        if (response.success) {
+          location.reload();
+          window.location.hash = '#category';
+
+
+  }else{
+
+  }
+      }
+    });
+    }

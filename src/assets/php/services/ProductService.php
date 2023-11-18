@@ -236,20 +236,132 @@ class ProductService
 
         return array();
     }
-    function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage)
-    {
-        $query = "
-        UPDATE product
-        SET name = $editedName, price = $editedPrice, category_id = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = $editedImage
-        WHERE id = $productId";
-        $result = $this->connection->query($query);
-        if ($result) {
-            return true;
-        } else {
-            return false;
+
+function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage) {
+    $imageQuery = "SELECT image FROM product WHERE id=$productId";
+    $result = $this->connection->query($imageQuery);
+
+    if ($result !== false && $result->num_rows > 0) {
+        $imageRow = $result->fetch_assoc();
+        $imageName = $imageRow['image'];
+
+        // Se l'immagine è cambiata, elimina quella vecchia
+        if ($imageName !== $editedImage) {
+            $imagePath = "assets/img/products/{$imageName}";
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
         }
     }
 
+    $query = "UPDATE product SET name = '$editedName', price = $editedPrice, category_id = $editedCategory, stock = $editedStock, is_online = $editedOnline, image = '$editedImage' WHERE id = {$productId}";
 
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        return false;
+    }
+
+    return true;
+}
+function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage) {
+    $query = "INSERT INTO product (name, price, category_id, stock, is_online, image) VALUES ('{$productName}', '{$productPrice}', '{$productCategory}', '{$productStock}', '{$productOnline}', '{$productImage}')";
+
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        return false;
+    }
+
+    return true;
+}
+        
+function removeFromProduct($productId){
+    // Ottieni il nome dell'immagine dal database
+    $imageQuery = "SELECT image FROM product WHERE id={$productId}";
+    $imageResult = $this->connection->query($imageQuery);
+
+    if ($imageResult === false) {
+        // Gestisci l'errore se necessario
+        return false;
+    }
+
+    $imageRow = $imageResult->fetch_assoc();
+    $imageName = $imageRow['image'];
+
+    // Specifica il percorso completo dell'immagine
+    $imagePath = "assets/img/products/{$imageName}";
+
+    // Elimina l'immagine dalla cartella
+    if (file_exists($imagePath)) {
+        unlink($imagePath);
+    }
+
+    // Elimina il record dal database
+    $query = "DELETE FROM product WHERE id={$productId}";
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        // Gestisci l'errore se necessario
+        return false;
+    }
+
+    return true;
 }
 
+
+public function uploadImage($image)
+{
+   
+        // Verifica se è stata ricevuta un'immagine
+        if ($image['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = "assets/img/products/";  // Cartella in cui vuoi salvare le immagini
+            $fileName = $image['name'];
+            $filePath = $uploadDir . $fileName;
+
+            // Sposta il file nella cartella di destinazione
+            if (move_uploaded_file($image['tmp_name'], $filePath)) {
+
+                // Restituisci il nome dell'immagine come conferma
+                return $fileName;
+            } else {
+                // Gestisci l'errore di spostamento del file
+                throw new Exception('Errore durante il salvataggio dell\'immagine.');
+            }
+        } else {
+            // Gestisci l'errore di caricamento dell'immagine
+            throw new Exception('Nessuna immagine ricevuta o errore durante il caricamento.');
+        }
+   
+}
+
+function removeFromCategory($categoryId){
+    $query = "DELETE FROM category WHERE id={$categoryId}";
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        // Gestisci l'errore se necessario
+        return false;
+    }
+
+    return true;
+}
+
+function addNewCategory($categoryName){
+    $query = "INSERT INTO category (name) VALUES ('{$categoryName}')";
+    $result = $this->connection->query($query);
+
+    if ($result === false) {
+        // Gestisci l'errore se necessario
+        return false;
+    }
+
+    return true;
+}
+}
+
+
+    
+
+    
