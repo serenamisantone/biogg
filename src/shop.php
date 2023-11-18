@@ -28,9 +28,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['wishlist_product_id']
         exit;
     }
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart_product_id'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart_product_id']) && isset($_POST['quantity_to_add'])) {
     $productId = $_POST['cart_product_id'];
-    $success = $cartService->addProduct($productId, '1');
+    $quantityToAdd = $_POST['quantity_to_add'];
+    $success = $cartService->addProduct($productId, $quantityToAdd);
     if ($success) {
         $updatedCartData = [
             'totalPrice' => $cartService->getTotalPrice(),

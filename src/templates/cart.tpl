@@ -57,28 +57,21 @@
             <div class="col-xl-5">
                 <div class="cart-summery bg-white rounded-2 pt-4 pb-6 px-5 mt-4">
                     <table class="w-100">
-                        <tr>
-                            <td class="py-3">
-                                <h5 class="mb-0 fw-medium">Subtotal</h5>
-                            </td>
-                            <td class="py-3">
-                                <h5 class="mb-0 fw-semibold text-end">$1138,00</h5>
-                            </td>
-                        </tr>
+                        
                         <tr class="border-top">
                             <td class="py-3">
-                                <h5 class="mb-0">Total</h5>
+                                <h5 class="mb-0">Totale</h5>
                             </td>
                             <td class="text-end py-3">
                                 <h5 class="mb-0" id="final-total-price">{$totalPrice}€</h5>
                             </td>
                         </tr>
                     </table>
-                    <p class="mb-5 mt-2">Shipping options will be updated during checkout.</p>
+                    <p class="mb-5 mt-2">I costi di spedizione verranno aggiunti durante il checkout.</p>
                     <div class="btns-group d-flex gap-3">
-                        <button type="submit" class="btn btn-primary btn-md rounded-1">Confirm Order</button>
+                        <button type="submit" class="btn btn-primary btn-md rounded-1">Conferma ordine</button>
                         <a href="shop.php" type="button" 
-                            class="btn btn-outline-secondary border-secondary btn-md rounded-1">Continue
+                            class="btn btn-outline-secondary border-secondary btn-md rounded-1">Continua con lo
                             Shopping</a>
                     </div>
                 </div>
