@@ -1,3 +1,10 @@
-.hide{
+.hide {
     display: none;
+}
+
+.accessory-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
 }

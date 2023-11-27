@@ -69,7 +69,7 @@
                     </table>
                     <p class="mb-5 mt-2">I costi di spedizione verranno aggiunti durante il checkout.</p>
                     <div class="btns-group d-flex gap-3">
-                        <button type="submit" class="btn btn-primary btn-md rounded-1">Conferma ordine</button>
+                        <a href="checkout.php" typer="button" class="btn btn-primary btn-md rounded-1">Conferma ordine</button>
                         <a href="shop.php" type="button" 
                             class="btn btn-outline-secondary border-secondary btn-md rounded-1">Continua con lo
                             Shopping</a>

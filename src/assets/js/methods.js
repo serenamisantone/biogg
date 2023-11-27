@@ -1,4 +1,4 @@
-function heartWishlist(event,button, productId) {
+function heartWishlist(event, button, productId) {
   event.preventDefault();
   var icon = button.querySelector('i');
   // Leggi il valore di isInWishlist dall'attributo data
@@ -488,49 +488,49 @@ function deleteCategory(categoryId) {
 
 function deleteCategory(categoryId) {
   const confirmation = confirm("Sei sicuro di voler eliminare questa categoria?");
-  
+
   if (!confirmation) {
-      return;
+    return;
   }
 
   // Esegui la chiamata AJAX per eliminare la categoria
   $.ajax({
-      type: "POST",
-      url: "/biogg/src/adminAccount.php",
-      data: { action: "delete_category", categoryId: categoryId },
-      success: function(response) {
-          // Gestisci la risposta dal server
-          if (response.success) {
-              // Rimuovi l'elemento visuale dalla tabella
-              var categoryToRemoveId = categoryId;
-              $(".category").each(function () {
-                var itemCategoryId = $(this).find(".remove_cart_btn").data("category-id");
-                if (itemCategoryId === categoryToRemoveId) {
-                  $(this).remove();
-                }
-              });
-          } else {
-              alert("Errore: " + response.message);
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: { action: "delete_category", categoryId: categoryId },
+    success: function (response) {
+      // Gestisci la risposta dal server
+      if (response.success) {
+        // Rimuovi l'elemento visuale dalla tabella
+        var categoryToRemoveId = categoryId;
+        $(".category").each(function () {
+          var itemCategoryId = $(this).find(".remove_cart_btn").data("category-id");
+          if (itemCategoryId === categoryToRemoveId) {
+            $(this).remove();
           }
-      },
-      error: function() {
-          alert("Si è verificato un errore durante l'eliminazione della categoria.");
+        });
+      } else {
+        alert("Errore: " + response.message);
       }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante l'eliminazione della categoria.");
+    }
   });
 }
 
-  
 
-  function addNewCategory() {
-    // Ottieni il valore del nome della categoria dal campo di input
-    var categoryName = document.getElementById('category_name').value;
-    $.ajax({
-      type: "POST",
-      url: "/biogg/src/adminAccount.php", // Sostituisci con il percorso del tuo script PHP
-      data: { categoryName: categoryName},
-      success: function (response) {
-        if (response.success) {
-          location.reload();
+
+function addNewCategory() {
+  // Ottieni il valore del nome della categoria dal campo di input
+  var categoryName = document.getElementById('category_name').value;
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php", // Sostituisci con il percorso del tuo script PHP
+    data: { categoryName: categoryName },
+    success: function (response) {
+      if (response.success) {
+        location.reload();
 
       } else {
 
@@ -542,31 +542,31 @@ function deleteCategory(categoryId) {
 // Assume che tu abbia già del codice per gestire gli eventi di clic
 // sui pulsanti "increase" e "decrease".
 
-// Aggiungi un event listener al pulsante "Aggiungi al carrello"
-document.querySelector('.addToCartFromSingleProduct').addEventListener('click', function (event) {
-  // Ottieni il valore della quantità
-  var quantity = parseInt(document.querySelector('.quantity-input').value, 10);
-  // Ottieni l'ID del prodotto
-  var productId = this.getAttribute('data-product-id');
+$(document).ready(function () {
+  document.querySelector('.addToCartFromSingleProduct').addEventListener('click', function () {
+    // Ottieni il valore della quantità
+    var quantity = parseInt(document.querySelector('.quantity-input').value, 10);
+    // Ottieni l'ID del prodotto
+    var productId = this.getAttribute('data-product-id');
 
-  $.ajax({
-    type: "POST",
-    url: '/biogg/src/shop.php',
-    data: { cart_product_id: productId, quantity_to_add: quantity }, // Passa l'ID del prodotto
-    success: function (response) {
-      // Gestisci la risposta del server
-      if (response.success) {
-               
-      } else {
-        alert('Errore durante l\'aggiunta al carrello.');
+    $.ajax({
+      type: "POST",
+      url: '/biogg/src/shop.php',
+      data: { cart_product_id: productId, quantity_to_add: quantity }, // Passa l'ID del prodotto
+      success: function (response) {
+        // Gestisci la risposta del server
+        if (response.success) {
+
+        } else {
+          alert('Errore durante l\'aggiunta al carrello.');
+        }
+      },
+      error: function () {
+        alert('Errore durante la richiesta AJAX.');
       }
-    },
-    error: function () {
-      alert('Errore durante la richiesta AJAX.');
-    }
+    });
   });
 });
-
 // Funzione per l'evento clic sul pulsante "Decrease"
 function decreaseQuantity() {
   var input = document.querySelector('.quantity-input');
@@ -589,10 +589,12 @@ function increaseQuantity() {
     input.value = value;
   }
 }
+$(document).ready(function () {
+  // Aggiungi gli event listener ai pulsanti
+  document.querySelector('.decreaseFromSingleProduct').addEventListener('click', decreaseQuantity);
+  document.querySelector('.increaseFromSingleProduct').addEventListener('click', increaseQuantity);
+});
 
-// Aggiungi gli event listener ai pulsanti
-document.querySelector('.decreaseFromSingleProduct').addEventListener('click', decreaseQuantity);
-document.querySelector('.increaseFromSingleProduct').addEventListener('click', increaseQuantity);
 
 
 function sendResetLink() {
@@ -613,3 +615,55 @@ function sendResetLink() {
       }
   });
 }
+$(document).ready(function () {
+  $("#addAddressBtn").on("click", function () {
+    // Raccogli i dati del modulo
+    var formData = $("#addAddressForm").serialize();
+    console.log(formData);
+
+    // Effettua la chiamata Ajax
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/checkout.php", // Sostituisci con il percorso del tuo script PHP
+      data: formData,
+      success: function (response) {
+        if (response) { // Gestisci la risposta dal server (puoi fare qualcosa qui dopo l'aggiunta nel database)
+
+          var newAddress = response.newAddress;
+          // Costruisci l'HTML per il nuovo indirizzo
+          var newAddressHtml = `
+       <div class="col-lg-6 col-sm-6">
+           <div class="tt-address-content">
+               <input type="radio" class="tt-custom-radio" checked name="tt-radio-shipment" id="tt-radio-shipment-${newAddress.id}">
+               <label for="tt-radio-shipment-${newAddress.id}" class="tt-address-info bg-white rounded p-4 position-relative">
+                   <strong>${newAddress.comune}</strong>
+                   <address class="fs-sm mb-0">
+                       n. ${newAddress.civico}, Via ${newAddress.via} <br>
+                       ${newAddress.regione}, ${newAddress.provincia}
+                   </address>
+                   <a href="#editAddress" class="tt-edit-address checkout-radio-link position-absolute">Edit</a>
+               </label>
+           </div>
+       </div>
+   `;
+
+          // Aggiungi l'HTML per il nuovo indirizzo alla tua sezione di indirizzi
+          $(".row.g-4").append(newAddressHtml);
+
+
+          $('#addAddressModal').modal('hide');
+          // Chiudi il modal e resetta la form quando viene nascosto
+          $('#addAddressModal').on('hidden.bs.modal', function () {
+            // Resettare i valori della form
+            $("#addAddressForm")[0].reset();
+          });
+        } else {
+          alert('Errore durante l\'aggiunta al carrello.');
+        }
+      },
+      error: function (error) {
+        console.log("Errore nella chiamata Ajax: " + error);
+      }
+    });
+  });
+});

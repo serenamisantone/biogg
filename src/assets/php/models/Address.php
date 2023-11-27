@@ -1,84 +1,120 @@
 <?php
-class Address{
-    private $userId;
-    private $region;
-    private $province;
-    private $town;
-    private $street;
-    private $houseNumber;
-    private $otherInfo;
+class Address
+{
+	private $id;
+	private $userId;
+	private $regione;
+	private $provincia;
+	private $comune;
+	private $via;
+	private $civico;
+	private $otherInfo;
 
-    public function __construct ($userId, $region, $province, $town, $street, $houseNumber, $otherInfo){
-        $this->userId = $userId;
-        $this->region = $region;
-        $this->province = $province;
-        $this->town = $town;
-        $this->street = $street;
-        $this->houseNumber = $houseNumber;
-        $this->otherInfo = $otherInfo;
-    }
-
-
-	public function getUserId() {
+	public function __construct($userId, $regione, $provincia, $comune, $via, $civico, $otherInfo)
+	{
+		$this->userId = $userId;
+		$this->regione = $regione;
+		$this->provincia = $provincia;
+		$this->comune = $comune;
+		$this->via = $via;
+		$this->civico = $civico;
+		$this->otherInfo = $otherInfo;
+	}
+	public function getId()
+	{
+		return $this->id;
+	}
+	public function setId($id)
+	{
+		$this->id = $id;
+	}
+	public function getUserId()
+	{
 		return $this->userId;
 	}
 
-	public function setUserId($userId) {
+	public function setUserId($userId)
+	{
 		$this->userId = $userId;
 	}
 
 
-	public function getRegion() {
-		return $this->region;
+	public function getRegione()
+	{
+		return $this->regione;
 	}
 
-	public function setRegion($region) {
-		$this->region = $region;
-	}
-
-
-	public function getProvince() {
-    	return $this->province;
-  	}
-
-	public function setProvince($province) {
-		$this->province = $province;
+	public function setRegione($regione)
+	{
+		$this->regione = $regione;
 	}
 
 
-	public function getTown() {
-		return $this->town;
+	public function getProvincia()
+	{
+		return $this->provincia;
 	}
 
-	public function setTown($town) {
-		$this->town = $town;
-	}
-
-
-	public function getStreet() {
-		return $this->street;
-	}
-
-	public function setStreet($street) {
-		$this->street = $street;
+	public function setProvincia($provincia)
+	{
+		$this->provincia = $provincia;
 	}
 
 
-	public function getHouseNumber() {
-		return $this->houseNumber;
+	public function getComune()
+	{
+		return $this->comune;
 	}
 
-	public function setHouseNumber($houseNumber) {
-		$this->houseNumber = $houseNumber;
+	public function setComune($comune)
+	{
+		$this->comune = $comune;
 	}
 
-	
-	public function getOtherInfo() {
+
+	public function getVia()
+	{
+		return $this->via;
+	}
+
+	public function setVia($via)
+	{
+		$this->via = $via;
+	}
+
+
+	public function getCivico()
+	{
+		return $this->civico;
+	}
+
+	public function setcivico($civico)
+	{
+		$this->civico = $civico;
+	}
+
+
+	public function getOtherInfo()
+	{
 		return $this->otherInfo;
 	}
 
-	public function setOtherInfo($otherInfo) {
+	public function setOtherInfo($otherInfo)
+	{
 		$this->otherInfo = $otherInfo;
 	}
 
+	public function getJson()
+{
+    return [
+        'id' => $this->getId(),
+        'user_id' => $this->getUserid(),
+        'regione' => $this->getRegione(),
+        'provincia' => $this->getProvincia(),
+        'comune' => $this->getComune(),
+        'via' => $this->getVia(),
+        'civico' => $this->getCivico(),
+        'other_info' => $this->getOtherInfo(),
+    ];
+}
 }

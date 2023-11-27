@@ -1,7 +1,3 @@
-<head>
-    <link rel="stylesheet" href="assets/css/main.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-</head>
 <!--main content wrapper start-->
 <div class="main-wrapper">
 
@@ -71,11 +67,10 @@
                                         <div class="thumbnail position-relative text-center p-4">
                                             <img src="assets/img/products/{$product->getImage()}" alt="apple"
                                                 class="img-fluid">
-                                                <button class="add_wishlist_btn"
+                                            <button class="add_wishlist_btn"
                                                 onclick="heartWishlist(event,this, {$product->getId()})">
-                                                <i class="{if $isInWishlist} fas {else}far {/if} fa-heart"
-                                                    style="color:red" ;
-                                                    data-isInWishlist="{if $isInWishlist}true{else}false{/if}"></i>
+                                                <i class="{if $isInWishlist} fas {else}far {/if} fa-heart" style="color:red"
+                                                    ; data-isInWishlist="{if $isInWishlist}true{else}false{/if}"></i>
                                             </button>
 
                                         </div>
@@ -86,15 +81,14 @@
                                                     class="d-inline-block text-muted fs-xxs">{$category -> getName()} </a>
                                             </div>
                                             <div class="product-card" style="display: flex; flex-direction: column;">
-                                                <div
-                                                    style="display: flex; align-items: center; justify-content: space-between;">
+                                                <div class="accessory-card-content">
                                                     <a href="singleProduct.php?id={$product->getId()}"
                                                         class="card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2"
                                                         style="flex: 1; text-decoration: none;">
                                                         <span class="product-name">{$product->getName()}</span>
                                                     </a>
 
-                                                    <h6 class="price text-danger mb-4">€{$product->getPrice()}</h6>
+                                                    <h6 class="price text-danger ">€{$product->getPrice()}</h6>
                                                 </div>
 
                                                 <form method="POST"
@@ -105,7 +99,7 @@
                                                         data-product-id="{$product->getId()}">Aggiungi al carrello</button>
 
                                                     <!-- Icona del cuore della wishlist -->
-                                                   
+
                                                 </form>
                                             </div>
                                         </div>
@@ -130,6 +124,7 @@
             </div>
 
         </div>
+    </section>
 </div>
-</section>
+
 <!--shop grid section end-->
