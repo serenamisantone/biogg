@@ -3,7 +3,6 @@
 <html lang="en" data-bs-theme="light">
     <!--main content wrapper start-->
     <body>
-    <body>
     <div class="main-wrapper">
         <div class="row g-4">
             <div class="col-xl-3">

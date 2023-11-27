@@ -40,6 +40,33 @@ class ProductService
         return array();
     }
 
+    function getAllProducts()
+    {
+
+        $query = "SELECT * FROM product";
+
+        $result = $this->connection->query($query);
+        $data_products = array();
+
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $product = new Product();
+                $product->setId($row['id']);
+                $product->setName($row['name']);
+                $product->setPrice($row['price']);
+                $product->setImage($row['image']);
+                $product->setStock($row['stock']);
+                $product->setIsOnline($row['is_online']);
+                $product->setCategory($this->getCategoryById($row['category_id']));
+                $data_products[] = $product;
+            }
+
+            return $data_products;
+        }
+
+        return array();
+    }
+
     public function getProductById($productId)
     {
         $query = "SELECT * FROM product WHERE id= $productId";
@@ -300,32 +327,7 @@ class ProductService
 
     }
 
-    function getDataProducts()
-    {
 
-        $query = "SELECT * FROM product";
-
-        $result = $this->connection->query($query);
-        $all_products = array();
-
-        if (($result) && ($result->num_rows > 0)) {
-            while ($row = $result->fetch_assoc()) {
-                $product = new Product();
-                $product->setId($row['id']);
-                $product->setName($row['name']);
-                $product->setPrice($row['price']);
-                $product->setImage($row['image']);
-                $product->setStock($row['stock']);
-                $product->setIsOnline($row['is_online']);
-                $product->setCategory($this->getCategoryById($row['category_id']));
-                $data_products[] = $product;
-            }
-
-            return $data_products;
-        }
-
-        return array();
-    }
 
 
 

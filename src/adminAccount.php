@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['editedImage'])) {
         exit; 
     }
     $smarty->assign("current_view","adminAccount.tpl");
-    $smarty->assign("data_products", $productService->getDataProducts());
+    $smarty->assign("data_products", $productService->getAllProducts());
     $smarty->display("index.tpl");
 }
 
@@ -141,8 +141,8 @@ try {
     $smarty->assign('cartProducts', $cartService->getCartProducts());
     $smarty->assign("totalPrice", $cartService->getTotalPrice() );
     $smarty->assign("categories", $productService->getAllCategories() );
+    $smarty->assign("data_products", $productService->getAllProducts());
     $smarty->assign("current_view","adminAccount.tpl");
-    $smarty->assign("data_products", $productService->getDataProducts());
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {
     $smarty->assign("content_load","404.tpl");

@@ -594,3 +594,22 @@ function increaseQuantity() {
 document.querySelector('.decreaseFromSingleProduct').addEventListener('click', decreaseQuantity);
 document.querySelector('.increaseFromSingleProduct').addEventListener('click', increaseQuantity);
 
+
+function sendResetLink() {
+  // Ottieni il valore da input
+  var usernameOrEmail = $('#usernameOrEmail').val();
+
+  // Esegui la richiesta Ajax
+  $.ajax({
+      type: 'POST',
+      url: 'forgotPassword.php',
+      data: { usernameOrEmail: usernameOrEmail },
+      success: function(response) {
+          // Gestisci la risposta dal server
+          alert(response); // Mostra un alert per esempio
+      },
+      error: function(error) {
+          console.log('Errore nella richiesta Ajax:', error);
+      }
+  });
+}

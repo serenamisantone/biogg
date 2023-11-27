@@ -171,6 +171,7 @@ function createAccount($name, $surname, $email, $username, $password) {
         return false;
     }
 
+
     $insertQuery = "INSERT INTO user (name, surname, username, password, email) VALUES ('$name', '$surname', '$username', '$hashedPassword', '$email')";
     $insertResult = $this->connection->query($insertQuery);
 
