@@ -56,20 +56,22 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            
                             <div class="d-flex align-items-center justify-content-between mt-4">
                             
-                                <a href="#" class="fs-sm">Forgot Password</a>
-                            </div>
+                                <a  href="forgotPassword.php"  class="fs-sm">Password dimenticata?</a>
+</div>
+
                             <div class="row g-4 mt-4">
                                 <div class="col-sm-6">
-                                    <button type="submit" class="btn btn-primary w-100" name="submit">Sign In</button>
+                                    <button type="submit" class="btn btn-primary w-100" name="submit">Accedi</button>
                                 </div>
                                
                             </div>
-                            <p class="mb-0 fs-xs mt-4">Don't have an Account? <a href="signup.php">Sign Up</a>
+                            <p class="mb-0 fs-xs mt-4">Non hai un account? <a href="signup.php">Registrati</a>
                             </p>
                         </form>
+                        </div>
                     </div>
                 </div>
             </div>

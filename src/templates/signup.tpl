@@ -38,10 +38,9 @@
                     <div class="col-lg-5 col-12 bg-white d-flex p-0 tt-login-col shadow">
                         <form class="tt-login-form-wrap p-3 p-md-6 p-lg-6 py-7 w-100" action= "signup.php" method= "post">
                             <div class="text-center mb-7">
-                                <a href="index.php"><img src="assets/img/login/logo2.jpeg" alt="logo"></a>
                             </div>
                             <h4 class="mb-3">Registrati</h4>
-                            <p class="fs-xs">Already have an account? <a href="login.php" class="text-secondary">Sign in</a></p>
+                            <p class="fs-xs">Hai già un account? <a href="login.php" class="text-secondary">Accedi</a></p>
                             <div class="row g-3">
                                 <div class="col-sm-6">
                                     <div class="input-field">
@@ -73,10 +72,10 @@
                             </div>
                             <div class="row g-4 mt-4">
                                 <div class="col-sm-6 text-center">
-                                    <button type="submit" class="btn btn-primary mx-auto d-block">Create account</button>
+                                    <button type="submit" class="btn btn-primary mx-auto d-block">Crea account</button>
                                 </div>
                                 <div>
-                            <p class="mb-0 fs-xxs mt-4 text-center">By signing up, I agree to <a href="#" class="text-dark">Terms of Use and Privacy Policy</a></p>
+                            <p class="mb-0 fs-xxs mt-4 text-center">Registrandomi, Acconsento a <a href="#" class="text-dark">Termini, condizioni d'uso e informativa sulla privacy</a></p>
                             </div>
                             </div>
                             </form>

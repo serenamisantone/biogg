@@ -171,6 +171,7 @@ function createAccount($name, $surname, $email, $username, $password) {
         return false;
     }
 
+
     $insertQuery = "INSERT INTO user (name, surname, username, password, email) VALUES ('$name', '$surname', '$username', '$hashedPassword', '$email')";
     $insertResult = $this->connection->query($insertQuery);
 
@@ -205,6 +206,49 @@ function getUserIdByUsername($username) {
 }
 public function getErrorMessage() {
     return $this->error_message;
+}
+function checkUsernameOrEmail($usernameOrEmail){
+    if (filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
+        $result = $this->connection->query("SELECT * FROM user WHERE email = '{$usernameOrEmail}'");
+    if ($result->num_rows > 0) {
+        return $usernameOrEmail;
+    } else {
+        Header("Location: error.php?utente-non-trovato");
+        exit;
+    }
+}else{
+    $result = $this->connection->query("SELECT email FROM user WHERE username = '{$usernameOrEmail}'");
+
+        // Verifica se l'utente è stato trovato
+        if ($result->num_rows > 0) {
+            // Restituisci l'email trovata
+            $row = $result->fetch_assoc();
+            return $row['email'];
+        } else {
+            // Utente non trovato
+            Header("Location: error.php?utente-non-trovato");
+            exit;
+        }
+}
+
+}
+function saveResetToken($email){
+    $token = bin2hex(random_bytes(32));
+    $hashedPassword = password_hash($token, PASSWORD_DEFAULT);
+    $query= "UPDATE user SET password = '$hashedPassword' WHERE email = '$email'";
+    $result = $this->connection->query($query);
+    if($result){
+        return $token;
+    }else{
+        return false;
+    }
+
+}
+function sendEmail($email, $password){
+    $to = $email; 
+    $subject = "Nuova Password";
+    $message = "Questa è la tua nuova password: $password";
+    mail($to, $subject, $message);
 }
 
 }

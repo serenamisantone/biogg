@@ -596,6 +596,33 @@ $(document).ready(function () {
 });
 
 
+
+function sendResetLink() {
+  // Ottieni il valore da input
+  var usernameOrEmail = $('#usernameOrEmail').val();
+  console.log(usernameOrEmail);
+
+  // Esegui la richiesta Ajax
+  $.ajax({
+      type: 'POST',
+      url: '/biogg/src/forgotPassword.php',
+      data: { usernameOrEmail: usernameOrEmail },
+      success: function(response) {
+        console.log(response);
+        if (response.success) {
+          window.location.href = "/biogg/src/login.php";
+          // Se la risposta è positiva, esegui ulteriori azioni
+        }
+      },
+      error: function(xhr, status, error) {
+        console.log('Errore nella richiesta Ajax:');
+        console.log('Stato:', status);
+        console.log('Errore:', error);
+        console.log('Risposta completa:', xhr.responseText);
+    
+      }
+  });
+}
 $(document).ready(function () {
   $("#addAddressBtn").on("click", function () {
     // Raccogli i dati del modulo
