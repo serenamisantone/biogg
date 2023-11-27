@@ -52,6 +52,7 @@ class OrderService
             other_info = '{$address->getOtherInfo()}'
         WHERE
             id = {$address->getId()}");
+            return $result;
     }
 
     public function deleteAddress($addressId)

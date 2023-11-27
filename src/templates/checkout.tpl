@@ -8,29 +8,30 @@
                         <div class="d-flex justify-content-between">
                             <h4 class="mb-5">Shipment Address</h4>
                             <a href="#" data-bs-toggle="modal" data-bs-target="#addAddressModal" class="fw-semibold"><i
-                                    class="fas fa-plus me-1"></i> Add Address</a>
+                                    class="fas fa-plus me-1"></i> Aggiungi Indirizzo</a>
                         </div>
                         <div id="existingAddressesContainer">
-                        <div class="row g-4">
-                            {foreach $addresses as $index1 => $address1}
-                                <div class="col-lg-6 col-sm-6">
-                                    <div class="tt-address-content">
-                                        <input type="radio" class="tt-custom-radio" {if $index1 === 0}checked{/if}
-                                            name="tt-radio-shipment" id="tt-radio-shipment-{$index1 + 1}">
-                                        <label for="tt-radio-shipment-{$index1 + 1}"
-                                            class="tt-address-info bg-white rounded p-4 position-relative">
-                                            <strong>{$address1->getComune()} </strong>
-                                            <address class="fs-sm mb-0">
-                                                n. {$address1->getCivico()}, Via {$address1->getVia()} <br>
-                                                {$address1->getRegione()}, {$address1->getProvincia()}
-                                            </address>
-                                            <a href="#editAddress"
-                                                class="tt-edit-address checkout-radio-link position-absolute">Edit</a>
-                                        </label>
+                            <div class="row g-4">
+                                {foreach $addresses as $index1 => $address1}
+                                    <div class="col-lg-6 col-sm-6">
+                                        <div class="tt-address-content">
+                                            <input type="radio" class="tt-custom-radio" {if $index1 === 0}checked{/if}
+                                                name="tt-radio-shipment" id="tt-radio-shipment-{$index1 + 1}">
+                                            <label for="tt-radio-shipment-{$index1 + 1}"
+                                                class="tt-address-info bg-white rounded p-4 position-relative">
+                                                <strong>{$address1->getComune()} </strong>
+                                                <address class="fs-sm mb-0">
+                                                    n. {$address1->getCivico()}, Via {$address1->getVia()} <br>
+                                                    {$address1->getRegione()}, {$address1->getProvincia()}
+                                                </address>
+                                                <a href="#" class="tt-edit-address checkout-radio-link position-absolute"
+   onclick="openEditModal(); populateEditForm('{$address1->getId()}','{$address1->getComune()}', '{$address1->getCivico()}', '{$address1->getVia()}', '{$address1->getRegione()}', '{$address1->getProvincia()}');">Modifica</a>
+
+                                                </label>
+                                        </div>
                                     </div>
-                                </div>
-                            {/foreach}
-                        </div>
+                                {/foreach}
+                            </div>
                         </div>
                         <h4 class="mt-8">Payment Method</h4>
                         <div class="checkout-form mt-4 py-7 px-5 bg-white rounded-2">
@@ -109,7 +110,7 @@
                                     aria-label="Close"></button>
 
                                 <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
-                                    <h2 class="modal-title fs-5 mb-3">Add New Address</h2>
+                                    <h2 class="modal-title fs-5 mb-3">Aggiungi un nuovo indirizzo</h2>
                                     <div class="row align-items-center g-4 mt-3">
                                         <form id="addAddressForm" method="post">
                                             <div class="row g-4">
@@ -141,9 +142,8 @@
                                             </div>
                                             <div class="mt-6 d-flex">
                                                 <button type="button" id="addAddressBtn"
-                                                    class="btn btn-secondary btn-md me-3">Use this Address</button>
-                                                <button type="button"
-                                                    class="btn btn-outline-secondary border-secondary btn-md">Cancel</button>
+                                                    class="btn btn-secondary btn-md me-3">Salva</button>
+
                                             </div>
                                         </form>
 
@@ -154,40 +154,95 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4">
-                    <div class="checkout-sidebar">
-                        <div class="sidebar-widget checkout-sidebar py-6 px-4 bg-white rounded-2">
-                            <div class="widget-title d-flex">
-                                <h5 class="mb-0 flex-shrink-0">Order Summery</h5>
-                                <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
+                <div class="modal fade" id="editAddressModal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="btn-close float-end" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+
+                                <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+                                    <h2 class="modal-title fs-5 mb-3">Modifica Indirizzo</h2>
+                                    <div class="row align-items-center g-4 mt-3">
+                                        <form id="editAddressForm" method="post">
+                                            <div class="row g-4">
+                                                <div class="col-sm-6">
+                                                    <div class="label-input-field">
+                                                        <input type="text" id="editRegione" name="regione"
+                                                            placeholder="Nuova Regione">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="label-input-field">
+                                                        <input type="text" id="editProvincia" name="provincia"
+                                                            placeholder="Nuova Provincia">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="label-input-field">
+                                                        <input type="text" id="editComune" name="comune"placeholder="Nuovo Comune">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="label-input-field">
+                                                        <input type="text" id="editVia" name="via"placeholder="Nuova Via">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2">
+                                                    <div class="label-input-field">
+                                                        <input type="text" id="editCivico" name="civico" placeholder="Nuovo Civico">
+                                                    </div>
+                                                </div>
+                                                <input type="text" hidden id="editId" name="addressId"
+                                                placeholder="Nuova Regione">
+                                            </div>
+                                            <div class="mt-6 d-flex">
+                                                <button type="button" id="saveEditAddressBtn"
+                                                    class="btn btn-secondary btn-md me-3" onclick="saveChanges()">Salva</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
-                            <table class="sidebar-table w-100 mt-5">
-                                <tr>
-                                    <td>Items(2):</td>
-                                    <td class="text-end">$136,00</td>
-                                </tr>
-                                <tr>
-                                    <td>Shipping & handling:</td>
-                                    <td class="text-end">$3.99</td>
-                                </tr>
-                                <tr>
-                                    <td>Before tax:</td>
-                                    <td class="text-end">$336,04</td>
-                                </tr>
-                            </table>
-                            <span class="sidebar-spacer d-block my-4 opacity-50"></span>
-                            <div class="d-flex align-items-center justify-content-between">
-                                <h6 class="mb-0 fs-md">Tax collected</h6>
-                                <h6 class="mb-0 fs-md">$424.00</h6>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100">Place Order</button>
-                            <p class="mt-3 mb-0 fs-xs">By Placing your order your agree to our company <a
-                                    href="#">Privacy-policy</a></p>
                         </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-xl-4">
+                <div class="checkout-sidebar">
+                    <div class="sidebar-widget checkout-sidebar py-6 px-4 bg-white rounded-2">
+                        <div class="widget-title d-flex">
+                            <h5 class="mb-0 flex-shrink-0">Order Summery</h5>
+                            <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
+                        </div>
+                        <table class="sidebar-table w-100 mt-5">
+                            <tr>
+                                <td>Items(2):</td>
+                                <td class="text-end">$136,00</td>
+                            </tr>
+                            <tr>
+                                <td>Shipping & handling:</td>
+                                <td class="text-end">$3.99</td>
+                            </tr>
+                            <tr>
+                                <td>Before tax:</td>
+                                <td class="text-end">$336,04</td>
+                            </tr>
+                        </table>
+                        <span class="sidebar-spacer d-block my-4 opacity-50"></span>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="mb-0 fs-md">Tax collected</h6>
+                            <h6 class="mb-0 fs-md">$424.00</h6>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100">Place Order</button>
+                        <p class="mt-3 mb-0 fs-xs">By Placing your order your agree to our company <a
+                                href="#">Privacy-policy</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 <!--checkout section end-->

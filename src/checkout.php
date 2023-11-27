@@ -3,38 +3,40 @@ require_once("./assets/Config.php");
 require_once("./assets/php/services/CartService.php");
 require_once("./assets/php/services/OrderService.php");
 require_once("./assets/php/models/Address.php");
+
 session_start();
 $smarty = new Config();
 $cartService = new CartService();
 $orderService = new OrderService();
-try {
 
+try {
     if (!isset($_SESSION['auth'])) {
         header("Location: login.php");
         exit;
     } else {
 
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            // Recupera i dati inviati dalla chiamata Ajax
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['addAddress'])) {
+            $formData = json_decode($_POST['formData'], true);
 
-            $regione = $_POST['regione'];
-            $provincia = $_POST['provincia'];
-            $comune = $_POST['comune'];
-            $via = $_POST['via'];
-            $civico = $_POST['civico'];
+            // Accedi ai dati
+            $regione = $formData[0]['value'];
+            $provincia = $formData[1]['value'];
+            $comune = $formData[2]['value'];
+            $via = $formData[3]['value'];
+            $civico = $formData[4]['value'];
 
-            $address = new Address($_SESSION['auth']['user'], $regione, $provincia, $comune, $via, $civico,' ');
-            
+            $address = new Address($_SESSION['auth']['user'], $regione, $provincia, $comune, $via, $civico, ' ');
+
             $result = $orderService->addAddress($address);
 
             if ($result != 0) {
-               $newAddress=$orderService->getAddressById($result);
-               $newAddressAsJson=$newAddress->getJson();
+                $newAddress = $orderService->getAddressById($result);
+                $newAddressAsJson = $newAddress->getJson();
                 header('Content-Type: application/json');
-                $response = array("success" => true, "message" => "Aggiunta andata a buon fine",'newAddress' => $newAddressAsJson);
-           
+                $response = array("success" => true, "message" => "Aggiunta andata a buon fine", 'newAddress' => $newAddressAsJson);
+
                 echo json_encode($response);
-                 
+
                 exit;
 
             } else {
@@ -43,14 +45,39 @@ try {
                 echo json_encode($response);
                 exit;
             }
-        } 
+        }
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && (isset($_POST['editAddress']))) {
+            // Verifica se è un'aggiunta o una modifica in base ai dati ricevuti
+            $formData = json_decode($_POST['formData'], true);
 
+            // Accedi ai dati
+            $regione = $formData[0]['value'];
+            $provincia = $formData[1]['value'];
+            $comune = $formData[2]['value'];
+            $via = $formData[3]['value'];
+            $civico = $formData[4]['value'];
+            $id = $formData[5]['value'];
 
+            $address = new Address($_SESSION['auth']['user'], $regione, $provincia, $comune, $via, $civico, ' ');
+            $address->setId($id);
+            $result = $orderService->updateAddress($address);
+            if ($result == 1) {
+                header('Content-Type: application/json');
+                $response = array("success" => true, "message" => "Modifica andata a buon fine");
+                echo json_encode($response);
+                exit;
+            } else {
+                header('Content-Type: application/json');
+                $response = array("success" => false, "message" => "Modifica NON andata a buon fine");
+                echo json_encode($response);
+                exit;
+            }
+
+        }
 
         $smarty->assign("addresses", $orderService->getAddressesByUserId($_SESSION["auth"]["user"]));
         if (isset($_SESSION['auth']['cart'])) {
             $smarty->assign("cart", $_SESSION['auth']['cart']);
-
         }
         $smarty->assign('cartProducts', $cartService->getCartProducts());
         $smarty->assign("totalPrice", $cartService->getTotalPrice());

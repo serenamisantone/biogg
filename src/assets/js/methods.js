@@ -599,52 +599,76 @@ $(document).ready(function () {
 $(document).ready(function () {
   $("#addAddressBtn").on("click", function () {
     // Raccogli i dati del modulo
-    var formData = $("#addAddressForm").serialize();
+    var formData = $("#addAddressForm").serializeArray();
     console.log(formData);
+    
 
     // Effettua la chiamata Ajax
     $.ajax({
       type: "POST",
       url: "/biogg/src/checkout.php", // Sostituisci con il percorso del tuo script PHP
-      data: formData,
+      data: { addAddress: true, formData: JSON.stringify(formData) },
       success: function (response) {
         if (response) { // Gestisci la risposta dal server (puoi fare qualcosa qui dopo l'aggiunta nel database)
 
-          var newAddress = response.newAddress;
-          // Costruisci l'HTML per il nuovo indirizzo
-          var newAddressHtml = `
-       <div class="col-lg-6 col-sm-6">
-           <div class="tt-address-content">
-               <input type="radio" class="tt-custom-radio" checked name="tt-radio-shipment" id="tt-radio-shipment-${newAddress.id}">
-               <label for="tt-radio-shipment-${newAddress.id}" class="tt-address-info bg-white rounded p-4 position-relative">
-                   <strong>${newAddress.comune}</strong>
-                   <address class="fs-sm mb-0">
-                       n. ${newAddress.civico}, Via ${newAddress.via} <br>
-                       ${newAddress.regione}, ${newAddress.provincia}
-                   </address>
-                   <a href="#editAddress" class="tt-edit-address checkout-radio-link position-absolute">Edit</a>
-               </label>
-           </div>
-       </div>
-   `;
-
-          // Aggiungi l'HTML per il nuovo indirizzo alla tua sezione di indirizzi
-          $(".row.g-4").append(newAddressHtml);
-
-
-          $('#addAddressModal').modal('hide');
-          // Chiudi il modal e resetta la form quando viene nascosto
-          $('#addAddressModal').on('hidden.bs.modal', function () {
-            // Resettare i valori della form
-            $("#addAddressForm")[0].reset();
-          });
+          location.reload();
         } else {
           alert('Errore durante l\'aggiunta al carrello.');
         }
       },
       error: function (error) {
-        console.log("Errore nella chiamata Ajax: " + error);
+        console.log("Errore nella chiamata Ajax: " + error.responseText);
       }
     });
   });
 });
+
+function openEditModal() {
+  $('#editAddressModal').modal('show');
+}
+
+
+
+// Chiudi il modal se l'utente clicca al di fuori dell'area del modal di modifica
+window.onclick = function (event) {
+  var editModal = document.getElementById("editAddressModal");
+  if (event.target == editModal) {
+    editModal.style.display = "none";
+  }
+};
+function populateEditForm(id, comune, civico, via, regione, provincia) {
+  // Popolare i campi del modulo di modifica con i dettagli dell'indirizzo
+  document.getElementById("editRegione").value = regione;
+  document.getElementById("editProvincia").value = provincia;
+  document.getElementById("editComune").value = comune;
+  document.getElementById("editVia").value = via;
+  document.getElementById("editCivico").value = civico;
+  document.getElementById("editId").value = id;
+}
+
+// Funzione per salvare le modifiche all'indirizzo
+function saveChanges() {
+
+  // Raccogli i dati del modulo
+  var formData = $("#editAddressForm").serializeArray();
+  // Effettua la chiamata Ajax
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/checkout.php", // Sostituisci con il percorso del tuo script PHP
+    data: {  formData: JSON.stringify(formData), editAddress: true },
+    success: function (response) {
+
+      if (response.success) {
+        location.reload();
+      } else {
+        alert('Errore durante l\'aggiunta al carrello: ' + response.message);
+      }
+    },
+    error: function (error) {
+      console.log("Errore nella chiamata Ajax: " + error.responseText);
+    }
+  });
+
+  // Chiudi il modal di modifica dopo aver salvato le modifiche
+
+}
