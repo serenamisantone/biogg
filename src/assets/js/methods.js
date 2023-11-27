@@ -600,18 +600,26 @@ $(document).ready(function () {
 function sendResetLink() {
   // Ottieni il valore da input
   var usernameOrEmail = $('#usernameOrEmail').val();
+  console.log(usernameOrEmail);
 
   // Esegui la richiesta Ajax
   $.ajax({
       type: 'POST',
-      url: 'forgotPassword.php',
+      url: '/biogg/src/forgotPassword.php',
       data: { usernameOrEmail: usernameOrEmail },
       success: function(response) {
-          // Gestisci la risposta dal server
-          alert(response); // Mostra un alert per esempio
+        console.log(response);
+        if (response.success) {
+          window.location.href = "/biogg/src/login.php";
+          // Se la risposta è positiva, esegui ulteriori azioni
+        }
       },
-      error: function(error) {
-          console.log('Errore nella richiesta Ajax:', error);
+      error: function(xhr, status, error) {
+        console.log('Errore nella richiesta Ajax:');
+        console.log('Stato:', status);
+        console.log('Errore:', error);
+        console.log('Risposta completa:', xhr.responseText);
+    
       }
   });
 }
