@@ -1,3 +1,4 @@
+
 function heartWishlist(event, button, productId) {
   event.preventDefault();
   var icon = button.querySelector('i');
@@ -604,32 +605,30 @@ function sendResetLink() {
 
   // Esegui la richiesta Ajax
   $.ajax({
-      type: 'POST',
-      url: '/biogg/src/forgotPassword.php',
-      data: { usernameOrEmail: usernameOrEmail },
-      success: function(response) {
-        console.log(response);
-        if (response.success) {
-          window.location.href = "/biogg/src/login.php";
-          // Se la risposta è positiva, esegui ulteriori azioni
-        }
-      },
-      error: function(xhr, status, error) {
-        console.log('Errore nella richiesta Ajax:');
-        console.log('Stato:', status);
-        console.log('Errore:', error);
-        console.log('Risposta completa:', xhr.responseText);
-    
+    type: 'POST',
+    url: '/biogg/src/forgotPassword.php',
+    data: { usernameOrEmail: usernameOrEmail },
+    success: function (response) {
+      console.log(response);
+      if (response.success) {
+        window.location.href = "/biogg/src/login.php";
+        // Se la risposta è positiva, esegui ulteriori azioni
       }
+    },
+    error: function (xhr, status, error) {
+      console.log('Errore nella richiesta Ajax:');
+      console.log('Stato:', status);
+      console.log('Errore:', error);
+      console.log('Risposta completa:', xhr.responseText);
+
+    }
   });
 }
 $(document).ready(function () {
   $("#addAddressBtn").on("click", function () {
     // Raccogli i dati del modulo
     var formData = $("#addAddressForm").serializeArray();
-    console.log(formData);
     
-
     // Effettua la chiamata Ajax
     $.ajax({
       type: "POST",
@@ -640,7 +639,7 @@ $(document).ready(function () {
 
           location.reload();
         } else {
-          alert('Errore durante l\'aggiunta al carrello.');
+          alert('Errore durante l\'aggiunta:');
         }
       },
       error: function (error) {
@@ -662,7 +661,8 @@ window.onclick = function (event) {
   if (event.target == editModal) {
     editModal.style.display = "none";
   }
-};
+}
+
 function populateEditForm(id, comune, civico, via, regione, provincia) {
   // Popolare i campi del modulo di modifica con i dettagli dell'indirizzo
   document.getElementById("editRegione").value = regione;
@@ -682,7 +682,7 @@ function saveChanges() {
   $.ajax({
     type: "POST",
     url: "/biogg/src/checkout.php", // Sostituisci con il percorso del tuo script PHP
-    data: {  formData: JSON.stringify(formData), editAddress: true },
+    data: { formData: JSON.stringify(formData), editAddress: true },
     success: function (response) {
 
       if (response.success) {
@@ -698,4 +698,82 @@ function saveChanges() {
 
   // Chiudi il modal di modifica dopo aver salvato le modifiche
 
+}
+
+
+function saveCard() {
+  $("#errorMessages").hide().html("");
+  // Raccogli i dati del modulo
+  var formData = $("#creditCardForm").serializeArray();
+  // Controlla la validità dei campi
+  var nameInput = $("#creditCardForm input[name='name']");
+  var cardNumberInput = $("#creditCardForm input[name='numberCard']");
+  var expirationDateInput = $("#creditCardForm input[name='expirationDate']");
+  var cvcInput = $("#creditCardForm input[name='cvc']");
+  console.log("nome: " + nameInput[0].checkValidity());
+  console.log("card: " + isValidCardNumber(cardNumberInput.val()));
+  console.log("data: " + isValidExpirationDate(expirationDateInput.val()));
+  console.log("cvc: " + isValidCVC(cvcInput.val()));
+
+  if (
+    nameInput[0].checkValidity() && 
+    !isEmpty(nameInput.val()) &&
+    isValidCardNumber(cardNumberInput.val()) &&
+    isValidExpirationDate(expirationDateInput.val()) &&
+    isValidCVC(cvcInput.val())) {
+    // Imposta il valore di default della checkbox "save-card"
+
+    var saveCard = $("#save-card").is(":checked");
+
+    formData.push({ name: "save_card", value: saveCard });
+    console.log(formData);
+
+    // Disabilita il pulsante durante la chiamata Ajax
+    $("#submitBtn").prop("disabled", true);
+
+    // Effettua la chiamata Ajax
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/checkout.php",
+      data: { formData: JSON.stringify(formData), addCreditCard: true },
+      success: function (response) {
+        // Riabilita il pulsante dopo la chiamata Ajax
+        $("#submitBtn").prop("disabled", false);
+
+        if (response.success) {
+          if (saveCard) {
+            console.log(response.message);
+          }else{
+            console.log(response.message);
+          }
+        } else {
+          console.error("Errore durante l'aggiunta della carta di credito: " + response.message);
+        }
+      },
+      error: function (error) {
+        console.error("Errore nella chiamata Ajax: " + error.responseText);
+      }
+    });
+  } else {
+    // Almeno un campo obbligatorio non è stato compilato correttamente
+    $("#errorMessages").show().html("Per favore, compila tutti i campi correttamente.");
+  }
+}
+
+
+function isValidCardNumber(cardNumber) {
+  var cardNumberRegex = /^\d{16}$/; // Formato con 16 cifre numeriche
+  return cardNumberRegex.test(cardNumber);
+}
+// Funzione per verificare la validità del formato della data di scadenza (MM/AA)
+function isValidExpirationDate(date) {
+  var dateRegex = /^(0[1-9]|1[0-2])\/[0-9]{2}$/; // Formato MM/AA
+  return dateRegex.test(date);
+}
+function isValidCVC(cvc) {
+  var cvcRegex = /^\d{3}$/; // Formato con 3 cifre numeriche
+  return cvcRegex.test(cvc);
+}
+function isEmpty(str) {
+  return !str.trim();
 }

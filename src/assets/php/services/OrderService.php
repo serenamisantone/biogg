@@ -105,4 +105,42 @@ class OrderService
             }
         }
     }
+    public function addCreditCard($creditCard){
+        $userId = $_SESSION['auth']['user'];
+        $name = $creditCard->getName();
+        $cardNumber = $creditCard->getCardNumber();
+        $expirationDate = $creditCard->getExpirationDate();
+    
+        $query = "INSERT INTO credit_cards (user_id, `name`, card_number, expiration_date) VALUES ('$userId', '$name', '$cardNumber', '$expirationDate')";
+        
+        $result = $this->connection->query($query);
+        if($result){
+            return $this->connection->insert_id;
+        }else{
+           return 0;
+        }
+    
+    }
+
+    function getAllCreditCardsByUserId($userId){
+        $query="SELECT * FROM credit_cards WHERE user_id=$userId";
+        $result=$this->connection->query($query);
+        $cards=[];
+        if($result && $result->num_rows>0){
+            
+            while($row =$result->fetch_assoc()){
+                $creditCard = new CreditCard(
+                    $row['user_id'],
+                    $row['name'],
+                    $row['expiration_date'],
+                    $row['card_number'],
+
+                );
+                $creditCard->setId($row['id']);
+                $cards[]=$creditCard;
+            }
+            
+        }
+        return $cards;
+    }
 }

@@ -51,7 +51,7 @@ class CartService
         if (isset($_SESSION['auth'])) {
 
             $cartId = $_SESSION['auth']['cart']->getShoppingCartId();
-            
+
 
             //se il prodotto è gia nel carrello incremento la quantità
             $query = "UPDATE shopping_cart_product SET added_quantity = added_quantity + $quantity WHERE product_id = {$productId} and shopping_cart_id= {$cartId}";
@@ -206,8 +206,6 @@ class CartService
             foreach ($cartProducts as $productData) {
                 $product = $productData['product'];
                 $quantity = $productData['quantity'];
-                $offers=$product->getOffers();
-               
                 $totalPrice += $product->getPrice() * $quantity;
             }
         } else {
@@ -222,7 +220,7 @@ class CartService
 
 
         }
-        $totalPrice=number_format($totalPrice,2,'.','');
+       // $totalPrice = number_format($totalPrice, 2, ',', '');
         return $totalPrice;
 
     }
@@ -251,45 +249,49 @@ class CartService
 
     public function updateCart($cartId)
     {
-        $tempCart = $_SESSION["cart"];
-        $cartProducts = $tempCart->getProducts();
-        foreach ($cartProducts as $productId => $quantity) {
+       
+        if (isset($_SESSION["cart"]) && !empty($_SESSION["cart"]->getProducts())) { 
+            $tempCart = $_SESSION["cart"];
+            $cartProducts = $tempCart->getProducts();
+            foreach ($cartProducts as $productId => $quantity) {
 
 
-            $result = $this->connection->query("SELECT added_quantity FROM shopping_cart_product where shopping_cart_product.shopping_cart_id='{$cartId}' and shopping_cart_product.product_id='{$productId}'");
-            if (!$result) {
-                Header("Location: error.php?qualcosa_e_andato_storto");
-            }
-
-            //se ho gia un prodotto incremento la quantità
-            if ($result->num_rows > 0) {
-                $result = $this->connection->query("UPDATE shopping_cart_product SET added_quantity = added_quantity + $quantity WHERE product_id = {$productId}  and shopping_cart_id= {$cartId}");
-            } else {
-                if ($result->num_rows == 0) {
-                    $result = $this->connection->query("INSERT INTO shopping_cart_product (shopping_cart_id, product_id, added_quantity) 
-                VALUES ('{$cartId}', '{$productId}', '{$quantity}'); ");
+                $result = $this->connection->query("SELECT added_quantity FROM shopping_cart_product where shopping_cart_product.shopping_cart_id='{$cartId}' and shopping_cart_product.product_id='{$productId}'");
+                if (!$result) {
+                    Header("Location: error.php?qualcosa_e_andato_storto");
                 }
-            }
-            if (!$result) {
-                Header("Location: error.php?carerello non aggiornato");
+
+                //se ho gia un prodotto incremento la quantità
+                if ($result->num_rows > 0) {
+                    $result = $this->connection->query("UPDATE shopping_cart_product SET added_quantity = added_quantity + $quantity WHERE product_id = {$productId}  and shopping_cart_id= {$cartId}");
+                } else {
+                    if ($result->num_rows == 0) {
+                        $result = $this->connection->query("INSERT INTO shopping_cart_product (shopping_cart_id, product_id, added_quantity) 
+                VALUES ('{$cartId}', '{$productId}', '{$quantity}'); ");
+                    }
+                }
+                if (!$result) {
+                    Header("Location: error.php?carerello non aggiornato");
+                }
             }
         }
     }
 
-    public function getQuantity($productId){
-        if(isset($_SESSION['auth'])){
-          
+    public function getQuantity($productId)
+    {
+        if (isset($_SESSION['auth'])) {
+
             $cartId = $_SESSION['auth']['cart']->getShoppingCartId();
-            $query="SELECT * from shopping_cart_product as scp where scp.shopping_cart_id=$cartId";
-            $result = $this->connection->query($query); 
+            $query = "SELECT * from shopping_cart_product as scp where scp.shopping_cart_id=$cartId";
+            $result = $this->connection->query($query);
             if ($result && $result->num_rows > 0) {
-            return $result->fetch_assoc()["added_quantity"];
+                return $result->fetch_assoc()["added_quantity"];
             }
 
-        }else{
-            $cartProducts=$_SESSION['cart']->getProducts();
+        } else {
+            $cartProducts = $_SESSION['cart']->getProducts();
             foreach ($cartProducts as $cartProductId => $quantity) {
-                if($cartProductId==$productId){
+                if ($cartProductId == $productId) {
                     return $quantity;
                 }
             }

@@ -2,6 +2,7 @@
 <div class="main-wrapper">
     <div class="checkout-section ptb-120">
         <div class="container">
+        
             <div class="row g-4">
                 <div class="col-xl-8">
                     <div class="checkout-steps">
@@ -25,44 +26,60 @@
                                                     {$address1->getRegione()}, {$address1->getProvincia()}
                                                 </address>
                                                 <a href="#" class="tt-edit-address checkout-radio-link position-absolute"
-   onclick="openEditModal(); populateEditForm('{$address1->getId()}','{$address1->getComune()}', '{$address1->getCivico()}', '{$address1->getVia()}', '{$address1->getRegione()}', '{$address1->getProvincia()}');">Modifica</a>
+                                                    onclick="openEditModal(); populateEditForm('{$address1->getId()}','{$address1->getComune()}', '{$address1->getCivico()}', '{$address1->getVia()}', '{$address1->getRegione()}', '{$address1->getProvincia()}');">Modifica</a>
 
-                                                </label>
+                                            </label>
                                         </div>
                                     </div>
                                 {/foreach}
                             </div>
                         </div>
                         <h4 class="mt-8">Payment Method</h4>
+                        {if !empty($creditCards)} 
+                            {foreach $creditCards as $singleCard  }
+                                <div
+                                class="checkout-radio d-flex align-items-center justify-content-between gap-3 bg-white rounded p-4 mt-4">
+                                <div class="radio-left d-inline-flex align-items-center">
+                                    <div class="theme-radio">
+                                        <input type="radio"  name="payment-method">
+                                        <span class="custom-radio"></span>
+                                    </div>
+                                    <label  class="ms-2 h6 mb-0">Carta {$singleCard->getLastFourDigits()}</label>
+                                </div>
+                                <div class="radio-right text-end">
+                            </div>
+                            </div>
+                            {{/foreach}}
+                        {/if}
                         <div class="checkout-form mt-4 py-7 px-5 bg-white rounded-2">
                             <div class="form-title d-flex align-items-center mb-5">
-                                <div class="theme-radio">
-                                    <input type="radio" id="credit-card" name="payment-method" checked>
-                                    <span class="custom-radio"></span>
-                                </div>
-                                <label class="h6 mb-0 ms-2" for="credit-card">Credit Card or Debit Card</label>
+                                <label class="h6 mb-0 ms-2" for="credit-card">Aggiungi Credit Card or Debit Card</label>
                             </div>
-                            <form>
+
+                            <form id="creditCardForm" method="post">
+                            <div id="errorMessages" class="alert alert-danger" style="display: none;"></div>
+
                                 <div class="row g-4">
                                     <div class="col-sm-8">
                                         <div class="label-input-field">
-                                            <label></label>
-                                            <input type="text" placeholder="Nome Cognome">
+                                            <input type="text" name="name" placeholder="Nome Cognome">
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="label-input-field mt-0">
-                                            <input type="text" placeholder="Numero Carta">
+                                            <input type="text" name="numberCard" id="cardNumberInput"
+                                                placeholder="Numero Carta" maxlength="16"
+                                                title="Inserisci solo numeri" >
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="label-input-field mt-0">
-                                            <input type="text" placeholder="MM/AA">
+                                            <input type="text" name="expirationDate" id="expirationDateInput" placeholder="MM/AA"maxlength="5">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="label-input-field mt-0">
-                                            <input type="text" placeholder="CVC">
+                                            <input type="text" name="cvc" placeholder="CVC"maxlength="3">
                                         </div>
                                     </div>
 
@@ -78,12 +95,14 @@
 
                                 </div>
                                 <div class="mt-6 d-flex">
-                                    <button type="submit" class="btn btn-secondary btn-md me-3">Use this Card</button>
-                                    <button type="button"
-                                        class="btn btn-outline-secondary border-secondary btn-md">Cancel</button>
+                                    <button type="button"  id="submitBtn" class="btn btn-secondary btn-md me-3" onclick="saveCard()">Use
+                                        this Card</button>
+
                                 </div>
                             </form>
                         </div>
+                       
+                        
                         <div
                             class="checkout-radio d-flex align-items-center justify-content-between gap-3 bg-white rounded p-4 mt-4">
                             <div class="radio-left d-inline-flex align-items-center">
@@ -180,25 +199,29 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="label-input-field">
-                                                        <input type="text" id="editComune" name="comune"placeholder="Nuovo Comune">
+                                                        <input type="text" id="editComune" name="comune"
+                                                            placeholder="Nuovo Comune">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="label-input-field">
-                                                        <input type="text" id="editVia" name="via"placeholder="Nuova Via">
+                                                        <input type="text" id="editVia" name="via"
+                                                            placeholder="Nuova Via">
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-2">
                                                     <div class="label-input-field">
-                                                        <input type="text" id="editCivico" name="civico" placeholder="Nuovo Civico">
+                                                        <input type="text" id="editCivico" name="civico"
+                                                            placeholder="Nuovo Civico">
                                                     </div>
                                                 </div>
                                                 <input type="text" hidden id="editId" name="addressId"
-                                                placeholder="Nuova Regione">
+                                                    placeholder="Nuova Regione">
                                             </div>
                                             <div class="mt-6 d-flex">
                                                 <button type="button" id="saveEditAddressBtn"
-                                                    class="btn btn-secondary btn-md me-3" onclick="saveChanges()">Salva</button>
+                                                    class="btn btn-secondary btn-md me-3"
+                                                    onclick="saveChanges()">Salva</button>
                                             </div>
                                         </form>
                                     </div>
@@ -208,41 +231,39 @@
                     </div>
                 </div>
 
-            </div>
-            <div class="col-xl-4">
-                <div class="checkout-sidebar">
-                    <div class="sidebar-widget checkout-sidebar py-6 px-4 bg-white rounded-2">
-                        <div class="widget-title d-flex">
-                            <h5 class="mb-0 flex-shrink-0">Order Summery</h5>
-                            <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
+
+                <div class="col-xl-4">
+                    <div class="checkout-sidebar">
+                        <div class="sidebar-widget checkout-sidebar py-6 px-4 bg-white rounded-2">
+                            <div class="widget-title d-flex">
+                                <h5 class="mb-0 flex-shrink-0">Order Summery</h5>
+                                <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
+                            </div>
+                            <table class="sidebar-table w-100 mt-5">
+                                <tr>
+                                    <td>Subtotale</td>
+                                    <td class="text-end">€{$totalPrice}</td>
+                                </tr>
+                                <tr>
+                                    <td>Costi di spedizione</td>
+                                    <td class="text-end">€7,00</td>
+                                </tr>
+                               
+                            </table>
+                            <span class="sidebar-spacer d-block my-4 opacity-50"></span>
+                            <div class="d-flex align-items-center justify-content-between">
+                            <h6 class="mb-0 fs-md">Totale (IVA inclusa)</h6>
+                            <h6 class="mb-0 fs-md">€{$totalPricePlusShipmentCost}</h6>
                         </div>
-                        <table class="sidebar-table w-100 mt-5">
-                            <tr>
-                                <td>Items(2):</td>
-                                <td class="text-end">$136,00</td>
-                            </tr>
-                            <tr>
-                                <td>Shipping & handling:</td>
-                                <td class="text-end">$3.99</td>
-                            </tr>
-                            <tr>
-                                <td>Before tax:</td>
-                                <td class="text-end">$336,04</td>
-                            </tr>
-                        </table>
-                        <span class="sidebar-spacer d-block my-4 opacity-50"></span>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <h6 class="mb-0 fs-md">Tax collected</h6>
-                            <h6 class="mb-0 fs-md">$424.00</h6>
+                        
+                            <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100">Place Order</button>
+                            <p class="mt-3 mb-0 fs-xs">By Placing your order your agree to our company <a
+                                    href="#">Privacy-policy</a></p>
                         </div>
-                        <button type="submit" class="btn btn-primary btn-md rounded mt-6 w-100">Place Order</button>
-                        <p class="mt-3 mb-0 fs-xs">By Placing your order your agree to our company <a
-                                href="#">Privacy-policy</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 </div>
 <!--checkout section end-->
