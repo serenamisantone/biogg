@@ -107,12 +107,7 @@ try {
 
         $smarty->assign("creditCards", $orderService->getAllCreditCardsByUserId($_SESSION["auth"]["user"]));
         $smarty->assign("addresses", $orderService->getAddressesByUserId($_SESSION["auth"]["user"]));
-        if (isset($_SESSION['auth']['cart'])) {
-            $smarty->assign("cart", $_SESSION['auth']['cart']);
-        }
-        $smarty->assign('cartProducts', $cartService->getCartProducts());
-        $smarty->assign("totalPrice", number_format($cartService->getTotalPrice(),2, ',', ''));
-        $smarty->assign("totalPricePlusShipmentCost", number_format($cartService->getTotalPrice()+7,2, ',', ''));
+        $smarty->assignCartVariables($smarty, $cartService);;
         $smarty->assign("current_view", "checkout.tpl");
         $smarty->display("index.tpl");
     }

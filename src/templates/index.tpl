@@ -283,6 +283,7 @@
     <script src="assets/js/vendors/counterup.min.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/methods.js"></script>
+    <script src="assets/js/cart.js"></script>
     <!--endbuild-->
 
 </body>

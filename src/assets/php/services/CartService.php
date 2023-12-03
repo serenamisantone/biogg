@@ -113,7 +113,7 @@ class CartService
                         return $cart;
                     }
                     //se il carrello nel database è vuoto vado a riprendere i prodotti in session(cart)
-                    if ($productsQuery->num_rows == 0) {
+                    if ($productsQuery->num_rows == 0 && isset($_SESSION['cart'])) {
                         //creo un carrello per utenti non autenticati
                         $this->createShoppingCartProducts($cart->getShoppingCartId());
                     }
@@ -121,7 +121,7 @@ class CartService
                 }
                 return $cart;
             } else {
-                //non ho trovato il carrello
+                //non ho trovato il carrello o ne sono piu di 1
                 Header("Location: error.php?qualcosa_e_andato_storto");
                 exit;
             }
@@ -275,6 +275,7 @@ class CartService
                 }
             }
         }
+        unset($_SESSION['cart']);
     }
 
     public function getQuantity($productId)

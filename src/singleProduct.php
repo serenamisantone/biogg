@@ -11,26 +11,12 @@ $productService = new ProductService;
 $wishlistService = new WishlistService();
 $cartService = new CartService();
 
-    if (!isset($_SESSION['cart'])) {
-        $cartService->createShoppingCart();
-    }
-    if (isset($_SESSION['auth']['cart'])) {
-        $smarty->assign('cart', $_SESSION['auth']['cart']);
-       
-    } else {
-        $smarty->assign('cart', $_SESSION['cart']);
-        
-    }
-    try {
-    $smarty->assign('quantityProduct',$cartService->getQuantity($_GET['id']));
-    error_log('quantityProduct'.$cartService->getQuantity($_GET['id']));
-    
+
+try {
+    $smarty->assignCartVariables($smarty, $cartService);
+    $smarty->assign('quantityProduct', $cartService->getQuantity($_GET['id']));
     $smarty->assign("singleProduct", $productService->getProductById($_GET['id']));
     $smarty->assign("product_info", $productService->getProductInfoById($_GET['id']));
-    $smarty->assign('cartProducts', $cartService->getCartProducts());
-    $smarty->assign('totalPrice', $cartService->getTotalPrice());
-  
-   
     $smarty->assign("current_view", "singleProduct.tpl");
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {
