@@ -2,12 +2,12 @@
 <div class="main-wrapper">
 
     <!--shop grid section start-->
-    <section class="gshop-gshop-grid ptb-100">
+    <section class="gshop-gshop-grid"  style="padding-top: 20px; padding-bottom: 20px;">
         <div class="container">
             <div class="row g-4">
                 <div class="col-xl-3">
                     <div class="gshop-sidebar bg-white rounded-2 overflow-hidden">
-                        <div class="sidebar-widget search-widget bg-white py-5 px-4">
+                        <div class="sidebar-widget search-widget bg-white py-5 px-4"  style="padding-top: 20px; padding-bottom: 20px;">
                             <div class="widget-title d-flex">
                                 <h6 class="mb-0 flex-shrink-0">Search Now</h6>
                                 <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
@@ -109,12 +109,19 @@
 
                         </div>
                         <ul class="template-pagination d-flex align-items-center mt-6">
-                            {for $page = 1 to $total_pages}
+                        {for $page = 1 to $total_pages}
+                            {if $page == $current_page}
+                                <li><a href="shop.php?page={$page}" style=" background-color: #4CAF50;
+                                color: white; ">{$page}</a></li>
+                            {else}
                                 <li><a href="shop.php?page={$page}">{$page}</a></li>
-                            {/for}
-                            <li><a href="#"><i class="fas fa-arrow-right"></i></a></li>
-                        </ul>
-
+                            {/if}
+                        {/for}
+                        {if $current_page < $total_pages}
+                            <li><a href="shop.php?page={$current_page + 1}"><i class="fas fa-arrow-right"></i></a></li>
+                        {/if}
+                    </ul>
+                    
 
 
                     </div>

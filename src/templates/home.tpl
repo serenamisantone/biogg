@@ -6,13 +6,14 @@
         <div class="container">
             <div class="gshop-hero-slider swiper">
                 <div class="swiper-wrapper">
+                {foreach $data_slider as $slider}
                     <div class="swiper-slide gshop-hero-single">
                         <div class="row align-items-center justify-content-between">
                             <div class="col-xl-5 col-lg-8">
                                 <div class="hero-left-content">
-                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block"> Benessere naturale</span>
-                                    <h1 class="display-4 mb-3">Prodotti<br>100% <mark class="p-0 bg-transparent text-secondary">Biologici</mark></h1>
-                                    <p class="mb-7 fs-6">Scopri il gusto autentico della natura: esplora la nostra selezione di prodotti alimentari bio di alta qualità!</p>
+                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block"> {$slider->getTitle()}</span>
+                                    <h1 class="display-4 mb-3">{$slider->getCaption()}</h1>
+                                    <p class="mb-7 fs-6">{$slider->getDescription()}</p>
                                     <div class="hero-btns d-flex align-items-center gap-3 gap-sm-5 flex-wrap">
                                         <a href="shop.php" class="btn btn-secondary">Shop<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
                                         <a href="about.php" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
@@ -21,7 +22,7 @@
                             </div>
                             <div class="col-xl-6 col-lg-7">
                                 <div class="hero-right text-center position-relative z-1 mt-8 mt-xl-0">
-                                    <img src="assets/img/home1/homeBio.jpg" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
+                                    <img src="assets/img/home1/{$slider->getImage()}" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
                                     <img src="assets/img/shapes/tree.png" alt="tree" class="img-fluid position-absolute tree z-1">
                                     <img src="assets/img/shapes/orange-1.png" alt="orange" class="position-absolute orange-1 z-1">
                                     <img src="assets/img/shapes/orange-2.png" alt="orange" class="position-absolute orange-2 z-1">
@@ -30,55 +31,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="swiper-slide gshop-hero-single">
-                        <div class="row align-items-center justify-content-between">
-                            <div class="col-xl-5 col-lg-8">
-                                <div class="hero-left-content">
-                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block">Benessere naturale</span>
-                                    <h1 class="display-4 mb-3">Prodotti<br>100%<mark class="p-0 bg-transparent text-secondary">Biologici</mark></h1>
-                                    <p class="mb-7 fs-6">Scopri il gusto autentico della natura: esplora la nostra selezione di prodotti alimentari bio di alta qualità!</p>
-                                    <div class="hero-btns d-flex align-items-center gap-3 gap-sm-5 flex-wrap">
-                                        <a href="shop-grid.html"
-                                           class="btn btn-secondary">Shop<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                        <a href="about.php" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-7">
-                                <div class="hero-right text-center position-relative z-1 mt-8 mt-xl-0">
-                                    <img src="assets/img/home1/homeBio2.jpg" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
-                                    <img src="assets/img/shapes/tree.png" alt="tree" class="img-fluid position-absolute tree z-1">
-                                    <img src="assets/img/shapes/orange-1.png" alt="orange" class="position-absolute orange-1 z-1">
-                                    <img src="assets/img/shapes/orange-2.png" alt="orange" class="position-absolute orange-2 z-1">
-                                    <img src="assets/img/shapes/hero-circle-lg.png" alt="circle shape" class="img-fluid hero-circle">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide gshop-hero-single">
-                        <div class="row align-items-center justify-content-between">
-                            <div class="col-xl-5 col-lg-8">
-                                <div class="hero-left-content">
-                                    <span class="gshop-subtitle fs-5 text-secondary mb-2 d-block">Benessere naturale</span>
-                                    <h1 class="display-4 mb-3">Prodotti <br>100% <mark class="p-0 bg-transparent text-secondary">Biologici</mark></h1>
-                                    <p class="mb-7 fs-6">Scopri il gusto autentico della natura: esplora la nostra selezione di prodotti alimentari bio di alta qualità!</p>
-                                    <div class="hero-btns d-flex align-items-center gap-3 gap-sm-5 flex-wrap">
-                                        <a href="shop-grid.html" class="btn btn-secondary">Shop<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                        <a href="about.php" class="btn btn-primary">About Us<span class="ms-2"><i class="fa-solid fa-arrow-right"></i></span></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-6 col-lg-7">
-                                <div class="hero-right text-center position-relative z-1 mt-8 mt-xl-0">
-                                    <img src="assets/img/home1/homeBio3.jpg" alt="fruits" class="img-fluid position-absolute end-0 top-50 hero-img">
-                                    <img src="assets/img/shapes/tree.png" alt="tree" class="img-fluid position-absolute tree z-1">
-                                    <img src="assets/img/shapes/orange-1.png" alt="orange" class="position-absolute orange-1 z-1">
-                                    <img src="assets/img/shapes/orange-2.png" alt="orange" class="position-absolute orange-2 z-1">
-                                    <img src="assets/img/shapes/hero-circle-lg.png" alt="circle shape" class="img-fluid hero-circle">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {{/foreach}}
                 </div>
             </div>
         </div>

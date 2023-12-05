@@ -366,7 +366,6 @@ function updateCart(cartData) {
 
 
 function addProduct() {
-  console.log("funzione addProduct chiamata");
 
   // Ottenere i valori modificati dai campi di input
   const name = document.getElementById('product_name').value;
@@ -698,4 +697,142 @@ function saveChanges() {
 
   // Chiudi il modal di modifica dopo aver salvato le modifiche
 
+}
+function toggleEditFormSlider(sliderId) {
+  const editForm2 = document.getElementById(`editForm2_${sliderId}`);
+  const editButtons2 = document.querySelectorAll(`.btn-edit-slider`);
+  editButtons2.forEach(button => {
+    const buttonSliderId = button.getAttribute('data-sliderId');
+    if (buttonSliderId == sliderId) {
+      editForm2.style.display = (editForm2.style.display === 'none') ? 'block' : 'none';
+      console.log(editForm2.style.display);
+    } else {
+      const otherEditForm = document.getElementById(`editForm2_${buttonSliderId}`);
+      otherEditForm.style.display = 'none';
+    }
+  });
+}
+
+
+function saveChangesSlider(sliderId) {
+  // Ottenere i valori modificati dai campi di input
+  const editedTitle = document.getElementById(`edit_title_${sliderId}`).value;
+  const editedCaption = document.getElementById(`edit_caption_${sliderId}`).value;
+  const editedDescription = document.getElementById(`edit_description_${sliderId}`).value;
+  const editedImage = document.getElementById(`edit_image_${sliderId}`).value;
+  console.log(editedImage);
+  const fileInput = document.getElementById(`fileInput3_${sliderId}`);
+  const file = fileInput.files[0];
+  // Costruire l'oggetto con i dati modificati
+  const formData = new FormData();
+  formData.append('action', 'save_changes');
+  formData.append('sliderId', sliderId);
+  formData.append('editedTitle', editedTitle);
+  formData.append('editedCaption', editedCaption);
+  formData.append('editedDescription', editedDescription);
+  formData.append('editedImage', editedImage);
+  formData.append('editedImage2', file);
+  $.ajax({
+    type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
+    url: "/biogg/src/adminAccount.php", // URL del tuo script PHP
+    data: formData,// Dati da passare al server
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
+      if (response.success) {
+        window.location.href = "/biogg/src/adminAccount.php";
+        //alert("Modifiche salvate");
+      } else {
+        // alert("Errore: " + response.message);
+      }
+    },
+    error: function () {
+      // Gestisci eventuali errori durante la chiamata AJAX
+      alert("Si è verificato un errore durante il salavataggio.");
+    }
+  });
+}
+
+
+function cancelEditSlider(sliderId) {
+  // Nascondi il form
+  const form = document.getElementById(`editForm_${sliderId}`);
+  form.style.display = 'none';
+
+}
+
+
+
+function deleteSlider(sliderId2) {
+  const confirmation = confirm("Sei sicuro di voler eliminare questo slider?");
+
+  if (!confirmation) {
+    return;
+  }
+
+  // Esegui la chiamata AJAX per eliminare il prodotto
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: { action: "delete_slider", sliderId2: sliderId2 },
+    success: function (response) {
+      // Gestisci la risposta dal server
+      if (response.success) {
+        //alert("Prodotto eliminato con successo.");
+        // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
+        const rowId = `editForm_${sliderId}`;
+        $("#" + rowId).closest('tr').remove();
+        window.location.href = "/biogg/src/adminAccount.php";
+      } else {
+        alert("Errore: " + response.message);
+      }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante l'eliminazione dello slider.");
+    }
+  });
+}
+
+
+function addSlider() {
+
+  // Ottenere i valori modificati dai campi di input
+  const title = document.getElementById('slider_title').value;
+  const caption = document.getElementById('slider_caption').value;
+  const description = document.getElementById('slider_description').value;
+  const fileInput = document.getElementById('fileInput');
+  const file = fileInput.files[0];
+
+  // Invia una richiesta AJAX solo quando tutti i campi obbligatori sono compilati
+  if (title && caption && description !== null) {
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('caption', caption);
+    formData.append('description', description);
+    formData.append('image2', file);
+
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/adminAccount.php",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        console.log(response);
+        // Gestisci la risposta dal server
+        if (response.success) {
+          window.location.href = "/biogg/src/adminAccount.php";
+          // Se la risposta è positiva, esegui ulteriori azioni
+        } else {
+          alert("Errore: " + response.message);
+        }
+      },
+      error: function () {
+        alert("Si è verificato un errore durante l'aggiunta.");
+      }
+    });
+  } else {
+    alert("Compila tutti i campi prima di aggiungere lo slider.");
+  }
 }

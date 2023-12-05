@@ -100,6 +100,7 @@ try {
     $smarty->assign("all_categories", $productService->getAllCategories());
     $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
     $smarty->assign("total_products", $productService->getTotalProduct());
+    $smarty->assign("current_page", $current_page);
     $smarty->assign("total_pages", $productService->getImpagination());
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

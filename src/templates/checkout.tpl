@@ -207,8 +207,6 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
             <div class="col-xl-4">
                 <div class="checkout-sidebar">
                     <div class="sidebar-widget checkout-sidebar py-6 px-4 bg-white rounded-2">
@@ -243,6 +241,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 <!--checkout section end-->

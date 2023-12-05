@@ -133,6 +133,68 @@
                     Aggiungi Categoria
                 </a>
             </li>
+            <li>
+                <a href="adminAccount.php#slider" data-bs-toggle="tab">
+                    <span class="me-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.33333 1.99341H6C6.35362 1.99341 6.69276 2.13388 6.94281 2.38393C7.19286 2.63398 7.33333 2.97312 7.33333 3.32674V5.99341C7.33333 6.34703 7.19286 6.68617 6.94281 6.93622C6.69276 7.18627 6.35362 7.32674 6 7.32674H3.33333C2.97971 7.32674 2.64057 7.18627 2.39052 6.93622C2.14048 6.68617 2 6.34703 2 5.99341V3.32674C2 2.97312 2.14048 2.63398 2.39052 2.38393C2.64057 2.13388 2.97971 1.99341 3.33333 1.99341Z"
+                        fill="#212B36"
+                      />
+                      <path
+                        d="M10 1.99341H12.6667C13.0203 1.99341 13.3594 2.13388 13.6095 2.38393C13.8595 2.63398 14 2.97312 14 3.32674V5.99341C14 6.34703 13.8595 6.68617 13.6095 6.93622C13.3594 7.18627 13.0203 7.32674 12.6667 7.32674H10C9.64638 7.32674 9.30724 7.18627 9.05719 6.93622C8.80714 6.68617 8.66667 6.34703 8.66667 5.99341V3.32674C8.66667 2.97312 8.80714 2.63398 9.05719 2.38393C9.30724 2.13388 9.64638 1.99341 10 1.99341Z"
+                        fill="#212B36"
+                      />
+                      <path
+                        d="M6 8.66008H3.33333C2.97971 8.66008 2.64057 8.80055 2.39052 9.0506C2.14048 9.30065 2 9.63979 2 9.99341V12.6601C2 13.0137 2.14048 13.3528 2.39052 13.6029C2.64057 13.8529 2.97971 13.9934 3.33333 13.9934H6C6.35362 13.9934 6.69276 13.8529 6.94281 13.6029C7.19286 13.3528 7.33333 13.0137 7.33333 12.6601V9.99341C7.33333 9.63979 7.19286 9.30065 6.94281 9.0506C6.69276 8.80055 6.35362 8.66008 6 8.66008Z"
+                        fill="#212B36"
+                      />
+                      <path
+                        d="M10 8.66008H12.6667C13.0203 8.66008 13.3594 8.80055 13.6095 9.0506C13.8595 9.30065 14 9.63979 14 9.99341V12.6601C14 13.0137 13.8595 13.3528 13.6095 13.6029C13.3594 13.8529 13.0203 13.9934 12.6667 13.9934H10C9.64638 13.9934 9.30724 13.8529 9.05719 13.6029C8.80714 13.3528 8.66667 13.0137 8.66667 12.6601V9.99341C8.66667 9.63979 8.80714 9.30065 9.05719 9.0506C9.30724 8.80055 9.64638 8.66008 10 8.66008Z"
+                        fill="#212B36"
+                      />
+                    </svg>
+                    </span>
+                    Gestione slider 
+                </a>
+            </li>
+            <li>
+                <a href="adminAccount.php#add-slider" data-bs-toggle="tab">
+                    <span class="me-2">
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M3.33333 1.99341H6C6.35362 1.99341 6.69276 2.13388 6.94281 2.38393C7.19286 2.63398 7.33333 2.97312 7.33333 3.32674V5.99341C7.33333 6.34703 7.19286 6.68617 6.94281 6.93622C6.69276 7.18627 6.35362 7.32674 6 7.32674H3.33333C2.97971 7.32674 2.64057 7.18627 2.39052 6.93622C2.14048 6.68617 2 6.34703 2 5.99341V3.32674C2 2.97312 2.14048 2.63398 2.39052 2.38393C2.64057 2.13388 2.97971 1.99341 3.33333 1.99341Z"
+                        fill="#212B36"
+                      />
+                      <path
+                        d="M10 1.99341H12.6667C13.0203 1.99341 13.3594 2.13388 13.6095 2.38393C13.8595 2.63398 14 2.97312 14 3.32674V5.99341C14 6.34703 13.8595 6.68617 13.6095 6.93622C13.3594 7.18627 13.0203 7.32674 12.6667 7.32674H10C9.64638 7.32674 9.30724 7.18627 9.05719 6.93622C8.80714 6.68617 8.66667 6.34703 8.66667 5.99341V3.32674C8.66667 2.97312 8.80714 2.63398 9.05719 2.38393C9.30724 2.13388 9.64638 1.99341 10 1.99341Z"
+                        fill="#212B36"
+                      />
+                      <path
+                        d="M6 8.66008H3.33333C2.97971 8.66008 2.64057 8.80055 2.39052 9.0506C2.14048 9.30065 2 9.63979 2 9.99341V12.6601C2 13.0137 2.14048 13.3528 2.39052 13.6029C2.64057 13.8529 2.97971 13.9934 3.33333 13.9934H6C6.35362 13.9934 6.69276 13.8529 6.94281 13.6029C7.19286 13.3528 7.33333 13.0137 7.33333 12.6601V9.99341C7.33333 9.63979 7.19286 9.30065 6.94281 9.0506C6.69276 8.80055 6.35362 8.66008 6 8.66008Z"
+                        fill="#212B36"
+                      />
+                      <path
+                        d="M10 8.66008H12.6667C13.0203 8.66008 13.3594 8.80055 13.6095 9.0506C13.8595 9.30065 14 9.63979 14 9.99341V12.6601C14 13.0137 13.8595 13.3528 13.6095 13.6029C13.3594 13.8529 13.0203 13.9934 12.6667 13.9934H10C9.64638 13.9934 9.30724 13.8529 9.05719 13.6029C8.80714 13.3528 8.66667 13.0137 8.66667 12.6601V9.99341C8.66667 9.63979 8.80714 9.30065 9.05719 9.0506C9.30724 8.80055 9.64638 8.66008 10 8.66008Z"
+                        fill="#212B36"
+                      />
+                    </svg>
+                    </span>
+                    Aggiungi slider 
+                </a>
+            </li>
             </ul>
         </div>
     </div>
@@ -298,20 +360,88 @@
     </div>
 </div>
 
+                            <div class="tab-pane fade" id="slider">
+                            <div class="table-responsive" style = " overflow-x: auto;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Titolo</th>
+                                            <th>Sottotitolo</th>
+                                            <th>Descrizione</th>
+                                            <th>Immagine</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {foreach $data_slider as $slider}
+                                            <tr>
+                                                <td>{$slider->getId()}</td>
+                                                <td>{$slider->getTitle()}</td>
+                                                <td>{$slider->getCaption()}</td>
+                                                <td style="max-width: 200px; word-wrap: break-word;">{$slider->getDescription()}</td>
+                                                <td>{$slider->getImage()}</td>
+                                                <td>
+                                                <form id="editForm2_{$slider->getId()}" enctype="multipart/form-data" class="edit-form" style="display: none;">
+                                                <input type="text" id="edit_title_{$slider->getId()}" class="edit-input" value="{$slider->getTitle()}">
+                                                <input type="text" id="edit_caption_{$slider->getId()}" class="edit-input" value="{$slider->getCaption()}">
+                                                <input type="text" id="edit_description_{$slider->getId()}" class="edit-input" value="{$slider->getDescription()}">
+                                                <div id="drop-area">
+                                                <input type="text" id="edit_image_{$slider->getId()}" class="edit-input" value="{$slider->getImage()}">
+                                                <input type="file" id="fileInput3_{$slider->getId()}" name="image" class="custom-file-input"> 
+                                            </div>
+                                                    
+                                                    <button onclick="saveChangesSlider({$slider->getId()})" class="btn btn-primary btn-sm">Salva</button>
+                                                    <button type="button" onclick="cancelEditSlider({$slider->getId()})" class="btn btn-secondary btn-sm">Annulla</button>
+                                                </form>
 
 
+            <button onclick="toggleEditFormSlider({$slider->getId()})" class="btn btn-primary btn-sm btn-edit-slider" data-sliderId="{$slider->getId()}">
+                Modifica
+            </button>
+                                                <button onclick="deleteSlider({$slider->getId()})" class="btn btn-secondary btn-sm">Elimina</button>
+                                            </td>
+                                                
+                                            </tr>
+                                        {/foreach}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
+                        <div class="tab-pane fade" id="add-slider">
+                        <div class="container-fluid bg-light py-4">
+                            <div class="container bg-white p-4 rounded">
+                            <h2 class="text-center mb-4 text-secondary display-4">Aggiungi un nuovo slider</h2>
+                    
+                                <form id="addSliderForm" enctype="multipart/form-data">
+                                    <div class="form-group">
+                                        <label for="slider_title"class="text-primary">Titolo:</label>
+                                        <input type="text" id="slider_title" name="slider_title" class="form-control" placeholder="Inserisci il titolo" required>
+                                    </div>
+                    
+                                    <div class="form-group">
+                                        <label for="slider_caption"class="text-primary">Sottotitolo:</label>
+                                        <input type="text" id="slider_caption" name="slider_caption" class="form-control" placeholder="Inserisci il sottotitolo" required>
+                                    </div>
+                    
+                                    <div class="form-group">
+                                        <label for="slider_description"class="text-primary">Descrizione:</label>
+                                        <input type="text" id="slider_description" name="slider_description" class="form-control" placeholder="Inserisci la descrizione" required>
+                                    </div>
+                    
+                                    <div id="drop-area">
+                                    <label for="fileInput" class="text-primary">Immagine:</label>
+                                    <input type="file" id="fileInput" name="image" class="custom-file-input" required> 
+                                </div>
+                                
+                    
+                    
+                                    <button type="submit" class="btn btn-primary btn-block" onclick="addSlider()">Aggiungi Slider</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                    
+</div>
+                        </div>
+                  

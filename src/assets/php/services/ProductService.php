@@ -175,7 +175,7 @@ class ProductService
     
         $imageRow = $imageResult->fetch_assoc();
         $imageName = $imageRow['image'];
-    
+
         // Specifica il percorso completo dell'immagine
         $imagePath = "assets/img/products/{$imageName}";
     

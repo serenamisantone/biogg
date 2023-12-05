@@ -3,10 +3,12 @@ require_once("./assets/Config.php");
 require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/services/ProductService.php");
 require_once("./assets/php/services/CartService.php");
+require_once("./assets/php/services/HomeService.php");
 $smarty = new Config();
 session_start();
 $productService = new ProductService();
 $cartService = new CartService();
+$homeService = new HomeService();
 
 if (!isset($_SESSION['auth'])) {
     header("Location: login.php");
@@ -19,9 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['editedImage'])) {
     $editedStock = $_POST['editedStock'];
     $editedOnline = $_POST['editedOnline'];
     $editedImage = $productService->uploadImage($_FILES['editedImage']);
-    
-   
-    $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage);
     $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage);
 
     if ($updateChanges) {
@@ -128,6 +127,82 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoryName'])) {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['sliderId'])) {
+    $sliderId = $_POST['sliderId'];
+    $editedTitle = $_POST['editedTitle'];
+    $editedCaption = $_POST['editedCaption'];
+    $editedDescription = $_POST['editedDescription'];
+    if ($_FILES['editedImage2']['error'] === UPLOAD_ERR_OK) {
+        $editedImage2 = $homeService->uploadImage($_FILES['editedImage2']);
+    } else {
+        // Nessun nuovo file caricato, utilizza il valore esistente
+        $editedImage2 = $_POST['editedImage'];
+    }
+    error_log($editedImage2);
+    $updateChanges = $homeService->updateSlider($sliderId,$editedTitle,$editedCaption, $editedDescription,$editedImage2);
+   
+
+    if ($updateChanges) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+    $smarty->assign("current_view","adminAccount.tpl");
+    $smarty->assign("data_products", $productService->getAllProducts());
+    $smarty->display("index.tpl");
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sliderId2'])) {
+    $sliderId = $_POST['sliderId2'];
+
+    $removeSlider = $homeService->removeFromSlider($sliderId);
+    if ($removeSlider) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image2'])) {
+    // Accedi ai dati del modulo
+    $sliderTitle = $_POST['title'];
+    $sliderCaption = $_POST['caption'];
+    $sliderDescription = $_POST['description'];
+    $sliderImage = $homeService->uploadImage($_FILES['image2']);
+    
+
+    // Aggiungi il prodotto con tutti i dati
+    $addSlider = $homeService->addNewSlider($sliderTitle, $sliderCaption, $sliderDescription, $sliderImage);
+
+    // Gestisci la risposta
+    if ($addSlider) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+        exit;
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit;
+    }
+}
+
 try {
     if (!isset($_SESSION['cart'])) {
         $cartService->createShoppingCart();
@@ -142,6 +217,7 @@ try {
     $smarty->assign("totalPrice", $cartService->getTotalPrice() );
     $smarty->assign("categories", $productService->getAllCategories() );
     $smarty->assign("data_products", $productService->getAllProducts());
+    $smarty->assign("data_slider", $homeService->getSlider());
     $smarty->assign("current_view","adminAccount.tpl");
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {
