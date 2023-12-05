@@ -139,17 +139,23 @@ function saveChanges(productId) {
   const editedCategory = document.getElementById(`edit_category_${productId}`).value;
   const editedStock = document.getElementById(`edit_stock_${productId}`).value;
   const editedOnline = document.getElementById(`edit_online_${productId}`).value;
+  const editedImage = document.getElementById(`edit_image_${productId}`).value;
   const fileInput = document.getElementById(`fileInput2_${productId}`);
   const file = fileInput.files[0];
   // Costruire l'oggetto con i dati modificati
   const formData = new FormData();
-  formData.append('productId', productId);
+  formData.append('productId2', productId);
   formData.append('editedName', editedName);
   formData.append('editedPrice', editedPrice);
   formData.append('editedCategory', editedCategory);
   formData.append('editedStock', editedStock);
   formData.append('editedOnline', editedOnline);
-  formData.append('editedImage', file);
+  if (file) {
+    formData.append('editedImage', file);
+  } else {
+    formData.append('editedImage', editedImage);
+  }
+ 
   $.ajax({
     type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
     url: "/biogg/src/adminAccount.php", // URL del tuo script PHP
@@ -314,32 +320,7 @@ function deleteCategory(categoryId) {
     }
   });
 }
-function sendResetLink() {
-  // Ottieni il valore da input
-  var usernameOrEmail = $('#usernameOrEmail').val();
-  console.log(usernameOrEmail);
 
-  // Esegui la richiesta Ajax
-  $.ajax({
-    type: 'POST',
-    url: '/biogg/src/forgotPassword.php',
-    data: { usernameOrEmail: usernameOrEmail },
-    success: function (response) {
-      console.log(response);
-      if (response.success) {
-        window.location.href = "/biogg/src/login.php";
-        // Se la risposta è positiva, esegui ulteriori azioni
-      }
-    },
-    error: function (xhr, status, error) {
-      console.log('Errore nella richiesta Ajax:');
-      console.log('Stato:', status);
-      console.log('Errore:', error);
-      console.log('Risposta completa:', xhr.responseText);
-
-    }
-  });
-}
 function toggleEditFormSlider(sliderId) {
   const editForm2 = document.getElementById(`editForm2_${sliderId}`);
   const editButtons2 = document.querySelectorAll(`.btn-edit-slider`);
@@ -361,10 +342,10 @@ function saveChangesSlider(sliderId) {
   const editedTitle = document.getElementById(`edit_title_${sliderId}`).value;
   const editedCaption = document.getElementById(`edit_caption_${sliderId}`).value;
   const editedDescription = document.getElementById(`edit_description_${sliderId}`).value;
-  const editedImage = document.getElementById(`edit_image_${sliderId}`).value;
-  console.log(editedImage);
+  const editedImage = document.getElementById(`edit_image2_${sliderId}`).value;
   const fileInput = document.getElementById(`fileInput3_${sliderId}`);
   const file = fileInput.files[0];
+
   // Costruire l'oggetto con i dati modificati
   const formData = new FormData();
   formData.append('action', 'save_changes');
@@ -372,34 +353,38 @@ function saveChangesSlider(sliderId) {
   formData.append('editedTitle', editedTitle);
   formData.append('editedCaption', editedCaption);
   formData.append('editedDescription', editedDescription);
-  formData.append('editedImage', editedImage);
-  formData.append('editedImage2', file);
+
+  // Verifica se è stata selezionata una nuova immagine
+  if (file) {
+    formData.append('editedImage2', file);
+  } else {
+    formData.append('editedImage', editedImage);
+  }
+
   $.ajax({
-    type: "POST", // Metodo HTTP (puoi usare POST o GET in base alle tue esigenze)
-    url: "/biogg/src/adminAccount.php", // URL del tuo script PHP
-    data: formData,// Dati da passare al server
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: formData,
     contentType: false,
     processData: false,
     success: function (response) {
-      // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
       if (response.success) {
         window.location.href = "/biogg/src/adminAccount.php";
-        //alert("Modifiche salvate");
       } else {
         // alert("Errore: " + response.message);
       }
     },
     error: function () {
-      // Gestisci eventuali errori durante la chiamata AJAX
-      alert("Si è verificato un errore durante il salavataggio.");
+      alert("Si è verificato un errore durante il salvataggio.");
     }
   });
 }
 
 
+
 function cancelEditSlider(sliderId) {
   // Nascondi il form
-  const form = document.getElementById(`editForm_${sliderId}`);
+  const form = document.getElementById(`editForm2_${sliderId}`);
   form.style.display = 'none';
 
 }
@@ -423,9 +408,9 @@ function deleteSlider(sliderId2) {
       if (response.success) {
         //alert("Prodotto eliminato con successo.");
         // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
-        const rowId = `editForm_${sliderId}`;
+        const rowId = `editForm2_${sliderId2}`;
         $("#" + rowId).closest('tr').remove();
-        window.location.href = "/biogg/src/adminAccount.php";
+
       } else {
         alert("Errore: " + response.message);
       }
@@ -440,14 +425,14 @@ function deleteSlider(sliderId2) {
 function addSlider() {
 
   // Ottenere i valori modificati dai campi di input
-  const title = document.getElementById('slider_title').value;
-  const caption = document.getElementById('slider_caption').value;
-  const description = document.getElementById('slider_description').value;
-  const fileInput = document.getElementById('fileInput');
+  const title = document.getElementById('slideradd_title').value;
+  const caption = document.getElementById('slideradd_caption').value;
+  const description = document.getElementById('slideradd_description').value;
+  const fileInput = document.getElementById('fileInput4');
   const file = fileInput.files[0];
 
   // Invia una richiesta AJAX solo quando tutti i campi obbligatori sono compilati
-  if (title && caption && description !== null) {
+  if (title && caption && description && file !== null) {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('caption', caption);
@@ -461,10 +446,9 @@ function addSlider() {
       contentType: false,
       processData: false,
       success: function (response) {
-        console.log(response);
         // Gestisci la risposta dal server
         if (response.success) {
-          window.location.href = "/biogg/src/adminAccount.php";
+
           // Se la risposta è positiva, esegui ulteriori azioni
         } else {
           alert("Errore: " + response.message);

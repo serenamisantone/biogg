@@ -2,12 +2,14 @@
 require_once("assets/php/services/CartService.php");
 require_once("assets/php/services/UserService.php");
 require_once("assets/php/services/ProductService.php");
+require_once("assets/php/services/HomeService.php");
 require_once("./assets/php/models/Product.php");
 require_once("assets/Config.php");
 session_start();
 $cartService = new CartService();
 $userService = new UserService();
 $productService = new ProductService();
+$homeService = new HomeService();
 $smarty = new Config();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId'])) {
@@ -43,6 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId'])) {
 try {
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("all_reviews", $userService->getAllReviews());
+    $smarty->assign("data_slider", $homeService->getSlider());
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {
     $smarty->assign("content_load", "404.tpl");

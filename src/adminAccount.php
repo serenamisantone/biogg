@@ -13,14 +13,26 @@ $homeService = new HomeService();
 if (!isset($_SESSION['auth'])) {
     header("Location: login.php");
     exit();}
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['editedImage'])) {
-    $productId = $_POST['productId'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId2'])) {
+    $productId = $_POST['productId2'];
     $editedName = $_POST['editedName'];
     $editedPrice = $_POST['editedPrice'];
     $editedCategory = $_POST['editedCategory'];
     $editedStock = $_POST['editedStock'];
     $editedOnline = $_POST['editedOnline'];
-    $editedImage = $productService->uploadImage($_FILES['editedImage']);
+    if (isset($_FILES['editedImage'])) {
+        $editedImage = $productService->uploadImage($_FILES['editedImage']);
+    } else {
+        // Nessun nuovo file caricato, utilizza il valore esistente
+        $editedImage = $_POST['editedImage'];
+    }
+    error_log($productId);
+    error_log($editedName);
+    error_log($editedPrice);
+    error_log($editedCategory);
+    error_log($editedStock);
+    error_log($editedOnline);
+    error_log($editedImage);
     $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage);
 
     if ($updateChanges) {
@@ -125,12 +137,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoryName'])) {
     }
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['sliderId'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sliderId'])) {
     $sliderId = $_POST['sliderId'];
     $editedTitle = $_POST['editedTitle'];
     $editedCaption = $_POST['editedCaption'];
     $editedDescription = $_POST['editedDescription'];
-    if ($_FILES['editedImage2']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['editedImage2'])) {
         $editedImage2 = $homeService->uploadImage($_FILES['editedImage2']);
     } else {
         // Nessun nuovo file caricato, utilizza il valore esistente
@@ -182,6 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image2'])) {
     $sliderCaption = $_POST['caption'];
     $sliderDescription = $_POST['description'];
     $sliderImage = $homeService->uploadImage($_FILES['image2']);
+    error_log($sliderImage);
     
 
     // Aggiungi il prodotto con tutti i dati

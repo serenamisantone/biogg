@@ -100,9 +100,6 @@
                                         <li class="has-submenu">
                                             <a href="shop.php">Shop</span></a>
                                         </li>
-                                        <li class="has-submenu">
-                                            <a href="news.php">News</a>
-                                        </li>
 
                                     </ul>
                                 </nav>

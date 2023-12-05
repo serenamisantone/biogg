@@ -57,10 +57,7 @@
                                     </div>
                                 </div>
                             
-                            <div class="d-flex align-items-center justify-content-between mt-4">
-                            
-                                <a  href="forgotPassword.php"  class="fs-sm">Password dimenticata?</a>
-</div>
+
 
                             <div class="row g-4 mt-4">
                                 <div class="col-sm-6">

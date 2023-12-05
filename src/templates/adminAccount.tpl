@@ -242,7 +242,7 @@
                                                 </select>
                                                 <div id="drop-area">
                                                 <input type="text" id="edit_image_{$product->getId()}" class="edit-input" value="{$product->getImage()}">
-                                                <input type="file" id="fileInput2_{$product->getId()}" name="image" class="custom-file-input" required> 
+                                                <input type="file" id="fileInput2_{$product->getId()}" name="image" class="custom-file-input"> 
                                             </div>
                                                     
                                                     <button onclick="saveChanges({$product->getId()})" class="btn btn-primary btn-sm">Salva</button>
@@ -386,7 +386,7 @@
                                                 <input type="text" id="edit_caption_{$slider->getId()}" class="edit-input" value="{$slider->getCaption()}">
                                                 <input type="text" id="edit_description_{$slider->getId()}" class="edit-input" value="{$slider->getDescription()}">
                                                 <div id="drop-area">
-                                                <input type="text" id="edit_image_{$slider->getId()}" class="edit-input" value="{$slider->getImage()}">
+                                                <input type="text" id="edit_image2_{$slider->getId()}" class="edit-input" value="{$slider->getImage()}">
                                                 <input type="file" id="fileInput3_{$slider->getId()}" name="image" class="custom-file-input"> 
                                             </div>
                                                     
@@ -415,23 +415,23 @@
                     
                                 <form id="addSliderForm" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="slider_title"class="text-primary">Titolo:</label>
-                                        <input type="text" id="slider_title" name="slider_title" class="form-control" placeholder="Inserisci il titolo" required>
+                                        <label for="slideradd_title"class="text-primary">Titolo:</label>
+                                        <input type="text" id="slideradd_title" name="slideradd_title" class="form-control" placeholder="Inserisci il titolo" required>
                                     </div>
                     
                                     <div class="form-group">
-                                        <label for="slider_caption"class="text-primary">Sottotitolo:</label>
-                                        <input type="text" id="slider_caption" name="slider_caption" class="form-control" placeholder="Inserisci il sottotitolo" required>
+                                        <label for="slideradd_caption"class="text-primary">Sottotitolo:</label>
+                                        <input type="text" id="slideradd_caption" name="slideradd_caption" class="form-control" placeholder="Inserisci il sottotitolo" required>
                                     </div>
                     
                                     <div class="form-group">
-                                        <label for="slider_description"class="text-primary">Descrizione:</label>
-                                        <input type="text" id="slider_description" name="slider_description" class="form-control" placeholder="Inserisci la descrizione" required>
+                                        <label for="slideradd_description"class="text-primary">Descrizione:</label>
+                                        <input type="text" id="slideradd_description" name="slideradd_description" class="form-control" placeholder="Inserisci la descrizione" required>
                                     </div>
                     
                                     <div id="drop-area">
-                                    <label for="fileInput" class="text-primary">Immagine:</label>
-                                    <input type="file" id="fileInput" name="image" class="custom-file-input" required> 
+                                    <label for="fileInput4" class="text-primary">Immagine:</label>
+                                    <input type="file" id="fileInput4" name="image" class="custom-file-input" required> 
                                 </div>
                                 
                     

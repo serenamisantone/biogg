@@ -71,6 +71,7 @@ $query = "SELECT * FROM slider";
 
 
 function updateSlider($sliderId, $editedTitle, $editedCaption, $editedDescription, $editedImage2) {
+    // Ottieni l'immagine corrente dal database
     $imageQuery = "SELECT image FROM slider WHERE id=$sliderId";
     $result = $this->connection->query($imageQuery);
 
@@ -87,9 +88,8 @@ function updateSlider($sliderId, $editedTitle, $editedCaption, $editedDescriptio
             }
         }
     }
-
-    $query = "UPDATE slider SET title = '$editedTitle', caption = '$editedCaption', description = '$editedDescription', image = '$editedImage2' WHERE id = {$sliderId}";
-
+    // Aggiorna il record nel database
+    $query = "UPDATE slider SET title = '$editedTitle', caption = '$editedCaption', description = '$editedDescription', image = '$editedImage2' WHERE id = '$sliderId'";
     $result = $this->connection->query($query);
 
     if ($result === false) {
@@ -98,6 +98,7 @@ function updateSlider($sliderId, $editedTitle, $editedCaption, $editedDescriptio
 
     return true;
 }
+
 
 
 
