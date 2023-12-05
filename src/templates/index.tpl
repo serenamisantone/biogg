@@ -195,7 +195,7 @@
                                                     <span id="cartTotal" class="fw-semibold text-primary"> {$totalPrice} €</span>
                                                 </div>
                         
-                                                <a href="checkout.html"
+                                                <a href="checkout.php"
                                                     class="btn btn-primary btn-md d-block mt-4"><span class="me-2"><i
                                                             class="fa-solid fa-wallet"></i></span>Checkout</a>
 
@@ -283,6 +283,7 @@
     <script src="assets/js/vendors/counterup.min.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/methods.js"></script>
+    <script src="assets/js/cart.js"></script>
     <!--endbuild-->
 
 </body>

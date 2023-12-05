@@ -80,18 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['categoryId'])) {
 }
 
 try {
-    if (!isset($_SESSION['cart'])) {
-        $cartService->createShoppingCart();
-    }
-    if (isset($_SESSION['auth']['cart'])) {
-        $smarty->assign("cart", $_SESSION['auth']['cart']);
-
-    } else {
-        $smarty->assign("cart", $_SESSION['cart']);
-
-    }
-    $smarty->assign('cartProducts', $cartService->getCartProducts());
-    $smarty->assign("totalPrice", $cartService->getTotalPrice());
+    $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("current_view", "shop.tpl");
     $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $products_per_page = 9; 

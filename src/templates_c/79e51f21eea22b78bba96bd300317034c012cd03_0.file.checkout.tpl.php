@@ -1,4 +1,27 @@
-<!--checkout section start-->
+<?php
+/* Smarty version 4.3.0, created on 2023-12-03 14:38:46
+  from 'C:\xampp\htdocs\biogg\src\templates\checkout.tpl' */
+
+/* @var Smarty_Internal_Template $_smarty_tpl */
+if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
+  'version' => '4.3.0',
+  'unifunc' => 'content_656c84e63468c7_20961618',
+  'has_nocache_code' => false,
+  'file_dependency' => 
+  array (
+    '79e51f21eea22b78bba96bd300317034c012cd03' => 
+    array (
+      0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\checkout.tpl',
+      1 => 1701610722,
+      2 => 'file',
+    ),
+  ),
+  'includes' => 
+  array (
+  ),
+),false)) {
+function content_656c84e63468c7_20961618 (Smarty_Internal_Template $_smarty_tpl) {
+?><!--checkout section start-->
 <div class="main-wrapper">
     <div class="checkout-section ptb-120">
         <div class="container">
@@ -13,44 +36,73 @@
                         </div>
                         <div id="existingAddressesContainer">
                             <div class="row g-4">
-                                {foreach $addresses as $index1 => $address1}
+                                <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['addresses']->value, 'address1', false, 'index1');
+$_smarty_tpl->tpl_vars['address1']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['index1']->value => $_smarty_tpl->tpl_vars['address1']->value) {
+$_smarty_tpl->tpl_vars['address1']->do_else = false;
+?>
                                     <div class="col-lg-6 col-sm-6">
                                         <div class="tt-address-content">
                                             <input type="radio" class="tt-custom-radio"
-                                                data-address-id="{$address1->getId()}" {if $index1 === 0}checked{/if}
-                                                name="tt-radio-shipment" id="tt-radio-shipment-{$index1 + 1}">
-                                            <label for="tt-radio-shipment-{$index1 + 1}"
+                                                data-address-id="<?php echo $_smarty_tpl->tpl_vars['address1']->value->getId();?>
+" <?php if ($_smarty_tpl->tpl_vars['index1']->value === 0) {?>checked<?php }?>
+                                                name="tt-radio-shipment" id="tt-radio-shipment-<?php echo $_smarty_tpl->tpl_vars['index1']->value+1;?>
+">
+                                            <label for="tt-radio-shipment-<?php echo $_smarty_tpl->tpl_vars['index1']->value+1;?>
+"
                                                 class="tt-address-info bg-white rounded p-4 position-relative">
-                                                <strong>{$address1->getComune()} </strong>
+                                                <strong><?php echo $_smarty_tpl->tpl_vars['address1']->value->getComune();?>
+ </strong>
                                                 <address class="fs-sm mb-0">
-                                                    n. {$address1->getCivico()}, Via {$address1->getVia()} <br>
-                                                    {$address1->getRegione()}, {$address1->getProvincia()}
+                                                    n. <?php echo $_smarty_tpl->tpl_vars['address1']->value->getCivico();?>
+, Via <?php echo $_smarty_tpl->tpl_vars['address1']->value->getVia();?>
+ <br>
+                                                    <?php echo $_smarty_tpl->tpl_vars['address1']->value->getRegione();?>
+, <?php echo $_smarty_tpl->tpl_vars['address1']->value->getProvincia();?>
+
                                                 </address>
                                                 <a href="#" class="tt-edit-address checkout-radio-link position-absolute"
-                                                    onclick="openEditModal(); populateEditForm('{$address1->getId()}','{$address1->getComune()}', '{$address1->getCivico()}', '{$address1->getVia()}', '{$address1->getRegione()}', '{$address1->getProvincia()}');">Modifica</a>
+                                                    onclick="openEditModal(); populateEditForm('<?php echo $_smarty_tpl->tpl_vars['address1']->value->getId();?>
+','<?php echo $_smarty_tpl->tpl_vars['address1']->value->getComune();?>
+', '<?php echo $_smarty_tpl->tpl_vars['address1']->value->getCivico();?>
+', '<?php echo $_smarty_tpl->tpl_vars['address1']->value->getVia();?>
+', '<?php echo $_smarty_tpl->tpl_vars['address1']->value->getRegione();?>
+', '<?php echo $_smarty_tpl->tpl_vars['address1']->value->getProvincia();?>
+');">Modifica</a>
 
                                             </label>
                                         </div>
                                     </div>
-                                {/foreach}
+                                <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
                             </div>
                         </div>
                         <h4 class="mt-8">Payment Method</h4>
-                        {if !empty($creditCards)}
-                            {foreach $creditCards as $index => $singleCard}
+                        <?php if (!empty($_smarty_tpl->tpl_vars['creditCards']->value)) {?>
+                            <?php
+$_from = $_smarty_tpl->smarty->ext->_foreach->init($_smarty_tpl, $_smarty_tpl->tpl_vars['creditCards']->value, 'singleCard', false, 'index');
+$_smarty_tpl->tpl_vars['singleCard']->do_else = true;
+if ($_from !== null) foreach ($_from as $_smarty_tpl->tpl_vars['index']->value => $_smarty_tpl->tpl_vars['singleCard']->value) {
+$_smarty_tpl->tpl_vars['singleCard']->do_else = false;
+?>
                                 <div
                                     class="checkout-radio d-flex align-items-center justify-content-between gap-3 bg-white rounded p-4 mt-4">
                                     <div class="radio-left d-inline-flex align-items-center">
                                         <div class="theme-radio">
                                             <input type="radio" name="payment-method" class="payment-method-radio"
-                                                {if $index === 0}checked{/if}>
+                                                <?php if ($_smarty_tpl->tpl_vars['index']->value === 0) {?>checked<?php }?>>
                                             <span class="custom-radio"></span>
                                         </div>
-                                        <label class="ms-2 h6 mb-0">Carta {$singleCard->getLastFourDigits()}</label>
+                                        <label class="ms-2 h6 mb-0">Carta <?php echo $_smarty_tpl->tpl_vars['singleCard']->value->getLastFourDigits();?>
+</label>
                                     </div>
                                 </div>
-                            {/foreach}
-                        {/if}
+                            <?php
+}
+$_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
+                        <?php }?>
 
                         <div class="checkout-form mt-4 py-7 px-5 bg-white rounded-2">
                             <div class="form-title d-flex align-items-center mb-5">
@@ -243,7 +295,8 @@
                             <table class="sidebar-table w-100 mt-5">
                                 <tr>
                                     <td>Subtotale</td>
-                                    <td class="text-end">€{$totalPrice}</td>
+                                    <td class="text-end">€<?php echo $_smarty_tpl->tpl_vars['totalPrice']->value;?>
+</td>
                                 </tr>
                                 <tr>
                                     <td>Costi di spedizione</td>
@@ -254,7 +307,8 @@
                             <span class="sidebar-spacer d-block my-4 opacity-50"></span>
                             <div class="d-flex align-items-center justify-content-between">
                                 <h6 class="mb-0 fs-md">Totale (IVA inclusa)</h6>
-                                <h6 class="mb-0 fs-md">€{$totalPricePlusShipmentCost}</h6>
+                                <h6 class="mb-0 fs-md">€<?php echo $_smarty_tpl->tpl_vars['totalPricePlusShipmentCost']->value;?>
+</h6>
                             </div>
 
                             <button type="button" class="btn btn-primary btn-md rounded mt-6 w-100" onclick="saveNewOrder()">Place
@@ -268,5 +322,8 @@
         </div>
     </div>
 </div>
-<script src="assets/js/checkout.js"></script>
-<!--checkout section end-->
+<?php echo '<script'; ?>
+ src="assets/js/checkout.js"><?php echo '</script'; ?>
+>
+<!--checkout section end--><?php }
+}

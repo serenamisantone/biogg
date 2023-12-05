@@ -41,20 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId'])) {
     
 
 try {
-  if (!isset($_SESSION['cart'])) {
-        $cartService->createShoppingCart();
-    }
-    if (isset($_SESSION['auth']['cart'])) {
-        $smarty->assign('cart', $_SESSION['auth']['cart']);
-       
-    } else {
-        $smarty->assign('cart', $_SESSION['cart']);
-        
-    }
-
-    $smarty->assign('cartProducts', $cartService->getCartProducts());
-    $smarty->assign('totalPrice', $cartService->getTotalPrice());
-  
+    $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("all_reviews", $userService->getAllReviews());
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

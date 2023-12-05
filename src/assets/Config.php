@@ -18,4 +18,20 @@ class Config extends Smarty
         $this->assign('current_view', 'home.tpl');
         $this->assign('default_currency',"€");
     }
+
+    public function assignCartVariables($smarty, $cartService) {
+        if (!isset($_SESSION['cart'])) {
+            $cartService->createShoppingCart();
+        }
+    
+        if (isset($_SESSION['auth']['cart'])) {
+            $smarty->assign('cart', $_SESSION['auth']['cart']);
+        } else {
+            $smarty->assign('cart', $_SESSION['cart']);
+        }
+    
+        $smarty->assign('cartProducts', $cartService->getCartProducts());
+        $smarty->assign("totalPrice", number_format($cartService->getTotalPrice(),2, ',', ''));
+        $smarty->assign("totalPricePlusShipmentCost", number_format($cartService->getTotalPrice()+7,2, ',', ''));
+    }
 }

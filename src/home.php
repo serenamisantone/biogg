@@ -13,21 +13,7 @@ $cartService = new CartService();
 $homeService = new HomeService();
 
 try {
-    if (!isset($_SESSION['cart'])) {
-        $cartService->createShoppingCart();
-    }
-    if(isset($_SESSION['auth']['cart'])){
-        $smarty->assign("cart", $_SESSION['auth']['cart']);
-        
-    }else{
-        $smarty->assign("cart", $_SESSION['cart']);
-        
-    }
-    $smarty->assign('cartProducts', $cartService->getCartProducts());
-    $smarty->assign("totalPrice", $cartService->getTotalPrice() );
-    if (!isset($_SESSION['wishlist'])) {
-        //   $wishlistService->createWishlist();        
-    }
+    $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("all_reviews", $userService->getAllReviews());
     $smarty->assign("data_slider", $homeService->getSlider());
     $smarty->assign("current_view", "home.tpl");

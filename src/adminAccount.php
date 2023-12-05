@@ -35,9 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['editedImage'])) {
         echo json_encode($response);
         exit; 
     }
-    $smarty->assign("current_view","adminAccount.tpl");
-    $smarty->assign("data_products", $productService->getAllProducts());
-    $smarty->display("index.tpl");
+   
 }
 
 
@@ -204,17 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image2'])) {
 }
 
 try {
-    if (!isset($_SESSION['cart'])) {
-        $cartService->createShoppingCart();
-    }
-    if(isset($_SESSION['auth']['cart'])){
-        $smarty->assign("cart", $_SESSION['auth']['cart']);
-        
-    }else{
-        $smarty->assign("cart", $_SESSION['cart']);   
-    }
-    $smarty->assign('cartProducts', $cartService->getCartProducts());
-    $smarty->assign("totalPrice", $cartService->getTotalPrice() );
+    $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("categories", $productService->getAllCategories() );
     $smarty->assign("data_products", $productService->getAllProducts());
     $smarty->assign("data_slider", $homeService->getSlider());

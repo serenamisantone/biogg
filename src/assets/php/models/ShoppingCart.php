@@ -96,6 +96,7 @@ class ShoppingCart
 
   public function getProducts()
   {
+    
     return $this->products;
   }
 

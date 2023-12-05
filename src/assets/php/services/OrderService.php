@@ -1,13 +1,15 @@
 <?php
 require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/models/Address.php");
+require_once("./assets/php/services/CartService.php");
 class OrderService
 {
-
+    private $cartService;
     private $connection;
     function __construct()
     {
         $this->connection = DbConnection::getInstance()->getConnection();
+        $this->cartService = new CartService();
     }
 
     public function addAddress($address)
@@ -52,7 +54,7 @@ class OrderService
             other_info = '{$address->getOtherInfo()}'
         WHERE
             id = {$address->getId()}");
-            return $result;
+        return $result;
     }
 
     public function deleteAddress($addressId)
@@ -103,6 +105,82 @@ class OrderService
                 $address->setId($row['id']);
                 return $address;
             }
+        }
+    }
+    public function addCreditCard($creditCard)
+    {
+        $userId = $_SESSION['auth']['user'];
+        $name = $creditCard->getName();
+        $cardNumber = $creditCard->getCardNumber();
+        $expirationDate = $creditCard->getExpirationDate();
+
+        $query = "INSERT INTO credit_cards (user_id, `name`, card_number, expiration_date) VALUES ('$userId', '$name', '$cardNumber', '$expirationDate')";
+
+        $result = $this->connection->query($query);
+        if ($result) {
+            return $this->connection->insert_id;
+        } else {
+            return 0;
+        }
+
+    }
+
+    function getAllCreditCardsByUserId($userId)
+    {
+        $query = "SELECT * FROM credit_cards WHERE user_id=$userId";
+        $result = $this->connection->query($query);
+        $cards = [];
+        if ($result && $result->num_rows > 0) {
+
+            while ($row = $result->fetch_assoc()) {
+                $creditCard = new CreditCard(
+                    $row['user_id'],
+                    $row['name'],
+                    $row['expiration_date'],
+                    $row['card_number'],
+
+                );
+                $creditCard->setId($row['id']);
+                $cards[] = $creditCard;
+            }
+
+        }
+        return $cards;
+    }
+
+
+    public function createOrder($addressId)
+    {
+        try {
+            $userId = $_SESSION['auth']['user'];
+            $shoppingCartId = $_SESSION['auth']['cart']->getShoppingCartId();
+            $total = $this->cartService->getTotalPrice();
+            $date = date('Y-m-d H:i:s');
+
+            $query = "INSERT INTO `order` (user_id, shopping_cart_id, address_id, total, `date`) VALUES ('$userId', '$shoppingCartId', '$addressId', '$total', '$date')";
+            error_log($query);
+            $result = $this->connection->query($query);
+            if ($result) {
+                //chiudo il carrello
+                $query="UPDATE shopping_cart SET is_open=0 WHERE id='$shoppingCartId' ";
+                $result=$this->connection->query("$query");
+                if($result){
+                    //creo un nuovo carrello
+                    $query="INSERT INTO shopping_cart (user_id) VALUES ('$userId')";
+                    $result=$this->connection->query($query);
+                    if($result){
+                    $_SESSION['auth']['cart']=$this->cartService->assignShoppingCart($userId);
+                    return true;
+                    }
+                } else {
+                    Header("Location: error.php?query_chiusura_carrello_wrong");
+                }
+                
+            } else {
+                Header("Location: error.php?query_order_wrong");
+            }
+        } catch (Exception $e) {
+            error_log($e->getMessage());
         }
     }
 }
