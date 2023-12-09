@@ -435,9 +435,9 @@ function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $
         return false;
     }
 
-    $this->deleteUnselectedOffers($productId);
+    $this->offerService->deleteOfferToProduct($productId);
 
-        $this->insertNewOffers($productId, $offerIds);
+        $this->offerService->assignOfferToProduct($productId, $offerIds);
         return true;
 }
 
@@ -467,26 +467,7 @@ public function uploadImage($image)
         }
    
 }
-private function deleteUnselectedOffers($productId) {
-    $query = "DELETE FROM product_offer WHERE product_id = $productId";
-    $result = $this->connection->query($query);
-    if ($result === false) {
-        return false;
-    }
 
-    return true;
-}
-
-private function insertNewOffers($productId,$offerIds) {
-    foreach ($offerIds as $offerId) {
-        $query = "INSERT INTO product_offer (product_id, offer_id) VALUES ($productId, $offerId)";
-        $result = $this->connection->query($query);
-        if ($result === false) {
-            return false;
-        }
-    }
-    return true;
-}
 
 }
     

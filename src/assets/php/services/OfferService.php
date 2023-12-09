@@ -86,22 +86,7 @@ class OfferService
       return true;
     }
 
-    public function assignOfferToProduct($offerId, $productId)
-    {
-        $query = "INSERT INTO product_offer (offer_id,product_id) VALUES ('$offerId','$productId')";
-        $success = $this->connection->query($query);
-        return $success;
-    }
 
-    public function deleteOfferToProduct($offerId, $productId)
-    {
-
-        $query = "DELETE FROM product_offer WHERE offer_id = '$offerId' and product_id = '$productId'";
-        // Esegui la query di eliminazione
-        $success = $this->connection->query($query);
-        // Restituisci true se l'eliminazione è riuscita, altrimenti false
-        return $success;
-    }
 
     public function getOfferByProductId($productId)
     {
@@ -125,6 +110,27 @@ function updateOffer($offerId,$editedName,$editedStartDate, $editedEndDate,$edit
         return false;
     }
 
+    return true;
+}
+
+ function deleteOfferToProduct($productId) {
+    $query = "DELETE FROM product_offer WHERE product_id = $productId";
+    $result = $this->connection->query($query);
+    if ($result === false) {
+        return false;
+    }
+
+    return true;
+}
+
+ function assignOfferToProduct($productId,$offerIds) {
+    foreach ($offerIds as $offerId) {
+        $query = "INSERT INTO product_offer (product_id, offer_id) VALUES ($productId, $offerId)";
+        $result = $this->connection->query($query);
+        if ($result === false) {
+            return false;
+        }
+    }
     return true;
 }
 }
