@@ -7,13 +7,13 @@ class Offer
   private $endDate;
   private $type;
 
-  public function __construct($id, $name, $startDate, $endDate, $type)
+  public function __construct(/*$id, $name, $startDate, $endDate, $type*/)
   {
-    $this->id = $id;
+   /* $this->id = $id;
     $this->name = $name;
     $this->startDate = $startDate;
     $this->endDate = $endDate;
-    $this->type = $type;
+    $this->type = $type;*/
   }
 
 

@@ -8,6 +8,37 @@ class OfferService
     {
         $this->connection = DbConnection::getInstance()->getConnection();
     }
+    public function getOffers()
+{
+    $query = "SELECT * FROM `offer`";
+
+    $result = $this->connection->query($query);
+
+    if (! $result) {
+        Header("Location: error.php?errore_offerte");
+    }
+
+        $data_offers = array();
+
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $offer = new Offer();
+                $offer->setId($row['id']);
+                $offer->setName($row['name']);
+                $offer->setStartDate($row['start_date']);
+                $offer->setEndDate($row['end_date']);
+                $offer->setType($row['type']);
+                $data_offers[] = $offer;
+            }
+
+            return $data_offers;
+        }
+
+        return array();
+}
+
+    
+    
 
     public function getOfferById($id)
     {
@@ -22,39 +53,37 @@ class OfferService
         }
         return null;
     }
-    public function addOffer($offer)
+    public function addOffer($offerName, $offerStartDate, $offerEndDate, $offerType)
     {
+        $query = "INSERT INTO offer (name, start_date, end_date, type) VALUES ('{$offerName}', '{$offerStartDate}', '{$offerEndDate}', '{$offerType}')";
 
-        // Sanitizza i dati per evitare SQL injection
-        $name = $this->connection->real_escape_string($offer->getName());
-        $start_date = $this->connection->real_escape_string($offer->getStartDate());
-        $end_date = $this->connection->real_escape_string($offer->getEndDate());
-        $type = $this->connection->real_escape_string($offer->getType());
-
-        // Crea la query di inserimento
-        $query = "INSERT INTO offer (`name`, `start_date`, `end_date`, `type`) VALUES ('$name', '$start_date', '$end_date', '$type')";
-
-        // Esegui la query di inserimento
-        $success = $this->connection->query($query);
-
-        // Verifica se l'inserimento è riuscito
-        if ($success) {
-            // Restituisci l'ID dell'offerta appena inserita
-            return $this->connection->insert_id;
-        } else {
-            // Restituisci false se l'inserimento non è riuscito
+        $result = $this->connection->query($query);
+    
+        if ($result === false) {
             return false;
         }
+    
+        return true;
     }
 
-    public function removeOffer($offer)
+    public function removeOffer($offerId)
     {
-        $offerId = $this->connection->real_escape_string($offer->getId());
-        $query = "DELETE FROM offer WHERE id = '$offerId'";
-        // Esegui la query di eliminazione
-        $success = $this->connection->query($query);
-        // Restituisci true se l'eliminazione è riuscita, altrimenti false
-        return $success;
+        $query= "DELETE FROM product_offer WHERE offer_id = $offerId";
+        $result = $this->connection->query($query);
+  
+      if ($result === false) {
+          // Gestisci l'errore se necessario
+          return false;
+      }
+      $query = "DELETE FROM offer WHERE id={$offerId}";
+      $result = $this->connection->query($query);
+  
+      if ($result === false) {
+          // Gestisci l'errore se necessario
+          return false;
+      }
+  
+      return true;
     }
 
     public function assignOfferToProduct($offerId, $productId)
@@ -87,5 +116,15 @@ class OfferService
         }
         return $offers;
     }
+function updateOffer($offerId,$editedName,$editedStartDate, $editedEndDate,$editedType)
+{
+    $query = "UPDATE offer SET name = '$editedName', start_date = '$editedStartDate', end_date = '$editedEndDate', type = '$editedType' WHERE id = '$offerId'";
+    $result = $this->connection->query($query);
 
+    if ($result === false) {
+        return false;
+    }
+
+    return true;
+}
 }

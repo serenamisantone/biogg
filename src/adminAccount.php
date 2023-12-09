@@ -4,11 +4,13 @@ require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/services/ProductService.php");
 require_once("./assets/php/services/CartService.php");
 require_once("./assets/php/services/HomeService.php");
+require_once("./assets/php/services/OfferService.php");
 $smarty = new Config();
 session_start();
 $productService = new ProductService();
 $cartService = new CartService();
 $homeService = new HomeService();
+$offerService = new OfferService();
 
 if (!isset($_SESSION['auth'])) {
     header("Location: login.php");
@@ -20,20 +22,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId2'])) {
     $editedCategory = $_POST['editedCategory'];
     $editedStock = $_POST['editedStock'];
     $editedOnline = $_POST['editedOnline'];
+    $offerIds = json_decode($_POST['selectedOffers'], true);
+
+
     if (isset($_FILES['editedImage'])) {
         $editedImage = $productService->uploadImage($_FILES['editedImage']);
     } else {
         // Nessun nuovo file caricato, utilizza il valore esistente
         $editedImage = $_POST['editedImage'];
     }
-    error_log($productId);
-    error_log($editedName);
-    error_log($editedPrice);
-    error_log($editedCategory);
-    error_log($editedStock);
-    error_log($editedOnline);
-    error_log($editedImage);
-    $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$editedImage);
+    $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$offerIds,$editedImage);
+
 
     if ($updateChanges) {
         header('Content-Type: application/json');
@@ -148,7 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sliderId'])) {
         // Nessun nuovo file caricato, utilizza il valore esistente
         $editedImage2 = $_POST['editedImage'];
     }
-    error_log($editedImage2);
     $updateChanges = $homeService->updateSlider($sliderId,$editedTitle,$editedCaption, $editedDescription,$editedImage2);
    
 
@@ -194,7 +192,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image2'])) {
     $sliderCaption = $_POST['caption'];
     $sliderDescription = $_POST['description'];
     $sliderImage = $homeService->uploadImage($_FILES['image2']);
-    error_log($sliderImage);
     
 
     // Aggiungi il prodotto con tutti i dati
@@ -214,11 +211,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image2'])) {
     }
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['offerId'])) {
+    $offerId = $_POST['offerId'];
+    $editedName = $_POST['editedName'];
+    $editedStartDate = $_POST['editedStartDate'];
+    $editedEndDate = $_POST['editedEndDate'];
+    $editedType = $_POST['editedType'];
+    $updateChanges = $offerService->updateOffer($offerId,$editedName,$editedStartDate, $editedEndDate,$editedType);
+   
+
+    if ($updateChanges) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+    $smarty->assign("current_view","adminAccount.tpl");
+    $smarty->assign("data_products", $productService->getAllProducts());
+    $smarty->display("index.tpl");
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['offerId2'])) {
+    $offerId = $_POST['offerId2'];
+    $removeOffer = $offerService->removeOffer($offerId);
+    if ($removeOffer) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nameOffer'])) {
+    // Accedi ai dati del modulo
+    $offerName = $_POST['nameOffer'];
+    $offerStartDate = $_POST['startDate'];
+    $offerEndDate = $_POST['endDate'];
+    $offerType = $_POST['type'];
+    $addOffer = $offerService->addOffer($offerName, $offerStartDate, $offerEndDate,$offerType);
+
+    // Gestisci la risposta
+    if ($addOffer) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+        exit;
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit;
+    }
+}
+
+
+
 try {
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("categories", $productService->getAllCategories() );
-    $smarty->assign("data_products", $productService->getAllProducts());
+    $dataOffers=$productService->getAllProductsWithOffers();
+    $smarty->assign("data_products", $productService->getAllProductsWithOffers());
     $smarty->assign("data_slider", $homeService->getSlider());
+    $smarty->assign("data_offers", $offerService->getOffers()); 
     $smarty->assign("current_view","adminAccount.tpl");
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

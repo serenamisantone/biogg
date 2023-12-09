@@ -119,19 +119,7 @@ function updateProductsSection(products) {
     $('#products-section').append(productElement);
   });
 }
-function toggleEditForm(productId) {
-  const editForm = document.getElementById(`editForm_${productId}`);
-  const editButtons = document.querySelectorAll(`.btn-edit-product`);
-  editButtons.forEach(button => {
-    const buttonProductId = button.getAttribute('data-productId');
-    if (buttonProductId == productId) {
-      editForm.style.display = (editForm.style.display === 'none') ? 'block' : 'none';
-    } else {
-      const otherEditForm = document.getElementById(`editForm_${buttonProductId}`);
-      otherEditForm.style.display = 'none';
-    }
-  });
-}
+
 function saveChanges(productId) {
   // Ottenere i valori modificati dai campi di input
   const editedName = document.getElementById(`edit_name_${productId}`).value;
@@ -139,6 +127,11 @@ function saveChanges(productId) {
   const editedCategory = document.getElementById(`edit_category_${productId}`).value;
   const editedStock = document.getElementById(`edit_stock_${productId}`).value;
   const editedOnline = document.getElementById(`edit_online_${productId}`).value;
+  const selectedOffers = [];
+  const offerCheckboxes = document.querySelectorAll(`#edit_offer_${productId}:checked`);
+offerCheckboxes.forEach((checkbox) => {
+  selectedOffers.push(checkbox.value);
+});
   const editedImage = document.getElementById(`edit_image_${productId}`).value;
   const fileInput = document.getElementById(`fileInput2_${productId}`);
   const file = fileInput.files[0];
@@ -149,6 +142,7 @@ function saveChanges(productId) {
   formData.append('editedPrice', editedPrice);
   formData.append('editedCategory', editedCategory);
   formData.append('editedStock', editedStock);
+  formData.append('selectedOffers', JSON.stringify(selectedOffers));
   formData.append('editedOnline', editedOnline);
   if (file) {
     formData.append('editedImage', file);
@@ -222,13 +216,9 @@ function addProduct() {
     alert("Compila tutti i campi prima di aggiungere il prodotto.");
   }
 }
-function cancelEdit(productId) {
-  // Nascondi il form
-  const form = document.getElementById(`editForm_${productId}`);
-  form.style.display = 'none';
 
-}
 function deleteProduct(productId) {
+  console.log(productId);
   const confirmation = confirm("Sei sicuro di voler eliminare questo prodotto?");
 
   if (!confirmation) {
@@ -257,37 +247,7 @@ function deleteProduct(productId) {
     }
   });
 }
-function deleteCategory(categoryId) {
-  const confirmation = confirm("Sei sicuro di voler eliminare questa categoria?");
 
-  if (!confirmation) {
-    return;
-  }
-
-  // Esegui la chiamata AJAX per eliminare il prodotto
-  $.ajax({
-    type: "POST",
-    url: "/biogg/src/adminAccount.php",
-    data: { action: "delete_category", categoryId: categoryId },
-    success: function (response) {
-      // Gestisci la risposta dal server
-      if (response.success) {
-        //alert("Prodotto eliminato con successo.");
-        // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
-        const rowId = `categoryRow_${categoryId}`;
-        $("#" + rowId).remove();
-        location.reload();
-        window.location.hash = '#category';
-
-      } else {
-        alert("Errore: " + response.message);
-      }
-    },
-    error: function () {
-      alert("Si è verificato un errore durante l'eliminazione della categoria.");
-    }
-  });
-}
 function deleteCategory(categoryId) {
   const confirmation = confirm("Sei sicuro di voler eliminare questa categoria?");
 
@@ -320,20 +280,38 @@ function deleteCategory(categoryId) {
     }
   });
 }
+function addNewCategory() {
 
-function toggleEditFormSlider(sliderId) {
-  const editForm2 = document.getElementById(`editForm2_${sliderId}`);
-  const editButtons2 = document.querySelectorAll(`.btn-edit-slider`);
-  editButtons2.forEach(button => {
-    const buttonSliderId = button.getAttribute('data-sliderId');
-    if (buttonSliderId == sliderId) {
-      editForm2.style.display = (editForm2.style.display === 'none') ? 'block' : 'none';
-      console.log(editForm2.style.display);
-    } else {
-      const otherEditForm = document.getElementById(`editForm2_${buttonSliderId}`);
-      otherEditForm.style.display = 'none';
-    }
-  });
+  // Ottenere i valori modificati dai campi di input
+  const name = document.getElementById('category_name').value;
+
+  if (name!== null) {
+    const formData = new FormData();
+    formData.append('categoryName', name);
+
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/adminAccount.php",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        // Gestisci la risposta dal server
+        if (response.success) {
+          window.location.href = "/biogg/src/adminAccount.php";
+
+          // Se la risposta è positiva, esegui ulteriori azioni
+        } else {
+          alert("Errore: " + response.message);
+        }
+      },
+      error: function () {
+        alert("Si è verificato un errore durante l'aggiunta.");
+      }
+    });
+  } else {
+    alert("Compila tutti i campi prima di aggiungere la categoria.");
+  }
 }
 
 
@@ -381,16 +359,6 @@ function saveChangesSlider(sliderId) {
 }
 
 
-
-function cancelEditSlider(sliderId) {
-  // Nascondi il form
-  const form = document.getElementById(`editForm2_${sliderId}`);
-  form.style.display = 'none';
-
-}
-
-
-
 function deleteSlider(sliderId2) {
   const confirmation = confirm("Sei sicuro di voler eliminare questo slider?");
 
@@ -410,6 +378,8 @@ function deleteSlider(sliderId2) {
         // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
         const rowId = `editForm2_${sliderId2}`;
         $("#" + rowId).closest('tr').remove();
+        window.location.href = "/biogg/src/adminAccount.php";
+
 
       } else {
         alert("Errore: " + response.message);
@@ -448,6 +418,7 @@ function addSlider() {
       success: function (response) {
         // Gestisci la risposta dal server
         if (response.success) {
+          window.location.href = "/biogg/src/adminAccount.php";
 
           // Se la risposta è positiva, esegui ulteriori azioni
         } else {
@@ -462,3 +433,114 @@ function addSlider() {
     alert("Compila tutti i campi prima di aggiungere lo slider.");
   }
 }
+
+
+function saveChangesOffer(offerId) {
+  // Ottenere i valori modificati dai campi di input
+  const editedName = document.getElementById(`editoffer_name_${offerId}`).value;
+  const editedStartDate = document.getElementById(`editoffer_startdate_${offerId}`).value;
+  const editedEndDate = document.getElementById(`editoffer_enddate_${offerId}`).value;
+  const editedType = document.getElementById(`editoffer_type_${offerId}`).value;
+
+  // Costruire l'oggetto con i dati modificati
+  const formData = new FormData();
+  formData.append('offerId', offerId);
+  formData.append('editedName', editedName);
+  formData.append('editedStartDate', editedStartDate);
+  formData.append('editedEndDate', editedEndDate);
+  formData.append('editedType', editedType);
+
+
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      if (response.success) {
+        window.location.href = "/biogg/src/adminAccount.php";
+      } else {
+        // alert("Errore: " + response.message);
+      }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante il salvataggio.");
+    }
+  });
+}
+
+
+function deleteOffer(offerId2) {
+  const confirmation = confirm("Sei sicuro di voler eliminare questa offerta?");
+
+  if (!confirmation) {
+    return;
+  }
+
+  // Esegui la chiamata AJAX per eliminare il prodotto
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: { action: "delete_offer", offerId2: offerId2 },
+    success: function (response) {
+      // Gestisci la risposta dal server
+      if (response.success) {
+        //alert("Prodotto eliminato con successo.");
+        // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
+        const rowId = `editForm3_${offerId2}`;
+        $("#" + rowId).closest('tr').remove();
+        window.location.href = "/biogg/src/adminAccount.php";
+
+      } else {
+        alert("Errore: " + response.message);
+      }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante l'eliminazione dell'offerta.");
+    }
+  });
+}
+
+
+function addNewOffer() {
+
+  // Ottenere i valori modificati dai campi di input
+  const name = document.getElementById('offer_name').value;
+  const startDate = document.getElementById('offer_startdate').value;
+  const endDate = document.getElementById('offer_enddate').value;
+  const type = document.getElementById('offer_type').value;
+
+  // Invia una richiesta AJAX solo quando tutti i campi obbligatori sono compilati
+  if (name && startDate && endDate && type !== null) {
+    const formData = new FormData();
+    formData.append('nameOffer', name);
+    formData.append('startDate', startDate);
+    formData.append('endDate', endDate);
+    formData.append('type', type);
+
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/adminAccount.php",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        // Gestisci la risposta dal server
+        if (response.success) {
+          window.location.href = "/biogg/src/adminAccount.php";
+
+          // Se la risposta è positiva, esegui ulteriori azioni
+        } else {
+          alert("Errore: " + response.message);
+        }
+      },
+      error: function () {
+        alert("Si è verificato un errore durante l'aggiunta.");
+      }
+    });
+  } else {
+    alert("Compila tutti i campi prima di aggiungere l'offerta.");
+  }
+}
+

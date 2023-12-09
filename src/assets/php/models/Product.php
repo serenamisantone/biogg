@@ -107,14 +107,23 @@ class Product
     }
 
     public function setOffers($offers)
-    {
+    { 
+        
         if (!empty($offers)) {
             foreach ($offers as $offer) {
-               
                 $this->offers[] = $offer;
+                    
+                }
+                
             }
         }
-    }
+
+        public function addOffer(Offer $offer)
+{
+    $this->offers[] = $offer;
+}
+
+    
     public function getOffersString()
     {
         if (empty($this->offers)) {
