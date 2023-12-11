@@ -22,12 +22,8 @@ class OfferService
 
         if (($result) && ($result->num_rows > 0)) {
             while ($row = $result->fetch_assoc()) {
-                $offer = new Offer();
-                $offer->setId($row['id']);
-                $offer->setName($row['name']);
-                $offer->setStartDate($row['start_date']);
-                $offer->setEndDate($row['end_date']);
-                $offer->setType($row['type']);
+                $offer = new Offer($row['id'],$row['name'],$row['start_date'],$row['end_date'],$row['type']);
+           
                 $data_offers[] = $offer;
             }
 

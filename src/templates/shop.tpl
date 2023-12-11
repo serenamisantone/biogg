@@ -88,7 +88,7 @@
                                                         <span class="product-name">{$product->getName()}</span>
                                                     </a>
 
-                                                    <h6 class="price text-danger ">€{$product->getPrice()}</h6>
+                                                    <h6 class=" text-danger card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2 ">€{$product->getPrice()}</h6>
                                                 </div>
 
                                                 <form method="POST"

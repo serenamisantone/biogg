@@ -151,7 +151,8 @@
                             <th>Offerte</th>
                             <th>Immagine</th>
                             <th>
-                                <button type="button" class="btn btn-light btn-warning text-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addModalProduct">Aggiungi Prodotto</button>
+                                
+                            <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalProduct">Aggiungi Prodotto</button>
                             </th>
                         </tr>
                     </thead>
@@ -332,7 +333,7 @@
                         <th>Fine</th>
                         <th>Tipo</th>
                         <th>
-                            <button type="button" class="btn btn-light btn-warning text-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addModalOffer">Aggiungi Offerta</button>
+                            <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalOffer">Aggiungi Offerta</button>
                         </th>
                     </tr>
                 </thead>
@@ -417,7 +418,7 @@
                     <th>Nome</th>
                     <th></th>
                     <th>
-                        <button type="button" class="btn btn-light btn-warning text-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addModalCategory">Aggiungi Categoria</button>
+                        <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalCategory">Aggiungi Categoria</button>
                     </th>
                 </tr>
             </thead>
@@ -471,7 +472,7 @@
                         <th>Descrizione</th>
                         <th>Immagine</th>
                         <th>
-                            <button type="button" class="btn btn-light btn-warning text-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#addModalSlider">Aggiungi Slider</button>
+                            <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalSlider">Aggiungi Slider</button>
                         </th>
                     </tr>
                 </thead>
