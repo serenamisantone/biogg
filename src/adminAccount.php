@@ -283,7 +283,7 @@ try {
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("categories", $productService->getAllCategories() );
    // $dataOffers=$productService->getAllProductsWithOffers();
-    $smarty->assign("data_products", $productService->getAllProducts());
+    $smarty->assign("data_products", $productService->getAllProductsWithOffers());
     $smarty->assign("data_slider", $homeService->getSlider());
     $smarty->assign("data_offers", $offerService->getOffers()); 
     $smarty->assign("current_view","adminAccount.tpl");

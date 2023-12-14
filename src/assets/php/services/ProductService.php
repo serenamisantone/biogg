@@ -67,7 +67,71 @@ class ProductService
         return array();
     }
 
-   
+    function getAllProductsWithOffers()
+    {
+        $query = "SELECT 
+                        p.id,
+                        p.name,
+                        p.price,
+                        p.category_id,
+                        p.stock,
+                        p.is_online,
+                        p.image,
+                        o.id AS offer_id,
+                        o.name AS offer_name,
+                        o.start_date,
+                        o.end_date,
+                        o.type
+                    FROM
+                        product p
+                    LEFT JOIN
+                        product_offer po ON p.id = po.product_id
+                    LEFT JOIN
+                        offer o ON po.offer_id = o.id
+                    ORDER BY
+                        p.name ASC";
+        $result = $this->connection->query($query);
+        $data_products = array();
+
+        if ($result && $result->num_rows > 0) {
+            $data_products = array();
+            $currentProductId = null;
+            $currentProduct = null;
+
+            while ($row = $result->fetch_assoc()) {
+                // Se è un nuovo prodotto, crea un nuovo oggetto Product
+                if ($row['id'] != $currentProductId) {
+                    if ($currentProduct !== null) {
+                        $data_products[] = $currentProduct;  // Aggiungi l'oggetto Product alla lista
+                    }
+
+                    $currentProductId = $row['id'];
+                    $currentProduct = new Product();
+                    $currentProduct->setId($row['id']);
+                    $currentProduct->setName($row['name']);
+                    $currentProduct->setPrice($row['price']);
+                    $currentProduct->setCategory($this->getCategoryById($row['category_id']));
+                    $currentProduct->setStock($row['stock']);
+                    $currentProduct->setIsOnline($row['is_online']);
+                    $currentProduct->setImage($row['image']);
+                    $currentProduct->setOffers([]);  // Inizializza l'array di offerte
+                }
+
+                // Crea un oggetto Offer e aggiungilo all'array di offerte del prodotto corrente
+                $offer = new Offer($row['offer_id'],$row['offer_name'],$row['start_date'],$row['end_date'],$row['type']);
+                $currentProduct->addOffer($offer);
+            }
+
+            if ($currentProduct !== null) {
+                $data_products[] = $currentProduct;  // Aggiungi l'ultimo prodotto alla lista
+            }
+
+            $data_products[] = $currentProduct;  // Aggiungi l'ultimo prodotto alla lista
+        }
+
+
+        return $data_products;
+    }
 
     public function getProductById($productId)
     {
@@ -124,9 +188,6 @@ class ProductService
             $product = new ProductInfo();
             $product->setProductId($row['product_id']);
             $product->setIngredients($row['ingredients']);
-            $product->setImage1($row['image1']);
-            $product->setImage2($row['image2']);
-
             $this->addProductFeatures($product);
             return $product;
         } else {
