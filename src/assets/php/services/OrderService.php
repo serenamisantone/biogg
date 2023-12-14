@@ -1,15 +1,19 @@
 <?php
 require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/models/Address.php");
+require_once("./assets/php/models/Order.php");
 require_once("./assets/php/services/CartService.php");
+require_once("./assets/php/services/ProductService.php");
 class OrderService
 {
     private $cartService;
+    private $productService;
     private $connection;
     function __construct()
     {
         $this->connection = DbConnection::getInstance()->getConnection();
         $this->cartService = new CartService();
+        $this->productService = new ProductService();
     }
 
     public function addAddress($address)
@@ -162,25 +166,89 @@ class OrderService
             $result = $this->connection->query($query);
             if ($result) {
                 //chiudo il carrello
-                $query="UPDATE shopping_cart SET is_open=0 WHERE id='$shoppingCartId' ";
-                $result=$this->connection->query("$query");
-                if($result){
+                $orderId = $this->connection->insert_id;
+                $query = "UPDATE shopping_cart SET is_open=0 WHERE id='$shoppingCartId' ";
+                $result = $this->connection->query("$query");
+                if ($result) {
                     //creo un nuovo carrello
-                    $query="INSERT INTO shopping_cart (user_id) VALUES ('$userId')";
-                    $result=$this->connection->query($query);
-                    if($result){
-                    $_SESSION['auth']['cart']=$this->cartService->assignShoppingCart($userId);
-                    return true;
+                    error_log("sono qui cazzooo");
+                    $query = "INSERT INTO shopping_cart (user_id) VALUES ('$userId')";
+                    $result = $this->connection->query($query);
+                    if ($result) {
+                        $query = "INSERT INTO shipping(order_id, `status`) VALUES('$orderId','CONFERMATO') ";
+                        $result = $this->connection->query($query);
+                        if ($result) {
+                            $_SESSION['auth']['cart'] = $this->cartService->assignShoppingCart($userId);
+                            return true;
+                        }
                     }
                 } else {
                     Header("Location: error.php?query_chiusura_carrello_wrong");
                 }
-                
+
             } else {
                 Header("Location: error.php?query_order_wrong");
             }
         } catch (Exception $e) {
             error_log($e->getMessage());
         }
+    }
+
+    public function getOrdersByUserId($userId)
+    {
+        $query = "SELECT * FROM `order` where user_id='$userId'";
+        $result = $this->connection->query($query);
+        if ($result) {
+            $orders = [];
+            while ($row = $result->fetch_assoc()) {
+                $order= $this->getOrderById($row['id']);
+                $orders[] = $order;
+            }
+            return $orders;
+        } else {
+            error_log($result);
+            return;
+        }
+    }
+    public function getOrderProductsByCartId($cartId)
+    {
+        $result = $this->connection->query("SELECT * FROM shopping_cart_product where shopping_cart_product.shopping_cart_id='{$cartId}'");
+
+        $products = array();
+        if ($result && $result->num_rows > 0) {
+
+            while ($cartProduct = $result->fetch_assoc()) {
+
+                $product = $this->productService->getProductById($cartProduct['product_id']);
+                $productJson = array(
+                    'name' => $product->getName(),
+                    'prezzo' => $product->getPrice(),
+                    'quantity' => $cartProduct['added_quantity']
+                );
+                // Aggiungiamo questo array all'array principale
+                $products[] = $productJson;
+            }
+        } else {
+            Header("Location: error.php?qualcosa_e_andato_storto");
+        }
+        return $products;
+    }
+    public function getOrderById($orderId)
+    {
+        $query = "SELECT * FROM `order` where `order`.id='{$orderId}'";
+        $result = $this->connection->query($query);
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $order = new Order($row['id'], $row['user_id'], $row['shopping_cart_id'], $row['total'], $row['date'], $row['address_id']);
+
+
+            $orderId = $row['id'];
+            $statusResult = $this->connection->query("SELECT `status` FROM shipping WHERE order_id='$orderId' ");
+
+            $data = $statusResult->fetch_assoc();
+            $order->setStatus($data['status']);
+            return $order;
+        }
+        return null;
     }
 }

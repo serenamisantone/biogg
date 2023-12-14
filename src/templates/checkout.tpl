@@ -268,5 +268,5 @@
         </div>
     </div>
 </div>
-<script src="assets/js/checkout.js"></script>
+
 <!--checkout section end-->
