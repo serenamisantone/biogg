@@ -19,7 +19,7 @@ try {
         
             switch ($_SESSION['auth']['group']) {
                 case "customer": {
-                        $smarty->assign("current_view", "customerAccount.tpl");
+                    header("Location: customerAccount.php");
                         break;
                     }
                 case "admin": {

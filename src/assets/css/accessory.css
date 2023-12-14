@@ -19,4 +19,19 @@
   margin-right: 10px; /* Aggiungi spazio tra le caselle di controllo */
   margin-bottom: 10px; /* Aggiungi spazio sotto le caselle di controllo */
 }
-  
+.order-history-table th,
+.order-history-table td {
+    /* Imposta la larghezza desiderata per le colonne */
+    width: 500px; /* Modifica il valore a seconda delle tue esigenze */
+    text-align: left; /* Allinea il testo a sinistra */
+}
+
+.order-history-table th.text-center,
+.order-history-table td.text-center {
+    /* Imposta la larghezza desiderata per la colonna con classe text-center */
+    width: 50px; /* Modifica il valore a seconda delle tue esigenze */
+    text-align: center; /* Allinea il testo al centro */
+}
+.order-products {
+  display: none;
+}
