@@ -57,13 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     $productCategory = $_POST['category'];
     $productStock = $_POST['stock'];
     $productOnline = $_POST['isOnline'];
+    $productTitle = $_POST['title'];
+    $productDescription = $_POST['description'];
+    $productIngredients = $_POST['ingredients'];
 
     // Accedi ai dati del file
     $productImage = $productService->uploadImage($_FILES['image']);
     
 
     // Aggiungi il prodotto con tutti i dati
-    $addProduct = $productService->addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage);
+    $addProduct = $productService->addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productTitle, $productDescription, $productIngredients);
 
     // Gestisci la risposta
     if ($addProduct) {
@@ -162,9 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['sliderId'])) {
         echo json_encode($response);
         exit; 
     }
-    $smarty->assign("current_view","adminAccount.tpl");
-    $smarty->assign("data_products", $productService->getAllProducts());
-    $smarty->display("index.tpl");
+   
 }
 
 
@@ -232,9 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['offerId'])) {
         echo json_encode($response);
         exit; 
     }
-    $smarty->assign("current_view","adminAccount.tpl");
-    $smarty->assign("data_products", $productService->getAllProducts());
-    $smarty->display("index.tpl");
+   
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['offerId2'])) {
@@ -276,14 +275,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nameOffer'])) {
         exit;
     }
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productInfoId'])) {
+    $productId = $_POST['productInfoId'];
+    $editedTitle = $_POST['editedTitle'];
+    $editedDescription = $_POST['editedDescription'];
+    $editedIngredients = $_POST['editedIngredients'];
+    $updateChanges = $productService->updateProductInfo($productId,$editedTitle,$editedDescription, $editedIngredients);
+    error_log($updateChanges);
+
+    if ($updateChanges) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+   
+}
 
 
 
 try {
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("categories", $productService->getAllCategories() );
-   // $dataOffers=$productService->getAllProductsWithOffers();
-    $smarty->assign("data_products", $productService->getAllProductsWithOffers());
+    $smarty->assign("data_products", $productService->getAllProducts());
+    $smarty->assign("info_products", $productService->getProductInfo());
     $smarty->assign("data_slider", $homeService->getSlider());
     $smarty->assign("data_offers", $offerService->getOffers()); 
     $smarty->assign("current_view","adminAccount.tpl");

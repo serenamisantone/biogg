@@ -43,21 +43,14 @@ class ProductService
     function getAllProducts()
     {
 
-        $query = "SELECT * FROM product";
+        $query = "SELECT id,name FROM product ORDER BY product.name ASC";
 
         $result = $this->connection->query($query);
         $data_products = array();
 
         if (($result) && ($result->num_rows > 0)) {
             while ($row = $result->fetch_assoc()) {
-                $product = new Product();
-                $product->setId($row['id']);
-                $product->setName($row['name']);
-                $product->setPrice($row['price']);
-                $product->setImage($row['image']);
-                $product->setStock($row['stock']);
-                $product->setIsOnline($row['is_online']);
-                $product->setCategory($this->getCategoryById($row['category_id']));
+                $product = $this->getProductById($row["id"]);
                 $data_products[] = $product;
             }
 
@@ -67,75 +60,11 @@ class ProductService
         return array();
     }
 
-    function getAllProductsWithOffers()
-    {
-        $query = "SELECT 
-                        p.id,
-                        p.name,
-                        p.price,
-                        p.category_id,
-                        p.stock,
-                        p.is_online,
-                        p.image,
-                        o.id AS offer_id,
-                        o.name AS offer_name,
-                        o.start_date,
-                        o.end_date,
-                        o.type
-                    FROM
-                        product p
-                    LEFT JOIN
-                        product_offer po ON p.id = po.product_id
-                    LEFT JOIN
-                        offer o ON po.offer_id = o.id
-                    ORDER BY
-                        p.name ASC";
-        $result = $this->connection->query($query);
-        $data_products = array();
-
-        if ($result && $result->num_rows > 0) {
-            $data_products = array();
-            $currentProductId = null;
-            $currentProduct = null;
-
-            while ($row = $result->fetch_assoc()) {
-                // Se è un nuovo prodotto, crea un nuovo oggetto Product
-                if ($row['id'] != $currentProductId) {
-                    if ($currentProduct !== null) {
-                        $data_products[] = $currentProduct;  // Aggiungi l'oggetto Product alla lista
-                    }
-
-                    $currentProductId = $row['id'];
-                    $currentProduct = new Product();
-                    $currentProduct->setId($row['id']);
-                    $currentProduct->setName($row['name']);
-                    $currentProduct->setPrice($row['price']);
-                    $currentProduct->setCategory($this->getCategoryById($row['category_id']));
-                    $currentProduct->setStock($row['stock']);
-                    $currentProduct->setIsOnline($row['is_online']);
-                    $currentProduct->setImage($row['image']);
-                    $currentProduct->setOffers([]);  // Inizializza l'array di offerte
-                }
-
-                // Crea un oggetto Offer e aggiungilo all'array di offerte del prodotto corrente
-                $offer = new Offer($row['offer_id'],$row['offer_name'],$row['start_date'],$row['end_date'],$row['type']);
-                $currentProduct->addOffer($offer);
-            }
-
-            if ($currentProduct !== null) {
-                $data_products[] = $currentProduct;  // Aggiungi l'ultimo prodotto alla lista
-            }
-
-            $data_products[] = $currentProduct;  // Aggiungi l'ultimo prodotto alla lista
-        }
-
-
-        return $data_products;
-    }
-
+    
     public function getProductById($productId)
     {
-        $query = "SELECT * FROM product WHERE id= $productId";
+        $query = "SELECT * FROM product WHERE id = $productId ORDER BY product.name ASC";
+
         $result = $this->connection->query($query);
         if ($result && $result->num_rows > 0) {
             $row = $result->fetch_assoc();
@@ -178,6 +107,8 @@ class ProductService
         return null;
     }
 
+
+
     public function getProductInfoById($productId)
     {
         $query = "SELECT * FROM product_info where product_id=$productId";
@@ -191,10 +122,30 @@ class ProductService
             $this->addProductFeatures($product);
             return $product;
         } else {
-            Header("Location: error.php?info_non_trovate");
+            return;
         }
         return null;
     }
+    public function getProductInfo()
+{
+    $query = "SELECT * FROM product_info";
+    $result = $this->connection->query($query);
+    $info_products = array();
+
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $product = new ProductInfo();
+            $product->setProductId($row['product_id']);
+            $product->setIngredients($row['ingredients']);
+            $this->addProductFeatures($product);
+            $info_products[] = $product;
+        }
+
+        return $info_products;
+    } else {
+        return array();  // Restituisci un array vuoto se non ci sono risultati
+    }
+}
 
     public function addProductFeatures($product)
     {
@@ -214,7 +165,7 @@ class ProductService
         }
     }
 
-    function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage) {
+    function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productTitle, $productDescription, $productIngredients) {
         $query = "INSERT INTO product (name, price, category_id, stock, is_online, image) VALUES ('{$productName}', '{$productPrice}', '{$productCategory}', '{$productStock}', '{$productOnline}', '{$productImage}')";
     
         $result = $this->connection->query($query);
@@ -222,7 +173,18 @@ class ProductService
         if ($result === false) {
             return false;
         }
+        $result = $this->connection->query("SELECT LAST_INSERT_ID() ");
+        $lastInsertId = $result->fetch_assoc(); // Recupera un array associativo
+        $productId = $lastInsertId['LAST_INSERT_ID()'];
+        $query = "INSERT INTO product_feature (product_id, title, description) VALUES ('{$productId}', '{$productTitle}', '{$productDescription}')";
     
+        $result = $this->connection->query($query);
+        if ($result === false) {
+            return false;
+        }
+        $query = "INSERT INTO product_info (product_id, ingredients) VALUES ('{$productId}', '{$productIngredients}')";
+    
+        $result = $this->connection->query($query);
         return true;
     }
             
@@ -246,7 +208,18 @@ class ProductService
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
+        $query = "DELETE FROM product_feature WHERE product_id = {$productId}";
+        $result = $this->connection->query($query);
     
+        if ($result === false) {
+            return false;
+        }
+    
+        $query = "DELETE FROM product_info WHERE product_id = {$productId}";
+        $result = $this->connection->query($query);
+        if ($result === false) {
+            return false;
+        }
         // Elimina il record dal database
         $query = "DELETE FROM product WHERE id={$productId}";
         $result = $this->connection->query($query);
@@ -260,7 +233,26 @@ class ProductService
     }
 
     
-
+    public function updateProductInfo($productId, $editedTitle, $editedDescription, $editedIngredients) {
+        error_log("id:".$productId);
+        $queryFeature = "UPDATE product_feature SET title = '$editedTitle', description = '$editedDescription' WHERE product_id = '$productId'";
+        $resultFeature = $this->connection->query($queryFeature);
+    
+        if ($resultFeature === false) {
+            return "Errore nell'aggiornamento delle feature";
+        }
+    
+        $queryInfo = "UPDATE product_info SET ingredients = '$editedIngredients' WHERE product_id = '$productId'";
+        $resultInfo = $this->connection->query($queryInfo);
+    
+        if ($resultInfo === false) {
+            return "Errore nell'aggiornamento delle informazioni";
+        }
+    
+        return true;
+    }
+    
+    
 
 
 

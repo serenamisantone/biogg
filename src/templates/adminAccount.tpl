@@ -36,6 +36,36 @@
                                     Prodotti
                                 </a>
                             </li>
+                            <li>
+                            <a href="adminAccount.php#productsdetails" data-bs-toggle="tab">
+                            <span class="me-2">
+                            <svg
+                              width="16"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M3.33333 1.99341H6C6.35362 1.99341 6.69276 2.13388 6.94281 2.38393C7.19286 2.63398 7.33333 2.97312 7.33333 3.32674V5.99341C7.33333 6.34703 7.19286 6.68617 6.94281 6.93622C6.69276 7.18627 6.35362 7.32674 6 7.32674H3.33333C2.97971 7.32674 2.64057 7.18627 2.39052 6.93622C2.14048 6.68617 2 6.34703 2 5.99341V3.32674C2 2.97312 2.14048 2.63398 2.39052 2.38393C2.64057 2.13388 2.97971 1.99341 3.33333 1.99341Z"
+                                fill="#212B36"
+                              />
+                              <path
+                                d="M10 1.99341H12.6667C13.0203 1.99341 13.3594 2.13388 13.6095 2.38393C13.8595 2.63398 14 2.97312 14 3.32674V5.99341C14 6.34703 13.8595 6.68617 13.6095 6.93622C13.3594 7.18627 13.0203 7.32674 12.6667 7.32674H10C9.64638 7.32674 9.30724 7.18627 9.05719 6.93622C8.80714 6.68617 8.66667 6.34703 8.66667 5.99341V3.32674C8.66667 2.97312 8.80714 2.63398 9.05719 2.38393C9.30724 2.13388 9.64638 1.99341 10 1.99341Z"
+                                fill="#212B36"
+                              />
+                              <path
+                                d="M6 8.66008H3.33333C2.97971 8.66008 2.64057 8.80055 2.39052 9.0506C2.14048 9.30065 2 9.63979 2 9.99341V12.6601C2 13.0137 2.14048 13.3528 2.39052 13.6029C2.64057 13.8529 2.97971 13.9934 3.33333 13.9934H6C6.35362 13.9934 6.69276 13.8529 6.94281 13.6029C7.19286 13.3528 7.33333 13.0137 7.33333 12.6601V9.99341C7.33333 9.63979 7.19286 9.30065 6.94281 9.0506C6.69276 8.80055 6.35362 8.66008 6 8.66008Z"
+                                fill="#212B36"
+                              />
+                              <path
+                                d="M10 8.66008H12.6667C13.0203 8.66008 13.3594 8.80055 13.6095 9.0506C13.8595 9.30065 14 9.63979 14 9.99341V12.6601C14 13.0137 13.8595 13.3528 13.6095 13.6029C13.3594 13.8529 13.0203 13.9934 12.6667 13.9934H10C9.64638 13.9934 9.30724 13.8529 9.05719 13.6029C8.80714 13.3528 8.66667 13.0137 8.66667 12.6601V9.99341C8.66667 9.63979 8.80714 9.30065 9.05719 9.0506C9.30724 8.80055 9.64638 8.66008 10 8.66008Z"
+                                fill="#212B36"/>
+                            </svg>
+                            </span>
+                                   Descrizione Prodotti
+                                </a>
+                            </li>
                 <li>
                 <a href="adminAccount.php#offerte" data-bs-toggle="tab">
                 <span class="me-2">
@@ -157,7 +187,9 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {foreach $data_products as $product}
+                    {foreach $data_products as $product}
+                        
+                    
                             <tr>
                                 <td>{$product->getId()}</td>
                                 <td>{$product->getName()}</td>
@@ -226,6 +258,18 @@
 <div id="drop-area">
 <label for="fileInput" class="text-primary">Immagine:</label>
 <input type="file" id="fileInput" name="image" class="custom-file-input" required> 
+</div>
+<div class="form-group">
+<label for="product_title"class="text-primary">Titolo:</label>
+<input type="text" id="product_title" name="product_title" class="form-control" placeholder="Inserisci titolo" required>
+</div>
+<div class="form-group">
+<label for="product_description"class="text-primary">Descrizione:</label>
+<input type="text" id="product_description" name="product_description" class="form-control" placeholder="Inserisci descrizione" required>
+</div>
+<div class="form-group">
+<label for="product_ingredients"class="text-primary">Ingredienti:</label>
+<input type="text" id="product_ingredients" name="product_ingredients" class="form-control" placeholder="Inserisci gli ingredienti" required>
 </div>
 <button type="submit" class="btn btn-primary btn-block" onclick="addProduct()">Aggiungi Prodotto</button>
 </form>
@@ -319,8 +363,72 @@
 </div></div>
 {/foreach}
 </div>
-
-
+<div class="tab-content">
+    <div class="tab-pane fade" id="productsdetails">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Titolo</th>
+                        <th>Descrizione</th>
+                        <th>Ingredienti</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {foreach $info_products as $productInfo}
+                    {assign "productId" $productInfo->getProductId()}
+                        <tr>
+                            {foreach $productInfo->getFeatures() as $feature}
+                                {foreach $data_products as $product}
+                                    {if $product->getId() eq $productId}
+                            <td>{$product->getName()}</td>
+                                    {/if}
+                                    
+                    {/foreach}
+                            <td>{$feature.title}</td>
+                            <td>{$feature.description}</td>
+                            <td>{$productInfo->getIngredients()}</td>
+                            <td>
+                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModalProductDescription_{$productId}">Modifica</button>
+                            </td>
+                        </tr>
+                        <!-- Modal Modifica Descrizione -->
+                        
+                        <div class="modal fade" id="editModalProductDescription_{$productId}" tabindex="-1" aria-labelledby="editModalLabel_{$productId}" aria-hidden="true">
+                            <!-- Contenuto del modal per modificare un'offerta -->
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+                                            <h2 class="modal-title fs-5 mb-3">Modifica Descrizione</h2>
+                                            <div class="row align-items-center g-4 mt-3">
+                                                <form id="editForm5_{$productId}" enctype="multipart/form-data">
+                                                {foreach $data_products as $product}
+                                                {if $product->getId() eq $productId}
+                                                <label for="editproductdescription_name_{$productId}">Nome Prodotto:{$product->getName()}</label>
+                                            {/if}
+                                        {/foreach} 
+                                                    <input type="text" id="editproductdescription_title_{$productId}" class="edit-input" value="{$feature.title}">
+                                                    <input type="text" id="editproductdescription_description_{$productId}" class="edit-input" value="{$feature.description}">
+                                                    <input type="text" id="editproductdescription_ingredients_{$productId}" class="edit-input" value="{$productInfo->getIngredients()}">
+                                                    <button onclick="saveChangesProductDescription({$productId})" class="btn btn-primary btn-sm">Salva</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    
+                    {/foreach}
+                    {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
     <div class="tab-content">
     <div class="tab-pane fade" id="offerte">
         <div class="table-responsive">
@@ -387,7 +495,7 @@
                                         <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
                                             <h2 class="modal-title fs-5 mb-3">Modifica Offerta</h2>
                                             <div class="row align-items-center g-4 mt-3">
-                                                <form id="editForm3_{$offer->getId()}" enctype="multipart/form-data" class="edit-form">
+                                                <form id="editForm3_{$offer->getId()}" enctype="multipart/form-data">
                                                     <input type="text" id="editoffer_name_{$offer->getId()}" class="edit-input" value="{$offer->getName()}">
                                                     <input type="date" id="editoffer_startdate_{$offer->getId()}" class="edit-input" value="{$offer->getStartDate()}">
                                                     <input type="date" id="editoffer_enddate_{$offer->getId()}" class="edit-input" value="{$offer->getEndDate()}">
@@ -535,8 +643,8 @@
                                         <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
                                             <h2 class="modal-title fs-5 mb-3">Modifica Slider</h2>
                                             <div class="row align-items-center g-4 mt-3">
-                                                <form id="editForm2_{$slider->getId()}" enctype="multipart/form-data" class="edit-form">
-                                                    <input type="text" id="edit_title_{$slider->getId()}" class="edit-input" value="{$slider->getTitle()}">
+                                                <form id="editForm2_{$slider->getId()}" enctype="multipart/form-data" >
+                                                    <input type="text" id="edit_title_{$slider->getId()}" class="edit-input " value="{$slider->getTitle()}">
                                                     <input type="text" id="edit_caption_{$slider->getId()}" class="edit-input" value="{$slider->getCaption()}">
                                                     <input type="text" id="edit_description_{$slider->getId()}" class="edit-input" value="{$slider->getDescription()}">
                                                     <div id="drop-area">

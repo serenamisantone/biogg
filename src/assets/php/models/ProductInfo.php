@@ -2,10 +2,8 @@
 class ProductInfo
 {
 	private $productId;
-	private $description;
 	private $ingredients;
-	private $image1;
-	private $image2;
+
 
 	private $features = [];
 
@@ -24,16 +22,6 @@ class ProductInfo
 		$this->productId = $productId;
 	}
 
-	public function getDescription()
-	{
-		return $this->description;
-	}
-
-	public function setDescription($description)
-	{
-		$this->description = $description;
-	}
-
 	public function getIngredients()
 	{
 		return $this->ingredients;
@@ -43,29 +31,6 @@ class ProductInfo
 	{
 		$this->ingredients = $ingredients;
 	}
-
-
-	public function getImage1()
-	{
-		return $this->image1;
-	}
-
-	public function setImage1($image1)
-	{
-		$this->image1 = $image1;
-	}
-
-
-	public function getImage2()
-	{
-		return $this->image2;
-	}
-
-	public function setImage2($image2)
-	{
-		$this->image2 = $image2;
-	}
-
 
 	public function getFeatures()
 	{

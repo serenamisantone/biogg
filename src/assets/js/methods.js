@@ -181,10 +181,12 @@ function addProduct() {
   const online = document.getElementById('online_yes').checked ? 1 : 0;
   const fileInput = document.getElementById('fileInput');
   const file = fileInput.files[0];
-  console.log(file);
+  const title = document.getElementById('product_title').value;
+  const description = document.getElementById('product_description').value;
+  const ingredients = document.getElementById('product_ingredients').value;
 
   // Invia una richiesta AJAX solo quando tutti i campi obbligatori sono compilati
-  if (name && price && category && stock !== null) {
+  if (name && price && category && stock && title && description && ingredients !== null) {
     const formData = new FormData();
     formData.append('name', name);
     formData.append('price', price);
@@ -192,6 +194,9 @@ function addProduct() {
     formData.append('stock', stock);
     formData.append('isOnline', online);
     formData.append('image', file);
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('ingredients', ingredients);
 
     $.ajax({
       type: "POST",
@@ -218,7 +223,6 @@ function addProduct() {
 }
 
 function deleteProduct(productId) {
-  console.log(productId);
   const confirmation = confirm("Sei sicuro di voler eliminare questo prodotto?");
 
   if (!confirmation) {
@@ -544,3 +548,35 @@ function addNewOffer() {
   }
 }
 
+function saveChangesProductDescription(productId) {
+  // Ottenere i valori modificati dai campi di input
+  const editedTitle = document.getElementById(`editproductdescription_title_${productId}`).value;
+  const editedDescription = document.getElementById(`editproductdescription_description_${productId}`).value;
+  const editedIngredients = document.getElementById(`editproductdescription_ingredients_${productId}`).value;
+
+  // Costruire l'oggetto con i dati modificati
+  const formData = new FormData();
+  formData.append('productInfoId', productId);
+  formData.append('editedTitle', editedTitle);
+  formData.append('editedDescription', editedDescription);
+  formData.append('editedIngredients', editedIngredients);
+
+
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      if (response.success) {
+        window.location.href = "/biogg/src/adminAccount.php";
+      } else {
+        // alert("Errore: " + response.message);
+      }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante il salvataggio.");
+    }
+  });
+}
