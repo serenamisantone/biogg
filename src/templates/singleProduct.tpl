@@ -74,17 +74,16 @@
                           </ul>
                           <div class="tab-content">
                               <div class="tab-pane fade show active px-4 py-5" id="description">
-                                  <p class="mb-4">{$product_info->getDescription()}</p>
-                                  <table class="w-100 product-info-table">
+
                                   {assign var="features" value = $product_info -> getFeatures()}
-                                      <tr>
-                                          {foreach $features as $feature }
-                                              <td class="text-dark fw-semibold">{$feature['title']}</td>
-                                              <td>{$feature['description']}</td>
-                                          </tr>
-                                      {/foreach}
-                                      </table>
-                                 
+                                  <tr>
+                                      {foreach $features as $feature }
+                                          <td class="text-dark fw-semibold">{$feature['title']}</td>
+                                          <td>{$feature['description']}</td>
+                                      </tr><br>
+                                  {/foreach}
+                                  </table>
+
                               </div>
                               <div class="tab-pane fade px-4 py-5" id="info">
                                   <h6 class="mb-2">Ingredienti:</h6>

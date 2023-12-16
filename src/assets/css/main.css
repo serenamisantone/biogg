@@ -30062,7 +30062,8 @@ body {
 }
 
 .vertical-product-card .card-content {
-    padding: 24px 32px
+    padding: 0px 32px;
+    padding-bottom: 12px;
 }
 
 .vertical-product-card .card-content .card-title {
