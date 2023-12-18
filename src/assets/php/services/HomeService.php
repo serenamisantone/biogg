@@ -89,7 +89,12 @@ function updateSlider($sliderId, $editedTitle, $editedCaption, $editedDescriptio
         }
     }
     // Aggiorna il record nel database
-    $query = "UPDATE slider SET title = '$editedTitle', caption = '$editedCaption', description = '$editedDescription', image = '$editedImage2' WHERE id = '$sliderId'";
+
+$query = "UPDATE slider SET title = ?, caption = ?, description = ?, image = ? WHERE id = ?";
+$stmt = $this->connection->prepare($query);
+$stmt->bind_param("ssssi", $editedTitle, $editedCaption, $editedDescription, $editedImage2, $sliderId);
+$result = $stmt->execute();
+$stmt->close();
     $result = $this->connection->query($query);
 
     if ($result === false) {
@@ -137,7 +142,11 @@ function removeFromSlider($sliderId){
 
 
 function addNewSlider($sliderTitle, $sliderCaption, $sliderDescription, $sliderImage) {
-    $query = "INSERT INTO slider (title, caption, description, image) VALUES ('{$sliderTitle}', '{$sliderCaption}', '{$sliderDescription}', '{$sliderImage}')";
+$query = "INSERT INTO slider (title, caption, description, image) VALUES (?, ?, ?, ?)";
+$stmt = $this->connection->prepare($query);
+$stmt->bind_param("ssss", $sliderTitle, $sliderCaption, $sliderDescription, $sliderImage);
+$result = $stmt->execute();
+$stmt->close();
 
     $result = $this->connection->query($query);
 

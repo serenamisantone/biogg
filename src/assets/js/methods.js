@@ -71,54 +71,6 @@ function removeFromWishlist(productId) {
     }
   });
 }
-function category(categoryId) {
-  $.ajax({
-    type: "GET",
-    url: "/biogg/src/shop.php",
-    data: { categoryId: categoryId },
-    success: function (response) {
-      updateProductsSection(response);
-    },
-  });
-}
-function updateProductsSection(products) {
-  $('#products-section').empty();
-  products.forEach(function (product) {
-
-    //Crea un nuovo elemento di prodotto con tutte le informazioni
-    var productElement = '<div class="col-lg-4 col-md-6 col-sm-10">';
-    productElement += '<div class="vertical-product-card rounded-2 position-relative border-0 bg-white bg-white">';
-    productElement += '<span class="offer-badge text-white fw-bold fs-xxs bg-danger position-absolute start-0 top-0">-12% OFF</span>';
-    productElement += '<div class="thumbnail position-relative text-center p-4">';
-    productElement += '<img src="assets/img/products/' + product.image + '" alt="' + product.name + '" class="img-fluid">';
-    productElement += '<button class="add_wishlist_btn" onclick="heartWishlist(this, ' + product.id + ')">';
-    productElement += '<i class="' + (product.isInWishlist ? 'fas' : 'far') + ' fa-heart" style="color:red" data-isInWishlist="' + product.isInWishlist + '"></i>';
-    productElement += '</button>';
-    productElement += '</div>';
-    productElement += '<div class="card-content">';
-    productElement += '<div class="mb-2 tt-category tt-line-clamp tt-clamp-1">';
-    productElement += '<a href="#" class="d-inline-block text-muted fs-xxs">' + product.category + '</a>';
-    productElement += '</div>';
-    productElement += '<div class="product-card">';
-    productElement += '<div style="display: flex; align-items: center;">';
-    productElement += '<a href="singleProduct.php?id=' + product.id + '" class="card-title fw-bold d-block mb-2 tt-line-clamp tt-clamp-2" style="flex: 1; text-decoration: none;">';
-    productElement += '<span class="product-name">' + product.name + '</span>';
-    productElement += '</a>';
-    productElement += '</div>';
-    productElement += '</div>';
-    productElement += '<h6 class="price text-danger mb-4">€' + product.price + '</h6>';
-    productElement += '<form method="POST" action="shop.php">';
-    productElement += '<input type="hidden" name="addProduct" value="' + product.id + '">';
-    productElement += '<button type="submit" class="btn btn-outline-secondary d-block btn-md">Aggiungi al carrello</button>';
-    productElement += '</form>';
-    productElement += '</div>';
-    productElement += '</div>';
-    productElement += '</div>';
-
-    // Aggiungi il nuovo elemento di prodotto al DOM
-    $('#products-section').append(productElement);
-  });
-}
 
 function saveChanges(productId) {
   // Ottenere i valori modificati dai campi di input
@@ -157,12 +109,13 @@ offerCheckboxes.forEach((checkbox) => {
     contentType: false,
     processData: false,
     success: function (response) {
+      console.log(response);
       // Gestisci la risposta dal server (ad esempio, aggiorna la visualizzazione del carrello)
       if (response.success) {
         window.location.href = "/biogg/src/adminAccount.php";
         //alert("Modifiche salvate");
       } else {
-        // alert("Errore: " + response.message);
+         alert("Errore: " + response.message);
       }
     },
     error: function () {

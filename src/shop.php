@@ -60,10 +60,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cart_product_id']) &&
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
     $searchQuery = $_GET['searchQuery'];
     $smarty->assign("current_view", "shop.tpl");
+    $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $products_per_page = 9; 
+    $offset = ($current_page - 1) * $products_per_page;
     $smarty->assign("all_products", $productService->searchProducts($searchQuery));
+    error_log(print_r($productService->searchProducts($searchQuery), true));
     $smarty->assign("totalPrice", $cartService->getTotalPrice());
     $smarty->assign("all_categories", $productService->getAllCategories());
     $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
+    $smarty->assign("current_page", $current_page);
     $smarty->assign("total_products", $productService->getTotalProduct());
     $smarty->assign("total_pages", $productService->getImpagination());
     $smarty->display("index.tpl");
@@ -71,12 +76,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
 }
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['categoryId'])) {
     $categoryId = $_GET['categoryId'];
-    error_log($categoryId);
-    $products = $productService->getProductsByCategory($categoryId);
+    $smarty->assign("current_view", "shop.tpl");
+    $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $products_per_page = 9; 
+    $offset = ($current_page - 1) * $products_per_page;
+    $smarty->assign("all_products", $productService->getProductsByCategory($categoryId));
+    error_log(print_r($productService->getProductsByCategory($categoryId), true));
 
-    header('Content-Type: application/json');
-            echo json_encode($products);
-            exit();
+    $smarty->assign("totalPrice", $cartService->getTotalPrice());
+    $smarty->assign("all_categories", $productService->getAllCategories());
+    $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
+    $smarty->assign("total_products", $productService->getTotalProduct());
+    $smarty->assign("current_page", $current_page);
+    $smarty->assign("total_pages", $productService->getImpagination());
+    $smarty->display("index.tpl");
+    exit();
 }
 
 try {
