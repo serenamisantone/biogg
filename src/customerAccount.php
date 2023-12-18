@@ -40,6 +40,7 @@ try {
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("categories", $productService->getAllCategories());
     $smarty->assign("addresses", $orderService->getAddressesByUserId($_SESSION["auth"]["user"]));
+    $smarty->assign("userCards",$orderService->getAllCreditCardsByUserId($_SESSION['auth']['user']));
     $smarty->assign("user", $userService->getUserById($_SESSION['auth']['user']));
     $smarty->assign("userOrders", $orderService->getOrdersByUserId($_SESSION['auth']['user']));
     $smarty->assign("current_view", "customerAccount.tpl");

@@ -2,6 +2,7 @@
 require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/models/Address.php");
 require_once("./assets/php/models/Order.php");
+require_once("./assets/php/models/CreditCard.php");
 require_once("./assets/php/services/CartService.php");
 require_once("./assets/php/services/ProductService.php");
 class OrderService

@@ -46,55 +46,43 @@ function populateTable(response) {
     }
 }
 function updateOrderProgress(orderStatus) {
-    var progressBar = document.getElementById("progress-bar");
     var confermatoStep = document.getElementById("confermato-step");
     var shippedStep = document.getElementById("spedito-step");
     var preparazioneStep = document.getElementById("preparazione-step");
     var consegnatoStep = document.getElementById("consegnato-step");
 
-    var steps = progressBar.querySelectorAll(".tt-step");
-    steps.forEach(function (step) {
-        step.classList.remove("active", "tt-step-done");
-    });
+        confermatoStep.classList.remove("active", "tt-step-done");
+        shippedStep.classList.remove("active", "tt-step-done");
+        preparazioneStep.classList.remove("active", "tt-step-done");
+        consegnatoStep.classList.remove("active", "tt-step-done");
+   
+     
     // Imposta i passi in base allo stato dell'ordine
     switch (orderStatus) {
         case "CONFERMATO":
             confermatoStep.classList.add("tt-step-done");
             preparazioneStep.classList.add("active");
-            preparazioneStep.classList.remove("tt-step-done");
-            shippedStep.classList.remove("tt-step-done","active");
-            consegnatoStep.classList.remove("tt-step-done","active");
+           
             break; // Nessuna azione richiesta
         case "IN PREPARAZIONE":
             confermatoStep.classList.add("tt-step-done");
-            confermatoStep.classList.remove("active");
             preparazioneStep.classList.add("tt-step-done");
-            preparazioneStep.classList.remove("active")
             shippedStep.classList.add("active");
-            shippedStep.classList.remove("tt-step-done");
-            consegnatoStep.classList.remove("tt-step-done","active");
             break;
         case "SPEDITO":
             confermatoStep.classList.add("tt-step-done");
-            confermatoStep.classList.remove("active");
             preparazioneStep.classList.add("tt-step-done");
-            preparazioneStep.classList.remove("active")
             shippedStep.classList.add("tt-step-done");
-            shippedStep.classList.remove("active");
             consegnatoStep.classList.add("active");
-            consegnatoStep.classList.remove("tt-step-done");
             break;
         case "CONSEGNATO":
             confermatoStep.classList.add("tt-step-done");
-            confermatoStep.classList.remove("active");
             preparazioneStep.classList.add("tt-step-done");
-            preparazioneStep.classList.remove("active")
             shippedStep.classList.add("tt-step-done");
-            shippedStep.classList.remove("active");
             consegnatoStep.classList.add("tt-step-done");
-            consegnatoStep.classList.remove("active");
             break;
         default:
             break;
     }
 }
+
