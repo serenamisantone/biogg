@@ -303,7 +303,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productInfoId'])) {
 try {
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("categories", $productService->getAllCategories() );
-    $smarty->assign("data_products", $productService->getAllProducts());
+    $smarty->assign("data_products", $productService->getAllProductsWithoutPriceOffer());
     $smarty->assign("info_products", $productService->getProductInfo());
     $smarty->assign("data_slider", $homeService->getSlider());
     $smarty->assign("data_offers", $offerService->getOffers()); 

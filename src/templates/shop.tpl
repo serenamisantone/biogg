@@ -3,7 +3,7 @@
 
     <!--shop grid section start-->
     <section class="gshop-gshop-grid"  style="padding-top: 20px; padding-bottom: 20px;">
-        <div class="container">
+        <div class="container" id="products-container">
             <div class="row g-4">
                 <div class="col-xl-3">
                     <div class="gshop-sidebar bg-white rounded-2 overflow-hidden">
@@ -22,17 +22,20 @@
                         </div>
                         <div class="sidebar-widget category-widget bg-white py-5 px-4 border-top">
                             <div class="widget-title d-flex">
-                                <h6 class="mb-0 flex-shrink-0">Categories</h6>
+                                <h6 class="mb-0 flex-shrink-0">Categorie</h6>
                                 <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
                             </div>
                             <ul class="widget-nav mt-4">
-                                {foreach $all_categories as $category}
-                                    <li><a href="#" class="d-flex justify-content-between align-items-center"
-                                            onclick="category({$category->getId()})"
-                                            data-category-id="{$category->getId()}">{$category->getName()}</a>
-                                    </li>
-                                {{/foreach}}
-                            </ul>
+    {foreach $all_categories as $category}
+        <li>
+            <a href="shop.php?categoryId={$category->getId()}" class="d-flex justify-content-between align-items-center"
+               data-category-id="{$category->getId()}">
+               {$category->getName()}
+            </a>
+        </li>
+    {/foreach}
+</ul>
+
                         </div>
 
 
