@@ -79,7 +79,7 @@ class ProductService
         return array();
     }
 
-    
+
     public function getProductById($productId)
     {
         $query = "SELECT * FROM product WHERE id = $productId ORDER BY product.name ASC";
@@ -92,7 +92,7 @@ class ProductService
             $product->setName($row['name']);
 
             $product->setImage($row['image']);
-           
+
             $product->setStock($row['stock']);
             $product->setIsOnline($row['is_online']);
             $product->setCategory($this->getCategoryById($row['category_id']));
@@ -124,7 +124,7 @@ class ProductService
             $product->setName($row['name']);
 
             $product->setImage($row['image']);
-           
+
             $product->setStock($row['stock']);
             $product->setIsOnline($row['is_online']);
             $product->setCategory($this->getCategoryById($row['category_id']));
@@ -138,59 +138,60 @@ class ProductService
     }
     public function getProductsByCategory($categoryId)
     {
-        $query = "SELECT * FROM product WHERE category_id = '{$categoryId}'";
+        $query = "SELECT id FROM product WHERE category_id = '{$categoryId}'";
         $result = $this->connection->query($query);
         $all_products = array();
-    
+
         if (($result) && ($result->num_rows > 0)) {
             while ($row = $result->fetch_assoc()) {
-                $all_products[] = $row;
+                $product = $this->getProductById($row['id']);
+                $all_products[] = $product;
             }
             return $all_products;
         }
-    
+
         return null;
     }
-    
+
 
 
     public function getProductInfoById($productId)
     {
-        $query = "SELECT * FROM product_info where product_id=$productId";
+        $query = "SELECT * FROM product where id=$productId";
         $result = $this->connection->query($query);
 
         if (($result) && ($result->num_rows > 0)) {
             $row = $result->fetch_assoc();
             $product = new ProductInfo();
-            $product->setProductId($row['product_id']);
+            $product->setProductId($row['id']);
             $product->setIngredients($row['ingredients']);
-            $this->addProductFeatures($product);
+            $product->setDescription($row['description']);
             return $product;
         } else {
-            return;
+            return ;
         }
-        return null;
+       
     }
     public function getProductInfo()
-{
-    $query = "SELECT * FROM product_info";
-    $result = $this->connection->query($query);
-    $info_products = array();
+    {
+        $query = "SELECT * FROM product";
+        $result = $this->connection->query($query);
+        $info_products = array();
 
-    if ($result && $result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $product = new ProductInfo();
-            $product->setProductId($row['product_id']);
-            $product->setIngredients($row['ingredients']);
-            $this->addProductFeatures($product);
-            $info_products[] = $product;
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $product = new ProductInfo();
+                $product->setProductId($row['product_id']);
+                $product->setIngredients($row['ingredients']);
+                $product->setDescription($row['description']);
+                $info_products[] = $product;
+            }
+
+            return $info_products;
+        } else {
+            return array();  // Restituisci un array vuoto se non ci sono risultati
         }
-
-        return $info_products;
-    } else {
-        return array();  // Restituisci un array vuoto se non ci sono risultati
     }
-}
 
     public function addProductFeatures($product)
     {
@@ -210,72 +211,74 @@ class ProductService
         }
     }
 
-    function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productTitle, $productDescription, $productIngredients) {
+    function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productTitle, $productDescription, $productIngredients)
+    {
         $query = "INSERT INTO product (name, price, category_id, stock, is_online, image) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param("ssiiis", $productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage);
-        
+
         $result = $stmt->execute();
-        
+
         if ($result === false) {
             return false;
         }
-        
+
         $productId = $stmt->insert_id;
-        
+
         // Inserisci in product_feature
         $query = "INSERT INTO product_feature (product_id, title, description) VALUES (?, ?, ?)";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param("iss", $productId, $productTitle, $productDescription);
-        
+
         $result = $stmt->execute();
-        
+
         if ($result === false) {
             return false;
         }
-        
+
         // Inserisci in product_info
         $query = "INSERT INTO product_info (product_id, ingredients) VALUES (?, ?)";
         $stmt = $this->connection->prepare($query);
         $stmt->bind_param("is", $productId, $productIngredients);
-        
+
         $result = $stmt->execute();
-        
+
         if ($result === false) {
             return false;
         }
-        
+
         return true;
     }
-    
-            
-    function removeFromProduct($productId){
+
+
+    function removeFromProduct($productId)
+    {
         // Ottieni il nome dell'immagine dal database
         $imageQuery = "SELECT image FROM product WHERE id={$productId}";
         $imageResult = $this->connection->query($imageQuery);
-    
+
         if ($imageResult === false) {
             // Gestisci l'errore se necessario
             return false;
         }
-    
+
         $imageRow = $imageResult->fetch_assoc();
         $imageName = $imageRow['image'];
 
         // Specifica il percorso completo dell'immagine
         $imagePath = "assets/img/products/{$imageName}";
-    
+
         // Elimina l'immagine dalla cartella
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
         $query = "DELETE FROM product_feature WHERE product_id = {$productId}";
         $result = $this->connection->query($query);
-    
+
         if ($result === false) {
             return false;
         }
-    
+
         $query = "DELETE FROM product_info WHERE product_id = {$productId}";
         $result = $this->connection->query($query);
         if ($result === false) {
@@ -284,46 +287,47 @@ class ProductService
         // Elimina il record dal database
         $query = "DELETE FROM product WHERE id={$productId}";
         $result = $this->connection->query($query);
-    
+
         if ($result === false) {
             // Gestisci l'errore se necessario
             return false;
         }
-    
+
         return true;
     }
 
-    
-    public function updateProductInfo($productId, $editedTitle, $editedDescription, $editedIngredients) {
-$queryFeature = "UPDATE product_feature SET title = ?, description = ? WHERE product_id = ?";
-$stmt = $this->connection->prepare($queryFeature);
-$stmt->bind_param("sss", $editedTitle, $editedDescription, $productId);
-$resultFeature = $stmt->execute();
-$stmt->close();
+
+    public function updateProductInfo($productId, $editedTitle, $editedDescription, $editedIngredients)
+    {
+        $queryFeature = "UPDATE product_feature SET title = ?, description = ? WHERE product_id = ?";
+        $stmt = $this->connection->prepare($queryFeature);
+        $stmt->bind_param("sss", $editedTitle, $editedDescription, $productId);
+        $resultFeature = $stmt->execute();
+        $stmt->close();
 
         if ($resultFeature === false) {
             return "Errore nell'aggiornamento delle feature";
         }
-$queryInfo = "UPDATE product_info SET ingredients = ? WHERE product_id = ?";
-$stmtInfo = $this->connection->prepare($queryInfo);
-$stmtInfo->bind_param("ss", $editedIngredients, $productId);
-$resultInfo = $stmtInfo->execute();
-$stmtInfo->close();
+        $queryInfo = "UPDATE product_info SET ingredients = ? WHERE product_id = ?";
+        $stmtInfo = $this->connection->prepare($queryInfo);
+        $stmtInfo->bind_param("ss", $editedIngredients, $productId);
+        $resultInfo = $stmtInfo->execute();
+        $stmtInfo->close();
 
         if ($resultInfo === false) {
             return "Errore nell'aggiornamento delle informazioni";
         }
-    
+
         return true;
     }
-    
-    
 
 
 
 
 
-//metodi per le categorie
+
+
+    //metodi per le categorie
     public function getCategoryById($categoryId)
     {
         $query = "SELECT * FROM category WHERE id='{$categoryId}'";
@@ -370,46 +374,48 @@ $stmtInfo->close();
 
     }
 
-    function removeFromCategory($categoryId){
+    function removeFromCategory($categoryId)
+    {
         $query = "DELETE FROM category WHERE id={$categoryId}";
         $result = $this->connection->query($query);
-    
+
         if ($result === false) {
             // Gestisci l'errore se necessario
             return false;
-        }else{
-    
-        return true;
+        } else {
+
+            return true;
         }
     }
-    
-    function addNewCategory($categoryName){
+
+    function addNewCategory($categoryName)
+    {
         if (empty($categoryName)) {
             return false;
-        }else{
-$query = "INSERT INTO category (name) VALUES (?)";
-$stmt = $this->connection->prepare($query);
-$stmt->bind_param("s", $categoryName);
-$result = $stmt->execute();
-$stmt->close();
-        $result = $this->connection->query($query);
-    
-        if ($result === false) {
-            // Gestisci l'errore se necessario
-            return false;
-        }else{
-    
-        return true;
+        } else {
+            $query = "INSERT INTO category (name) VALUES (?)";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bind_param("s", $categoryName);
+            $result = $stmt->execute();
+            $stmt->close();
+            $result = $this->connection->query($query);
+
+            if ($result === false) {
+                // Gestisci l'errore se necessario
+                return false;
+            } else {
+
+                return true;
+            }
         }
     }
-    }
 
 
 
 
 
 
-//metodi per la ricerca dei prodotti
+    //metodi per la ricerca dei prodotti
     public function searchProducts($searchQuery)
     {
         if (!empty($searchQuery)) {
@@ -442,9 +448,9 @@ $stmt->close();
         $total_products = $result->fetch_assoc();
         return $total_products['total'];
     }
-    function getImpagination()
+    function getImpagination($total_products)
     {
-        $total_products = $this->getTotalProduct();
+
         $products_per_page = 9;
         $total_pages = ceil($total_products / $products_per_page);
         return $total_pages;
@@ -459,46 +465,46 @@ $stmt->close();
 
 
 
-//metodi per la modifica dei prodotti
+    //metodi per la modifica dei prodotti
 
-function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline,$offerIds, $editedImage) {
-    $imageQuery = "SELECT image FROM product WHERE id=$productId";
-    $result = $this->connection->query($imageQuery);
+    function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $offerIds, $editedImage)
+    {
+        $imageQuery = "SELECT image FROM product WHERE id=$productId";
+        $result = $this->connection->query($imageQuery);
 
-    if ($result !== false && $result->num_rows > 0) {
-        $imageRow = $result->fetch_assoc();
-        $imageName = $imageRow['image'];
+        if ($result !== false && $result->num_rows > 0) {
+            $imageRow = $result->fetch_assoc();
+            $imageName = $imageRow['image'];
 
-        // Se l'immagine è cambiata, elimina quella vecchia
-        if ($imageName !== $editedImage) {
-            $imagePath = "assets/img/products/{$imageName}";
+            // Se l'immagine è cambiata, elimina quella vecchia
+            if ($imageName !== $editedImage) {
+                $imagePath = "assets/img/products/{$imageName}";
 
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
             }
         }
-    }
-
-
-$query = "UPDATE product SET name = ?, price = ?, category_id = ?, stock = ?, is_online = ?, image = ? WHERE id = ?";
-$stmt = $this->connection->prepare($query);
-$stmt->bind_param("siiissi", $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage, $productId);
-$result = $stmt->execute();
-$stmt->close();
-    if ($result === false) {
-        return false;
-    }else{
-    $this->offerService->deleteOfferToProduct($productId);
-     $this->offerService->assignOfferToProduct($productId, $offerIds);
-    }
+        $editedPrice = str_replace(',', '.', $editedPrice);
+        $query = "UPDATE product SET name = ?, price = ?, category_id = ?, stock = ?, is_online = ?, image = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("sdiissi", $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage, $productId);
+        $result = $stmt->execute();
+        $stmt->close();
+        if ($result === false) {
+            return false;
+        } else {
+            $this->offerService->deleteOfferToProduct($productId);
+            $this->offerService->assignOfferToProduct($productId, $offerIds);
+        }
         return true;
-}
+    }
 
 
 
-public function uploadImage($image)
-{
-   
+    public function uploadImage($image)
+    {
+
         // Verifica se è stata ricevuta un'immagine
         if ($image['error'] === UPLOAD_ERR_OK) {
             $uploadDir = "assets/img/products/";  // Cartella in cui vuoi salvare le immagini
@@ -518,11 +524,30 @@ public function uploadImage($image)
             // Gestisci l'errore di caricamento dell'immagine
             throw new Exception('Nessuna immagine ricevuta o errore durante il caricamento.');
         }
-   
-}
+
+    }
+
+    public function getProductsWithOffers()
+    {
+        $query = 'SELECT p.*
+        FROM product p
+        JOIN product_offer po ON p.id = po.product_id
+        JOIN offer o ON po.offer_id = o.id LIMIT 4;';
+        $result = $this->connection->query($query);
+        $all_products = array();
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $product = $this->getProductById($row["id"]);
+
+                if ($product->getIsOnline() == 1)
+                    $all_products[] = $product;
+            }
+        }
+        return $all_products;
+    }
 
 
 }
-    
 
-    
+
+

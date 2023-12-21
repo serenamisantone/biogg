@@ -2,12 +2,13 @@
 <div class="main-wrapper">
 
     <!--shop grid section start-->
-    <section class="gshop-gshop-grid"  style="padding-top: 20px; padding-bottom: 20px;">
+    <section class="gshop-gshop-grid" style="padding-top: 20px; padding-bottom: 20px;">
         <div class="container" id="products-container">
             <div class="row g-4">
                 <div class="col-xl-3">
                     <div class="gshop-sidebar bg-white rounded-2 overflow-hidden">
-                        <div class="sidebar-widget search-widget bg-white py-5 px-4"  style="padding-top: 20px; padding-bottom: 20px;">
+                        <div class="sidebar-widget search-widget bg-white py-5 px-4"
+                            style="padding-top: 20px; padding-bottom: 20px;">
                             <div class="widget-title d-flex">
                                 <h6 class="mb-0 flex-shrink-0">Search Now</h6>
                                 <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
@@ -26,15 +27,15 @@
                                 <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
                             </div>
                             <ul class="widget-nav mt-4">
-    {foreach $all_categories as $category}
-        <li>
-            <a href="shop.php?categoryId={$category->getId()}" class="d-flex justify-content-between align-items-center"
-               data-category-id="{$category->getId()}">
-               {$category->getName()}
-            </a>
-        </li>
-    {/foreach}
-</ul>
+                                {foreach $all_categories as $category}
+                                    <li>
+                                        <a href="shop.php?categoryId={$category->getId()}"
+                                            class="d-flex justify-content-between align-items-center">
+                                            {$category->getName()}
+                                        </a>
+                                    </li>
+                                {/foreach}
+                            </ul>
 
                         </div>
 
@@ -91,7 +92,9 @@
                                                         <span class="product-name">{$product->getName()}</span>
                                                     </a>
 
-                                                    <h6 class=" text-danger card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2 ">€{$product->getPrice()}</h6>
+                                                    <h6
+                                                        class=" text-danger card-title fw-bold d-inline-block mb-2 tt-line-clamp tt-clamp-2 ">
+                                                        €{$product->getPrice()}</h6>
                                                 </div>
 
                                                 <form method="POST"
@@ -112,19 +115,19 @@
 
                         </div>
                         <ul class="template-pagination d-flex align-items-center mt-6">
-                        {for $page = 1 to $total_pages}
-                            {if $page == $current_page}
-                                <li><a href="shop.php?page={$page}" style=" background-color: #4CAF50;
+                            {for $page = 1 to $total_pages}
+                                {if $page == $current_page}
+                                    <li><a href="shop.php?page={$page}" style=" background-color: #4CAF50;
                                 color: white; ">{$page}</a></li>
-                            {else}
-                                <li><a href="shop.php?page={$page}">{$page}</a></li>
+                                {else}
+                                    <li><a href="shop.php?page={$page}">{$page}</a></li>
+                                {/if}
+                            {/for}
+                            {if $current_page < $total_pages}
+                                <li><a href="shop.php?page={$current_page + 1}"><i class="fas fa-arrow-right"></i></a></li>
                             {/if}
-                        {/for}
-                        {if $current_page < $total_pages}
-                            <li><a href="shop.php?page={$current_page + 1}"><i class="fas fa-arrow-right"></i></a></li>
-                        {/if}
-                    </ul>
-                    
+                        </ul>
+
 
 
                     </div>

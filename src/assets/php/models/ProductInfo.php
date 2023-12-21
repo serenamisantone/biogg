@@ -3,9 +3,7 @@ class ProductInfo
 {
 	private $productId;
 	private $ingredients;
-
-
-	private $features = [];
+	private $description;
 
 	public function __construct()
 	{
@@ -32,20 +30,15 @@ class ProductInfo
 		$this->ingredients = $ingredients;
 	}
 
-	public function getFeatures()
+	public function getDescription()
 	{
-		return $this->features;
+		return $this->description;
 
 	}
 
-
-	public function addFeatures($title, $description)
+	public function setDescription($description)
 	{
-		$feature = array(
-			"title" => $title,
-			"description" => $description
-		);
-		array_push($this->features, $feature);
-		
+		$this->description = $description;
+
 	}
 }

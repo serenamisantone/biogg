@@ -40,6 +40,7 @@ class UserService
         $user->setName($result['name']);
         $user->setSurname($result['surname']);
         $user->setEmail($result['email']);
+        $user->setUsername($result['username']);
 
         return $user;
     }
@@ -207,48 +208,98 @@ function getUserIdByUsername($username) {
 public function getErrorMessage() {
     return $this->error_message;
 }
-function checkUsernameOrEmail($usernameOrEmail){
-    if (filter_var($usernameOrEmail, FILTER_VALIDATE_EMAIL)) {
-        $result = $this->connection->query("SELECT * FROM user WHERE email = '{$usernameOrEmail}'");
-    if ($result->num_rows > 0) {
-        return $usernameOrEmail;
+
+public function updateProfile($name, $surname, $email, $username)
+{   
+    $id = $_SESSION['auth']['user'];
+    error_log($id.$name.$surname.$email.$username);
+    $sql = "UPDATE user SET `name`=?, surname=?, email=?, username=? WHERE id=?";
+    $stmt = $this->connection->prepare($sql);
+    $stmt->bind_param("ssssi", $name, $surname, $email, $username, $id);
+    $stmt->execute();
+    
+    if ($stmt->affected_rows > 0) {
+        $stmt->close();
+        return true;
     } else {
-        Header("Location: error.php?utente-non-trovato");
-        exit;
+        $stmt->close();
+        return false;
     }
-}else{
-    $result = $this->connection->query("SELECT email FROM user WHERE username = '{$usernameOrEmail}'");
-
-        // Verifica se l'utente è stato trovato
-        if ($result->num_rows > 0) {
-            // Restituisci l'email trovata
-            $row = $result->fetch_assoc();
-            return $row['email'];
-        } else {
-            // Utente non trovato
-            Header("Location: error.php?utente-non-trovato");
-            exit;
-        }
 }
 
-}
-function saveResetToken($email){
-    $token = bin2hex(random_bytes(32));
-    $hashedPassword = password_hash($token, PASSWORD_DEFAULT);
-    $query= "UPDATE user SET password = '$hashedPassword' WHERE email = '$email'";
-    $result = $this->connection->query($query);
-    if($result){
-        return $token;
-    }else{
+public function updatePassword($userId, $password, $newPassword, $confirmPassword) {
+    // Ottieni l'hash della password attuale dal database
+    $sql = "SELECT password FROM user WHERE id=?";
+    $stmt = $this->connection->prepare($sql);
+
+    if (!$stmt) {
+        // La preparazione della query ha generato un errore
         return false;
     }
 
-}
-function sendEmail($email, $password){
-    $to = $email; 
-    $subject = "Nuova Password";
-    $message = "Questa è la tua nuova password: $password";
-    mail($to, $subject, $message);
+    $stmt->bind_param("i", $userId);
+    $stmt->execute();
+
+    if ($stmt->error) {
+        // Si è verificato un errore durante l'esecuzione della query
+        $stmt->close();
+        return false;
+    }
+    $stmt->store_result(); 
+    $stmt->bind_result($hashedPassword);
+
+    if ($stmt->fetch()) {
+        // Verifica se la password attuale è corretta
+        if (password_verify($password, $hashedPassword)) {
+            // La password attuale è corretta
+
+            // Verifica se la nuova password e la conferma coincidono
+            if ($newPassword === $confirmPassword) {
+                // Genera l'hash della nuova password
+                $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                // Aggiorna la password nel database
+                $sqlUpdate = "UPDATE user SET password = ? WHERE id=?";
+                $stmtUpdate = $this->connection->prepare($sqlUpdate);
+
+                if (!$stmtUpdate) {
+                    $stmt->close();
+                    return false;
+                }
+
+                $stmtUpdate->bind_param("si", $hashedNewPassword, $userId);
+                $stmtUpdate->execute();
+
+                if ($stmtUpdate->affected_rows > 0) {
+                    // L'aggiornamento è avvenuto con successo
+                    $stmtUpdate->close();
+                    $stmt->close();
+                    return true;
+                } else {
+                    // L'aggiornamento non è avvenuto con successo
+                    $stmtUpdate->close();
+                    $stmt->close();
+                    return false;
+                }
+            } else {
+                // La nuova password e la conferma non coincidono
+                $stmt->close();
+                return false;
+            }
+        } else {
+            // La password attuale non è corretta
+            $stmt->close();
+            return false;
+        }
+    } else {
+        // L'utente non esiste
+        $stmt->close();
+        return false;
+    }
 }
 
+
+
+
 }
+

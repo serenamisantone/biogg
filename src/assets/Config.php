@@ -31,7 +31,7 @@ class Config extends Smarty
         }
     
         $smarty->assign('cartProducts', $cartService->getCartProducts());
-        $smarty->assign("totalPrice", number_format($cartService->getTotalPrice(),2, ',', ''));
+        $smarty->assign("totalPrice", number_format($cartService->getTotalPrice(),2, '.', ''));
         $smarty->assign("totalPricePlusShipmentCost", number_format($cartService->getTotalPrice()+7,2, ',', ''));
     }
 }

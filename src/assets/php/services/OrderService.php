@@ -64,11 +64,20 @@ class OrderService
 
     public function deleteAddress($addressId)
     {
-        $result = $this->connection->query("DELETE from `address` where id=$addressId");
-        if (!$result) {
+        $stmt = $this->connection->prepare("DELETE FROM `address` WHERE id = ?");
+        $stmt->bind_param("i", $addressId);
+        $stmt->execute();
+        if ($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;
+        } else {
+            $stmt->close();
+
             Header("Location: error.php?cancellazione_non_andata_a_buon_fine");
+            return false;
         }
     }
+    
     public function getAddressesByUserId($userId)
     {
         $result = $this->connection->query("SELECT *
@@ -202,7 +211,7 @@ class OrderService
         if ($result) {
             $orders = [];
             while ($row = $result->fetch_assoc()) {
-                $order= $this->getOrderById($row['id']);
+                $order = $this->getOrderById($row['id']);
                 $orders[] = $order;
             }
             return $orders;
@@ -252,4 +261,71 @@ class OrderService
         }
         return null;
     }
+
+    public function addCard($name, $expirationDate, $cardNumber)
+    {
+        // Query preparata per l'inserimento sicuro
+        $sql = "INSERT INTO credit_cards (name, expiration_date, card_number) VALUES (?, ?, ?)";
+        $stmt = $this->connection->prepare($sql);
+
+        // Associa i parametri e imposta i tipi di dati
+        $stmt->bind_param("sss", $name, $expirationDate, $cardNumber);
+        $stmt->execute();
+        // Esegui la query
+        $result = $stmt->get_result();
+
+        // Verifica se l'inserimento è avvenuto con successo
+        if ($result) {
+            return true;
+            echo "Inserimento riuscito!";
+        } else {
+            return false;
+            echo "Errore durante l'inserimento: " . $this->connection->error;
+        }
+        // Chiudi la connessione
+        $stmt->close();
+        $this->connection->close();
+    }
+    public function updateCard($id, $name, $expirationDate, $cardNumber)
+    {
+        error_log("sono qui");
+        $sql = "UPDATE credit_cards SET `name` = ?, expiration_date = ?, card_number = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($sql);
+    
+        // Associa i parametri e imposta i tipi di dati
+        $stmt->bind_param("sssi", $name, $expirationDate, $cardNumber, $id);
+    
+        // Esegui la query di aggiornamento
+        $stmt->execute();
+    
+        // Chiudi la query preparata
+        
+    
+        // Verifica se la modifica è avvenuta con successo
+        if ($stmt->affected_rows > 0) {
+            $stmt->close();
+            error_log("Modifica riuscita!");
+            return true;
+        } else {
+            $stmt->close();
+            error_log("Errore durante la modifica: " . $this->connection->error);
+            return false;
+        }
+    }
+
+    public function deleteCard($cardId){
+        $stmt = $this->connection->prepare("DELETE FROM `credit_cards` WHERE id = ?");
+        $stmt->bind_param("i", $cardId);
+        $stmt->execute();
+        if ($stmt->affected_rows > 0) {
+            $stmt->close();
+            return true;
+        } else {
+            $stmt->close();
+
+            Header("Location: error.php?cancellazione_non_andata_a_buon_fine");
+            return false;
+        }
+    }
+    
 }

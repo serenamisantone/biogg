@@ -85,7 +85,7 @@
                 <div class="gshop-navbar bg-white rounded ps-lg-5 position-relative">
                     <div class="row align-items-center">
                         <div class="col-xxl-2 col-xl-3 col-md-3 col-5">
-                            <a href="index.tpl" class="logo"><img src="assets/img/login/logo2.jpeg" alt="logo"
+                            <a href="index.php" class="logo"><img src="assets/img/login/logo2.jpeg" alt="logo"
                                     class="img-fluid"></a>
                         </div>
                         <div class="col-xxl-10 col-xl-9 col-md-9 col-7">
@@ -174,7 +174,8 @@
                                                                                 {$cartProduct['quantity']}&nbsp;</span>
                                                                         </div>
                                                                         <a class="remove_cart_btn"
-                                                                            onclick="removeFromCart({$product->getId()})" data-product-id="{$product->getId()}">
+                                                                            onclick="removeFromCart({$product->getId()})"
+                                                                            data-product-id="{$product->getId()}">
                                                                             <i class="fas fa-trash-alt"></i>
                                                                         </a>
 
@@ -187,13 +188,14 @@
                                                     </ul>
                                                 {/if}
                                                 <div class="d-flex align-items-center  mt-3">
-                                                    <h6 class="mb-0">Subtotal:&nbsp</h6>
+                                                    <h6 class="mb-0">Totale:&nbsp</h6>
 
-                                                    <span id="cartTotal" class="fw-semibold text-primary"> {$totalPrice} €</span>
+                                                    <span id="cartTotal" class="fw-semibold text-primary"> {$totalPrice}
+                                                        €</span>
                                                 </div>
-                        
-                                                <a href="checkout.php"
-                                                    class="btn btn-primary btn-md d-block mt-4"><span class="me-2"><i
+
+                                                <a href="checkout.php" class="btn btn-primary btn-md d-block mt-4"><span
+                                                        class="me-2"><i
                                                             class="fa-solid fa-wallet"></i></span>Checkout</a>
 
                                             </div>
@@ -227,26 +229,23 @@
                                 <li><a href="home.php">Home</a></li>
                                 <li><a href="myAccount.php">Il Mio Account</a></li>
                                 <li><a href="home.php#feedbacks-section">Recensioni</a></li>
-                                <li><a href="#">Storico Ordini</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="footer-copyright pt-120 pb-3">
+            <div class="footer-copyright pt-80 pb-3">
                 <span class="gradient-spacer d-block mb-3"></span>
                 <div class="container">
                     <div class="row align-items-center g-3">
                         <div class="col-lg-4">
                             <div class="copyright-text">
                                 <p class="mb-0 text-white">&copy; All rights reserved Made by <a href="#"
-                                        class="text-secondary">ThemeTags</a></p>
+                                        class="text-secondary">SCTeam</a></p>
                             </div>
                         </div>
                         <div class="col-lg-4 d-none d-lg-block">
-                            <div class="logo-wrapper text-center">
-                                <a class="logo"><img src="assets/img/logo-white.png" alt="logo" class="img-fluid"></a>
-                            </div>
+                           
                         </div>
 
                     </div>
@@ -280,10 +279,13 @@
     <script src="assets/js/vendors/counterup.min.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/methods.js"></script>
-<script src="assets/js/checkout.js"></script>
-<script src="assets/js/orders.js"></script>
+    <script src="assets/js/checkout.js"></script>
+    <script src="assets/js/orders.js"></script>
     <script src="assets/js/cart.js"></script>
+
     <!--endbuild-->
+
+
 
 </body>
 

@@ -177,7 +177,7 @@
                             <th>Prezzo</th>
                             <th>Categoria</th>
                             <th>Stock</th>
-                            <th>Online</th>
+                            <th>Stato</th>
                             <th>Offerte</th>
                             <th>Immagine</th>
                             <th>
@@ -193,11 +193,15 @@
                             <tr>
                                 <td>{$product->getId()}</td>
                                 <td>{$product->getName()}</td>
-                                <td>{$product->getPrice()}</td>
+                                <td>{$product->getPrice()} €</td>
                                 {assign var="category" value=$product->getCategory()}
                                 <td>{$category->getName()}</td>
                                 <td>{$product->getStock()}</td>
-                                <td>{$product->getIsOnline()}</td>
+                                <td>  {if $product->getIsOnline() eq 1}
+                                    Online
+                                {else}
+                                    Offline
+                                {/if}</td>
                                 <td>
                                     <ul>
                                         {foreach $product->getOffers() as $offer}
@@ -296,7 +300,7 @@
                         <div class="col-sm-6">
                             <div class="label-input-field">
                             <label for="edit_price_{$product->getId()}">Prezzo:</label>
-                            <input type="text" id="edit_price_{$product->getId()}" class="edit-input" value="{$product->getPrice()}">
+                            <input type="text" id="edit_price_{$product->getId()}" class="edit-input" value="{$product->getPrice()}€">
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -598,42 +602,6 @@
                                 <button onclick="deleteSlider({$slider->getId()})" class="btn btn-secondary btn-sm">Elimina</button>
                             </td>
                         </tr>
-
-                        <!-- Modal Aggiungi Slider -->
-                        <div class="modal fade" id="addModalSlider" tabindex="-1" aria-labelledby="addModalLabelSlider" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
-                                            <h2 class="modal-title fs-5 mb-3">Aggiungi Slider</h2>
-                                            <div class="row align-items-center g-4 mt-3">
-                                                <form id="addSliderForm" enctype="multipart/form-data">
-                                                    <div class="form-group">
-                                                        <label for="slideradd_title" class="text-primary">Titolo:</label>
-                                                        <input type="text" id="slideradd_title" name="slideradd_title" class="form-control" placeholder="Inserisci il titolo" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="slideradd_caption" class="text-primary">Sottotitolo:</label>
-                                                        <input type="text" id="slideradd_caption" name="slideradd_caption" class="form-control" placeholder="Inserisci il sottotitolo" required>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="slideradd_description" class="text-primary">Descrizione:</label>
-                                                        <input type="text" id="slideradd_description" name="slideradd_description" class="form-control" placeholder="Inserisci la descrizione" required>
-                                                    </div>
-                                                    <div id="drop-area">
-                                                        <label for="fileInput4" class="text-primary">Immagine:</label>
-                                                        <input type="file" id="fileInput4" name="image" class="custom-file-input" required>
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary btn-block" onclick="addSlider()">Aggiungi Slider</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
                         <!-- Modal Modifica Slider -->
                         <div class="modal fade" id="editModalSlider_{$slider->getId()}" tabindex="-1" aria-labelledby="editModalSlider_{$slider->getId()}" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered">
@@ -669,5 +637,39 @@
     </div>
 </div>
     </div>
+     <!-- Modal Aggiungi Slider -->
+     <div class="modal fade" id="addModalSlider" tabindex="-1" aria-labelledby="addModalLabelSlider" aria-hidden="true">
+     <div class="modal-dialog modal-dialog-centered">
+         <div class="modal-content">
+             <div class="modal-body">
+                 <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                 <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+                     <h2 class="modal-title fs-5 mb-3">Aggiungi Slider</h2>
+                     <div class="row align-items-center g-4 mt-3">
+                         <form id="addSliderForm" enctype="multipart/form-data">
+                             <div class="form-group">
+                                 <label for="slideradd_title" class="text-primary">Titolo:</label>
+                                 <input type="text" id="slideradd_title" name="slideradd_title" class="form-control" placeholder="Inserisci il titolo" required>
+                             </div>
+                             <div class="form-group">
+                                 <label for="slideradd_caption" class="text-primary">Sottotitolo:</label>
+                                 <input type="text" id="slideradd_caption" name="slideradd_caption" class="form-control" placeholder="Inserisci il sottotitolo" required>
+                             </div>
+                             <div class="form-group">
+                                 <label for="slideradd_description" class="text-primary">Descrizione:</label>
+                                 <input type="text" id="slideradd_description" name="slideradd_description" class="form-control" placeholder="Inserisci la descrizione" required>
+                             </div>
+                             <div id="drop-area">
+                                 <label for="fileInput4" class="text-primary">Immagine:</label>
+                                 <input type="file" id="fileInput4" name="image" class="custom-file-input" required>
+                             </div>
+                             <button type="submit" class="btn btn-primary btn-block" onclick="addSlider()">Aggiungi Slider</button>
+                         </form>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </div>
 </html>
 

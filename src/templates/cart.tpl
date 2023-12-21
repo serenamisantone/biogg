@@ -1,16 +1,16 @@
 <!--cart section start-->
-<section class="cart-section ptb-120">
+<section class="cart-section" style="padding-top: 20px; padding-bottom: 20px;">
     <div class="container">
 
         <div class="rounded-2 overflow-hidden">
             <table class="wishlist-table w-100  bg-white">
                 <thead>
-                    <th>Image</th>
-                    <th>Product Name</th>
-                    <th>Quantity</th>
-                    <th>Unit Price</th>
-                    <th>Price</th>
-                    <th>Cancella</th>
+                    <th></th>
+                    <th>Nome</th>
+                    <th>Quantità</th>
+                    <th>Prezzo unitario</th>
+                    <th>Prezzo</th>
+                    <th></th>
                 </thead>
                 <tbody>
                     {foreach $cartProducts as $cartProduct }
@@ -19,10 +19,10 @@
                             <td class="text-center thumbnail">
                                 <img src="assets/img/products/{$product->getImage()}" alt="product-thumb" class="img-fluid">
                             </td>
-                            <td href="singleProduct.php?id={$product->getId()}" class="text-start product-title">
+                            <td href="singleProduct.php?id={$product->getId()}" class="text-center product-title">
                                 <h6 class="mb-0">{$product->GetName()}</h6>
                             </td>
-                            <td>
+                            <td class=" text-center">
                                 <div class="product-qty d-inline-flex align-items-center">
                                     <button class="decrease" data-product-id="{$product->getId()}"
                                         {if $cartProduct['quantity'] <= 1} disabled="disabled" {/if}>-</button>
@@ -33,16 +33,16 @@
                                 </div>
 
                             </td>
-                            <td>
+                            <td  class=" text-center">
                                 <span class="text-dark fw-bold me-2 d-lg-none">Unit Price:</span>
                                 <span class="text-dark fw-bold">{$product->GetPrice()}€</span>
                             </td>
-                            <td>
+                            <td  class=" text-center">
                                 <span class="text-dark fw-bold me-2 d-lg-none">Total Price:</span>
                                 <span class="text-dark fw-bold"
                                     id="total-price-{$product->getId()}">{$product->GetPrice()*$cartProduct['quantity']}€</span>
                             </td>
-                            <td>
+                            <td  class=" text-center">
                             <span class="text-dark fw-bold me-2 d-lg-none align_center">Cancella:</span>
                             <a href="#" class="btn btn-primary btn-sm ms-5 rounded-1" onclick="removeFromCartPage({$product->getId()})" data-product-id="{$product->getId()}">Cancella</a>
                         </td>

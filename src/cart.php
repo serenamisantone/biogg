@@ -15,42 +15,33 @@ $productService = new productService;
 
 // Verifica se la richiesta è una richiesta AJAX
 if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    // Includi il tuo file di configurazione del database se necessario
-    // include_once("db_config.php");
 
-    // Ottieni i dati dalla richiesta POST
     $productId = isset($_POST['productId']) ? $_POST['productId'] : null;
     $quantity = isset($_POST['quantity']) ? $_POST['quantity'] : null;
 
-    // Effettua la validazione dei dati (ad esempio, verifica se il productId esiste e la quantità è un numero valido)
 
-    // Supponiamo di avere una classe Cart che gestisce il carrello
     if ($productId !== null && $quantity !== null) {
         // Esegui l'aggiornamento della quantità nel carrello
         $result = $cartService->addProduct($productId, $quantity);
         $price = $cartService->getPrice($productId);
         $totalPrice = $cartService->getTotalPrice();
-        if ($result==1) {
+        if ($result == 1) {
             $updatedCartData = [
                 'totalPrice' => $cartService->getTotalPrice(),
                 'cartProduct' => [],
             ];
-            
             foreach ($cartService->getCartProducts() as $cartProduct) {
                 $productDetails = $cartProduct['product']->getDetails();
                 $productDetails['quantity'] = $cartProduct['quantity'];
                 $updatedCartData['cartProduct'][] = $productDetails;
             }
-            // Invia una risposta JSON di successo
             header('Content-Type: application/json');
-           
-            $response = array("success" =>true, "message" => "Aggiornamento andato a buon fine", "updatedCartData"=>$updatedCartData, "price"=>$price);
+            $response = array("success" => true, "message" => "Aggiornamento andato a buon fine", "updatedCartData" => $updatedCartData, "price" => $price);
             echo json_encode($response);
             exit;
         } else {
             header('Content-Type: application/json');
-            // Invia una risposta JSON di errore se l'aggiornamento non ha avuto successo
-            $response = array("success" =>false, "message" => "Errore nell'aggiornamento della quantità");
+            $response = array("success" => false, "message" => "Errore nell'aggiornamento della quantità");
             echo json_encode($response);
             exit;
 
@@ -60,14 +51,14 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQ
         $response = array("success" => false, "message" => "Dati non validi");
         echo json_encode($response);
     }
-} 
+}
 
 
 try {
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("current_view", "cart.tpl");
     $smarty->display("index.tpl");
-    
+
 
 
 } catch (SmartyException $e) {

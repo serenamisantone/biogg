@@ -141,10 +141,9 @@ $(document).ready(function () {
                 // Gestisci la risposta del server
                 if (response.success) {
                     // Estrai i dati dal JSON
-                    updateCart(response);
+                   // updateCart(response);
 
-
-
+                    location.reload();
                     // Mostra un messaggio di successo
                 } else {
                     alert('Errore durante l\'aggiunta al carrello.');

@@ -174,8 +174,9 @@ function saveNewOrder() {
   $.ajax({
     type: 'POST',
     url: '/biogg/src/orders.php',
-    data:{ selectedAddressId:selectedAddressId},
+    data: { selectedAddressId: selectedAddressId },
     success: function (response) {
+      alert("ordine inviato");
       // Handle the success response from the server
       window.location.href = 'shop.php';
     },
@@ -184,4 +185,92 @@ function saveNewOrder() {
       console.error(error.responseText);
     }
   });
+}
+function saveChangesCard(cardId) {
+  var name = document.getElementById("edit_name_" + cardId).value;
+  var expirationDate = document.getElementById("edit_expiration_" + cardId).value;
+  var cardNumber = document.getElementById("edit_cardnumber_" + cardId).value;
+  console.log("name: " + isEmpty(name));
+  console.log("card: " + isValidCardNumber(cardNumber));
+  console.log("date: " + isValidExpirationDate(expirationDate));
+  if (!isEmpty(name) &&
+    isValidCardNumber(cardNumber) &&
+    isValidExpirationDate(expirationDate)) {
+    $.ajax({
+
+      type: "POST",
+      url: '/biogg/src/customerAccount.php',
+      data: { updateCart: true, name: name, expirationDate: expirationDate, cardNumber: cardNumber, cardId: cardId },
+      success: function (response) {
+        // Gestisci la risposta del server
+        if (response.success) {
+          location.reload();
+
+
+        } else {
+          alert('Errore');
+        }
+      },
+      error: function () {
+        alert('Errore durante la richiesta AJAX.');
+      }
+    })
+  }
+
+}
+
+function addCard() {
+  $("#errorMessages").hide().html("");
+  // Raccogli i dati del modulo
+  var formData = $("#creditCardForm").serializeArray();
+  // Controlla la validità dei campi
+  var nameInput = $("#creditCardForm input[name='name']");
+  var cardNumberInput = $("#creditCardForm input[name='numberCard']");
+  var expirationDateInput = $("#creditCardForm input[name='expirationDate']");
+  var cvcInput = $("#creditCardForm input[name='cvc']");
+  console.log("nome: " + nameInput[0].checkValidity());
+  console.log("card: " + isValidCardNumber(cardNumberInput.val()));
+  console.log("data: " + isValidExpirationDate(expirationDateInput.val()));
+  console.log("cvc: " + isValidCVC(cvcInput.val()));
+
+  if (
+    nameInput[0].checkValidity() &&
+    !isEmpty(nameInput.val()) &&
+    isValidCardNumber(cardNumberInput.val()) &&
+    isValidExpirationDate(expirationDateInput.val()) &&
+    isValidCVC(cvcInput.val())) {
+
+
+      var saveCard = true;
+
+      formData.push({ name: "save_card", value: saveCard });
+  
+
+    $("#submitBtn").prop("disabled", true);
+
+    // Effettua la chiamata Ajax
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/checkout.php",
+      data: { formData: JSON.stringify(formData), addCreditCard: true },
+      success: function (response) {
+        // Riabilita il pulsante dopo la chiamata Ajax
+        $("#submitBtn").prop("disabled", false);
+
+        if (response.success) {
+          
+           location.reload();
+          
+        } else {
+          console.error("Errore durante l'aggiunta della carta di credito: " + response.message);
+        }
+      },
+      error: function (error) {
+        console.error("Errore nella chiamata Ajax: " + error.responseText);
+      }
+    });
+  } else {
+    // Almeno un campo obbligatorio non è stato compilato correttamente
+    $("#errorMessages").show().html("Per favore, compila tutti i campi correttamente.");
+  }
 }

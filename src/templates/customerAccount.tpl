@@ -83,11 +83,8 @@
               <div class="address-book bg-white rounded p-5">
                 <div class="row g-6">
 
-                  <div class="d-flex align-items-center gap-5 mb-4">
-                    <h6 class="mb-4 px-4">Indirizzi</h6>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#addAddressModal2" class="fw-semibold"><i
-                        class="fas fa-plus me-1 mb-4 px-4"></i> Aggiungi Indirizzo</a>
-                  </div>
+                  <h6 class="mb-4 px-4">Indirizzi</h6>
+
                   <div id="existingAddressesContainer">
                     <div class="row g-4">
                       {foreach $addresses as $index1 => $address1}
@@ -105,6 +102,7 @@
                               </address>
                               <a href="#" class="tt-edit-address  position-absolute"
                                 onclick="openEditModal(); populateEditForm('{$address1->getId()}','{$address1->getComune()}', '{$address1->getCivico()}', '{$address1->getVia()}', '{$address1->getRegione()}', '{$address1->getProvincia()}');">Modifica</a>
+
                               <a class="fa-solid fa-trash-can  " onclick="deleteAddress({$address1->getId()})"></a>
                             </label>
                           </div>
@@ -112,7 +110,12 @@
                       {/foreach}
                     </div>
                   </div>
-
+                  <div class="d-flex align-items-center gap-5 mb-4">
+                    <a href="#" data-bs-toggle="modal" data-bs-target="#addAddressModal2" class="btn btn-primary mt-4 ">
+                      <span class="me-2"><i class="fas fa-plus"></i></span>
+                      Aggiungi Indirizzo
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -127,14 +130,14 @@
                       <th>Data di emissione</th>
                       <th>Stato ordine</th>
                       <th>Totale</th>
-                      <th class="text-center">Action</th>
+                      <th class="text-center"></th>
                     </tr>
                     {foreach $userOrders as $userOrder}
                       <tr>
                         <td>{$userOrder->getOrderId()}</td>
                         <td>{$userOrder->getDate()}</td>
                         <td>{$userOrder->getStatus()}</td>
-                        <td class="text-secondary">{$userOrder->getTotal()}</td>
+                        <td class="text-secondary">{$userOrder->getTotal()}€</td>
                         <td class="text-center">
                           <a href="#" class="view-invoice fs-xs"
                             onclick="openProductsModal({$userOrder->getShoppingCart()},{$userOrder->getOrderId()})">
@@ -160,266 +163,329 @@
                       <th>Nome</th>
                       <th>Numero carta</th>
                       <th>Data di scadenza</th>
-                      <th class="text-center">Action</th>
+                      <th class="text-center"></th>
                     </tr>
                     {foreach $userCards as $userCard}
                       <tr>
 
                         <td>{$userCard->getName()}</td>
-                        <td>{$userCard->getLastFourDigits()}</td>
+                        <td>************{$userCard->getLastFourDigits()}</td>
                         <td>{$userCard->getExpirationDate()}</td>
                         <td class="text-center">
-                          <a class="view-more">
-                            <i class="fas fa-eye"></i>
-                          </a>
+                          <a type="button" class=" fa fa-pen" data-bs-toggle="modal"
+                            data-bs-target="#editCard_{$userCard->getId()}"></a> &nbsp;&nbsp;
+                          <a class="fa fa-trash-can  " onclick="deleteCard({$userCard->getId()})"></a>
                         </td>
                       </tr>
 
+                      <!-- Modal Modifica Carta -->
+                      <div class="modal fade" id="editCard_{$userCard->getId()}" tabindex="-1"
+                        aria-labelledby="editModalLabel_{$userCard->getId()}" aria-hidden="true">
+                        <!-- Contenuto del modal per modificare una carta -->
+                        <div class="modal-dialog modal-dialog-centered">
+                          <div class="modal-content">
+                            <div class="modal-body">
+                              <button type="button" class="btn-close float-end" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                              <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+                                <h2 class="modal-title fs-5 mb-3">Modifica Carta</h2>
+                                <div class="row align-items-center g-4 mt-3">
+                                  <form id="editForm3_{$userCard->getId()}" enctype="multipart/form-data">
+                                    <input type="text" id="edit_name_{$userCard->getId()}" class="edit-input"
+                                      value="{$userCard->getName()}">
+                                    <input type="text" id="edit_cardnumber_{$userCard->getId()}" class="edit-input"
+                                      value="{$userCard->getCardNumber()}">
+                                    <input type="text" id="edit_expiration_{$userCard->getId()}" class="edit-input"
+                                      value="{$userCard->getExpirationDate()}">
+                                    <button type="button" onclick="saveChangesCard({$userCard->getId()})"
+                                      class="btn btn-primary btn-sm">Salva</button>
+                                  </form>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     {/foreach}
                   </table>
                 </div>
-                <a href="#" class="btn btn-primary mt-4">
+                <a href="#" data-bs-toggle="modal" data-bs-target="#modalAddCard" class="btn btn-primary mt-4">
                   <span class="me-2"><i class="fas fa-plus"></i></span>
-                  Add Payment
+                  Aggiungi carta
                 </a>
               </div>
             </div>
 
             <div class="tab-pane fade" id="update-profile">
               <div class="update-profile bg-white py-5 px-4">
-                <h6 class="mb-4">Update Profile</h6>
+                <h6 class="mb-4">Modifica Profilo</h6>
                 <form class="profile-form">
-                  < <div class="row g-4">
+                  <div class="row g-4">
                     <div class="col-sm-6">
                       <div class="label-input-field">
-                        <label>First Name</label>
-                        <input type="text" placeholder="Gene J." />
+                        <label>Nome</label>
+                        <input type="text" name="name" value={$user->getName()} />
                       </div>
                     </div>
                     <div class="col-sm-6">
                       <div class="label-input-field">
-                        <label>Last Name</label>
-                        <input type="text" placeholder="Larose" />
+                        <label>Cognome</label>
+                        <input type="text" name="surname" value={$user->getSurname()} />
                       </div>
                     </div>
+
                     <div class="col-sm-6">
                       <div class="label-input-field">
-                        <label>Phone/Mobile</label>
-                        <input type="tel" />
+                        <label>Email</label>
+                        <input type="email" name="email" value={$user->getEmail()} />
                       </div>
                     </div>
+
                     <div class="col-sm-6">
                       <div class="label-input-field">
-                        <label>Email Address</label>
-                        <input type="email" placeholder="themetags@gmail.com" />
+                        <label>Username</label>
+                        <input type="text" name="username" value={$user->getUsername()} />
                       </div>
                     </div>
-                    <div class="col-sm-6">
-                      <div class="label-input-field">
-                        <label>Birthday</label>
-                        <input type="date" />
-                      </div>
-                    </div>
-                    <div class="col-sm-6">
-                      <div class="label-input-field">
-                        <label>User Name</label>
-                        <input type="text" placeholder="Username" />
-                      </div>
-                    </div>
+                  </div>
+                  <button type="button" class="btn btn-primary mt-6" onclick=updateProfile()>
+                    Modifica profilo
+                  </button>
+                </form>
               </div>
-              <button type="submit" class="btn btn-primary mt-6">
-                Update Profile
-              </button>
-              </form>
+              <div class="change-password bg-white py-5 px-4 mt-4 rounded">
+                <h6 class="mb-4">Cambia Password</h6>
+                <form class="password-reset-form">
+                  <div class="row g-4">
+                    
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <label>Password attuale</label>
+                        <input type="password" name= "password"  required />
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <label>Nuova Password</label>
+                        <input type="password" name="newpassword"  required/>
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <label>Ripeti Password</label>
+                        <input type="password" name= "confirmpassword"  required />
+                      </div>
+                    </div>
+                  </div>
+                  <button type="button" class="btn btn-primary mt-6" onclick="updatePassword({$user->getUserId()})">
+                    Conferma
+                  </button>
+                </form>
+              </div>
             </div>
-            <div class="change-password bg-white py-5 px-4 mt-4 rounded">
-              <h6 class="mb-4">Change Password</h6>
-              <form class="password-reset-form">
-                <div class="row g-4">
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <label>Email Address</label>
-                      <input type="email" placeholder="themetags@gmail.com" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <label>Current Password</label>
-                      <input type="password" placeholder="Current password" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <label>New Password</label>
-                      <input type="password" placeholder="New password" />
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <label>Re-type Password</label>
-                      <input type="password" placeholder="Confirm password" />
-                    </div>
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary mt-6">
-                  Change Password
-                </button>
-              </form>
-            </div>
+
+
           </div>
-
-
         </div>
       </div>
     </div>
-  </div>
 
-  <!--my account section end-->
-  <div class="modal fade" id="addAddressModal2">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!--my account section end-->
+    <div class="modal fade" id="addAddressModal2">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
 
-          <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
-            <h2 class="modal-title fs-5 mb-3">Aggiungi un nuovo indirizzo</h2>
-            <div class="row align-items-center g-4 mt-3">
-              <fo..rm id="addAddressForm" method="post">
-                <div class="row g-4">
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <input type="text" name="regione" placeholder="Regione">
+            <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+              <h2 class="modal-title fs-5 mb-3">Aggiungi un nuovo indirizzo</h2>
+              <div class="row align-items-center g-4 mt-3">
+                <form id="addAddressForm" method="post">
+                  <div class="row g-4">
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <input type="text" name="regione" placeholder="Regione">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <input type="text" name="provincia" placeholder="Provincia">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <input type="text" name="comune" placeholder="Comune">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <input type="text" name="via" placeholder="Via">
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="label-input-field">
+                        <input type="text" name="civico" placeholder="Civico">
+                      </div>
                     </div>
                   </div>
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <input type="text" name="provincia" placeholder="Provincia">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <input type="text" name="comune" placeholder="Comune">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <input type="text" name="via" placeholder="Via">
-                    </div>
-                  </div>
-                  <div class="col-sm-2">
-                    <div class="label-input-field">
-                      <input type="text" name="civico" placeholder="Civico">
-                    </div>
-                  </div>
-                </div>
-                <div class="mt-6 d-flex">
-                  <button type="button" id="addAddressBtn" class="btn btn-secondary btn-md me-3">Salva</button>
+                  <div class="mt-6 d-flex">
+                    <button type="button" id="addAddressBtn" class="btn btn-secondary btn-md me-3">Salva</button>
 
-                </div>
+                  </div>
                 </form>
 
+              </div>
             </div>
-          </div>
 
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="editAddressModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-
-          <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
-            <h2 class="modal-title fs-5 mb-3">Modifica Indirizzo</h2>
-            <div class="row align-items-center g-4 mt-3">
-              <form id="editAddressForm" method="post">
-                <div class="row g-4">
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <input type="text" id="editRegione" name="regione" placeholder="Nuova Regione">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <input type="text" id="editProvincia" name="provincia" placeholder="Nuova Provincia">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <input type="text" id="editComune" name="comune" placeholder="Nuovo Comune">
-                    </div>
-                  </div>
-                  <div class="col-sm-6">
-                    <div class="label-input-field">
-                      <input type="text" id="editVia" name="via" placeholder="Nuova Via">
-                    </div>
-                  </div>
-                  <div class="col-sm-2">
-                    <div class="label-input-field">
-                      <input type="text" id="editCivico" name="civico" placeholder="Nuovo Civico">
-                    </div>
-                  </div>
-                  <input type="text" hidden id="editId" name="addressId" placeholder="Nuova Regione">
-                </div>
-                <div class="mt-6 d-flex">
-                  <button type="button" id="saveEditAddressBtn" class="btn btn-secondary btn-md me-3"
-                    onclick="saveChangesAddress()">Salva</button>
-                </div>
-              </form>
-            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="modal fade" id="productsModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-body">
-          <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+    <div class="modal fade" id="editAddressModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
 
-          <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
-            <div style="padding-bottom:50px">
-              <h4 class="mb-4">Order Tracking</h4>
-              <ol id="progress-bar" class="fs-xs tt-steps">
-                <li class="tt-step" id="confermato-step">CONFERMATO</li>
-                <li class="tt-step" id="preparazione-step">IN PREPARAZIONE</li>
-                <li class="tt-step" id="spedito-step">SPEDITO</li>
-                <li class="tt-step" id="consegnato-step">CONSEGNATO</li>
-              </ol>
+            <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+              <h2 class="modal-title fs-5 mb-3">Modifica Indirizzo</h2>
+              <div class="row align-items-center g-4 mt-3">
+                <form id="editAddressForm" method="post">
+                  <div class="row g-4">
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <input type="text" id="editRegione" name="regione" placeholder="Nuova Regione">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <input type="text" id="editProvincia" name="provincia" placeholder="Nuova Provincia">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <input type="text" id="editComune" name="comune" placeholder="Nuovo Comune">
+                      </div>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="label-input-field">
+                        <input type="text" id="editVia" name="via" placeholder="Nuova Via">
+                      </div>
+                    </div>
+                    <div class="col-sm-2">
+                      <div class="label-input-field">
+                        <input type="text" id="editCivico" name="civico" placeholder="Nuovo Civico">
+                      </div>
+                    </div>
+                    <input type="text" hidden id="editId" name="addressId" placeholder="Nuova Regione">
+                  </div>
+                  <div class="mt-6 d-flex">
+                    <button type="button" id="saveEditAddressBtn" class="btn btn-secondary btn-md me-3"
+                      onclick="saveChangesAddress()">Salva</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
-          <h4 class="mb-4 ">Prodotti dell'ordine</h6>
-            <div class="table-responsive">
-              <table class="order-history-table table">
-                <thead>
-                  <tr>
-                    <th>Nome</th>
-                    <th>Prezzo</th>
-                    <th>Quantità</th>
-                  </tr>
-                </thead>
-                <tbody id="tableBody"></tbody>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="productsModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+              <div style="padding-bottom:50px">
+                <h4 class="mb-4">Order Tracking</h4>
+                <ol id="progress-bar" class="fs-xs tt-steps">
+                  <li class="tt-step" id="confermato-step">CONFERMATO</li>
+                  <li class="tt-step" id="preparazione-step">IN PREPARAZIONE</li>
+                  <li class="tt-step" id="spedito-step">SPEDITO</li>
+                  <li class="tt-step" id="consegnato-step">CONSEGNATO</li>
+                </ol>
+              </div>
+            </div>
+            <h4 class="mb-4 ">Prodotti dell'ordine</h6>
+              <div class="table-responsive">
+                <table class="order-history-table table">
+                  <thead>
+                    <tr>
+                      <th>Nome</th>
+                      <th>Prezzo</th>
+                      <th>Quantità</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tableBody"></tbody>
+                </table>
+              </div>
+              <table class="w-100">
+                <tr>
+                  <td class="py-3">
+                    <h5 class="mb-0">Totale</h5>
+                  </td>
+                  <td class="text-end py-3">
+                    <h5 class="mb-0" id="order-total-price">€</h5>
+                  </td>
+                </tr>
               </table>
-            </div>
-            <table class="w-100">
-              <tr>
-                <td class="py-3">
-                  <h5 class="mb-0">Totale</h5>
-                </td>
-                <td class="text-end py-3">
-                  <h5 class="mb-0" id="order-total-price">€</h5>
-                </td>
-              </tr>
-            </table>
 
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    <!-- Modal Aggiungi Card -->
+    <div class="modal fade" id="modalAddCard" tabindex="-1" aria-labelledby="addModalLabelCard" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+              <h2 class="modal-title fs-5 mb-3">Aggiungi Carta</h2>
+              <div class="row align-items-center g-4 mt-3">
+                <form id="creditCardForm" method="post">
+                  <div id="errorMessages" class="alert alert-danger" style="display: none;"></div>
 
+                  <div class="row g-4">
+                    <div class="col-sm-8">
+                      <div class="label-input-field">
+                        <input type="text" name="name" placeholder="Nome Cognome">
+                      </div>
+                    </div>
+                    <div class="col-sm-12">
+                      <div class="label-input-field mt-0">
+                        <input type="text" name="numberCard" id="cardNumberInput" placeholder="Numero Carta"
+                          maxlength="16" title="Inserisci solo numeri">
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="label-input-field mt-0">
+                        <input type="text" name="expirationDate" id="expirationDateInput" placeholder="MM/AA"
+                          maxlength="5">
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="label-input-field mt-0">
+                        <input type="text" name="cvc" placeholder="CVC" maxlength="3">
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="d-flex align-items-center gap-2 mt-4 flex-wrap">
+                  </div>
+                  <div class="mt-6 d-flex">
+                    <button type="button" id="submitBtn" class="btn btn-secondary btn-md me-3"
+                      onclick="addCard()">Salva</button>
+
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   </div>
 </section>

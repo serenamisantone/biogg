@@ -35,3 +35,14 @@
 .order-products {
   display: none;
 }
+
+.tt-address-info .fa-trash-can {
+  position: absolute;
+  bottom: 10px; /* Regola la distanza dal basso come desiderato */
+  right: 10px; /* Regola la distanza dal lato destro come desiderato */
+  cursor: pointer; /* Cambia il cursore quando passi sopra all'icona */
+}
+.ptb-80 {
+  padding-bottom: 80px 
+}
+
