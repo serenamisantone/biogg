@@ -218,7 +218,7 @@ $(document).ready(function () {
             success: function (response) {
                 // Gestisci la risposta del server
                 if (response.success) {
-
+location.reload();
                 } else {
                     alert('Errore durante l\'aggiunta al carrello.');
                 }

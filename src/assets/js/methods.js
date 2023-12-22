@@ -533,3 +533,25 @@ function saveChangesProductDescription(productId) {
     }
   });
 }
+
+function aggiungiRecensione(){
+  console.log("sono qui");
+  var rate = $("input[name='rate']").val();
+  var title = $("input[name='title']").val();
+  var description = $("textarea[name=description]").val();
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/customerAccount.php",
+    data: {addReview:true,rate:rate, title:title, description:description},
+    success: function (response) {
+      if (response.success) {
+       location.reload();
+      } else {
+        alert("Errore: " + response.success);
+      }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante il salvataggio.");
+    }
+  });
+}

@@ -57,12 +57,12 @@
 <!--hero section end-->
 <!-- on sale products section start-->
 <section class="pt-8 pb-100 bg-white position-relative overflow-hidden z-1 trending-products-area">
-<img src="assets/img/shapes/bg-shape-4.png" alt="bg shape" class="position-absolute start-0 bottom-0 w-100 z--1">
+    <img src="assets/img/shapes/bg-shape-4.png" alt="bg shape" class="position-absolute start-0 bottom-0 w-100 z--1">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-xl-5">
-                <div class="section-title text-center text-xl-start">
-                    <h3 class="mb-0">Top Trending Products</h3>
+        <div class="row justify-content-center">
+            <div class="col-xl-6">
+                <div class="section-title text-center">
+                    <h2 class="mb-6 text-secondary">I nostri prodotti in offerta</h2>
                 </div>
             </div>
 

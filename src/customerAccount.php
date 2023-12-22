@@ -94,12 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['deleteCard'])) {
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updateProfile'])) {
 
-    $name=$_POST['name'];
-    $surname=$_POST['surname'];
-    $email=$_POST['email'];
-    $username=$_POST['username'];
+    $name = $_POST['name'];
+    $surname = $_POST['surname'];
+    $email = $_POST['email'];
+    $username = $_POST['username'];
 
-$result=$userService->updateProfile($name,$surname,$email,$username);
+    $result = $userService->updateProfile($name, $surname, $email, $username);
     if ($result) {
         header('Content-Type: application/json');
         $response = array("success" => true);
@@ -113,12 +113,12 @@ $result=$userService->updateProfile($name,$surname,$email,$username);
     }
 }
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['updatePassword'])) {
-    $userId=$_POST['userId'];
-    $password=$_POST['password'];
-    $newPassword=$_POST['newPassword'];
-    $confirmPassword=$_POST['confirmPassword'];
+    $userId = $_POST['userId'];
+    $password = $_POST['password'];
+    $newPassword = $_POST['newPassword'];
+    $confirmPassword = $_POST['confirmPassword'];
 
-$result=$userService->updatePassword($userId,$password,$newPassword,$confirmPassword);
+    $result = $userService->updatePassword($userId, $password, $newPassword, $confirmPassword);
     if ($result) {
         header('Content-Type: application/json');
         $response = array("success" => true);
@@ -131,7 +131,28 @@ $result=$userService->updatePassword($userId,$password,$newPassword,$confirmPass
         exit;
     }
 }
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['addReview'])) {
+
+    $rate = $_POST['rate'];
+    $title = $_POST['title'];
+    $description = $_POST['description'];
+   
+    error_log($rate . $title . $description);
+ $result = $userService->addReview($rate, $title, $description);
+    if ($result) {
+        header('Content-Type: application/json');
+        $response = array("success" => true);
+        echo json_encode($response);
+        exit;
+    } else {
+        header('Content-Type: application/json');
+        $response = array("success" => false);
+        echo json_encode($response);
+        exit;
+    }
+}
 try {
+    $smarty->assign("userReviews", $userService->getUserReviews());
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("addresses", $orderService->getAddressesByUserId($_SESSION["auth"]["user"]));
     $smarty->assign("userCards", $orderService->getAllCreditCardsByUserId($_SESSION['auth']['user']));

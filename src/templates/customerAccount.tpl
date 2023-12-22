@@ -11,8 +11,21 @@
           <div class="account-nav bg-white rounded py-5">
             <h6 class="mb-4 px-4">Gestisci Account</h6>
             <ul class="nav nav-tabs border-0 d-block account-nav-menu">
+            <li>
+            <a href="#feedbacks" data-bs-toggle="tab"class="active">
+              <span class="me-2">
+                <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M0.332031 1.33333V0.666667C0.332031 0.3 0.632031 0 0.998698 0H12.332C12.6987 0 12.9987 0.3 12.9987 0.666667V1.33333C12.9987 1.7 12.6987 2 12.332 2H0.998698C0.632031 2 0.332031 1.7 0.332031 1.33333ZM12.332 3.33333H0.998698C0.632031 3.33333 0.332031 3.63333 0.332031 4V8C0.332031 8.36667 0.632031 8.66667 0.998698 8.66667H12.332C12.6987 8.66667 12.9987 8.36667 12.9987 8V4C12.9987 3.63333 12.6987 3.33333 12.332 3.33333ZM0.998698 12H12.332C12.6987 12 12.9987 11.7 12.9987 11.3333V10.6667C12.9987 10.3 12.6987 10 12.332 10H0.998698C0.632031 10 0.332031 10.3 0.332031 10.6667V11.3333C0.332031 11.7 0.632031 12 0.998698 12Z"
+                    fill="#4EB529" />
+                </svg>
+              </span>
+             Le mie recensioni
+            </a>
+          </li>
+
               <li>
-                <a href="#manageAddresses" data-bs-toggle="tab" class="active">
+                <a href="#manageAddresses" data-bs-toggle="tab" >
                   <span class="me-2">
                     <svg width="13" height="12" viewBox="0 0 13 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path fill-rule="evenodd" clip-rule="evenodd"
@@ -79,7 +92,38 @@
         </div>
         <div class="col-xl-9">
           <div class="tab-content">
-            <div class="tab-pane fade show active" id="manageAddresses">
+          <div class="tab-pane fade show active" id="feedbacks">
+          <div class="recent-orders bg-white rounded py-5">
+            <h6 class="mb-4 px-4">Le tue recensioni</h6>
+            <div class="table-responsive">
+              <table class="order-history-table table">
+                <tr>
+                  <th>Titolo</th>
+                  <th>Descrizione</th>
+                  <th>Rate</th>
+                  
+                </tr>
+                {foreach $userReviews as $review}
+                  <tr>
+                    <td>{$review->getCaption()}</td>
+                    <td>{$review->getDescription()}</td>
+                    <td>{$review->getRate()}</td>
+                    
+                  </tr>
+                {/foreach}
+              </table>
+
+            </div>
+            <div class="d-flex align-items-center gap-5 mb-4">
+            <a href="#" data-bs-toggle="modal" data-bs-target="#addFeedback" class="btn btn-primary mt-4 ">
+              <span class="me-2"><i class="fas fa-plus"></i></span>
+              Aggiungi recensione
+            </a>
+          </div>
+          </div>
+        </div>
+
+            <div class="tab-pane fade " id="manageAddresses">
               <div class="address-book bg-white rounded p-5">
                 <div class="row g-6">
 
@@ -486,6 +530,50 @@
         </div>
       </div>
     </div>
+       
+        <div class="modal fade" id="addFeedback">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-body">
+              <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+  
+              <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4 overflow-auto">
+                <h2 class="modal-title fs-5 mb-3">Lascia una recensione</h2>
+                <div class="row align-items-center g-4 mt-3">
+                  <form id="addAddressForm" method="post">
+                    <div class="row ">
+                    
+                    <div class="col-sm-2">
+                      <div class="label-input-field">
+                      
+                        <input type="number" name="rate"  placeholder="stelle" min=1 max=5>
+                      </div>
+                    </div>
+                      <div class="col-sm-6">
+                        <div class="label-input-field">
+                          <input type="text" name="title" placeholder="Titolo">
+                        </div>
+                      </div>
+                      <div >
+                        <div class="label-input-field">
+                        <textarea name="description" rows="4" placeholder="Raccontaci la tua esperienza"></textarea>
+                        </div>
+                      </div>
+                     
+                    </div>
+                    <div class="mt-6 d-flex">
+                      <button type="button" class="btn btn-secondary btn-md me-3" onclick="aggiungiRecensione()">Salva</button>
+  
+                    </div>
+                  </form>
+              
+                </div>
+              </div>
+  
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
   </div>
 </section>

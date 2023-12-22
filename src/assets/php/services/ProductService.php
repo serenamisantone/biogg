@@ -181,7 +181,7 @@ class ProductService
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 $product = new ProductInfo();
-                $product->setProductId($row['product_id']);
+                $product->setProductId($row['id']);
                 $product->setIngredients($row['ingredients']);
                 $product->setDescription($row['description']);
                 $info_products[] = $product;

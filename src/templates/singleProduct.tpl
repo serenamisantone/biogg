@@ -41,7 +41,7 @@
                                               <button class="increaseFromSingleProduct"
                                                   data-product-id="{$singleProduct->getId()}">+</button>
                                           </div>
-                                          <a href="cart.php" class="btn btn-secondary btn-md addToCartFromSingleProduct"
+                                          <a href="#" class="btn btn-secondary btn-md addToCartFromSingleProduct"
                                               data-product-id="{$singleProduct->getId()}"><span class="me-2"><i
                                                       class="fa-solid fa-bag-shopping"></i></span>Aggiungi al
                                               carrello</a>
@@ -71,6 +71,7 @@
 
                           </div>
                       </div>
+                      
                   </div>
               </div>
 
