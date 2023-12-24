@@ -3,8 +3,7 @@
 require_once("./assets/php/DbConnection.php");
 require_once("./assets/php/models/Product.php");
 require_once("./assets/php/models/Category.php");
-require_once("./assets/php/models/ProductInfo.php");
-require_once("./assets/php/models/ProductFeature.php");
+require_once("./assets/php/models/Manufacturer.php");
 require_once("./assets/php/models/ShoppingCart.php");
 require_once("./assets/php/services/OfferService.php");
 class ProductService
@@ -59,10 +58,34 @@ class ProductService
 
         return array();
     }
-    function getAllProductsWithoutPriceOffer()
+    function searchProductsAdmin($searchQuery){
+            if (!empty($searchQuery)) {
+                // Esegui la query per cercare i prodotti
+                $query = "SELECT id FROM product WHERE product.name LIKE '%$searchQuery%'";
+    
+            } else {
+                $query = "SELECT * FROM product";
+    
+            }
+            $result = $this->connection->query($query);
+            $all_products = array();
+            if (($result) && ($result->num_rows > 0)) {
+                while ($row = $result->fetch_assoc()) {
+                    $product = $this->getProductByIdWithotOfferPrice($row["id"]);
+    
+                    if ($product->getIsOnline() == 1)
+                        $all_products[] = $product;
+                }
+                return $all_products;
+    
+            }
+            return null;
+        }
+    
+    function getAllProductsWithoutPriceOffer($offset, $limit)
     {
 
-        $query = "SELECT id,name FROM product ORDER BY product.name ASC";
+        $query = "SELECT id,name FROM product ORDER BY product.name ASC LIMIT {$offset}, {$limit}";
 
         $result = $this->connection->query($query);
         $data_products = array();
@@ -122,12 +145,14 @@ class ProductService
             $product = new Product();
             $product->setId($row['id']);
             $product->setName($row['name']);
-
+            $product->setDescription($row['description']);
+            $product->setIngredients($row['ingredients']);
             $product->setImage($row['image']);
 
             $product->setStock($row['stock']);
             $product->setIsOnline($row['is_online']);
             $product->setCategory($this->getCategoryById($row['category_id']));
+            $product->setManufacturer($this->getManufacturerById($row['manufacturer_id']));
             $product->setOffers($this->offerService->getOfferByProductId($productId));
             $product->setPrice($row['price']);
 
@@ -153,93 +178,11 @@ class ProductService
         return null;
     }
 
-
-
-    public function getProductInfoById($productId)
+    function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productDescription, $productIngredients, $productManufacturer)
     {
-        $query = "SELECT * FROM product where id=$productId";
-        $result = $this->connection->query($query);
-
-        if (($result) && ($result->num_rows > 0)) {
-            $row = $result->fetch_assoc();
-            $product = new ProductInfo();
-            $product->setProductId($row['id']);
-            $product->setIngredients($row['ingredients']);
-            $product->setDescription($row['description']);
-            return $product;
-        } else {
-            return ;
-        }
-       
-    }
-    public function getProductInfo()
-    {
-        $query = "SELECT * FROM product";
-        $result = $this->connection->query($query);
-        $info_products = array();
-
-        if ($result && $result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $product = new ProductInfo();
-                $product->setProductId($row['id']);
-                $product->setIngredients($row['ingredients']);
-                $product->setDescription($row['description']);
-                $info_products[] = $product;
-            }
-
-            return $info_products;
-        } else {
-            return array();  // Restituisci un array vuoto se non ci sono risultati
-        }
-    }
-
-    public function addProductFeatures($product)
-    {
-        $id = $product->getProductId();
-        $query = "SELECT * FROM product_feature where product_id=$id";
-        $result = $this->connection->query($query);
-        if (($result) && ($result->num_rows > 0)) {
-
-            while ($row = $result->fetch_assoc()) {
-
-                $product->addFeatures($row['title'], $row['description']);
-
-            }
-
-        } else {
-            Header("Location: error.php?features_non_inserite_");
-        }
-    }
-
-    function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productTitle, $productDescription, $productIngredients)
-    {
-        $query = "INSERT INTO product (name, price, category_id, stock, is_online, image) VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO product (name, price, category_id, stock, is_online, image, description, ingredients, manufacturer_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $this->connection->prepare($query);
-        $stmt->bind_param("ssiiis", $productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage);
-
-        $result = $stmt->execute();
-
-        if ($result === false) {
-            return false;
-        }
-
-        $productId = $stmt->insert_id;
-
-        // Inserisci in product_feature
-        $query = "INSERT INTO product_feature (product_id, title, description) VALUES (?, ?, ?)";
-        $stmt = $this->connection->prepare($query);
-        $stmt->bind_param("iss", $productId, $productTitle, $productDescription);
-
-        $result = $stmt->execute();
-
-        if ($result === false) {
-            return false;
-        }
-
-        // Inserisci in product_info
-        $query = "INSERT INTO product_info (product_id, ingredients) VALUES (?, ?)";
-        $stmt = $this->connection->prepare($query);
-        $stmt->bind_param("is", $productId, $productIngredients);
+        $stmt->bind_param("sdiiisssi", $productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productDescription, $productIngredients, $productManufacturer);
 
         $result = $stmt->execute();
 
@@ -272,18 +215,6 @@ class ProductService
         if (file_exists($imagePath)) {
             unlink($imagePath);
         }
-        $query = "DELETE FROM product_feature WHERE product_id = {$productId}";
-        $result = $this->connection->query($query);
-
-        if ($result === false) {
-            return false;
-        }
-
-        $query = "DELETE FROM product_info WHERE product_id = {$productId}";
-        $result = $this->connection->query($query);
-        if ($result === false) {
-            return false;
-        }
         // Elimina il record dal database
         $query = "DELETE FROM product WHERE id={$productId}";
         $result = $this->connection->query($query);
@@ -297,31 +228,41 @@ class ProductService
     }
 
 
-    public function updateProductInfo($productId, $editedTitle, $editedDescription, $editedIngredients)
+    
+
+    public function getAllManufacturers()
     {
-        $queryFeature = "UPDATE product_feature SET title = ?, description = ? WHERE product_id = ?";
-        $stmt = $this->connection->prepare($queryFeature);
-        $stmt->bind_param("sss", $editedTitle, $editedDescription, $productId);
-        $resultFeature = $stmt->execute();
-        $stmt->close();
 
-        if ($resultFeature === false) {
-            return "Errore nell'aggiornamento delle feature";
+        $query = " SELECT * FROM manufacturer";
+        $result = $this->connection->query($query);
+        $manufacturers = array();
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $manufacturer = new Manufacturer();
+                $manufacturer->setId($row['id']);
+                $manufacturer->setName($row['name']);
+                $manufacturers[] = $manufacturer;
+            }
+            return $manufacturers;
         }
-        $queryInfo = "UPDATE product_info SET ingredients = ? WHERE product_id = ?";
-        $stmtInfo = $this->connection->prepare($queryInfo);
-        $stmtInfo->bind_param("ss", $editedIngredients, $productId);
-        $resultInfo = $stmtInfo->execute();
-        $stmtInfo->close();
+        return array();
 
-        if ($resultInfo === false) {
-            return "Errore nell'aggiornamento delle informazioni";
-        }
-
-        return true;
     }
 
+    public function getManufacturerById($manufacturerId)
+    {
+        $query = "SELECT * FROM manufacturer WHERE id='{$manufacturerId}'";
+        $result = $this->connection->query($query);
+        if ($result && $result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $manufacturer = new Manufacturer();
+            $manufacturer->setId($row['id']);
+            $manufacturer->setName($row['name']);
 
+            return $manufacturer;
+        }
+        return null;
+    }
 
 
 
@@ -410,6 +351,20 @@ class ProductService
         }
     }
 
+    function updateCategory($categoryId, $editedName)
+    {
+        $query = "UPDATE category SET name = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("si", $editedName, $categoryId);
+        $result = $stmt->execute();
+        $stmt->close();
+        if ($result === false) {
+            return false;
+        } else{
+        return true;
+        }
+    }
+
 
 
 
@@ -467,7 +422,7 @@ class ProductService
 
     //metodi per la modifica dei prodotti
 
-    function updateProduct($productId, $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $offerIds, $editedImage)
+    function updateProduct($productId, $editedName, $editedDescription, $editedIngredients,$editedManufacturer, $editedPrice, $editedCategory, $editedStock, $editedOnline, $offerIds, $editedImage)
     {
         $imageQuery = "SELECT image FROM product WHERE id=$productId";
         $result = $this->connection->query($imageQuery);
@@ -486,9 +441,9 @@ class ProductService
             }
         }
         $editedPrice = str_replace(',', '.', $editedPrice);
-        $query = "UPDATE product SET name = ?, price = ?, category_id = ?, stock = ?, is_online = ?, image = ? WHERE id = ?";
+        $query = "UPDATE product SET name = ?, price = ?, category_id = ?, stock = ?, is_online = ?, image = ?, description = ?, ingredients = ?, manufacturer_id = ? WHERE id = ?";
         $stmt = $this->connection->prepare($query);
-        $stmt->bind_param("sdiissi", $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage, $productId);
+        $stmt->bind_param("sdiissssii", $editedName, $editedPrice, $editedCategory, $editedStock, $editedOnline, $editedImage, $editedDescription, $editedIngredients, $editedManufacturer, $productId);
         $result = $stmt->execute();
         $stmt->close();
         if ($result === false) {
@@ -545,6 +500,61 @@ class ProductService
         }
         return $all_products;
     }
+
+
+
+
+
+    function removeFromManufacturer($manufacturerId)
+    {
+        $query = "DELETE FROM manufacturer WHERE id={$manufacturerId}";
+        $result = $this->connection->query($query);
+
+        if ($result === false) {
+            // Gestisci l'errore se necessario
+            return false;
+        } else {
+
+            return true;
+        }
+    }
+
+    function addNewManufacturer($manufacturerName)
+    {
+        if (empty($manufacturerName)) {
+            return false;
+        } else {
+            $query = "INSERT INTO manufacturer (name) VALUES (?)";
+            $stmt = $this->connection->prepare($query);
+            $stmt->bind_param("s", $manufacturerName);
+            $result = $stmt->execute();
+            $stmt->close();
+            $result = $this->connection->query($query);
+
+            if ($result === false) {
+                // Gestisci l'errore se necessario
+                return false;
+            } else {
+
+                return true;
+            }
+        }
+    }
+
+    function updateManufacturer($manufacturerId, $editedName)
+    {
+        $query = "UPDATE manufacturer SET name = ? WHERE id = ?";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("si", $editedName, $manufacturerId);
+        $result = $stmt->execute();
+        $stmt->close();
+        if ($result === false) {
+            return false;
+        } else{
+        return true;
+        }
+    }
+
 
 
 }

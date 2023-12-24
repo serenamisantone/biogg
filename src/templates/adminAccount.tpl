@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="light">
     <div class="main-wrapper">
-        <div class="row g-4">
+        <div class="row g-5">
             <div class="col-xl-2">
                 <div class="account-nav bg-white rounded py-5">
-                    <h6 class="mb-4 px-4">Impostazioni</h6>
+                    <h6 class="mb-2 px-2">Impostazioni</h6>
                     <ul class="nav nav-tabs border-0 d-block account-nav-menu">
                         <li>
                             <a href="adminAccount.php#products" data-bs-toggle="tab" class="active">
-                            <span class="me-2">
+                            <span class="me-1">
                             <svg
                               width="16"
                               height="16"
@@ -36,39 +36,10 @@
                                     Prodotti
                                 </a>
                             </li>
-                            <li>
-                            <a href="adminAccount.php#productsdetails" data-bs-toggle="tab">
-                            <span class="me-2">
-                            <svg
-                              width="16"
-                              height="16"
-                              viewBox="0 0 16 16"
-                              fill="none"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                d="M3.33333 1.99341H6C6.35362 1.99341 6.69276 2.13388 6.94281 2.38393C7.19286 2.63398 7.33333 2.97312 7.33333 3.32674V5.99341C7.33333 6.34703 7.19286 6.68617 6.94281 6.93622C6.69276 7.18627 6.35362 7.32674 6 7.32674H3.33333C2.97971 7.32674 2.64057 7.18627 2.39052 6.93622C2.14048 6.68617 2 6.34703 2 5.99341V3.32674C2 2.97312 2.14048 2.63398 2.39052 2.38393C2.64057 2.13388 2.97971 1.99341 3.33333 1.99341Z"
-                                fill="#212B36"
-                              />
-                              <path
-                                d="M10 1.99341H12.6667C13.0203 1.99341 13.3594 2.13388 13.6095 2.38393C13.8595 2.63398 14 2.97312 14 3.32674V5.99341C14 6.34703 13.8595 6.68617 13.6095 6.93622C13.3594 7.18627 13.0203 7.32674 12.6667 7.32674H10C9.64638 7.32674 9.30724 7.18627 9.05719 6.93622C8.80714 6.68617 8.66667 6.34703 8.66667 5.99341V3.32674C8.66667 2.97312 8.80714 2.63398 9.05719 2.38393C9.30724 2.13388 9.64638 1.99341 10 1.99341Z"
-                                fill="#212B36"
-                              />
-                              <path
-                                d="M6 8.66008H3.33333C2.97971 8.66008 2.64057 8.80055 2.39052 9.0506C2.14048 9.30065 2 9.63979 2 9.99341V12.6601C2 13.0137 2.14048 13.3528 2.39052 13.6029C2.64057 13.8529 2.97971 13.9934 3.33333 13.9934H6C6.35362 13.9934 6.69276 13.8529 6.94281 13.6029C7.19286 13.3528 7.33333 13.0137 7.33333 12.6601V9.99341C7.33333 9.63979 7.19286 9.30065 6.94281 9.0506C6.69276 8.80055 6.35362 8.66008 6 8.66008Z"
-                                fill="#212B36"
-                              />
-                              <path
-                                d="M10 8.66008H12.6667C13.0203 8.66008 13.3594 8.80055 13.6095 9.0506C13.8595 9.30065 14 9.63979 14 9.99341V12.6601C14 13.0137 13.8595 13.3528 13.6095 13.6029C13.3594 13.8529 13.0203 13.9934 12.6667 13.9934H10C9.64638 13.9934 9.30724 13.8529 9.05719 13.6029C8.80714 13.3528 8.66667 13.0137 8.66667 12.6601V9.99341C8.66667 9.63979 8.80714 9.30065 9.05719 9.0506C9.30724 8.80055 9.64638 8.66008 10 8.66008Z"
-                                fill="#212B36"/>
-                            </svg>
-                            </span>
-                                   Descrizione Prodotti
-                                </a>
-                            </li>
+                            
                 <li>
                 <a href="adminAccount.php#offerte" data-bs-toggle="tab">
-                <span class="me-2">
+                <span class="me-1">
                 <svg
                   width="16"
                   height="16"
@@ -100,7 +71,7 @@
 
                 <li id="categoryTab">
                     <a href="adminAccount.php#category" data-bs-toggle="tab" >
-                        <span class="me-2">
+                        <span class="me-1">
                         <svg
                           width="16"
                           height="16"
@@ -131,7 +102,7 @@
                 </li>
                             <li>
                 <a href="adminAccount.php#slider" data-bs-toggle="tab">
-                    <span class="me-2">
+                    <span class="me-1">
                     <svg
                       width="16"
                       height="16"
@@ -160,42 +131,90 @@
                     Slider 
                 </a>
             </li>
+            <li>
+                <a href="adminAccount.php#produttori" data-bs-toggle="tab">
+                <span class="me-1">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.33333 1.99341H6C6.35362 1.99341 6.69276 2.13388 6.94281 2.38393C7.19286 2.63398 7.33333 2.97312 7.33333 3.32674V5.99341C7.33333 6.34703 7.19286 6.68617 6.94281 6.93622C6.69276 7.18627 6.35362 7.32674 6 7.32674H3.33333C2.97971 7.32674 2.64057 7.18627 2.39052 6.93622C2.14048 6.68617 2 6.34703 2 5.99341V3.32674C2 2.97312 2.14048 2.63398 2.39052 2.38393C2.64057 2.13388 2.97971 1.99341 3.33333 1.99341Z"
+                    fill="#212B36"
+                  />
+                  <path
+                    d="M10 1.99341H12.6667C13.0203 1.99341 13.3594 2.13388 13.6095 2.38393C13.8595 2.63398 14 2.97312 14 3.32674V5.99341C14 6.34703 13.8595 6.68617 13.6095 6.93622C13.3594 7.18627 13.0203 7.32674 12.6667 7.32674H10C9.64638 7.32674 9.30724 7.18627 9.05719 6.93622C8.80714 6.68617 8.66667 6.34703 8.66667 5.99341V3.32674C8.66667 2.97312 8.80714 2.63398 9.05719 2.38393C9.30724 2.13388 9.64638 1.99341 10 1.99341Z"
+                    fill="#212B36"
+                  />
+                  <path
+                    d="M6 8.66008H3.33333C2.97971 8.66008 2.64057 8.80055 2.39052 9.0506C2.14048 9.30065 2 9.63979 2 9.99341V12.6601C2 13.0137 2.14048 13.3528 2.39052 13.6029C2.64057 13.8529 2.97971 13.9934 3.33333 13.9934H6C6.35362 13.9934 6.69276 13.8529 6.94281 13.6029C7.19286 13.3528 7.33333 13.0137 7.33333 12.6601V9.99341C7.33333 9.63979 7.19286 9.30065 6.94281 9.0506C6.69276 8.80055 6.35362 8.66008 6 8.66008Z"
+                    fill="#212B36"
+                  />
+                  <path
+                    d="M10 8.66008H12.6667C13.0203 8.66008 13.3594 8.80055 13.6095 9.0506C13.8595 9.30065 14 9.63979 14 9.99341V12.6601C14 13.0137 13.8595 13.3528 13.6095 13.6029C13.3594 13.8529 13.0203 13.9934 12.6667 13.9934H10C9.64638 13.9934 9.30724 13.8529 9.05719 13.6029C8.80714 13.3528 8.66667 13.0137 8.66667 12.6601V9.99341C8.66667 9.63979 8.80714 9.30065 9.05719 9.0506C9.30724 8.80055 9.64638 8.66008 10 8.66008Z"
+                    fill="#212B36"
+                  />
+                </svg>
+                </span>
+        Produttori
+    </a>
+</li>
             </ul>
         </div>
     </div>
         
 
-    <div class="col-xl-9">
+    <div class="col-md-9" style="padding-top: 20px; padding-bottom: 20px;">
     <div class="tab-content">
         <div class="tab-pane fade show active" id="products">
             <div class="table-responsive">
-                <table class="table">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="sidebar-widget search-widget bg-white py-2 px-2">
+                    <form class="search-form d-flex align-items-center mt-4" action="adminAccount.php" method="GET">
+                    <input type="text" name="searchQuery" id="searchQuery" placeholder="Search...">
+                    <button class="submit-icon-btn-secondary" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#addModalProduct">
+                        <i class="fa fa-plus"></i> Aggiungi
+                    </button>
+                </div>            
+
+                <table class="table col-md-2">
                     <thead>
                         <tr>
-                            <th>Id</th>
                             <th>Nome</th>
+                            <th>Descrizione</th>
+                            <th>Ingredienti</th>
                             <th>Prezzo</th>
                             <th>Categoria</th>
+                            <th>Produttore</th>
                             <th>Stock</th>
                             <th>Stato</th>
                             <th>Offerte</th>
                             <th>Immagine</th>
-                            <th>
-                                
-                            <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalProduct">Aggiungi Prodotto</button>
-                            </th>
+                            <th></th>
+                            <th></th>
+
                         </tr>
                     </thead>
                     <tbody>
                     {foreach $data_products as $product}
-                        
                     
                             <tr>
-                                <td>{$product->getId()}</td>
                                 <td>{$product->getName()}</td>
+                                <td>{$product->getDescription()|custom_substr:0:50}...</td>
+                                <td>{$product->getIngredients()}</td>
                                 <td>{$product->getPrice()} €</td>
                                 {assign var="category" value=$product->getCategory()}
                                 <td>{$category->getName()}</td>
+                                {assign var="manufacturer" value=$product->getManufacturer()}
+                                <td>{$manufacturer->getName()}</td>
                                 <td>{$product->getStock()}</td>
                                 <td>  {if $product->getIsOnline() eq 1}
                                     Online
@@ -211,9 +230,19 @@
                                 </td>
                                 <td>{$product->getImage()}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModalProduct_{$product->getId()}">Modifica</button>
-                                    <button type="button" class="btn btn-secondary btn-sm ms-1" onclick="deleteProduct({$product->getId()})">Elimina</button>
-                                </td>
+                                <button type="button" data-bs-toggle="modal" data-bs-target="#editModalProduct_{$product->getId()}">
+                                    <i class="fa fa-pen" style="color:#4CAF50;"></i>
+                                </button>
+                            </td>
+                            
+                            
+                                                            <td>
+    <button type="button" onclick="deleteProduct({$product->getId()})">
+        <i class="fa fa-trash-can" style="color:#FF7C08;"></i>
+    </button>
+</td>
+
+                                                        
                             </tr>
                         {/foreach}
 
@@ -227,15 +256,29 @@
             <h2 class="modal-title fs-5 mb-3">Aggiungi Prodotto</h2>
             <div class="row align-items-center g-4 mt-3">
             <form id="addProductForm" enctype="multipart/form-data">
+            <div class="row">
+            <div class="col-md-6">
 <div class="form-group">
 <label for="product_name"class="text-primary">Nome:</label>
 <input type="text" id="product_name" name="product_name" class="form-control" placeholder="Inserisci il nome" required>
 </div>
-
+            </div>
+            <div class="col-md-6">
+<div class="form-group">
+<label for="product_description"class="text-primary">Descrizione:</label>
+<input type="text" id="product_description" name="product_description" class="form-control" step="0.01" placeholder="Inserisci la descrizione" required>
+</div></div>
+<div class="col-md-6">
+<div class="form-group">
+<label for="product_ingredients"class="text-primary">Ingredienti:</label>
+<input type="text" id="product_ingredients" name="product_ingredients" class="form-control" step="0.01" placeholder="Inserisci gli ingredienti" required>
+</div></div>
+<div class="col-md-6">
 <div class="form-group">
 <label for="product_price"class="text-primary">Prezzo:</label>
 <input type="number" id="product_price" name="product_price" class="form-control" step="0.01" placeholder="Inserisci il prezzo" required>
-</div>
+</div></div>
+<div class="col-md-6">
 <div class="form-group">
 <label for="product_category"class="text-primary">Categoria:</label>
 <select id="product_category" name="product_category" class="custom-select" required>
@@ -243,11 +286,22 @@
     <option value="{$category->getId()}">{$category->getName()}</option>
 {/foreach}
 </select>
-</div>
+</div></div>
+<div class="col-md-6">
+<div class="form-group">
+<label for="product_manufacturer"class="text-primary">Produttore:</label>
+<select id="product_manufacturer" name="product_manufacturer" class="custom-select" required>
+{foreach $manufacturers as $manufacturer}
+    <option value="{$manufacturer->getId()}">{$manufacturer->getName()}</option>
+{/foreach}
+</select>
+</div></div>
+<div class="col-md-6">
 <div class="form-group">
 <label for="product_stock"class="text-primary">Quantità in magazzino:</label>
 <input type="number" id="product_stock" name="product_stock" class="form-control" placeholder="Inserisci la quantità" required>
-</div>
+</div></div>
+<div class="col-md-6">
 <div class="form-group">
 <label class="text-primary">Disponibile online:</label>
 <div class="custom-control custom-radio">
@@ -258,25 +312,16 @@
 <input type="radio" id="online_no" name="product_online" class="custom-control-input" value="0">
 <label class="custom-control-label" for="online_no">No</label>
 </div>
-</div>
+</div></div>
+<div class="col-md-6">
 <div id="drop-area">
 <label for="fileInput" class="text-primary">Immagine:</label>
 <input type="file" id="fileInput" name="image" class="custom-file-input" required> 
-</div>
-<div class="form-group">
-<label for="product_title"class="text-primary">Titolo:</label>
-<input type="text" id="product_title" name="product_title" class="form-control" placeholder="Inserisci titolo" required>
-</div>
-<div class="form-group">
-<label for="product_description"class="text-primary">Descrizione:</label>
-<input type="text" id="product_description" name="product_description" class="form-control" placeholder="Inserisci descrizione" required>
-</div>
-<div class="form-group">
-<label for="product_ingredients"class="text-primary">Ingredienti:</label>
-<input type="text" id="product_ingredients" name="product_ingredients" class="form-control" placeholder="Inserisci gli ingredienti" required>
-</div>
+</div></div>
+
+<div class="form-group" style="padding-top: 20px; padding-bottom: 20px;">
 <button type="submit" class="btn btn-primary btn-block" onclick="addProduct()">Aggiungi Prodotto</button>
-</form>
+</form></div></div>
 </div></div></div></div></div></div>
 
 <!-- Modali Modifica Prodotto -->
@@ -299,6 +344,18 @@
                         </div>
                         <div class="col-sm-6">
                             <div class="label-input-field">
+                            <label for="edit_description_{$product->getId()}">Descrizione:</label>
+                            <textarea id="edit_description_{$product->getId()}" class="edit-input" style="height: 100px; overflow: auto; ">{$product->getDescription()}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="label-input-field">
+                            <label for="edit_ingredients_{$product->getId()}">Ingredienti:</label>
+                            <input type="text" id="edit_ingredients_{$product->getId()}" class="edit-input" value="{$product->getIngredients()}">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="label-input-field">
                             <label for="edit_price_{$product->getId()}">Prezzo:</label>
                             <input type="text" id="edit_price_{$product->getId()}" class="edit-input" value="{$product->getPrice()}€">
                             </div>
@@ -309,6 +366,16 @@
                             <select id="edit_category_{$product->getId()}" name="edit_category" class="edit-select">
                             {foreach $categories as $category}
                                 <option value="{$category->getId()}">{$category->getName()}</option>
+                            {/foreach}
+                        </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="label-input-field">
+                            <label for="edit_manufacturer_{$product->getId()}">Produttore:</label>
+                            <select id="edit_manufacturer_{$product->getId()}" name="edit_manufacturer" class="edit-select">
+                            {foreach $manufacturers as $manufacturer}
+                                <option value="{$manufacturer->getId()}">{$manufacturer->getName()}</option>
                             {/foreach}
                         </select>
                             </div>
@@ -361,78 +428,28 @@
                                 <button type="button" onclick="saveChanges({$product->getId()})" class="btn btn-primary btn-sm">Salva</button>                                                    </div>
                         </form>
     </div> </div></div></div>
+    </div></div>
     </tbody>
-    </table>
-
-</div></div>
 {/foreach}
+    </table>
+    <ul class="template-pagination d-flex align-items-center mt-6">
+    {for $page = 1 to $total_pages}
+        {if $page == $current_page}
+            <li><a href="adminAccount.php?page={$page}" style=" background-color: #4CAF50;
+        color: white; ">{$page}</a></li>
+        {else}
+            <li><a href="adminAccount.php?page={$page}">{$page}</a></li>
+        {/if}
+    {/for}
+    {if $current_page < $total_pages}
+        <li><a href="adminAccount.php?page={$current_page + 1}"><i class="fas fa-arrow-right"></i></a></li>
+    {/if}
+</ul>
+</div></div>
+
+
 </div>
-<div class="tab-content">
-    <div class="tab-pane fade" id="productsdetails">
-        <div class="table-responsive">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>Titolo</th>
-                        <th>Descrizione</th>
-                        <th>Ingredienti</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {foreach $info_products as $productInfo}
-                    {assign "productId" $productInfo->getProductId()}
-                        <tr>
-                            {foreach $productInfo->getFeatures() as $feature}
-                                {foreach $data_products as $product}
-                                    {if $product->getId() eq $productId}
-                            <td>{$product->getName()}</td>
-                                    {/if}
-                                    
-                    {/foreach}
-                            <td>{$feature.title}</td>
-                            <td>{$feature.description}</td>
-                            <td>{$productInfo->getIngredients()}</td>
-                            <td>
-                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModalProductDescription_{$productId}">Modifica</button>
-                            </td>
-                        </tr>
-                        <!-- Modal Modifica Descrizione -->
-                        
-                        <div class="modal fade" id="editModalProductDescription_{$productId}" tabindex="-1" aria-labelledby="editModalLabel_{$productId}" aria-hidden="true">
-                            <!-- Contenuto del modal per modificare un'offerta -->
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                    <div class="modal-body">
-                                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
-                                            <h2 class="modal-title fs-5 mb-3">Modifica Descrizione</h2>
-                                            <div class="row align-items-center g-4 mt-3">
-                                                <form id="editForm5_{$productId}" enctype="multipart/form-data">
-                                                {foreach $data_products as $product}
-                                                {if $product->getId() eq $productId}
-                                                <label for="editproductdescription_name_{$productId}">Nome Prodotto:{$product->getName()}</label>
-                                            {/if}
-                                        {/foreach} 
-                                                    <input type="text" id="editproductdescription_title_{$productId}" class="edit-input" value="{$feature.title}">
-                                                    <input type="text" id="editproductdescription_description_{$productId}" class="edit-input" value="{$feature.description}">
-                                                    <input type="text" id="editproductdescription_ingredients_{$productId}" class="edit-input" value="{$productInfo->getIngredients()}">
-                                                    <button onclick="saveChangesProductDescription({$productId})" class="btn btn-primary btn-sm">Salva</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    
-                    {/foreach}
-                    {/foreach}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+
     <div class="tab-content">
     <div class="tab-pane fade" id="offerte">
         <div class="table-responsive">
@@ -540,9 +557,37 @@
                     <td>{$category->getId()}</td>
                     <td>{$category->getName()}</td>
                     <td>
-                        <button onclick="deleteCategory({$category->getId()})" class="btn btn-primary btn-sm remove_cart_btn" data-category-id="{$category->getId()}">Elimina</button>
-                    </td>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#editModalCategory_{$category->getId()}">
+                        <i class="fa fa-pen" style="color:#4CAF50;"></i>
+                    </button>
+                </td>
+                
+                
+                                                <td>
+<button type="button" onclick="deleteCategory({$category->getId()})">
+<i class="fa fa-trash-can" style="color:#FF7C08;"></i>
+</button>
+</td>
                 </tr>
+                <div class="modal fade" id="editModalCategory_{$category->getId()}" tabindex="-1" aria-labelledby="editModalCategory_{$category->getId()}" aria-hidden="true">
+                            <!-- Contenuto del modal per modificare un'offerta -->
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+                                            <h2 class="modal-title fs-5 mb-3">Modifica Categoria</h2>
+                                            <div class="row align-items-center g-4 mt-3">
+                                                <form id="editForm5_{$category->getId()}" enctype="multipart/form-data">
+                                                    <input type="text" id="editcategory_name_{$category->getId()}" class="edit-input" value="{$category->getName()}">
+                                                    <button onclick="saveChangesCategory{$category->getId()})" class="btn btn-primary btn-sm">Salva</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                 {/foreach}
             </tbody>
         </table>
@@ -633,10 +678,7 @@
         </div>
     </div>
 
-</div>
-    </div>
-</div>
-    </div>
+
      <!-- Modal Aggiungi Slider -->
      <div class="modal fade" id="addModalSlider" tabindex="-1" aria-labelledby="addModalLabelSlider" aria-hidden="true">
      <div class="modal-dialog modal-dialog-centered">
@@ -671,5 +713,88 @@
          </div>
      </div>
  </div>
+</div>
+
+
+ <div class="tab-content">
+<div class="tab-pane fade" id="produttori">
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th></th>
+                    <th>
+                        <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalManufacturer">Aggiungi Produttore</button>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {foreach $manufacturers as $manufacturer}
+                <tr class="manufacturer">
+                    <td>{$manufacturer->getId()}</td>
+                    <td>{$manufacturer->getName()}</td>
+                    <td>
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#editModalManufacturer_{$manufacturer->getId()}">
+                        <i class="fa fa-pen" style="color:#4CAF50;"></i>
+                    </button>
+                </td>
+                
+                
+                                                <td>
+<button type="button" onclick="deleteManufacturer({$manufacturer->getId()})">
+<i class="fa fa-trash-can" style="color:#FF7C08;"></i>
+</button>
+</td>
+                </tr>
+                <div class="modal fade" id="editModalManufacturer_{$manufacturer->getId()}" tabindex="-1" aria-labelledby="editModalManufacturer_{$manufacturer->getId()}" aria-hidden="true">
+                            <!-- Contenuto del modal per modificare un produttore -->
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+                                            <h2 class="modal-title fs-5 mb-3">Modifica Produttore</h2>
+                                            <div class="row align-items-center g-4 mt-3">
+                                                <form id="editForm6_{$manufacturer->getId()}" enctype="multipart/form-data">
+                                                    <input type="text" id="editmanufacturer_name_{$manufacturer->getId()}" class="edit-input" value="{$manufacturer->getName()}">
+                                                    <button onclick="saveChangesManufacturer{$manufacturer->getId()})" class="btn btn-primary btn-sm">Salva</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>
+ </div>
+
+<!-- Modal Aggiungi Produttore -->
+<div class="modal fade" id="addModalManufacturer" tabindex="-1" aria-labelledby="addModalLabelManufacturer" aria-hidden="true">
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-body">
+            <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+                <h2 class="modal-title fs-5 mb-3">Aggiungi Produttore</h2>
+                <div class="row align-items-center g-4 mt-3">
+                    <form id="addManufacturerForm">
+                        <div class="form-group">
+                            <label for="manufacturer_name" class="text-primary">Nome:</label>
+                            <input type="text" id="manufacturer_name" name="manufacturer_name" class="form-control" placeholder="Inserisci il nome" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" onclick="addNewManufacturer()">Aggiungi Produttore</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div></div>
 </html>
 

@@ -18,8 +18,11 @@ if (!isset($_SESSION['auth'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId2'])) {
     $productId = $_POST['productId2'];
     $editedName = $_POST['editedName'];
+    $editedDescription = $_POST['editedDescription'];
+    $editedIngredients = $_POST['editedIngredients'];
     $editedPrice = $_POST['editedPrice'];
     $editedCategory = $_POST['editedCategory'];
+    $editedManufacturer = $_POST['editedManufacturer'];
     $editedStock = $_POST['editedStock'];
     $editedOnline = $_POST['editedOnline'];
     $offerIds = json_decode($_POST['selectedOffers'], true);
@@ -31,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId2'])) {
         // Nessun nuovo file caricato, utilizza il valore esistente
         $editedImage = $_POST['editedImage'];
     }
-    $updateChanges = $productService->updateProduct($productId,$editedName,$editedPrice, $editedCategory, $editedStock, $editedOnline,$offerIds,$editedImage);
+    $updateChanges = $productService->updateProduct($productId,$editedName,$editedDescription,$editedIngredients,$editedManufacturer,$editedPrice, $editedCategory, $editedStock, $editedOnline,$offerIds,$editedImage);
 
 
     if ($updateChanges) {
@@ -53,20 +56,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productId2'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['image'])) {
     // Accedi ai dati del modulo
     $productName = $_POST['name'];
-    $productPrice = $_POST['price'];
-    $productCategory = $_POST['category'];
-    $productStock = $_POST['stock'];
-    $productOnline = $_POST['isOnline'];
-    $productTitle = $_POST['title'];
     $productDescription = $_POST['description'];
     $productIngredients = $_POST['ingredients'];
-
+    $productPrice = $_POST['price'];
+    $productCategory = $_POST['category'];
+    $productManufacturer = $_POST['manufacturer'];
+    $productStock = $_POST['stock'];
+    $productOnline = $_POST['isOnline'];
+    
     // Accedi ai dati del file
     $productImage = $productService->uploadImage($_FILES['image']);
     
 
     // Aggiungi il prodotto con tutti i dati
-    $addProduct = $productService->addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productTitle, $productDescription, $productIngredients);
+    $addProduct = $productService->addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productDescription, $productIngredients, $productManufacturer);
 
     // Gestisci la risposta
     if ($addProduct) {
@@ -126,6 +129,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoryName'])) {
     $addCategory = $productService->addNewCategory($categoryName);
     error_log($addCategory);
     if ($addCategory) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['categoryId2'])) {
+    $categoryId = $_POST['categoryId2'];
+    $editedName = $_POST['editedName'];
+    error_log($categoryId);
+    error_log($editedName);
+
+    $editCategory = $productService->updateCategory($categoryId, $editedName);
+    if ($editCategory) {
         header('Content-Type: application/json');
         $response = ['success' => true];
         echo json_encode($response);
@@ -275,15 +299,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['nameOffer'])) {
         exit;
     }
 }
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productInfoId'])) {
-    $productId = $_POST['productInfoId'];
-    $editedTitle = $_POST['editedTitle'];
-    $editedDescription = $_POST['editedDescription'];
-    $editedIngredients = $_POST['editedIngredients'];
-    $updateChanges = $productService->updateProductInfo($productId,$editedTitle,$editedDescription, $editedIngredients);
-    error_log($updateChanges);
 
-    if ($updateChanges) {
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
+    $searchQuery = $_GET['searchQuery'];
+    $smarty->assign("current_view", "adminAccount.tpl");
+    $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $smarty->assignCartVariables($smarty, $cartService);
+    
+    $smarty->registerPlugin('modifier', 'custom_substr', 'smarty_modifier_custom_substr');
+    $products= $productService->searchProductsAdmin($searchQuery);
+    if (empty($products)) {
+        // Prodotto non trovato
+        echo "<script>alert('Prodotto non trovato'); window.location.href='adminAccount.php';</script>";
+        exit();
+    }else{
+    $smarty->assign("data_products", $productService->searchProductsAdmin($searchQuery));
+    }
+    $smarty->assign("data_slider", $homeService->getSlider());
+    $smarty->assign("data_offers", $offerService->getOffers());
+    $smarty->assign("current_page", $current_page);
+    $smarty->assign("total_pages", $productService->getImpagination($productService->getTotalProduct()));
+    $smarty->assign("current_view","adminAccount.tpl");
+    $smarty->display("index.tpl");
+    exit();
+}
+function smarty_modifier_custom_substr($string, $start, $length = null)
+{
+    return mb_substr($string, $start, $length, 'UTF-8');
+}
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['manufacturerId'])) {
+    $manufacturerId = $_POST['manufacturerId'];
+
+    $removeManufacturer = $productService->removeFromManufacturer($manufacturerId);
+    if ($removeManufacturer) {
         header('Content-Type: application/json');
         $response = ['success' => true];
         echo json_encode($response);
@@ -295,18 +345,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['productInfoId'])) {
         echo json_encode($response);
         exit; 
     }
-   
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['manufacturerName'])) {
+    $manufacturerName = $_POST['manufacturerName'];
+
+    $addManufacturer = $productService->addNewManufacturer($manufacturerName);
+    if ($addManufacturer) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['manufacturerId2'])) {
+    $manufacturerId = $_POST['manufacturerId2'];
+    $editedName = $_POST['editedName'];
+
+    $editManufacturer = $productService->updateManufacturer($manufacturerId, $editedName);
+    if ($editManufacturer) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+
+        exit; 
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit; 
+    }
 }
 
 
 
+
 try {
+    $smarty->registerPlugin('modifier', 'custom_substr', 'smarty_modifier_custom_substr');
     $smarty->assignCartVariables($smarty, $cartService);
+    $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
     $smarty->assign("categories", $productService->getAllCategories() );
-    $smarty->assign("data_products", $productService->getAllProductsWithoutPriceOffer());
-    $smarty->assign("info_products", $productService->getProductInfo());
+    $products_per_page =9 ; 
+    $offset = ($current_page - 1) * $products_per_page;
+    $smarty->assign("data_products", $productService->getAllProductsWithoutPriceOffer($offset, $products_per_page));
     $smarty->assign("data_slider", $homeService->getSlider());
-    $smarty->assign("data_offers", $offerService->getOffers()); 
+    $smarty->assign("data_offers", $offerService->getOffers());
+    $smarty->assign("current_page", $current_page);
+    $smarty->assign("total_pages", $productService->getImpagination($productService->getTotalProduct()));
+    $smarty->assign("manufacturers", $productService->getAllManufacturers() );
     $smarty->assign("current_view","adminAccount.tpl");
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

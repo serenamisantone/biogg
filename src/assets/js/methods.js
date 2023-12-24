@@ -75,8 +75,11 @@ function removeFromWishlist(productId) {
 function saveChanges(productId) {
   // Ottenere i valori modificati dai campi di input
   const editedName = document.getElementById(`edit_name_${productId}`).value;
+  const editedDescription = document.getElementById(`edit_description_${productId}`).value;
+  const editedIngredients = document.getElementById(`edit_ingredients_${productId}`).value;
   const editedPrice = document.getElementById(`edit_price_${productId}`).value;
   const editedCategory = document.getElementById(`edit_category_${productId}`).value;
+  const editedManufacturer = document.getElementById(`edit_manufacturer_${productId}`).value;
   const editedStock = document.getElementById(`edit_stock_${productId}`).value;
   const editedOnline = document.getElementById(`edit_online_${productId}`).value;
   const selectedOffers = [];
@@ -91,8 +94,11 @@ offerCheckboxes.forEach((checkbox) => {
   const formData = new FormData();
   formData.append('productId2', productId);
   formData.append('editedName', editedName);
+  formData.append('editedDescription', editedDescription);
+  formData.append('editedIngredients', editedIngredients);
   formData.append('editedPrice', editedPrice);
   formData.append('editedCategory', editedCategory);
+  formData.append('editedManufacturer', editedManufacturer);
   formData.append('editedStock', editedStock);
   formData.append('selectedOffers', JSON.stringify(selectedOffers));
   formData.append('editedOnline', editedOnline);
@@ -128,28 +134,29 @@ function addProduct() {
 
   // Ottenere i valori modificati dai campi di input
   const name = document.getElementById('product_name').value;
+  const description = document.getElementById('product_description').value;
+  const ingredients = document.getElementById('product_ingredients').value;
   const price = document.getElementById('product_price').value;
   const category = document.getElementById('product_category').value;
+  const manufacturer = document.getElementById('product_manufacturer').value;
   const stock = document.getElementById('product_stock').value;
   const online = document.getElementById('online_yes').checked ? 1 : 0;
   const fileInput = document.getElementById('fileInput');
   const file = fileInput.files[0];
-  const title = document.getElementById('product_title').value;
-  const description = document.getElementById('product_description').value;
-  const ingredients = document.getElementById('product_ingredients').value;
 
   // Invia una richiesta AJAX solo quando tutti i campi obbligatori sono compilati
-  if (name && price && category && stock && title && description && ingredients !== null) {
+  if (name && description && ingredients && price && category && manufacturer && stock  !== null) {
     const formData = new FormData();
     formData.append('name', name);
+    formData.append('description', description);
+    formData.append('ingredients', ingredients);
     formData.append('price', price);
     formData.append('category', category);
+    formData.append('manufacturer', manufacturer);
     formData.append('stock', stock);
     formData.append('isOnline', online);
     formData.append('image', file);
-    formData.append('title', title);
-    formData.append('description', description);
-    formData.append('ingredients', ingredients);
+   
 
     $.ajax({
       type: "POST",
@@ -270,6 +277,33 @@ function addNewCategory() {
     alert("Compila tutti i campi prima di aggiungere la categoria.");
   }
 }
+
+function saveChangesCategory(categoryId) {
+  // Ottenere i valori modificati dai campi di input
+  const editedName = document.getElementById(`editcategory_name_${categoryId}`).value;
+  const formData = new FormData();
+  formData.append('categoryId2', categoryId);
+  formData.append('editedName', editedName);
+
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      if (response.success) {
+        window.location.href = "/biogg/src/adminAccount.php";
+      } else {
+        // alert("Errore: " + response.message);
+      }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante il salvataggio.");
+    }
+  });
+}
+
 
 
 function saveChangesSlider(sliderId) {
@@ -501,38 +535,6 @@ function addNewOffer() {
   }
 }
 
-function saveChangesProductDescription(productId) {
-  // Ottenere i valori modificati dai campi di input
-  const editedTitle = document.getElementById(`editproductdescription_title_${productId}`).value;
-  const editedDescription = document.getElementById(`editproductdescription_description_${productId}`).value;
-  const editedIngredients = document.getElementById(`editproductdescription_ingredients_${productId}`).value;
-
-  // Costruire l'oggetto con i dati modificati
-  const formData = new FormData();
-  formData.append('productInfoId', productId);
-  formData.append('editedTitle', editedTitle);
-  formData.append('editedDescription', editedDescription);
-  formData.append('editedIngredients', editedIngredients);
-
-
-  $.ajax({
-    type: "POST",
-    url: "/biogg/src/adminAccount.php",
-    data: formData,
-    contentType: false,
-    processData: false,
-    success: function (response) {
-      if (response.success) {
-        window.location.href = "/biogg/src/adminAccount.php";
-      } else {
-        // alert("Errore: " + response.message);
-      }
-    },
-    error: function () {
-      alert("Si è verificato un errore durante il salvataggio.");
-    }
-  });
-}
 
 function aggiungiRecensione(){
   console.log("sono qui");
@@ -548,6 +550,91 @@ function aggiungiRecensione(){
        location.reload();
       } else {
         alert("Errore: " + response.success);
+      }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante il salvataggio.");
+    }
+  });
+}
+function deleteManufacturer(manufacturerId) {
+  const confirmation = confirm("Sei sicuro di voler eliminare questo produttore?");
+
+  if (!confirmation) {
+    return;
+  }
+
+  // Esegui la chiamata AJAX per eliminare la categoria
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: { action: "delete_manufacturer", manufacturerId: manufacturerId},
+    success: function (response) {
+      // Gestisci la risposta dal server
+      if (response.success) {
+        // Rimuovi l'elemento visuale dalla tabella
+        location.reload();
+      } else {
+        alert("Errore: " + response.message);
+      }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante l'eliminazione del produttore.");
+    }
+  });
+}
+function addNewManufacturer() {
+
+  // Ottenere i valori modificati dai campi di input
+  const name = document.getElementById('manufacturer_name').value;
+
+  if (name!== null) {
+    const formData = new FormData();
+    formData.append('manufacturerName', name);
+
+    $.ajax({
+      type: "POST",
+      url: "/biogg/src/adminAccount.php",
+      data: formData,
+      contentType: false,
+      processData: false,
+      success: function (response) {
+        // Gestisci la risposta dal server
+        if (response.success) {
+          location.reload();
+
+          // Se la risposta è positiva, esegui ulteriori azioni
+        } else {
+          alert("Errore: " + response.message);
+        }
+      },
+      error: function () {
+        alert("Si è verificato un errore durante l'aggiunta.");
+      }
+    });
+  } else {
+    alert("Compila tutti i campi prima di aggiungere il produttore.");
+  }
+}
+
+function saveChangesManufacturer(manufacturerId) {
+  // Ottenere i valori modificati dai campi di input
+  const editedName = document.getElementById(`editmanufacturer_name_${manufacturerId}`).value;
+  const formData = new FormData();
+  formData.append('manufacturerId2', manufacturerId);
+  formData.append('editedName', editedName);
+
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      if (response.success) {
+        window.location.href = "/biogg/src/adminAccount.php";
+      } else {
+        // alert("Errore: " + response.message);
       }
     },
     error: function () {

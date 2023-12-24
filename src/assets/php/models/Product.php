@@ -10,6 +10,9 @@ class Product
     private $image;
     private $caption;
     private $offers;
+    private $description;
+    private $ingredients;
+    private $manufacturer;
 
     public function __construct()
     {
@@ -166,6 +169,33 @@ class Product
             'image' => $this->getImage(),
             'caption' => $this->getCaption(),
         ];
+    }
+    public function getDescription()
+  {
+    return $this->description;
+  }
+
+  public function setDescription($description)
+  {
+    $this->description = $description;
+  }
+  public function getIngredients()
+	{
+		return $this->ingredients;
+	}
+
+	public function setIngredients($ingredients)
+	{
+		$this->ingredients = $ingredients;
+	}
+    public function getManufacturer()
+    {
+        return $this->manufacturer;
+    }
+
+    public function setManufacturer($manufacturer)
+    {
+        $this->manufacturer = $manufacturer;
     }
 }
 
