@@ -383,6 +383,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['manufacturerId2'])) {
         exit; 
     }
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['aboutId'])) {
+    // Accedi ai dati del 
+    $aboutId = $_POST['aboutId'];
+    $aboutSlogan = $_POST['editedSloganAbout'];
+    $aboutTitle = $_POST['editedTitleAbout'];
+    $aboutDescription = $_POST['editedDescriptionAbout'];
+    $aboutMission = $_POST['editedMissionAbout'];
+    $aboutVision = $_POST['editedVisionAbout'];
+    if (isset($_FILES['editedFileAbout'])) {
+        $aboutImage = $homeService->uploadImageAbout($_FILES['editedFileAbout']);
+    } else {
+        // Nessun nuovo file caricato, utilizza il valore esistente
+        $aboutImage = $_POST['editedImageAbout'];
+    }
+    
+
+    // Aggiungi il prodotto con tutti i dati
+    $updateAbout = $homeService->updateAbout($aboutId, $aboutSlogan, $aboutTitle, $aboutDescription,$aboutMission,$aboutVision,$aboutImage);
+
+    // Gestisci la risposta
+    if ($updateAbout) {
+        header('Content-Type: application/json');
+        $response = ['success' => true];
+        echo json_encode($response);
+        exit;
+    } else {
+        header('Content-Type: application/json');
+        $response = ['success' => false, 'message' => 'Errore nella funzione'];
+        echo json_encode($response);
+        exit;
+    }
+}
 
 
 
@@ -400,6 +432,7 @@ try {
     $smarty->assign("current_page", $current_page);
     $smarty->assign("total_pages", $productService->getImpagination($productService->getTotalProduct()));
     $smarty->assign("manufacturers", $productService->getAllManufacturers() );
+    $smarty->assign("data_about", $homeService->getAboutUs() );
     $smarty->assign("current_view","adminAccount.tpl");
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

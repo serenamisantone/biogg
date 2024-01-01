@@ -167,7 +167,7 @@ function addProduct() {
       success: function (response) {
         // Gestisci la risposta dal server
         if (response.success) {
-          window.location.href = "/biogg/src/adminAccount.php";
+          location.reload();
           // Se la risposta è positiva, esegui ulteriori azioni
         } else {
           alert("Errore: " + response.message);
@@ -228,14 +228,9 @@ function deleteCategory(categoryId) {
       // Gestisci la risposta dal server
       if (response.success) {
         // Rimuovi l'elemento visuale dalla tabella
-        var categoryToRemoveId = categoryId;
-        $(".category").each(function () {
-          var itemCategoryId = $(this).find(".remove_cart_btn").data("category-id");
-          if (itemCategoryId === categoryToRemoveId) {
-            $(this).remove();
+        location.reload();
           }
-        });
-      } else {
+         else {
         alert("Errore: " + response.message);
       }
     },
@@ -338,9 +333,9 @@ function saveChangesSlider(sliderId) {
     processData: false,
     success: function (response) {
       if (response.success) {
-        window.location.href = "/biogg/src/adminAccount.php";
+        location.reload();
       } else {
-        // alert("Errore: " + response.message);
+         alert("Errore: " + response.message);
       }
     },
     error: function () {
@@ -365,12 +360,7 @@ function deleteSlider(sliderId2) {
     success: function (response) {
       // Gestisci la risposta dal server
       if (response.success) {
-        //alert("Prodotto eliminato con successo.");
-        // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
-        const rowId = `editForm2_${sliderId2}`;
-        $("#" + rowId).closest('tr').remove();
-        window.location.href = "/biogg/src/adminAccount.php";
-
+        location.reload();
 
       } else {
         alert("Errore: " + response.message);
@@ -409,7 +399,7 @@ function addSlider() {
       success: function (response) {
         // Gestisci la risposta dal server
         if (response.success) {
-          window.location.href = "/biogg/src/adminAccount.php";
+          location.reload();
 
           // Se la risposta è positiva, esegui ulteriori azioni
         } else {
@@ -450,7 +440,7 @@ function saveChangesOffer(offerId) {
     processData: false,
     success: function (response) {
       if (response.success) {
-        window.location.href = "/biogg/src/adminAccount.php";
+        location.reload();
       } else {
         // alert("Errore: " + response.message);
       }
@@ -477,11 +467,7 @@ function deleteOffer(offerId2) {
     success: function (response) {
       // Gestisci la risposta dal server
       if (response.success) {
-        //alert("Prodotto eliminato con successo.");
-        // Puoi anche aggiornare la visualizzazione della tabella o fare altre azioni necessarie
-        const rowId = `editForm3_${offerId2}`;
-        $("#" + rowId).closest('tr').remove();
-        window.location.href = "/biogg/src/adminAccount.php";
+        location.reload();
 
       } else {
         alert("Errore: " + response.message);
@@ -519,7 +505,7 @@ function addNewOffer() {
       success: function (response) {
         // Gestisci la risposta dal server
         if (response.success) {
-          window.location.href = "/biogg/src/adminAccount.php";
+         location.reload();
 
           // Se la risposta è positiva, esegui ulteriori azioni
         } else {
@@ -635,6 +621,54 @@ function saveChangesManufacturer(manufacturerId) {
         window.location.href = "/biogg/src/adminAccount.php";
       } else {
         // alert("Errore: " + response.message);
+      }
+    },
+    error: function () {
+      alert("Si è verificato un errore durante il salvataggio.");
+    }
+  });
+}
+
+
+
+function saveChangesAbout(aboutId) {
+  // Ottenere i valori modificati dai campi di input
+  const editedSloganAbout = document.getElementById(`edit_sloganAbout_${aboutId}`).value;
+  const editedTitleAbout = document.getElementById(`edit_titleAbout_${aboutId}`).value;
+  const editedDescriptionAbout = document.getElementById(`edit_descriptionAbout_${aboutId}`).value;
+  const editedMissionAbout = document.getElementById(`edit_missionAbout_${aboutId}`).value;
+  const editedVisionAbout = document.getElementById(`edit_visionAbout_${aboutId}`).value;
+  const editedImageAbout = document.getElementById(`edit_imageAbout_${aboutId}`).value;
+  const fileInputAbout = document.getElementById(`fileInputAbout_${aboutId}`);
+  const file = fileInputAbout.files[0];
+
+  // Costruire l'oggetto con i dati modificati
+  const formData = new FormData();
+  formData.append('aboutId', aboutId);
+  formData.append('editedSloganAbout', editedSloganAbout);
+  formData.append('editedTitleAbout', editedTitleAbout);
+  formData.append('editedDescriptionAbout', editedDescriptionAbout);
+  formData.append('editedMissionAbout', editedMissionAbout);
+  formData.append('editedVisionAbout', editedVisionAbout);
+
+  // Verifica se è stata selezionata una nuova immagine
+  if (file) {
+    formData.append('editedFileAbout', file);
+  } else {
+    formData.append('editedImageAbout', editedImageAbout);
+  }
+
+  $.ajax({
+    type: "POST",
+    url: "/biogg/src/adminAccount.php",
+    data: formData,
+    contentType: false,
+    processData: false,
+    success: function (response) {
+      if (response.success) {
+        location.reload();
+      } else {
+         alert("Errore: " + response.message);
       }
     },
     error: function () {

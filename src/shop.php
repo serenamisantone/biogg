@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['searchQuery'])) {
     $smarty->assign("all_products", $productService->searchProducts($searchQuery));
     }
     $smarty->assign("all_categories", $productService->getAllCategories());
+    $smarty->assign("all_manufacturers", $productService->getAllManufacturers());
     $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
     $smarty->assign("current_page", $current_page);
     $smarty->assign("total_products", $productService->getTotalProduct());
@@ -90,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['categoryId'])) {
     error_log(print_r($productService->getProductsByCategory($categoryId), true));
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("all_categories", $productService->getAllCategories());
+    $smarty->assign("all_manufacturers", $productService->getAllManufacturers());
     $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
     $smarty->assign("total_products", count($productService->getProductsByCategory($categoryId)));
     $smarty->assign("current_page", $current_page);
@@ -97,6 +99,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['categoryId'])) {
     $smarty->display("index.tpl");
     exit();
 }
+if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['manufacturerId'])) {
+    $manufacturerId = $_GET['manufacturerId'];
+    $smarty->assign("current_view", "shop.tpl");
+    $current_page = isset($_GET['page']) ? intval($_GET['page']) : 1;
+    $products_per_page = 9; 
+    $offset = ($current_page - 1) * $products_per_page;
+    $smarty->assign("all_products", $productService->getProductsByManufacturer($manufacturerId));
+    $smarty->assignCartVariables($smarty, $cartService);
+    $smarty->assign("all_categories", $productService->getAllCategories());
+    $smarty->assign("all_manufacturers", $productService->getAllManufacturers());
+    $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
+    $smarty->assign("total_products", count($productService->getProductsByManufacturer($manufacturerId)));
+    $smarty->assign("current_page", $current_page);
+    $smarty->assign("total_pages", $productService->getImpagination( count($productService->getProductsByManufacturer($manufacturerId))));
+    $smarty->display("index.tpl");
+    exit();
+}
+
+
+
 
 try {
     $smarty->assignCartVariables($smarty, $cartService);
@@ -106,6 +128,7 @@ try {
     $offset = ($current_page - 1) * $products_per_page;
     $smarty->assign("all_products", $productService->getAllProductsOnline($offset, $products_per_page));
     $smarty->assign("all_categories", $productService->getAllCategories());
+    $smarty->assign("all_manufacturers", $productService->getAllManufacturers());
     $smarty->assign("product_wishlist", $wishlistService->getUserWishlist());
     $smarty->assign("total_products", $productService->getTotalProduct());
     $smarty->assign("current_page", $current_page);

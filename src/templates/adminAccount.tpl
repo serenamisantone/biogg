@@ -162,6 +162,37 @@
         Produttori
     </a>
 </li>
+<li>
+                <a href="adminAccount.php#AboutUs" data-bs-toggle="tab">
+                <span class="me-1">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M3.33333 1.99341H6C6.35362 1.99341 6.69276 2.13388 6.94281 2.38393C7.19286 2.63398 7.33333 2.97312 7.33333 3.32674V5.99341C7.33333 6.34703 7.19286 6.68617 6.94281 6.93622C6.69276 7.18627 6.35362 7.32674 6 7.32674H3.33333C2.97971 7.32674 2.64057 7.18627 2.39052 6.93622C2.14048 6.68617 2 6.34703 2 5.99341V3.32674C2 2.97312 2.14048 2.63398 2.39052 2.38393C2.64057 2.13388 2.97971 1.99341 3.33333 1.99341Z"
+                    fill="#212B36"
+                  />
+                  <path
+                    d="M10 1.99341H12.6667C13.0203 1.99341 13.3594 2.13388 13.6095 2.38393C13.8595 2.63398 14 2.97312 14 3.32674V5.99341C14 6.34703 13.8595 6.68617 13.6095 6.93622C13.3594 7.18627 13.0203 7.32674 12.6667 7.32674H10C9.64638 7.32674 9.30724 7.18627 9.05719 6.93622C8.80714 6.68617 8.66667 6.34703 8.66667 5.99341V3.32674C8.66667 2.97312 8.80714 2.63398 9.05719 2.38393C9.30724 2.13388 9.64638 1.99341 10 1.99341Z"
+                    fill="#212B36"
+                  />
+                  <path
+                    d="M6 8.66008H3.33333C2.97971 8.66008 2.64057 8.80055 2.39052 9.0506C2.14048 9.30065 2 9.63979 2 9.99341V12.6601C2 13.0137 2.14048 13.3528 2.39052 13.6029C2.64057 13.8529 2.97971 13.9934 3.33333 13.9934H6C6.35362 13.9934 6.69276 13.8529 6.94281 13.6029C7.19286 13.3528 7.33333 13.0137 7.33333 12.6601V9.99341C7.33333 9.63979 7.19286 9.30065 6.94281 9.0506C6.69276 8.80055 6.35362 8.66008 6 8.66008Z"
+                    fill="#212B36"
+                  />
+                  <path
+                    d="M10 8.66008H12.6667C13.0203 8.66008 13.3594 8.80055 13.6095 9.0506C13.8595 9.30065 14 9.63979 14 9.99341V12.6601C14 13.0137 13.8595 13.3528 13.6095 13.6029C13.3594 13.8529 13.0203 13.9934 12.6667 13.9934H10C9.64638 13.9934 9.30724 13.8529 9.05719 13.6029C8.80714 13.3528 8.66667 13.0137 8.66667 12.6601V9.99341C8.66667 9.63979 8.80714 9.30065 9.05719 9.0506C9.30724 8.80055 9.64638 8.66008 10 8.66008Z"
+                    fill="#212B36"
+                  />
+                </svg>
+                </span>
+        About Us
+    </a>
+</li>
             </ul>
         </div>
     </div>
@@ -453,6 +484,9 @@
     <div class="tab-content">
     <div class="tab-pane fade" id="offerte">
         <div class="table-responsive">
+        <button type="button" class="btn btn-primary btn-lg float-end" data-bs-toggle="modal" data-bs-target="#addModalOffer">
+    <i class="fa fa-plus"></i> Aggiungi
+</button>
             <table class="table">
                 <thead>
                     <tr>
@@ -461,9 +495,8 @@
                         <th>Inizio</th>
                         <th>Fine</th>
                         <th>Tipo</th>
-                        <th>
-                            <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalOffer">Aggiungi Offerta</button>
-                        </th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -475,9 +508,12 @@
                             <td>{$offer->getEndDate()}</td>
                             <td>{$offer->getType()}</td>
                             <td>
-                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModalOffer_{$offer->getId()}">Modifica</button>
-
-                                <button onclick="deleteOffer({$offer->getId()})" class="btn btn-secondary btn-sm">Elimina</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#editModalOffer_{$offer->getId()}">
+                            <i class="fa fa-pen" style="color:#4CAF50;"></i></td>
+                            <td>
+                            <button type="button" onclick="deleteOffer({$offer->getId()})">
+<i class="fa fa-trash-can" style="color:#FF7C08;"></i>
+</button>
                             </td>
                         </tr>
 
@@ -540,15 +576,17 @@
 <div class="tab-content">
 <div class="tab-pane fade" id="category">
     <div class="table-responsive">
+    <button type="button" class="btn btn-primary btn-lg float-end" data-bs-toggle="modal" data-bs-target="#addModalCategory">
+    <i class="fa fa-plus"></i> Aggiungi
+</button>
+
         <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
                     <th></th>
-                    <th>
-                        <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalCategory">Aggiungi Categoria</button>
-                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -560,10 +598,7 @@
                     <button type="button" data-bs-toggle="modal" data-bs-target="#editModalCategory_{$category->getId()}">
                         <i class="fa fa-pen" style="color:#4CAF50;"></i>
                     </button>
-                </td>
-                
-                
-                                                <td>
+                </td> <td>
 <button type="button" onclick="deleteCategory({$category->getId()})">
 <i class="fa fa-trash-can" style="color:#FF7C08;"></i>
 </button>
@@ -580,7 +615,7 @@
                                             <div class="row align-items-center g-4 mt-3">
                                                 <form id="editForm5_{$category->getId()}" enctype="multipart/form-data">
                                                     <input type="text" id="editcategory_name_{$category->getId()}" class="edit-input" value="{$category->getName()}">
-                                                    <button onclick="saveChangesCategory{$category->getId()})" class="btn btn-primary btn-sm">Salva</button>
+                                                    <button onclick="saveChangesCategory({$category->getId()})" class="btn btn-primary btn-sm">Salva</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -620,6 +655,10 @@
 <div class="tab-content">
     <div class="tab-pane fade" id="slider">
         <div class="table-responsive" style="overflow-x: auto;">
+        <button type="button" class="btn btn-primary btn-lg float-end" data-bs-toggle="modal" data-bs-target="#addModalSlider">
+    <i class="fa fa-plus"></i> Aggiungi
+</button>
+
             <table class="table">
                 <thead>
                     <tr>
@@ -628,9 +667,8 @@
                         <th>Sottotitolo</th>
                         <th>Descrizione</th>
                         <th>Immagine</th>
-                        <th>
-                            <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalSlider">Aggiungi Slider</button>
-                        </th>
+                        <th></th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -642,10 +680,15 @@
                             <td style="max-width: 200px; word-wrap: break-word;">{$slider->getDescription()}</td>
                             <td>{$slider->getImage()}</td>
                             <td>
-                            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModalSlider_{$slider->getId()}">Modifica</button>
-
-                                <button onclick="deleteSlider({$slider->getId()})" class="btn btn-secondary btn-sm">Elimina</button>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#editModalSlider_{$slider->getId()}">
+                            <i class="fa fa-pen" style="color:#4CAF50;"></i>
+                        </button>
                             </td>
+                            <td>
+                            <button type="button" onclick="deleteSlider({$slider->getId()})">
+                            <i class="fa fa-trash-can" style="color:#FF7C08;"></i>
+                            </button>
+                            </td>                           
                         </tr>
                         <!-- Modal Modifica Slider -->
                         <div class="modal fade" id="editModalSlider_{$slider->getId()}" tabindex="-1" aria-labelledby="editModalSlider_{$slider->getId()}" aria-hidden="true">
@@ -719,15 +762,17 @@
  <div class="tab-content">
 <div class="tab-pane fade" id="produttori">
     <div class="table-responsive">
+    <button type="button" class="btn btn-primary btn-lg float-end" data-bs-toggle="modal" data-bs-target="#addModalManufacturer">
+    <i class="fa fa-plus"></i> Aggiungi
+</button>
+
         <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
                     <th></th>
-                    <th>
-                        <button type="button" class="btn btn-outline-secondary d-block btn-md" data-bs-toggle="modal" data-bs-target="#addModalManufacturer">Aggiungi Produttore</button>
-                    </th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -759,7 +804,7 @@
                                             <div class="row align-items-center g-4 mt-3">
                                                 <form id="editForm6_{$manufacturer->getId()}" enctype="multipart/form-data">
                                                     <input type="text" id="editmanufacturer_name_{$manufacturer->getId()}" class="edit-input" value="{$manufacturer->getName()}">
-                                                    <button onclick="saveChangesManufacturer{$manufacturer->getId()})" class="btn btn-primary btn-sm">Salva</button>
+                                                    <button onclick="saveChangesManufacturer({$manufacturer->getId()})" class="btn btn-primary btn-sm">Salva</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -795,6 +840,95 @@
         </div>
     </div>
 </div>
-</div></div>
+</div>
+<div class="tab-content">
+    <div class="tab-pane fade" id="AboutUs">
+        <div class="table-responsive" style="overflow-x: auto;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Slogan</th>
+                        <th>Titolo</th>
+                        <th>Descrizione</th>
+                        <th>Missione</th>
+                        <th>Visione</th>
+                        <th>Immagine</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {foreach $data_about as $about}
+                        <tr>
+                            <td>{$about->getId()}</td>
+                            <td>{$about->getSlogan()}</td>
+                            <td>{$about->getTitle()}</td>
+                            <td>{$about->getDescription()|custom_substr:0:50}...</td>
+                            <td>{$about->getMission()}</td>
+                            <td>{$about->getVision()}</td>
+                            <td>{$about->getImage()}</td>
+                            <td>
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#editModalAbout_{$about->getId()}">
+                        <i class="fa fa-pen" style="color:#4CAF50;"></i>
+                    </button>
+                            </td>
+                        </tr>
+                        <!-- Modal Modifica About -->
+                        <div class="modal fade" id="editModalAbout_{$about->getId()}" tabindex="-1" aria-labelledby="editModalAbout_{$about->getId()}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <button type="button" class="btn-close float-end" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        <div class="gstore-product-quick-view bg-white rounded-3 py-6 px-4">
+                                            <h2 class="modal-title fs-5 mb-3">Modifica About Us</h2>
+                                            <div class="row align-items-center g-4 mt-3">
+                                                <form id="editForm7_{$about->getId()}" enctype="multipart/form-data" >
+                                                <div class="col-sm-6">
+                                                <label for="edit_sloganAbout_{$about->getId()}">Slogan:</label>
+                                                <textarea id="edit_sloganAbout_{$about->getId()}" class="edit-input" style="height: 100px; overflow: auto; ">{$about->getSlogan()}</textarea>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                <label for="edit_titleAbout_{$about->getId()}">Titolo:</label>
+                                                <textarea id="edit_titleAbout_{$about->getId()}" class="edit-input" style="height: 100px; overflow: auto; ">{$about->getTitle()}</textarea>
+                                                </div>
+                                                    <div class="col-sm-6">
+                            <div class="label-input-field">
+                            <label for="edit_descriptionAbout_{$about->getId()}">Descrizione:</label>
+                            <textarea id="edit_descriptionAbout_{$about->getId()}" class="edit-input" style="height: 100px; overflow: auto; ">{$about->getDescription()}</textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                        <label for="edit_missionAbout_{$about->getId()}">Missione:</label>
+                        <textarea id="edit_missionAbout_{$about->getId()}" class="edit-input" style="height: 100px; overflow: auto; ">{$about->getMission()}</textarea>
+                        </div>
+                                                    <div class="col-sm-6">
+                                                    <label for="edit_visionAbout_{$about->getId()}">Visione:</label>
+                                                    <textarea id="edit_visionAbout_{$about->getId()}" class="edit-input" style="height: 100px; overflow: auto; ">{$about->getVision()}</textarea>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                    <label for="edit_imageAbout_{$about->getId()}">Immagine:</label>
+                                                    <div id="drop-area">
+                                                        <input type="text" id="edit_imageAbout_{$about->getId()}" class="edit-input" value="{$about->getImage()}">
+                                                        <input type="file" id="fileInputAbout_{$about->getId()}" name="image" class="custom-file-input">
+                                                    </div></div>
+                                                    <button onclick="saveChangesAbout({$about->getId()})" class="btn btn-primary btn-sm">Salva</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+                    {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
 </html>
 

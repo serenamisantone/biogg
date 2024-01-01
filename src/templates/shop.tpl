@@ -36,6 +36,22 @@
                                     </li>
                                 {/foreach}
                             </ul>
+                            <div style="margin-bottom: 40px;"></div>
+
+                            <div class="widget-title d-flex">
+                                <h6 class="mb-0 flex-shrink-0">Produttori</h6>
+                                <span class="hr-line w-100 position-relative d-block align-self-end ms-1"></span>
+                            </div>
+                            <ul class="widget-nav mt-4">
+                                {foreach $all_manufacturers as $manufacturer}
+                                    <li>
+                                        <a href="shop.php?manufacturerId={$manufacturer->getId()}"
+                                            class="d-flex justify-content-between align-items-center">
+                                            {$manufacturer->getName()}
+                                        </a>
+                                    </li>
+                                {/foreach}
+                            </ul>
 
                         </div>
 

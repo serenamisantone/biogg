@@ -119,6 +119,7 @@ class ProductService
             $product->setStock($row['stock']);
             $product->setIsOnline($row['is_online']);
             $product->setCategory($this->getCategoryById($row['category_id']));
+            $product->setManufacturer($this->getManufacturerById($row['manufacturer_id']));
             $product->setOffers($this->offerService->getOfferByProductId($productId));
             $finalPrice = $row['price'];
             $offers = $product->getOffers();
@@ -176,6 +177,48 @@ class ProductService
         }
 
         return null;
+    }
+    public function getProductInfoById($productId)
+    {
+        $query = "SELECT * FROM product where id=$productId";
+        $result = $this->connection->query($query);
+        if (($result) && ($result->num_rows > 0)) {
+            $row = $result->fetch_assoc();
+            $product = new Product();
+            $product->setId($row['id']);
+            $product->setName($row['name']);
+            $product->setDescription($row['description']);
+            $product->setIngredients($row['ingredients']);
+            $product->setImage($row['image']);
+            $product->setStock($row['stock']);
+            $product->setIsOnline($row['is_online']);
+            $product->setCategory($this->getCategoryById($row['category_id']));
+            $product->setManufacturer($this->getManufacturerById($row['manufacturer_id']));
+            $product->setOffers($this->offerService->getOfferByProductId($productId));
+            $product->setPrice($row['price']);
+            return $product;
+        } else {
+            return ;
+        }
+       
+    }
+    public function getProductInfo()
+    {
+        $query = "SELECT * FROM product";
+        $result = $this->connection->query($query);
+        $info_products = array();
+        if ($result && $result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $product = new Product();
+                $product->setId($row['id']);
+                $product->setIngredients($row['ingredients']);
+                $product->setDescription($row['description']);
+                $info_products[] = $product;
+            }
+            return $info_products;
+        } else {
+            return array();  // Restituisci un array vuoto se non ci sono risultati
+        }
     }
 
     function addNewProduct($productName, $productPrice, $productCategory, $productStock, $productOnline, $productImage, $productDescription, $productIngredients, $productManufacturer)
@@ -263,7 +306,7 @@ class ProductService
         }
         return null;
     }
-
+  
 
 
 
@@ -520,26 +563,25 @@ class ProductService
     }
 
     function addNewManufacturer($manufacturerName)
-    {
-        if (empty($manufacturerName)) {
+{
+    if (empty($manufacturerName)) {
+        return false;
+    } else {
+        $query = "INSERT INTO manufacturer (name) VALUES (?)";
+        $stmt = $this->connection->prepare($query);
+        $stmt->bind_param("s", $manufacturerName);
+        $result = $stmt->execute();
+        $stmt->close(); // Chiudi lo statement preparato
+
+        if ($result === false) {
+            // Gestisci l'errore se necessario
             return false;
         } else {
-            $query = "INSERT INTO manufacturer (name) VALUES (?)";
-            $stmt = $this->connection->prepare($query);
-            $stmt->bind_param("s", $manufacturerName);
-            $result = $stmt->execute();
-            $stmt->close();
-            $result = $this->connection->query($query);
-
-            if ($result === false) {
-                // Gestisci l'errore se necessario
-                return false;
-            } else {
-
-                return true;
-            }
+            return true;
         }
     }
+}
+
 
     function updateManufacturer($manufacturerId, $editedName)
     {
@@ -555,7 +597,22 @@ class ProductService
         }
     }
 
+    public function getProductsByManufacturer($manufacturerId)
+    {
+        $query = "SELECT id FROM product WHERE manufacturer_id = '{$manufacturerId}'";
+        $result = $this->connection->query($query);
+        $all_products = array();
 
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $product = $this->getProductById($row['id']);
+                $all_products[] = $product;
+            }
+            return $all_products;
+        }
+
+        return null;
+    }
 
 }
 

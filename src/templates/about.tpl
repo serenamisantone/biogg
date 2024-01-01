@@ -4,16 +4,17 @@
     <div class="main-wrapper">
         
         <!--about section start-->
+        {foreach $data_about as $about}
         <section class="pt-120 ab-about-section position-relative z-1 overflow-hidden">
             <img src="assets/img/shapes/mango.png" alt="mango" class="position-absolute mango z--1">
             <div class="container">
                 <div class="row g-5 g-xl-4 align-items-center">
                     <div class="col-xl-6">
                         <div class="ab-left position-relative">
-                            <img src="assets/img/about/lavoriterra.jpg" alt="image" class="img-fluid">
+                            <img src="assets/img/about/{$about->getImage()}" alt="image" class="img-fluid">
                             <div class="text-end">
                                 <div class="ab-quote p-4 text-start">
-                                    <h4 class="mb-0 fw-normal text-white">"Prenditi cura del tuo corpo. È l'unico posto in cui devi vivere." <span class="fs-md fw-medium position-relative">Jim Rohn</span></h4>
+                                    <h4 class="mb-0 fw-normal text-white">{$about->getSlogan()} <span class="fs-md fw-medium position-relative">Jim Rohn</span></h4>
                                 </div>
                             </div>
                         </div>
@@ -29,10 +30,8 @@
                                   </svg>    
                               </span>
                             </div>
-                            <h2 class="mb-4">Adotta uno stile di vita<br> biologico</h2>
-                            <p class="mb-8">Siamo profondamente impegnati nella promozione di uno stile di vita sano e sostenibile attraverso la scelta consapevole di alimenti biologici. Crediamo che ciò che mangiamo abbia un impatto significativo sulla nostra salute e sul pianeta. Ecco perché abbiamo creato un'ampia selezione di prodotti biologici, accuratamente scelti per soddisfare i nostri standard di qualità elevati.
-
-                            Collaboriamo strettamente con agricoltori e produttori locali che condividono i nostri valori di sostenibilità. Attraverso pratiche agricole rispettose dell'ambiente, senza l'uso di pesticidi o fertilizzanti chimici, contribuiamo a preservare la biodiversità e la salute del suolo.</p>
+                            <h2 class="mb-4">{$about->getTitle()}</h2>
+                            <p class="mb-8">{$about->getDescription()}</p>
                             <div class="row g-4">
                                 <div class="col-md-6">
                                     <div class="image-box py-6 px-4 image-box-border">
@@ -41,7 +40,7 @@
                                         </div>
                                         <h4 class="mt-3">La nostra missione</h4>
                                         <p class="mb-0">
-                                        Fornire ai nostri clienti alimenti biologici di alta qualità, provenienti da fonti affidabili e coltivati in armonia con la natura.</p>
+                                        {$about->getMission()}</p>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -50,7 +49,7 @@
                                             <img src="assets/img/icons/hand-icon.svg" alt="hand icon" class="img-fluid">
                                         </div>
                                         <h4 class="mt-3">La nostra visione</h4>
-                                        <p class="mb-0">Ci sforziamo di creare un mondo in cui l'alimentazione biologica sia la norma e non l'eccezione. </p>
+                                        <p class="mb-0">{$about->getVision()}</p>
                                     </div>
                                 </div>
                             </div>
@@ -58,6 +57,7 @@
                     </div>
                 </div>
             </div>
+            {/foreach}
         </section> <!--about section end-->
 <p>
 </p>
