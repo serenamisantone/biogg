@@ -178,6 +178,22 @@ class ProductService
 
         return null;
     }
+    public function getSuggestedProducts($categoryId, $productId)
+    {
+        $query = "SELECT id FROM product WHERE category_id = '{$categoryId}' AND id != '{$productId}'LIMIT 4";
+        $result = $this->connection->query($query);
+        $all_products = array();
+
+        if (($result) && ($result->num_rows > 0)) {
+            while ($row = $result->fetch_assoc()) {
+                $product = $this->getProductById($row['id']);
+                $all_products[] = $product;
+            }
+            return $all_products;
+        }
+
+        return null;
+    }
     public function getProductInfoById($productId)
     {
         $query = "SELECT * FROM product where id=$productId";

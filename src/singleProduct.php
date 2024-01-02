@@ -17,6 +17,8 @@ try {
     $smarty->assign('quantityProduct', $cartService->getQuantity($_GET['id']));
     $smarty->assign("singleProduct", $productService->getProductById($_GET['id']));
     $smarty->assign("product_info", $productService->getProductInfoById($_GET['id']));
+    $categoryId = $productService->getProductById($_GET['id'])->getCategory()->getId();
+    $smarty->assign("categoryProducts", $productService->getSuggestedProducts($categoryId, $_GET['id']));
     $smarty->assign("current_view", "singleProduct.tpl");
     $smarty->display("index.tpl");
 } catch (SmartyException $e) {

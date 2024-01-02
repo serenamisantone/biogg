@@ -249,6 +249,7 @@ class UserService
             $stmt->close();
             return false;
         }
+        
         $stmt->store_result();
         $stmt->bind_result($hashedPassword);
 

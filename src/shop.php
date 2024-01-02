@@ -88,7 +88,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['categoryId'])) {
     $products_per_page = 9; 
     $offset = ($current_page - 1) * $products_per_page;
     $smarty->assign("all_products", $productService->getProductsByCategory($categoryId));
-    error_log(print_r($productService->getProductsByCategory($categoryId), true));
     $smarty->assignCartVariables($smarty, $cartService);
     $smarty->assign("all_categories", $productService->getAllCategories());
     $smarty->assign("all_manufacturers", $productService->getAllManufacturers());
