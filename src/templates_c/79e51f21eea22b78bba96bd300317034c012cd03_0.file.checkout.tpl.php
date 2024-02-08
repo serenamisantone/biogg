@@ -1,18 +1,18 @@
 <?php
-/* Smarty version 4.3.0, created on 2023-12-03 14:38:46
+/* Smarty version 4.3.0, created on 2024-01-25 11:41:02
   from 'C:\xampp\htdocs\biogg\src\templates\checkout.tpl' */
 
 /* @var Smarty_Internal_Template $_smarty_tpl */
 if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   'version' => '4.3.0',
-  'unifunc' => 'content_656c84e63468c7_20961618',
+  'unifunc' => 'content_65b23abee42193_07853052',
   'has_nocache_code' => false,
   'file_dependency' => 
   array (
     '79e51f21eea22b78bba96bd300317034c012cd03' => 
     array (
       0 => 'C:\\xampp\\htdocs\\biogg\\src\\templates\\checkout.tpl',
-      1 => 1701610722,
+      1 => 1702298884,
       2 => 'file',
     ),
   ),
@@ -20,7 +20,7 @@ if ($_smarty_tpl->_decodeProperties($_smarty_tpl, array (
   array (
   ),
 ),false)) {
-function content_656c84e63468c7_20961618 (Smarty_Internal_Template $_smarty_tpl) {
+function content_65b23abee42193_07853052 (Smarty_Internal_Template $_smarty_tpl) {
 ?><!--checkout section start-->
 <div class="main-wrapper">
     <div class="checkout-section ptb-120">
@@ -322,8 +322,7 @@ $_smarty_tpl->smarty->ext->_foreach->restore($_smarty_tpl, 1);?>
         </div>
     </div>
 </div>
-<?php echo '<script'; ?>
- src="assets/js/checkout.js"><?php echo '</script'; ?>
->
-<!--checkout section end--><?php }
+
+<!--checkout section end-->
+<?php }
 }
